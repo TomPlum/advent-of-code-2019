@@ -39,8 +39,7 @@ internal class FuelCalculatorTest {
     @Test
     @DisplayName("Given Day 1 - Part 1 puzzle input, when calculating the total fuel for the module, then it should return 3184233")
     internal fun partOneSolution() {
-        val fuel = puzzleInput
-        val solution = calculator.calculateTotalFuelForModule(fuel.values)
+        val solution = calculator.calculateTotalFuelForModule(puzzleInput.values)
         assertThat(solution).isEqualTo(3184233)
     }
 
@@ -68,8 +67,7 @@ internal class FuelCalculatorTest {
     @Test
     @DisplayName("Given Day 1 - Part 1 puzzle input, when calculating to the total additional fuel required, then it should return 4773483")
     internal fun partTwoSolution() {
-        val fuel = puzzleInput
-        val solution = calculator.calculateTotalAdditionFuelForModule(fuel.values)
+        val solution = calculator.calculateTotalAdditionFuelForModule(puzzleInput.values)
         assertThat(solution).isEqualTo(4773483)
     }
 }

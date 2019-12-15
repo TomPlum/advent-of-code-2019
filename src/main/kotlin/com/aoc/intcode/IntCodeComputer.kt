@@ -3,52 +3,38 @@ package com.aoc.intcode
 class IntCodeComputer {
 
     fun compute(programString: String): String {
-        val program = parseProgram(programString)
+        val program = Program.from(programString)
         var operation = Operation.UNKNOWN
         var firstInput = 0
         var secondInput = 0
-        var currentAction = Action.OPCODE
-        for (v in program) {
+        for (v in program.actions) {
+            val currentAction = program.currentActionType
 
-            if (currentAction == Action.OPCODE) {
+            if (currentAction == ActionType.OPCODE) {
                 operation = OpCode.from(v).operation()
-                if (operation == Operation.HALT) return toProgramString(program)
+                if (operation == Operation.HALT) return program.toString()
             }
 
-            if (currentAction == Action.FIRST_INPUT) {
-                firstInput = program[v]
+            if (currentAction == ActionType.FIRST_INPUT) {
+                firstInput = program.actions[v]
             }
 
-            if (currentAction == Action.SECOND_INPUT) {
-                secondInput = program[v]
+            if (currentAction == ActionType.SECOND_INPUT) {
+                secondInput = program.actions[v]
             }
 
-            if (currentAction == Action.OUTPUT) {
+            if (currentAction == ActionType.OUTPUT) {
                 when (operation) {
-                    Operation.ADD -> program[v] = firstInput + secondInput
-                    Operation.MULTIPLY -> program[v] = firstInput * secondInput
-                    Operation.HALT -> return toProgramString(program)
+                    Operation.ADD -> program.actions[v] = firstInput + secondInput
+                    Operation.MULTIPLY -> program.actions[v] = firstInput * secondInput
+                    Operation.HALT -> return program.toString()
                     Operation.UNKNOWN -> TODO()
                 }
             }
 
-            //Set Next Action
-            currentAction = when (currentAction) {
-                Action.OPCODE ->  Action.FIRST_INPUT
-                Action.FIRST_INPUT ->  Action.SECOND_INPUT
-                Action.SECOND_INPUT -> Action.OUTPUT
-                Action.OUTPUT -> Action.OPCODE
-            }
+            program.updateNextActionType()
         }
         throw IllegalStateException("Program failed unexpectedly")
     }
-
-    private enum class Action {
-        OPCODE, FIRST_INPUT, SECOND_INPUT, OUTPUT
-    }
-
-    private fun parseProgram(program: String): MutableList<Int> = program.split(",").map { it.toInt() }.toMutableList()
-
-    private fun toProgramString(program: MutableList<Int>): String = program.joinToString(",", postfix = "") { it.toString() }
 
 }

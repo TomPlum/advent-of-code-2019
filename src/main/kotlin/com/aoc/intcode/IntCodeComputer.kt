@@ -16,20 +16,20 @@ class IntCodeComputer constructor(programString: String) {
         for (v in memory.addresses) {
             val currentAction = program.currentActionType
 
-            if (currentAction == ActionType.OPCODE) {
+            if (currentAction == AddressType.OPCODE) {
                 operation = OpCode.from(v).operation()
                 if (operation == Operation.HALT) return program.toString()
             }
 
-            if (currentAction == ActionType.FIRST_INPUT) {
+            if (currentAction == AddressType.FIRST_INPUT) {
                 firstInput = memory.getAddressValue(v)
             }
 
-            if (currentAction == ActionType.SECOND_INPUT) {
+            if (currentAction == AddressType.SECOND_INPUT) {
                 secondInput = memory.getAddressValue(v)
             }
 
-            if (currentAction == ActionType.OUTPUT) {
+            if (currentAction == AddressType.OUTPUT) {
                 when (operation) {
                     Operation.ADD -> memory.updateAddress(v, firstInput + secondInput)
                     Operation.MULTIPLY -> memory.updateAddress(v, firstInput * secondInput)

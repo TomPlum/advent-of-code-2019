@@ -13,20 +13,4 @@ internal class ProgramTest {
         val programString = program.toString()
         assertThat(programString).isEqualTo("1,2,3,4,5")
     }
-
-    @Test
-    @DisplayName("Given a valid index, when updating the value at that index, then it should set the new value correctly")
-    internal fun updateValueAtPosition() {
-        val program = Program.from("1,2,3,4,5")
-        program.updateAction(0, 12)
-        assertThat(program.getAction(0)).isEqualTo(12)
-    }
-
-    @Test
-    @DisplayName("Given a valid set of actions, when getting an action via index, it should return the correct action")
-    internal fun getAction() {
-        val program = Program.from("1,2,3,4,5")
-        val action = program.getAction(3)
-        assertThat(action).isEqualTo(4)
-    }
 }

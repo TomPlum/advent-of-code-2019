@@ -1,6 +1,8 @@
 package com.aoc.intcode
 
-class IntCodeComputer constructor(private val programString: String) {
+import java.lang.IllegalArgumentException
+
+class IntCodeComputer constructor(programString: String) {
     private val program = Program.from(programString)
 
     fun compute(): String {
@@ -32,7 +34,7 @@ class IntCodeComputer constructor(private val programString: String) {
                     Operation.ADD -> memory.updateAddress(v, firstInput + secondInput)
                     Operation.MULTIPLY -> memory.updateAddress(v, firstInput * secondInput)
                     Operation.HALT -> return program.toString()
-                    Operation.UNKNOWN -> TODO()
+                    Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Address Value $v")
                 }
             }
 

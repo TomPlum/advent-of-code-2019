@@ -2,10 +2,14 @@ package com.aoc.panel
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.common.InputReader
+import com.aoc.value.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class PanelTest {
+    private val wireStrings = InputReader().readInputString(Day.from(3)).values
+
     @Test
     @DisplayName("Given the wires from the basic example, when calculating the closest intersection point, then it should return 6")
     fun basicExample() {
@@ -34,5 +38,14 @@ class PanelTest {
         val panel = Panel(firstWire, secondWire)
 
         assertThat(panel.findIntersectionPointClosestToCentralPort()).isEqualTo(135)
+    }
+
+
+    @Test
+    @DisplayName("Given Day 3 Part 1 puzzle input, when calculating the manhattan distance, then it should return 529")
+    internal fun solutionPartOne() {
+        val panel = Panel(Wire(wireStrings[0]), Wire(wireStrings[1]))
+        val distance = panel.findIntersectionPointClosestToCentralPort()
+        assertThat(distance).isEqualTo(529)
     }
 }

@@ -5,10 +5,10 @@ import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-internal class ProgramTest {
+class ProgramTest {
     @Test
     @DisplayName("Given a valid set of program action, when invoking toString(), then it should concatenate actions into CSV")
-    internal fun toStringTest() {
+    fun toStringTest() {
         val program = Program.from("1,2,3,4,5")
         val programString = program.toString()
         assertThat(programString).isEqualTo("1,2,3,4,5")

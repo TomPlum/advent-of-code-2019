@@ -2,7 +2,7 @@ package com.aoc.solutions
 
 import com.aoc.panel.Panel
 import com.aoc.panel.Wire
-import com.aoc.value.Day
+import com.aoc.input.Day
 
 fun main() {
     val inputReader = SolutionUtility().inputReader

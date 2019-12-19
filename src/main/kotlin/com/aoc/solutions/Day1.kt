@@ -1,8 +1,8 @@
 package com.aoc.solutions
 
-import com.aoc.common.InputReader
+import com.aoc.input.InputReader
 import com.aoc.fuel.FuelCalculator
-import com.aoc.value.Day
+import com.aoc.input.Day
 
 fun main() {
     val inputReader = InputReader()

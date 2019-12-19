@@ -1,6 +1,5 @@
-package com.aoc.common
+package com.aoc.input
 
-import com.aoc.value.Day
 import java.io.File
 
 class InputReader {

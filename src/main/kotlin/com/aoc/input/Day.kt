@@ -1,4 +1,4 @@
-package com.aoc.value
+package com.aoc.input
 
 class Day private constructor(val value: Int) {
     companion object {

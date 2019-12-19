@@ -2,8 +2,8 @@ package com.aoc.panel
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.common.InputReader
-import com.aoc.value.Day
+import com.aoc.input.InputReader
+import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

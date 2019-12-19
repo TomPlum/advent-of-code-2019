@@ -1,6 +1,5 @@
 package com.aoc.panel
 
-import com.aoc.value.PanelCoordinate
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.sqrt

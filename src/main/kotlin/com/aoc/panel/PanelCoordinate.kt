@@ -1,4 +1,4 @@
-package com.aoc.value
+package com.aoc.panel
 
 import kotlin.math.pow
 import kotlin.math.sqrt

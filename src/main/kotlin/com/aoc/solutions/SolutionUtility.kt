@@ -1,6 +1,6 @@
 package com.aoc.solutions
 
-import com.aoc.common.InputReader
+import com.aoc.input.InputReader
 
 class SolutionUtility {
     val inputReader = InputReader()

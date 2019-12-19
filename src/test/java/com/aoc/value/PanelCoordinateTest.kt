@@ -3,6 +3,7 @@ package com.aoc.value
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.aoc.panel.PanelCoordinate
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

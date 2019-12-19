@@ -40,12 +40,33 @@ class PanelTest {
         assertThat(panel.findIntersectionPointClosestToCentralPort()).isEqualTo(135)
     }
 
-
     @Test
     @DisplayName("Given Day 3 Part 1 puzzle input, when calculating the manhattan distance, then it should return 529")
     internal fun solutionPartOne() {
         val panel = Panel(Wire(wireStrings[0]), Wire(wireStrings[1]))
         val distance = panel.findIntersectionPointClosestToCentralPort()
         assertThat(distance).isEqualTo(529)
+    }
+
+    @Test
+    @DisplayName("Given Day 3 Part 2 example one puzzle input, when calculating the fewest combined steps to intersection, it should return 610")
+    fun partTwoExampleOne() {
+        val firstWire = Wire("R75,D30,R83,U83,L12,D49,R71,U7,L72")
+        val secondWire = Wire("U62,R66,U55,R34,D71,R55,D58,R83")
+
+        val panel = Panel(firstWire, secondWire)
+
+        assertThat(panel.findShortestCombinedIntersectionPaths()).isEqualTo(610)
+    }
+
+    @Test
+    @DisplayName("Given Day 3 Part 2 example two puzzle input, when calculating the fewest combined steps to intersection, it should return 410")
+    fun partTwoExampleTwo() {
+        val firstWire = Wire("R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51")
+        val secondWire = Wire("U98,R91,D20,R16,D67,R40,U7,R15,U6,R7")
+
+        val panel = Panel(firstWire, secondWire)
+
+        assertThat(panel.findShortestCombinedIntersectionPaths()).isEqualTo(410)
     }
 }

@@ -21,4 +21,11 @@ class WireTest {
         val wire = Wire("U123,D75634,L87")
         assertThat(wire.segments).isEqualTo(listOf(WireSegment("U", 123), WireSegment("D", 75634), WireSegment("L", 87)))
     }
+
+    @Test
+    fun getPath() {
+        val wire = Wire("R2,U3,L1")
+        val path = wire.getPath()
+        assertThat(path.toString()).isEqualTo("[(1, 0), (2, 0), (2, 1), (2, 2), (2, 3), (1, 3)]")
+    }
 }

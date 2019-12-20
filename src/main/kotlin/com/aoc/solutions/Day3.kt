@@ -10,4 +10,5 @@ fun main() {
     val panel = Panel(Wire(wires[0]), Wire(wires[1]))
 
     println("Solution 1: " + panel.findIntersectionPointClosestToCentralPort())
+    println("Solution 2: " + panel.findShortestCombinedIntersectionPaths())
 }

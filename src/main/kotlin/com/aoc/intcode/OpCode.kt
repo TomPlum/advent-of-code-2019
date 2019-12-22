@@ -8,10 +8,14 @@ class OpCode private constructor(val value: Int) {
     }
 
     fun operation(): Operation {
-        if (value == 1) return Operation.ADD
-        if (value == 2) return Operation.MULTIPLY
-        if (value == 99) return Operation.HALT
-        return Operation.UNKNOWN
+        return when(value) {
+            1 -> Operation.ADD
+            2 -> Operation.MULTIPLY
+            3 -> Operation.INPUT
+            4 -> Operation.OUTPUT
+            99 -> Operation.HALT
+            else -> Operation.UNKNOWN
+        }
     }
 
     fun isValid() = arrayOf(1, 2, 99).contains(value)

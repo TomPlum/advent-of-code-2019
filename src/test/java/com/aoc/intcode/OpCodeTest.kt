@@ -57,6 +57,22 @@ class OpCodeTest {
     }
 
     @Test
+    @DisplayName("Given an OpCode of value 3, when getting the operation, then it should return INPUT")
+    fun operationThree() {
+        val opCode = OpCode.from(3)
+        val operation = opCode.operation()
+        assertThat(operation).isEqualTo(Operation.INPUT)
+    }
+
+    @Test
+    @DisplayName("Given an OpCode of value 4, when getting the operation, then it should return OUTPUT")
+    fun operationFour() {
+        val opCode = OpCode.from(4)
+        val operation = opCode.operation()
+        assertThat(operation).isEqualTo(Operation.OUTPUT)
+    }
+
+    @Test
     @DisplayName("Given an OpCode of value 99, when getting the operation, then it should return HALT")
     fun operationNinetyNine() {
         val opCode = OpCode.from(99)

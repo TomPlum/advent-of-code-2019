@@ -29,18 +29,34 @@ class PasswordUtilityTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["112345", "098862", "123455"])
+    @ValueSource(strings = ["112345", "098862", "123455", "111111", "001233"])
     @DisplayName("Given the input string has exactly on pair of adjacent digits, when checking for it, then it should return true")
-    fun hasExactlyOnePairAdjacentDigits(input: String) {
-        val result = utility.hasExactlyTwoAdjacentDigits(input)
+    fun hasAdjacentDigits(input: String) {
+        val result = utility.hasAdjacentDigits(input)
         assertThat(result).isTrue()
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["123456", "001233", "010101"])
+    @ValueSource(strings = ["123456", "010101", "123789"])
     @DisplayName("Given the input string does not have exactly on pair of adjacent digits, when checking for it, then it should return false")
-    fun doesNotHaveExactlyOnePairAdjacentDigits(input: String) {
-        val result = utility.hasExactlyTwoAdjacentDigits(input)
+    fun doesNotHaveAdjacentDigits(input: String) {
+        val result = utility.hasAdjacentDigits(input)
         assertThat(result).isFalse()
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["223450", "987654", "123465", "123450"])
+    @DisplayName("Given the input string has descending digits, when checking if it doesn't, then it should return false")
+    fun hasDescendingDigits(input: String) {
+        val result = utility.hasOnlyAscendingCharacters(input)
+        assertThat(result).isFalse()
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["111123", "135679", "013579", "111111"])
+    @DisplayName("Given the input string has descending digits, when checking if it doesn't, then it should retrurn false")
+    fun doesNotHaveDescendingDigits(input: String) {
+        val result = utility.hasOnlyAscendingCharacters(input)
+        assertThat(result).isTrue()
     }
 }

@@ -10,14 +10,6 @@ import org.junit.jupiter.params.provider.EmptySource
 import org.junit.jupiter.params.provider.ValueSource
 
 class PasswordTest {
-    @Test
-    @DisplayName("Given the example input, when checking if it meets the password criteria, then it should return true")
-    fun meetsCriteria() {
-        val password = Password("111111")
-        val meetsCriteria = password.isValid()
-        assertThat(meetsCriteria).isTrue()
-    }
-
     @ParameterizedTest
     @EmptySource
     @ValueSource(strings = ["223450", "123789", "12345", "1234567"])
@@ -29,20 +21,20 @@ class PasswordTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["112345", "098862", "123455", "111111", "001233"])
+    @ValueSource(strings = ["112345", "098862", "123455", "001233", "112233", "111122"])
     @DisplayName("Given the input string has exactly on pair of adjacent digits, when checking for it, then it should return true")
-    fun hasAdjacentDigits(input: String) {
+    fun hasAdjacentDigitPairs(input: String) {
         val password = Password(input)
-        val result = password.hasAdjacentDigits()
+        val result = password.hasAdjacentDigitPair()
         assertThat(result).isTrue()
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["123456", "010101", "123789"])
-    @DisplayName("Given the input string does not have exactly on pair of adjacent digits, when checking for it, then it should return false")
-    fun doesNotHaveAdjacentDigits(input: String) {
+    @ValueSource(strings = ["123456", "010101", "123789", "123444"])
+    @DisplayName("Given the input string does not have adjacent pairs , when checking for it, then it should return false")
+    fun doesNotHaveAdjacentDigitPairs(input: String) {
         val password = Password(input)
-        val result = password.hasAdjacentDigits()
+        val result = password.hasAdjacentDigitPair()
         assertThat(result).isFalse()
     }
 
@@ -57,7 +49,7 @@ class PasswordTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["111123", "135679", "013579", "111111"])
-    @DisplayName("Given the input string has descending digits, when checking if it doesn't, then it should retrurn false")
+    @DisplayName("Given the input string has descending digits, when checking if it doesn't, then it should return false")
     fun doesNotHaveDescendingDigits(input: String) {
         val password = Password(input)
         val result = password.hasOnlyAscendingCharacters()

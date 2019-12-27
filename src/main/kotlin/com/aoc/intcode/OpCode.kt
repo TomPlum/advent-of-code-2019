@@ -18,6 +18,6 @@ class OpCode private constructor(val value: Int) {
         }
     }
 
-    fun isValid() = arrayOf(1, 2, 99).contains(value)
+    fun isValid() = arrayOf(1, 2, 3, 4, 99).contains(value)
 
 }

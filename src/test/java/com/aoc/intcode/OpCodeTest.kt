@@ -3,6 +3,7 @@ package com.aoc.intcode
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -34,10 +35,17 @@ class OpCodeTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [-1, 0, 3, 4, 5, 98, 100])
+    @ValueSource(ints = [-1, 0, 5, 98, 100])
     fun invalidValue(value: Int) {
         val opCode = OpCode.from(value)
         assertThat(opCode.isValid()).isFalse();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [1, 2, 3, 4, 99])
+    fun validValue(value: Int) {
+        val opCode = OpCode.from(value)
+        assertThat(opCode.isValid()).isTrue();
     }
 
     @Test

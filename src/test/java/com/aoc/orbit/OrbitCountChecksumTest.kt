@@ -21,7 +21,7 @@ class OrbitCountChecksumTest {
     fun getOrbitalSingleDigit() {
         val checksum = OrbitCountChecksum("COM)B")
         val orbital = checksum.getOrbital()
-        assertThat(orbital).isEqualTo("B")
+        assertThat(orbital.name).isEqualTo("B")
     }
 
     @Test
@@ -29,7 +29,7 @@ class OrbitCountChecksumTest {
     fun getOrbitalDoubleDigit() {
         val checksum = OrbitCountChecksum("COM)AS")
         val orbital = checksum.getOrbital()
-        assertThat(orbital).isEqualTo("AS")
+        assertThat(orbital.name).isEqualTo("AS")
     }
 
     @Test
@@ -37,7 +37,7 @@ class OrbitCountChecksumTest {
     fun getOrbitalTripleDigit() {
         val checksum = OrbitCountChecksum("COM)MP6")
         val orbital = checksum.getOrbital()
-        assertThat(orbital).isEqualTo("MP6")
+        assertThat(orbital.name).isEqualTo("MP6")
     }
 
     @Test
@@ -45,7 +45,7 @@ class OrbitCountChecksumTest {
     fun getBarycenterSingleDigit() {
         val checksum = OrbitCountChecksum("A)MP6")
         val barycenter = checksum.getBarycenter()
-        assertThat(barycenter).isEqualTo("A")
+        assertThat(barycenter.name).isEqualTo("A")
     }
 
     @Test
@@ -53,7 +53,7 @@ class OrbitCountChecksumTest {
     fun getBarycenterDoubleDigit() {
         val checksum = OrbitCountChecksum("JH)MP6")
         val barycenter = checksum.getBarycenter()
-        assertThat(barycenter).isEqualTo("JH")
+        assertThat(barycenter.name).isEqualTo("JH")
     }
 
     @Test
@@ -61,6 +61,6 @@ class OrbitCountChecksumTest {
     fun getBarycenterTripleDigit() {
         val checksum = OrbitCountChecksum("COM)MP6")
         val barycenter = checksum.getBarycenter()
-        assertThat(barycenter).isEqualTo("COM")
+        assertThat(barycenter.name).isEqualTo("COM")
     }
 }

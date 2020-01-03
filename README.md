@@ -1,5 +1,5 @@
 # Advent of Code (2019)
-Attempting Advent of Code 2019 with Kotlin
+Advent of Code 2019 with Kotlin \
 https://adventofcode.com/2019/
 
 ## Day 1 - The Tyranny of the Rocket Equation

@@ -1,14 +1,29 @@
 package com.aoc.orbit
 
-class OrbitalMap {
-    val centreOfMass: Body? = null
+class OrbitalMap(val input: List<String>) {
+    private var centre = Body("COM")
+    private var mappedOrbits: MutableMap<Body, MutableList<Body>> = mutableMapOf()
 
-    constructor(input: List<String>) {
-        val orbitCountChecksums = input.map { OrbitCountChecksum(it) }
+    private fun addBody(body: Body, orbital: Body) {
+        centre.orbitingBodies.map { if (it == body) it.setOrbitingBody(orbital) }
     }
 
-    fun readOrbits(): Int = 0
+    fun readOrbits(): Int {
+        val orbitCountChecksums = input.map { OrbitCountChecksum(it) }
 
-    private fun readDirectOrbits(): Int = 0
-    private fun readIndirectOrbits(): Int = 0
+        orbitCountChecksums.forEach {
+            mappedOrbits.getOrPut(it.getBarycenter(), ::mutableListOf) += it.getOrbital()
+        }
+
+        mappedOrbits[Body("COM")]?.map { centre.setOrbitingBody(it) }
+        mappedOrbits.remove(Body("COM"))
+
+
+
+        val count = mappedOrbits.values.map { it.size }.count()
+
+
+        return centre.orbitingBodies.flatMap { it.orbitingBodies }.count() //TODO: Total Combined Depth?
+    }
+
 }

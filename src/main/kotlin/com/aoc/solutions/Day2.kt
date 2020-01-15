@@ -16,7 +16,7 @@ private fun partOne(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
     computer.restoreGravityAssistProgram(12, 2)
     computer.compute()
-    println("Solution 1: " + computer.getProgramMemory().getAddressValue(0))
+    println("Solution 1: " + computer.getProgramMemory().getInstructionAtAddress(0))
 }
 
 private fun partTwo(memoryAddresses: String) {
@@ -26,7 +26,7 @@ private fun partTwo(memoryAddresses: String) {
         for (verb in 0..99) {
             computer.restoreGravityAssistProgram(noun, verb)
             computer.compute()
-            if (computer.getProgramMemory().getAddressValue(0) == 19690720) println("Solution 2: " + (100 * noun + verb))
+            if (computer.getProgramMemory().getInstructionAtAddress(0) == 19690720) println("Solution 2: " + (100 * noun + verb))
             computer.getProgramMemory().reset()
         }
     }

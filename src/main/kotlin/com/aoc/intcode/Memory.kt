@@ -1,15 +1,15 @@
 package com.aoc.intcode
 
 class Memory constructor(private val initialMemorySnapshot: List<Int>) {
-    var addresses: MutableList<Int> = initialMemorySnapshot.toMutableList()
+    var instructions: MutableList<Int> = initialMemorySnapshot.toMutableList()
 
     fun reset() {
-        addresses = initialMemorySnapshot.toMutableList()
+        instructions = initialMemorySnapshot.toMutableList()
     }
 
-    fun updateAddress(index: Int, value: Int) {
-        addresses[index] = value
+    fun updateInstructionAtAddress(addressIndex: Int, instructionValue: Int) {
+        instructions[addressIndex] = instructionValue
     }
 
-    fun getAddressValue(index: Int): Int = addresses[index]
+    fun getInstructionAtAddress(addressIndex: Int): Int = instructions[addressIndex]
 }

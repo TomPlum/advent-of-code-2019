@@ -56,6 +56,11 @@ class IntCodeComputerTest {
         val computer = IntCodeComputer(puzzleInput)
         computer.restoreGravityAssistProgram(12, 2)
         computer.compute()
-        assertThat(computer.getProgramMemory().getAddressValue(0)).isEqualTo(10566835)
+        assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(10566835)
+    }
+
+    @Test
+    fun exampleInstructionWithParameterMode() {
+        val computer = IntCodeComputer("1002,4,3,4,33")
     }
 }

@@ -13,39 +13,39 @@ class IntCodeComputer constructor(programString: String) {
 
         var operation = Operation.UNKNOWN
 
-        for (v in memory.addresses) {
-            val currentAction = program.currentActionType
+        for (instruction in memory.instructions) {
+            val currentAction = program.currentInstruction
 
-            if (currentAction == AddressType.OPCODE) {
-                operation = OpCode.from(v).operation()
+            if (currentAction == InstructionType.OPCODE) {
+                operation = OpCode.from(instruction).operation()
                 if (operation == Operation.HALT) return program.toString()
             }
 
-            if (currentAction == AddressType.FIRST_INPUT) {
-                firstInput = memory.getAddressValue(v)
+            if (currentAction == InstructionType.FIRST_INPUT) {
+                firstInput = memory.getInstructionAtAddress(instruction)
             }
 
-            if (currentAction == AddressType.SECOND_INPUT) {
-                secondInput = memory.getAddressValue(v)
+            if (currentAction == InstructionType.SECOND_INPUT) {
+                secondInput = memory.getInstructionAtAddress(instruction)
             }
 
-            if (currentAction == AddressType.OUTPUT) {
+            if (currentAction == InstructionType.OUTPUT) {
                 when (operation) {
-                    Operation.ADD -> memory.updateAddress(v, firstInput + secondInput)
-                    Operation.MULTIPLY -> memory.updateAddress(v, firstInput * secondInput)
+                    Operation.ADD -> memory.updateInstructionAtAddress(instruction, firstInput + secondInput)
+                    Operation.MULTIPLY -> memory.updateInstructionAtAddress(instruction, firstInput * secondInput)
                     Operation.HALT -> return program.toString()
-                    Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Address Value $v")
+                    Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction $instruction")
                 }
             }
 
-            program.updateNextActionType()
+            program.updateNextInstructionType()
         }
         throw IllegalStateException("Program failed unexpectedly")
     }
 
     fun restoreGravityAssistProgram(noun: Int, verb: Int) {
-        program.memory.updateAddress(1, noun)
-        program.memory.updateAddress(2, verb)
+        program.memory.updateInstructionAtAddress(1, noun)
+        program.memory.updateInstructionAtAddress(2, verb)
     }
 
     fun getProgramMemory(): Memory {

@@ -1,12 +1,13 @@
 package com.aoc.intcode
 
-class Program private constructor(actionString: String) {
+class Program private constructor(instructionString: String) {
 
+    var instructionPointer = 0
     var currentInstruction = InstructionType.OPCODE
     var memory: Memory
 
     companion object {
-        fun from(actionString: String): Program = Program(actionString)
+        fun from(instructionList: String): Program = Program(instructionList)
     }
 
     override fun toString(): String {
@@ -22,10 +23,17 @@ class Program private constructor(actionString: String) {
         }
     }
 
-    private fun parseInstruction(actions: String): MutableList<Int> = actions.split(",").map { it.toInt() }.toMutableList()
+    fun incrementInstructionPointer(opCode: OpCode) {
+        instructionPointer += opCode.instructionLength()
+    }
+
+    fun getCurrentInstruction(): Int = memory.getInstructionAtAddress(instructionPointer)
+
+
+    private fun parseInstructions(actions: String): MutableList<Int> = actions.split(",").map { it.toInt() }.toMutableList()
 
     init {
-        this.memory = Memory(parseInstruction(actionString))
+        this.memory = Memory(parseInstructions(instructionString))
     }
 
 }

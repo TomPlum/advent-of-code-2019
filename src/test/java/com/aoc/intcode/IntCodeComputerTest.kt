@@ -58,9 +58,4 @@ class IntCodeComputerTest {
         computer.compute()
         assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(10566835)
     }
-
-    @Test
-    fun exampleInstructionWithParameterMode() {
-        val computer = IntCodeComputer("1002,4,3,4,33")
-    }
 }

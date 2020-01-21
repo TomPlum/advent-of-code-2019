@@ -1,46 +1,52 @@
 package com.aoc.intcode
 
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class IntCodeComputer constructor(programString: String) {
     private val program = Program.from(programString)
 
+    val systemInput = LinkedList<Int>()
+    val systemOutput = LinkedList<Int>()
+
     fun compute(): String {
         val memory = program.memory
 
-        var firstInput = 0
-        var secondInput = 0
+        while(true) {
+            val pointer = program.instructionPointer
+            val opCode = OpCode.from(program.getCurrentInstruction())
 
-        var operation = Operation.UNKNOWN
-
-        for (instruction in memory.instructions) {
-            val currentAction = program.currentInstruction
-
-            if (currentAction == InstructionType.OPCODE) {
-                operation = OpCode.from(instruction).operation()
-                if (operation == Operation.HALT) return program.toString()
-            }
-
-            if (currentAction == InstructionType.FIRST_INPUT) {
-                firstInput = memory.getInstructionAtAddress(instruction)
-            }
-
-            if (currentAction == InstructionType.SECOND_INPUT) {
-                secondInput = memory.getInstructionAtAddress(instruction)
-            }
-
-            if (currentAction == InstructionType.OUTPUT) {
-                when (operation) {
-                    Operation.ADD -> memory.updateInstructionAtAddress(instruction, firstInput + secondInput)
-                    Operation.MULTIPLY -> memory.updateInstructionAtAddress(instruction, firstInput * secondInput)
-                    Operation.HALT -> return program.toString()
-                    Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction $instruction")
+            when (opCode.operation()) {
+                Operation.ADD -> {
+                    val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
+                    val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
+                    val firstInputValue = memory.getInstructionAtAddress(firstInputIndex)
+                    val secondInputValue = memory.getInstructionAtAddress(secondInputIndex)
+                    val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
+                    memory.updateInstructionAtAddress(addressToUpdate, firstInputValue + secondInputValue)
                 }
+                Operation.MULTIPLY -> {
+                    val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
+                    val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
+                    val firstInputValue = memory.getInstructionAtAddress(firstInputIndex)
+                    val secondInputValue = memory.getInstructionAtAddress(secondInputIndex)
+                    val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
+                    memory.updateInstructionAtAddress(addressToUpdate, firstInputValue * secondInputValue)
+                }
+                Operation.INPUT -> {
+                    val input = memory.getInstructionAtAddress(pointer + 1)
+                    systemInput(input)
+                }
+                Operation.OUTPUT -> {
+                    val input = memory.getInstructionAtAddress(pointer + 1)
+                    systemOutput(input)
+                }
+                Operation.HALT -> return program.toString()
+                Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction ${opCode.value}")
             }
 
-            program.updateNextInstructionType()
+            program.incrementInstructionPointer(opCode)
         }
-        throw IllegalStateException("Program failed unexpectedly")
     }
 
     fun restoreGravityAssistProgram(noun: Int, verb: Int) {
@@ -51,5 +57,9 @@ class IntCodeComputer constructor(programString: String) {
     fun getProgramMemory(): Memory {
         return program.memory
     }
+
+    private fun systemInput(value: Int) = systemInput.add(value)
+
+    private fun systemOutput(value: Int) = systemOutput.add(value)
 
 }

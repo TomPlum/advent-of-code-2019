@@ -1,9 +1,26 @@
 package com.aoc.intcode
 
-class OpCode private constructor(val value: Int) {
-    companion object {
-        fun from(value: Int): OpCode {
-            return OpCode(value)
+import java.util.*
+
+class OpCode {
+    private var value: Int
+    private val parameterModes: Stack<ParameterMode> = Stack()
+
+    constructor(value: String) {
+        val paddedValue = value.padStart(4, '0')
+
+        if (paddedValue.takeLast(2).toInt() == 99) {
+            this.value = 99
+        } else {
+            this.value = value.takeLast(1).toInt()
+        }
+
+        paddedValue.take(paddedValue.length - 1).forEach {
+            if (it == '1') {
+                parameterModes.push(ParameterMode.IMMEDIATE)
+            } else {
+                parameterModes.push(ParameterMode.POSITION)
+            }
         }
     }
 
@@ -29,6 +46,12 @@ class OpCode private constructor(val value: Int) {
         }
     }
 
+    fun getParameterMode(): ParameterMode {
+        return parameterModes.pop()
+    }
+
     fun isValid() = arrayOf(1, 2, 3, 4, 99).contains(value)
+
+    fun getValue() = value
 
 }

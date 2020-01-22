@@ -14,35 +14,69 @@ class IntCodeComputer constructor(programString: String) {
 
         while(true) {
             val pointer = program.instructionPointer
-            val opCode = OpCode.from(program.getCurrentInstruction())
+            val opCode = OpCode(program.getCurrentInstruction().toString())
 
             when (opCode.operation()) {
                 Operation.ADD -> {
+                    val firstParameterMode = opCode.getParameterMode()
                     val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
+                    val firstInputValue = when (firstParameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(firstInputIndex)
+                        ParameterMode.IMMEDIATE -> firstInputIndex
+                    }
+
+                    val secondParameterMode = opCode.getParameterMode()
                     val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
-                    val firstInputValue = memory.getInstructionAtAddress(firstInputIndex)
-                    val secondInputValue = memory.getInstructionAtAddress(secondInputIndex)
+                    val secondInputValue = when (secondParameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(secondInputIndex)
+                        ParameterMode.IMMEDIATE -> secondInputIndex
+                    }
+
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue + secondInputValue)
                 }
                 Operation.MULTIPLY -> {
+                    val firstParameterMode = opCode.getParameterMode()
                     val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
+                    val firstInputValue = when (firstParameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(firstInputIndex)
+                        ParameterMode.IMMEDIATE -> firstInputIndex
+                    }
+
+                    val secondParameterMode = opCode.getParameterMode()
                     val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
-                    val firstInputValue = memory.getInstructionAtAddress(firstInputIndex)
-                    val secondInputValue = memory.getInstructionAtAddress(secondInputIndex)
+                    val secondInputValue = when (secondParameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(secondInputIndex)
+                        ParameterMode.IMMEDIATE -> secondInputIndex
+                    }
+
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue * secondInputValue)
                 }
                 Operation.INPUT -> {
-                    val input = memory.getInstructionAtAddress(pointer + 1)
+                    val parameterMode = opCode.getParameterMode()
+                    val index = memory.getInstructionAtAddress(pointer + 1)
+                    val input = when(parameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(index)
+                        ParameterMode.IMMEDIATE -> index
+                    }
                     systemInput(input)
                 }
                 Operation.OUTPUT -> {
-                    val input = memory.getInstructionAtAddress(pointer + 1)
+                    val parameterMode = opCode.getParameterMode()
+                    val index = memory.getInstructionAtAddress(pointer + 1)
+                    val input = when(parameterMode) {
+                        ParameterMode.POSITION -> memory.getInstructionAtAddress(index)
+                        ParameterMode.IMMEDIATE -> index
+                    }
                     systemOutput(input)
                 }
-                Operation.HALT -> return program.toString()
-                Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction ${opCode.value}")
+                Operation.HALT -> {
+                    println("System Input: $systemInput")
+                    println("System Output: $systemOutput")
+                    return program.toString()
+                }
+                Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction ${opCode.getValue()}")
             }
 
             program.incrementInstructionPointer(opCode)
@@ -58,7 +92,7 @@ class IntCodeComputer constructor(programString: String) {
         return program.memory
     }
 
-    private fun systemInput(value: Int) = systemInput.add(value)
+    fun systemInput(value: Int) = systemInput.add(value)
 
     private fun systemOutput(value: Int) = systemOutput.add(value)
 

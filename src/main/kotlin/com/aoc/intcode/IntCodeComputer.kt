@@ -18,57 +18,23 @@ class IntCodeComputer constructor(programString: String) {
 
             when (opCode.operation()) {
                 Operation.ADD -> {
-                    val firstParameterMode = opCode.getParameterMode()
-                    val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
-                    val firstInputValue = when (firstParameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(firstInputIndex)
-                        ParameterMode.IMMEDIATE -> firstInputIndex
-                    }
-
-                    val secondParameterMode = opCode.getParameterMode()
-                    val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
-                    val secondInputValue = when (secondParameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(secondInputIndex)
-                        ParameterMode.IMMEDIATE -> secondInputIndex
-                    }
-
+                    val firstInputValue = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondInputValue = getInstructionValue(opCode, memory, pointer + 2)
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue + secondInputValue)
                 }
                 Operation.MULTIPLY -> {
-                    val firstParameterMode = opCode.getParameterMode()
-                    val firstInputIndex = memory.getInstructionAtAddress(pointer + 1)
-                    val firstInputValue = when (firstParameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(firstInputIndex)
-                        ParameterMode.IMMEDIATE -> firstInputIndex
-                    }
-
-                    val secondParameterMode = opCode.getParameterMode()
-                    val secondInputIndex = memory.getInstructionAtAddress(pointer + 2)
-                    val secondInputValue = when (secondParameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(secondInputIndex)
-                        ParameterMode.IMMEDIATE -> secondInputIndex
-                    }
-
+                    val firstInputValue = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondInputValue = getInstructionValue(opCode, memory, pointer + 2)
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue * secondInputValue)
                 }
                 Operation.INPUT -> {
-                    val parameterMode = opCode.getParameterMode()
-                    val index = memory.getInstructionAtAddress(pointer + 1)
-                    val input = when(parameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(index)
-                        ParameterMode.IMMEDIATE -> index
-                    }
-                    systemInput(input)
+                    val inputAddress = memory.getInstructionAtAddress(pointer + 1)
+                    memory.updateInstructionAtAddress(inputAddress, systemInput[0])
                 }
                 Operation.OUTPUT -> {
-                    val parameterMode = opCode.getParameterMode()
-                    val index = memory.getInstructionAtAddress(pointer + 1)
-                    val input = when(parameterMode) {
-                        ParameterMode.POSITION -> memory.getInstructionAtAddress(index)
-                        ParameterMode.IMMEDIATE -> index
-                    }
+                    val input = getInstructionValue(opCode, memory, pointer + 1)
                     systemOutput(input)
                 }
                 Operation.HALT -> {
@@ -80,6 +46,15 @@ class IntCodeComputer constructor(programString: String) {
             }
 
             program.incrementInstructionPointer(opCode)
+        }
+    }
+
+    private fun getInstructionValue(opCode: OpCode, memory: Memory, addressIndex: Int): Int {
+        val mode = opCode.getParameterMode()
+        val index = memory.getInstructionAtAddress(addressIndex)
+        return when (mode) {
+            ParameterMode.POSITION -> memory.getInstructionAtAddress(index)
+            ParameterMode.IMMEDIATE -> index
         }
     }
 

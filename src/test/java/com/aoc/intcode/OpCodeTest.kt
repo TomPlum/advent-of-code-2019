@@ -114,12 +114,10 @@ class OpCodeTest {
     }
 
     @Test
-    @DisplayName("Given an OpCode with 2 digits and the first is 0, when getting the parameter mode, then it should be POSITION")
+    @DisplayName("Given an OpCode with 3 digits and the first is 1, when getting the parameter mode, then it should be IMMEDIATE")
     fun tripleDigitOpCode() {
         val opCode = OpCode("102")
-        val firstMode = opCode.getParameterMode()
-        val secondMode = opCode.getParameterMode()
-        assertThat(firstMode).isEqualTo(ParameterMode.POSITION)
-        assertThat(secondMode).isEqualTo(ParameterMode.IMMEDIATE)
+        val mode = opCode.getParameterMode()
+        assertThat(mode).isEqualTo(ParameterMode.IMMEDIATE)
     }
 }

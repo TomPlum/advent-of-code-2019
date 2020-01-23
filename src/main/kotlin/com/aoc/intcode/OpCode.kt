@@ -15,7 +15,7 @@ class OpCode {
             this.value = value.takeLast(1).toInt()
         }
 
-        paddedValue.take(paddedValue.length - 1).forEach {
+        paddedValue.take(paddedValue.length - 2).forEach {
             if (it == '1') {
                 parameterModes.push(ParameterMode.IMMEDIATE)
             } else {

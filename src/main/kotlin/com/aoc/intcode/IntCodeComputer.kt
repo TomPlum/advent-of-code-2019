@@ -6,8 +6,8 @@ import java.util.*
 class IntCodeComputer constructor(programString: String) {
     private val program = Program.from(programString)
 
-    val systemInput = LinkedList<Int>()
-    val systemOutput = LinkedList<Int>()
+    private val systemInput = LinkedList<Int>()
+    private val systemOutput = LinkedList<Int>()
 
     fun compute(): String {
         val memory = program.memory

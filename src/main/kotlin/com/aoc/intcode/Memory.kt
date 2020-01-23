@@ -17,4 +17,23 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
     fun incrementInstructionPointer(value: Int) {
         instructionPointer += value
     }
+
+    override fun toString() = instructions.toString()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Memory
+
+        if (instructions != other.instructions) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return instructions.hashCode()
+    }
+
+
 }

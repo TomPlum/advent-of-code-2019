@@ -2,7 +2,6 @@ package com.aoc.intcode
 
 import java.lang.IllegalArgumentException
 import java.util.*
-
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
 
@@ -38,8 +37,8 @@ class IntCodeComputer constructor(programString: String) {
                     systemOutput(input)
                 }
                 Operation.JUMP_IF_TRUE -> {
-                    val firstParameter = memory.getInstructionAtAddress(pointer + 1)
-                    val secondParameter = memory.getInstructionAtAddress(pointer + 2)
+                    val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     if (firstParameter != 0) {
                         memory.instructionPointer = secondParameter
                     } else {
@@ -47,8 +46,8 @@ class IntCodeComputer constructor(programString: String) {
                     }
                 }
                 Operation.JUMP_IF_FALSE -> {
-                    val firstParameter = memory.getInstructionAtAddress(pointer + 1)
-                    val secondParameter = memory.getInstructionAtAddress(pointer + 2)
+                    val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     if (firstParameter == 0) {
                         memory.instructionPointer = secondParameter
                     } else {
@@ -56,8 +55,8 @@ class IntCodeComputer constructor(programString: String) {
                     }
                 }
                 Operation.LESS_THAN -> {
-                    val firstParameter = memory.getInstructionAtAddress(pointer + 1)
-                    val secondParameter = memory.getInstructionAtAddress(pointer + 2)
+                    val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     val updateIndex = memory.getInstructionAtAddress(pointer + 3)
                     if (firstParameter < secondParameter) {
                         memory.updateInstructionAtAddress(updateIndex, 1)
@@ -66,8 +65,8 @@ class IntCodeComputer constructor(programString: String) {
                     }
                 }
                 Operation.EQUALS -> {
-                    val firstParameter = memory.getInstructionAtAddress(pointer + 1)
-                    val secondParameter = memory.getInstructionAtAddress(pointer + 2)
+                    val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
+                    val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     val updateIndex = memory.getInstructionAtAddress(pointer + 3)
                     if (firstParameter == secondParameter) {
                         memory.updateInstructionAtAddress(updateIndex, 1)
@@ -111,10 +110,14 @@ class IntCodeComputer constructor(programString: String) {
         return program.memory
     }
 
-    private fun systemInput(value: Int) = systemInput.add(value)
+    fun systemInput(value: Int) = systemInput.add(value)
 
     private fun systemOutput(value: Int) = systemOutput.add(value)
 
-    fun getDiagnosticCode(): Int? = systemOutput.last
+    fun getDiagnosticCode(): Int? {
+        if (systemOutput.size > 0) return systemOutput.last
+        throw IllegalStateException("System output is empty!")
+    }
 
 }
+

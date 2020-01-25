@@ -8,6 +8,9 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class IntCodeComputerTest {
+    private val largeExampleProgram = "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31," +
+            "1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104," +
+            "999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"
 
     @Test
     @DisplayName("Given a valid program (example one), when computing, then it should return the correct final state")
@@ -70,19 +73,19 @@ class IntCodeComputerTest {
     }
 
     @Test
-    @DisplayName("Given a JUMP_IF_TRUE OpCode(5), when the first parameter is non-zero, then it should set the instruction pointer to the value from the second parameter")
+    @DisplayName("Given a JUMP_IF_TRUE OpCode(5) in IMMEDIATE_MODE, when the first parameter is non-zero, then it should set the instruction pointer to the value from the second parameter")
     fun jumpIfTrue() {
-        val computer = IntCodeComputer("5,1,3,99")
+        val computer = IntCodeComputer("1105,1,3,99")
         computer.compute()
         assertThat(computer.getProgramMemory().instructionPointer).isEqualTo(3)
     }
 
     @Test
-    @DisplayName("Given a JUMP_IF_TRUE OpCode(5), when the first parameter is zero, then it should do nothing")
+    @DisplayName("Given a JUMP_IF_TRUE OpCode(5) in IMMEDIATE_MODE, when the first parameter is zero, then it should do nothing")
     fun jumpIfTrueWithZeroParameter() {
-        val computer = IntCodeComputer("5,0,10,99")
+        val computer = IntCodeComputer("1105,0,10,99")
         val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("5,0,10,99")
+        assertThat(finalProgramState).isEqualTo("1105,0,10,99")
     }
 
     @Test
@@ -110,26 +113,144 @@ class IntCodeComputerTest {
     }
 
     @Test
-    @DisplayName("Given a LESS_THAN OpCode(7), when the first parameter is greater than the second parameter, then it should store 0 in the position given by the third parameter")
+    @DisplayName("Given a LESS_THAN OpCode(7) in IMMEDIATE_MODE, when the first parameter is greater than the second parameter, then it should store 0 in the position given by the third parameter")
     fun lessThanWhenFirstParameterIsGreaterThanSecond() {
-        val computer = IntCodeComputer("7,3,2,0,99")
+        val computer = IntCodeComputer("1107,3,2,0,99")
         val finalProgramState = computer.compute()
         assertThat(finalProgramState).isEqualTo("0,3,2,0,99")
     }
 
     @Test
-    @DisplayName("Given an EQUALS OpCode(8), when the first parameter is equals to the second parameter, then it should store 1 in the position given by the third parameter")
+    @DisplayName("Given an EQUALS OpCode(8) in IMMEDIATE_MODE, when the first parameter is equals to the second parameter, then it should store 1 in the position given by the third parameter")
     fun equals() {
-        val computer = IntCodeComputer("8,5,5,1,99")
+        val computer = IntCodeComputer("1108,5,5,1,99")
         val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("8,1,5,1,99")
+        assertThat(finalProgramState).isEqualTo("1108,1,5,1,99")
     }
 
     @Test
-    @DisplayName("Given an EQUALS OpCode(8), when the first parameter is not equal to the second parameter, then it should store 0 in the position given by the third parameter")
+    @DisplayName("Given an EQUALS OpCode(8) in IMMEDIATE_MODE, when the first parameter is not equal to the second parameter, then it should store 0 in the position given by the third parameter")
     fun equalsWhenNotEqual() {
-        val computer = IntCodeComputer("8,4,5,2,99")
+        val computer = IntCodeComputer("1108,4,5,2,99")
         val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("8,4,0,2,99")
+        assertThat(finalProgramState).isEqualTo("1108,4,0,2,99")
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 1 (POSITION MODE), when inputting 8 into the computer, then it should output 1")
+    fun equalsExampleTestInPositionModeWithCorrectInput() {
+        val computer = IntCodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
+        computer.systemInput(8)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 1 (POSITION MODE), when inputting 2 into the computer, then it should output 0")
+    fun equalsExampleTestInPositionModeWithIncorrectInput() {
+        val computer = IntCodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
+        computer.systemInput(2)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 2 (POSITION MODE), when inputting 5 into the computer, then it should output 1")
+    fun lessThanExampleTestInPositionModeWithCorrectInput() {
+        val computer = IntCodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
+        computer.systemInput(5)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 2 (POSITION MODE), when inputting 9 into the computer, then it should output 0")
+    fun lessExampleTestInPositionModeWithIncorrectInput() {
+        val computer = IntCodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
+        computer.systemInput(9)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 1 (IMMEDIATE MODE), when inputting 8 into the computer, then it should output 1")
+    fun equalsExampleTestInImmediateModeWithCorrectInput() {
+        val computer = IntCodeComputer("3,3,1108,-1,8,3,4,3,99")
+        computer.systemInput(8)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 1 (IMMEDIATE MODE), when inputting 2 into the computer, then it should output 0")
+    fun equalsExampleTestInImmediateModeWithIncorrectInput() {
+        val computer = IntCodeComputer("3,3,1108,-1,8,3,4,3,99")
+        computer.systemInput(2)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 2 (IMMEDIATE MODE), when inputting 5 into the computer, then it should output 1")
+    fun lessThanExampleTestInImmediateModeWithCorrectInput() {
+        val computer = IntCodeComputer("3,3,1107,-1,8,3,4,3,99")
+        computer.systemInput(5)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Example 2 (IMMEDIATE MODE), when inputting 9 into the computer, then it should output 0")
+    fun lessExampleTestInImmediateModeWithIncorrectInput() {
+        val computer = IntCodeComputer("3,3,1107,-1,8,3,4,3,99")
+        computer.systemInput(9)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Jump Test 1 (POSITION MODE), when inputting a 0, then it should output a 0")
+    fun jumpTestOne() {
+        val computer = IntCodeComputer("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9")
+        computer.systemInput(0)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 Jump Test 2 (IMMEDIATE MODE), when inputting a non-zero number, then it should output a 1")
+    fun jumpTestTwo() {
+        val computer = IntCodeComputer("3,3,1105,-1,9,1101,0,0,12,4,12,99,1")
+        computer.systemInput(24)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1)
+    }
+
+
+    @Test
+    @DisplayName("Given the Day 5 larger example, when inputting a number less than 8, then it should output 999")
+    fun largeExampleWhenInputLessThanEight() {
+        val computer = IntCodeComputer(largeExampleProgram)
+        computer.systemInput(4)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(999)
+    }
+
+    @Test
+    @DisplayName("Given the Day 5 larger example, when inputting 8, then it should output 1000")
+    fun largeExampleWhenInputEqualsEight() {
+        val computer = IntCodeComputer(largeExampleProgram)
+        computer.systemInput(8)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1000)
+    }
+
+    @Test
+    @DisplayName("Given the Day 5 larger example, when inputting a value greater than 8, then it should output 1001")
+    fun largeExampleWhenInputGreaterThanEight() {
+        val computer = IntCodeComputer(largeExampleProgram)
+        computer.systemInput(23)
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1001)
     }
 }

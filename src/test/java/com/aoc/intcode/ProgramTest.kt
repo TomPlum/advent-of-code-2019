@@ -9,7 +9,7 @@ class ProgramTest {
     @Test
     @DisplayName("Given a valid set of program action, when invoking toString(), then it should concatenate actions into CSV")
     fun toStringTest() {
-        val program = Program.from("1,2,3,4,5")
+        val program = Program("1,2,3,4,5")
         val programString = program.toString()
         assertThat(programString).isEqualTo("1,2,3,4,5")
     }

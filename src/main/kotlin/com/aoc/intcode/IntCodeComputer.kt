@@ -4,7 +4,7 @@ import java.lang.IllegalArgumentException
 import java.util.*
 
 class IntCodeComputer constructor(programString: String) {
-    private val program = Program.from(programString)
+    private val program = Program(programString)
 
     private val systemInput = LinkedList<Int>()
     private val systemOutput = LinkedList<Int>()

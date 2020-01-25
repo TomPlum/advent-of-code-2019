@@ -2,19 +2,17 @@ package com.aoc.intcode
 
 import java.util.*
 
-class OpCode {
+class OpCode(value: String) {
     private var value: Int
     private val parameterModes: Stack<ParameterMode> = Stack()
 
-    constructor(value: String) {
+    init {
         val paddedValue = value.padStart(4, '0')
-
         if (paddedValue.takeLast(2).toInt() == 99) {
             this.value = 99
         } else {
             this.value = value.takeLast(1).toInt()
         }
-
         paddedValue.take(paddedValue.length - 2).forEach {
             if (it == '1') {
                 parameterModes.push(ParameterMode.IMMEDIATE)

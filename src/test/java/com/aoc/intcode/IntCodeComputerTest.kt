@@ -54,7 +54,7 @@ class IntCodeComputerTest {
 
     @Test
     @DisplayName("Given Day 2 - Part 1 puzzle input, when restoring the gravity assist program, then after computing the first memory address value should be 10566835")
-    fun partOneSolution() {
+    fun dayTwoPartOneSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(2))
         val computer = IntCodeComputer(puzzleInput)
         computer.restoreGravityAssistProgram(12, 2)
@@ -62,9 +62,17 @@ class IntCodeComputerTest {
         assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(10566835)
     }
 
+    fun dayFivePartTwoSolution() {
+        val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
+        val computer = IntCodeComputer(puzzleInput)
+        computer.startThermalRadiatorControllerDiagnosticTest()
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(7408802)
+    }
+
     @Test
     @DisplayName("Given Day 5 - Part 1 puzzle input, when inputting the air condition code, then it should output 5044655 as the final non-zero diagnostic code")
-    fun dayFivePartOne() {
+    fun dayFivePartOneSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)
         computer.startAirConditionerDiagnosticTest()
@@ -253,4 +261,6 @@ class IntCodeComputerTest {
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1001)
     }
+
+
 }

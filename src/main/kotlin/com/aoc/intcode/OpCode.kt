@@ -44,7 +44,11 @@ class OpCode(value: String) {
             2 -> FOUR_ADDRESS_INSTRUCTION.length
             3 -> TWO_ADDRESS_INSTRUCTION.length
             4 -> TWO_ADDRESS_INSTRUCTION.length
-            99 -> 0
+            5 -> THREE_ADDRESS_INSTRUCTION.length
+            6 -> THREE_ADDRESS_INSTRUCTION.length
+            7 -> FOUR_ADDRESS_INSTRUCTION.length
+            8 -> FOUR_ADDRESS_INSTRUCTION.length
+            99 -> ONE_ADDRESS_INSTRUCTION.length
             else -> throw IllegalArgumentException("Invalid OpCode Value: $value")
         }
     }

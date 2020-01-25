@@ -64,8 +64,72 @@ class IntCodeComputerTest {
     fun dayFivePartOne() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)
-        computer.systemInput(1) //Air Conditioner
+        computer.startAirConditionerDiagnosticTest()
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(5044655)
+    }
+
+    @Test
+    @DisplayName("Given a JUMP_IF_TRUE OpCode(5), when the first parameter is non-zero, then it should set the instruction pointer to the value from the second parameter")
+    fun jumpIfTrue() {
+        val computer = IntCodeComputer("5,1,3,99")
+        computer.compute()
+        assertThat(computer.getProgramMemory().instructionPointer).isEqualTo(3)
+    }
+
+    @Test
+    @DisplayName("Given a JUMP_IF_TRUE OpCode(5), when the first parameter is zero, then it should do nothing")
+    fun jumpIfTrueWithZeroParameter() {
+        val computer = IntCodeComputer("5,0,10,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("5,0,10,99")
+    }
+
+    @Test
+    @DisplayName("Given a JUMP_IF_FALSE OpCode(6), when the first parameter is zero, then it should set the instruction pointer to the value from the second parameter")
+    fun jumpIfFalse() {
+        val computer = IntCodeComputer("6,0,3,99")
+        computer.compute()
+        assertThat(computer.getProgramMemory().instructionPointer).isEqualTo(3)
+    }
+
+    @Test
+    @DisplayName("Given a JUMP_IF_FALSE OpCode(6), when the first parameter is non-zero, then it should do nothing")
+    fun jumpIfFalseWithNonZeroParameter() {
+        val computer = IntCodeComputer("6,1,3,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("6,1,3,99")
+    }
+
+    @Test
+    @DisplayName("Given a LESS_THAN OpCode(7), when the first parameter is less than the second parameter, then it should store 1 in the position given by the third parameter")
+    fun lessThan() {
+        val computer = IntCodeComputer("7,1,2,0,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("1,1,2,0,99")
+    }
+
+    @Test
+    @DisplayName("Given a LESS_THAN OpCode(7), when the first parameter is greater than the second parameter, then it should store 0 in the position given by the third parameter")
+    fun lessThanWhenFirstParameterIsGreaterThanSecond() {
+        val computer = IntCodeComputer("7,3,2,0,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("0,3,2,0,99")
+    }
+
+    @Test
+    @DisplayName("Given an EQUALS OpCode(8), when the first parameter is equals to the second parameter, then it should store 1 in the position given by the third parameter")
+    fun equals() {
+        val computer = IntCodeComputer("8,5,5,1,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("8,1,5,1,99")
+    }
+
+    @Test
+    @DisplayName("Given an EQUALS OpCode(8), when the first parameter is not equal to the second parameter, then it should store 0 in the position given by the third parameter")
+    fun equalsWhenNotEqual() {
+        val computer = IntCodeComputer("8,4,5,2,99")
+        val finalProgramState = computer.compute()
+        assertThat(finalProgramState).isEqualTo("8,4,0,2,99")
     }
 }

@@ -8,6 +8,8 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
         instructions = initialMemorySnapshot.toMutableList()
     }
 
+    fun getCurrentInstruction(): Int = getInstructionAtAddress(instructionPointer)
+
     fun updateInstructionAtAddress(addressIndex: Int, instructionValue: Int) {
         instructions[addressIndex] = instructionValue
     }

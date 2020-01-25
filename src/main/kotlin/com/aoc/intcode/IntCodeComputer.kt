@@ -71,4 +71,6 @@ class IntCodeComputer constructor(programString: String) {
 
     private fun systemOutput(value: Int) = systemOutput.add(value)
 
+    fun getDiagnosticCode(): Int? = systemOutput.last
+
 }

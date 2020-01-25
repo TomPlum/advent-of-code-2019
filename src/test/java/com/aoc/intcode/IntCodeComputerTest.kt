@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class IntCodeComputerTest {
-    private val puzzleInput = InputReader().readInputAsSingleString(Day.from(2))
 
     @Test
     @DisplayName("Given a valid program (example one), when computing, then it should return the correct final state")
@@ -53,9 +52,20 @@ class IntCodeComputerTest {
     @Test
     @DisplayName("Given Day 2 - Part 1 puzzle input, when restoring the gravity assist program, then after computing the first memory address value should be 10566835")
     fun partOneSolution() {
+        val puzzleInput = InputReader().readInputAsSingleString(Day.from(2))
         val computer = IntCodeComputer(puzzleInput)
         computer.restoreGravityAssistProgram(12, 2)
         computer.compute()
         assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(10566835)
+    }
+
+    @Test
+    @DisplayName("Given Day 5 - Part 1 puzzle input, when inputting the air condition code, then it should output 5044655 as the final non-zero diagnostic code")
+    fun dayFivePartOne() {
+        val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
+        val computer = IntCodeComputer(puzzleInput)
+        computer.systemInput(1) //Air Conditioner
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(5044655)
     }
 }

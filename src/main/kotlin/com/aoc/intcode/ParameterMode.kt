@@ -4,6 +4,6 @@ package com.aoc.intcode
  * 0 = POSITION MODE
  * 1 = IMMEDIATE MODE
  */
-enum class ParameterMode {
-    POSITION, IMMEDIATE
+enum class ParameterMode(val code: Int) {
+    POSITION(0), IMMEDIATE(1)
 }

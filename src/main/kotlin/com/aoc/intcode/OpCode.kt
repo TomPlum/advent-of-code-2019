@@ -1,5 +1,6 @@
 package com.aoc.intcode
 
+import com.aoc.intcode.InstructionLength.*
 import java.util.*
 
 class OpCode(value: String) {
@@ -24,10 +25,14 @@ class OpCode(value: String) {
 
     fun operation(): Operation {
         return when(value) {
-            1 -> Operation.ADD //4 Address Instruction
-            2 -> Operation.MULTIPLY //4 Address Instruction
-            3 -> Operation.INPUT //2 Address Instruction
-            4 -> Operation.OUTPUT //2 Address Instruction
+            1 -> Operation.ADD
+            2 -> Operation.MULTIPLY
+            3 -> Operation.INPUT
+            4 -> Operation.OUTPUT
+            5 -> Operation.JUMP_IF_TRUE
+            6 -> Operation.JUMP_IF_FALSE
+            7 -> Operation.LESS_THAN
+            8 -> Operation.EQUALS
             99 -> Operation.HALT
             else -> Operation.UNKNOWN
         }
@@ -35,10 +40,10 @@ class OpCode(value: String) {
 
     fun instructionLength(): Int {
         return when(value) {
-            1 -> 4
-            2 -> 4
-            3 -> 2
-            4 -> 2
+            1 -> FOUR_ADDRESS_INSTRUCTION.length
+            2 -> FOUR_ADDRESS_INSTRUCTION.length
+            3 -> TWO_ADDRESS_INSTRUCTION.length
+            4 -> TWO_ADDRESS_INSTRUCTION.length
             99 -> 0
             else -> throw IllegalArgumentException("Invalid OpCode Value: $value")
         }
@@ -48,7 +53,7 @@ class OpCode(value: String) {
         return parameterModes.pop()
     }
 
-    fun isValid() = arrayOf(1, 2, 3, 4, 99).contains(value)
+    fun isValid() = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 99).contains(value)
 
     fun getValue() = value
 

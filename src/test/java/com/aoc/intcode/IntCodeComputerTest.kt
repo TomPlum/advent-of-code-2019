@@ -6,6 +6,9 @@ import com.aoc.input.InputReader
 import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 
 class IntCodeComputerTest {
     private val largeExampleProgram = "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31," +
@@ -262,5 +265,28 @@ class IntCodeComputerTest {
         assertThat(computer.getDiagnosticCode()).isEqualTo(1001)
     }
 
+    @Test
+    @DisplayName("Given the output has at least one code, when getting the diagnostic code, then it should return the final code from the output")
+    fun getDiagnosticCode() {
+        val computer = IntCodeComputer("4,3,99,250")
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(250)
+    }
+
+    @Test
+    @DisplayName("Given the output is empty, when getting the diagnostic code, then it should throw an exception")
+    fun getDiagnosticCodeWhenEmptyOutput() {
+        val computer = IntCodeComputer("1,0,0,0,99")
+        computer.compute()
+        assertThrows<IllegalStateException> { computer.getDiagnosticCode() }
+    }
+
+    @Test
+    @DisplayName("Given an unknown OpCode, when computing, then it should throw an exception")
+    fun unknownValue() {
+        val computer = IntCodeComputer("8720")
+        val e = assertThrows<IllegalArgumentException> { computer.compute() }
+        assertThat(e.message).isEqualTo("Operation unknown for instruction 8720")
+    }
 
 }

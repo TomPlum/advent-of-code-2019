@@ -33,8 +33,8 @@ class IntCodeComputer constructor(programString: String) {
                     memory.updateInstructionAtAddress(inputAddress, systemInput[0])
                 }
                 Operation.OUTPUT -> {
-                    val input = getInstructionValue(opCode, memory, pointer + 1)
-                    systemOutput(input)
+                    val value = getInstructionValue(opCode, memory, pointer + 1)
+                    systemOutput(value)
                 }
                 Operation.JUMP_IF_TRUE -> {
                     val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
@@ -79,7 +79,7 @@ class IntCodeComputer constructor(programString: String) {
                     println("System Output: $systemOutput")
                     return program.toString()
                 }
-                Operation.UNKNOWN -> throw IllegalArgumentException("Operation Unknown For Instruction ${opCode.getValue()}")
+                Operation.UNKNOWN -> throw IllegalArgumentException("Operation unknown for instruction ${opCode.getValue()}")
             }
 
             if (opCode.operation() != Operation.JUMP_IF_FALSE && opCode.operation() != Operation.JUMP_IF_TRUE) {

@@ -3,16 +3,16 @@ package com.aoc.intcode
 import com.aoc.intcode.InstructionLength.*
 import java.util.*
 
-class OpCode(value: String) {
-    private var value: Int
+data class OpCode(val instructionValue: String) {
+    private var value: Int = 0
     private val parameterModes: Stack<ParameterMode> = Stack()
 
     init {
-        val paddedValue = value.padStart(4, '0')
+        val paddedValue = instructionValue.padStart(4, '0')
         if (paddedValue.takeLast(2).toInt() == 99) {
             this.value = 99
         } else {
-            this.value = value.takeLast(1).toInt()
+            this.value = instructionValue.takeLast(1).toInt()
         }
         paddedValue.take(paddedValue.length - 2).forEach {
             if (it == '1') {
@@ -49,7 +49,7 @@ class OpCode(value: String) {
             7 -> FOUR_ADDRESS_INSTRUCTION.length
             8 -> FOUR_ADDRESS_INSTRUCTION.length
             99 -> ONE_ADDRESS_INSTRUCTION.length
-            else -> throw IllegalArgumentException("Invalid OpCode Value: $value")
+            else -> throw IllegalArgumentException("Invalid OpCode Value: $instructionValue")
         }
     }
 
@@ -59,6 +59,6 @@ class OpCode(value: String) {
 
     fun isValid() = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 99).contains(value)
 
-    fun getValue() = value
+    fun getValue() = instructionValue
 
 }

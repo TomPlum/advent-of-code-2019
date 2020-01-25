@@ -65,6 +65,7 @@ class IntCodeComputerTest {
         assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(10566835)
     }
 
+    @Test
     fun dayFivePartTwoSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)

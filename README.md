@@ -20,7 +20,7 @@ https://adventofcode.com/2019/
 
 ## Day 5 - Sunny with a Chance of Asteroids
 **Part 1:** 5044655 \
-**Part 2:** N/A
+**Part 2:** 7408802
 
 ## Day 6 - Universal Orbit Map
 **Part 1:** N/A \

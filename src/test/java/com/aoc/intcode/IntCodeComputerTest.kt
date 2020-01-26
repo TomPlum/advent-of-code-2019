@@ -66,6 +66,16 @@ class IntCodeComputerTest {
     }
 
     @Test
+    @DisplayName("Given a noun of 23 and a verb of 47, when restoring the gravity assist program, then the output should be 19690720")
+    fun dayTwoPartTwoSolution() {
+        val puzzleInput = InputReader().readInputAsSingleString(Day.from(2))
+        val computer = IntCodeComputer(puzzleInput)
+        computer.restoreGravityAssistProgram(23, 47)
+        computer.compute()
+        assertThat(computer.getProgramMemory().getInstructionAtAddress(0)).isEqualTo(19690720)
+    }
+
+    @Test
     fun dayFivePartTwoSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)

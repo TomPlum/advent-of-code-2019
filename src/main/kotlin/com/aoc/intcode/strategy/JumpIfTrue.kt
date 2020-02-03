@@ -4,7 +4,7 @@ import com.aoc.intcode.InstructionLength
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
 
-class JumpIfTrue: InstructionStrategy() {
+class JumpIfTrue : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, mode: ParameterMode): Memory {
         val firstParameter = getValue(memorySnapshot, mode, 1)
         val secondParameter = getValue(memorySnapshot, mode, 2)

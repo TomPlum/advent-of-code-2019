@@ -3,7 +3,7 @@ package com.aoc.intcode.strategy
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
 
-class Multiply: InstructionStrategy() {
+class Multiply : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, mode: ParameterMode): Memory {
         val firstValue = getValue(memorySnapshot, mode, 1)
         val secondValue = getValue(memorySnapshot, mode, 2)

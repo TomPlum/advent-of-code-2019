@@ -20,11 +20,12 @@ class JumpIfTrueTest {
     }
 
     @Test
-    @DisplayName("Given a Jump If True OpCode in POSITION mode, when the first parameter is zero, then it should do nothing")
+    @DisplayName("Given a Jump If True OpCode in POSITION mode, when the first parameter is zero," +
+    "then it should increment the instruction pointer by the instruction length")
     fun jumpIfTrueFirstParameterZeroPositionMode() {
-        val memorySnapshot = Memory(listOf(5,0,1,99))
+        val memorySnapshot = Memory(listOf(5,2,0,99))
         val finalSnapshot = strategy.execute(memorySnapshot, ParameterMode.POSITION)
-        assertThat(finalSnapshot.instructionPointer).isEqualTo(0)
+        assertThat(finalSnapshot.instructionPointer).isEqualTo(2)
     }
 
     @Test
@@ -37,7 +38,8 @@ class JumpIfTrueTest {
     }
 
     @Test
-    @DisplayName("Given a Jump If True OpCode in IMMEDIATE mode, when the first parameter is zero, then it should increment the instruction pointer by it's instruction length")
+    @DisplayName("Given a Jump If True OpCode in IMMEDIATE mode, when the first parameter is zero," +
+    "then it should increment the instruction pointer by it's instruction length")
     fun jumpIfTrueFirstParameterZeroImmediateMode() {
         val memorySnapshot = Memory(listOf(5,0,1,99))
         val finalSnapshot = strategy.execute(memorySnapshot, ParameterMode.IMMEDIATE)

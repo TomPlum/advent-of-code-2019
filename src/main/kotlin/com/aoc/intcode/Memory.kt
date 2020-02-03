@@ -26,7 +26,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
 
     fun systemInput(value: Int) = input.add(value)
 
-    private fun systemOutput(value: Int) = output.add(value)
+    fun systemOutput(value: Int) = output.add(value)
 
     fun getDiagnosticCode(): Int? {
         if (output.size > 0) return output.last

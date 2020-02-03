@@ -1,6 +1,7 @@
 package com.aoc.intcode
 
 import com.aoc.intcode.InstructionLength.*
+import com.aoc.intcode.strategy.*
 import java.util.*
 
 data class OpCode(val instructionValue: String) {
@@ -35,6 +36,21 @@ data class OpCode(val instructionValue: String) {
             8 -> InstructionType.EQUALS
             99 -> InstructionType.HALT
             else -> InstructionType.UNKNOWN
+        }
+    }
+
+    fun getOperationStrategy(): InstructionStrategy {
+        return when(value) {
+            1 -> Add()
+            2 -> Multiply()
+            3 -> Input()
+            4 -> Output()
+            5 -> TODO()
+            6 -> TODO()
+            7 -> TODO()
+            8 -> TODO()
+            99 -> TODO()
+            else -> TODO()
         }
     }
 

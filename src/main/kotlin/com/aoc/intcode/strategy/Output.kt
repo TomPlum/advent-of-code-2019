@@ -3,10 +3,10 @@ package com.aoc.intcode.strategy
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
 
-class Input : InstructionStrategy() {
+class Output: InstructionStrategy() {
     override fun execute(memorySnapshot: Memory, mode: ParameterMode): Memory {
-        val inputAddress = getValue(memorySnapshot, mode, 1)
-        memorySnapshot.updateInstructionAtAddress(inputAddress, memorySnapshot.getInput())
+        val outputValue = getValue(memorySnapshot, mode, 1)
+        memorySnapshot.systemOutput(outputValue)
         return memorySnapshot
     }
 }

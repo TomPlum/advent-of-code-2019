@@ -7,10 +7,11 @@ abstract class OperationStrategy {
     abstract fun execute(memorySnapshot: Memory, mode: ParameterMode): Memory
 
     protected fun getValue(memorySnapshot: Memory, mode: ParameterMode, addressesAfterPointer: Int): Int {
-        val index = memorySnapshot.getInstructionAtAddress(memorySnapshot.instructionPointer + addressesAfterPointer)
+        val parameterIndex = memorySnapshot.instructionPointer + addressesAfterPointer
+        val valueIndex = memorySnapshot.getInstructionAtAddress(parameterIndex)
         return when (mode) {
-            ParameterMode.POSITION -> memorySnapshot.getInstructionAtAddress(index)
-            ParameterMode.IMMEDIATE -> index
+            ParameterMode.POSITION -> memorySnapshot.getInstructionAtAddress(valueIndex)
+            ParameterMode.IMMEDIATE -> valueIndex
         }
     }
 }

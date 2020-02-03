@@ -1,5 +1,5 @@
 package com.aoc.intcode
 
 enum class InstructionType {
-    OPCODE, FIRST_INPUT, SECOND_INPUT, OUTPUT
+    ADD, MULTIPLY, HALT, INPUT, OUTPUT, JUMP_IF_TRUE, JUMP_IF_FALSE, LESS_THAN, EQUALS, UNKNOWN
 }

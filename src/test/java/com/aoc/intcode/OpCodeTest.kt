@@ -33,7 +33,7 @@ class OpCodeTest {
     fun operationOne() {
         val opCode = OpCode("1")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.ADD)
+        assertThat(operation).isEqualTo(InstructionType.ADD)
     }
 
     @Test
@@ -41,7 +41,7 @@ class OpCodeTest {
     fun operationTwo() {
         val opCode = OpCode("2")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.MULTIPLY)
+        assertThat(operation).isEqualTo(InstructionType.MULTIPLY)
     }
 
     @Test
@@ -49,7 +49,7 @@ class OpCodeTest {
     fun operationThree() {
         val opCode = OpCode("3")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.INPUT)
+        assertThat(operation).isEqualTo(InstructionType.INPUT)
     }
 
     @Test
@@ -57,7 +57,7 @@ class OpCodeTest {
     fun operationFour() {
         val opCode = OpCode("4")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.OUTPUT)
+        assertThat(operation).isEqualTo(InstructionType.OUTPUT)
     }
 
     @Test
@@ -65,7 +65,7 @@ class OpCodeTest {
     fun operationFive() {
         val opCode = OpCode("5")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.JUMP_IF_TRUE)
+        assertThat(operation).isEqualTo(InstructionType.JUMP_IF_TRUE)
     }
 
     @Test
@@ -73,7 +73,7 @@ class OpCodeTest {
     fun operationSix() {
         val opCode = OpCode("6")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.JUMP_IF_FALSE)
+        assertThat(operation).isEqualTo(InstructionType.JUMP_IF_FALSE)
     }
 
     @Test
@@ -81,7 +81,7 @@ class OpCodeTest {
     fun operationSeven() {
         val opCode = OpCode("7")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.LESS_THAN)
+        assertThat(operation).isEqualTo(InstructionType.LESS_THAN)
     }
 
     @Test
@@ -89,7 +89,7 @@ class OpCodeTest {
     fun operationEight() {
         val opCode = OpCode("8")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.EQUALS)
+        assertThat(operation).isEqualTo(InstructionType.EQUALS)
     }
 
     @Test
@@ -97,7 +97,7 @@ class OpCodeTest {
     fun operationNinetyNine() {
         val opCode = OpCode("99")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.HALT)
+        assertThat(operation).isEqualTo(InstructionType.HALT)
     }
 
     @Test
@@ -105,7 +105,7 @@ class OpCodeTest {
     fun doubleDigitOpCode() {
         val opCode = OpCode("01")
         val operation = opCode.operation()
-        assertThat(operation).isEqualTo(Operation.ADD)
+        assertThat(operation).isEqualTo(InstructionType.ADD)
     }
 
     @Test

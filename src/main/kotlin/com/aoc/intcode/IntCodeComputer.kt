@@ -16,27 +16,27 @@ class IntCodeComputer constructor(programString: String) {
             val opCode = OpCode(memory.getCurrentInstruction().toString())
 
             when (opCode.operation()) {
-                Operation.ADD -> {
+                InstructionType.ADD -> {
                     val firstInputValue = getInstructionValue(opCode, memory, pointer + 1)
                     val secondInputValue = getInstructionValue(opCode, memory, pointer + 2)
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue + secondInputValue)
                 }
-                Operation.MULTIPLY -> {
+                InstructionType.MULTIPLY -> {
                     val firstInputValue = getInstructionValue(opCode, memory, pointer + 1)
                     val secondInputValue = getInstructionValue(opCode, memory, pointer + 2)
                     val addressToUpdate = memory.getInstructionAtAddress(pointer + 3)
                     memory.updateInstructionAtAddress(addressToUpdate, firstInputValue * secondInputValue)
                 }
-                Operation.INPUT -> {
+                InstructionType.INPUT -> {
                     val inputAddress = memory.getInstructionAtAddress(pointer + 1)
                     memory.updateInstructionAtAddress(inputAddress, systemInput[0])
                 }
-                Operation.OUTPUT -> {
+                InstructionType.OUTPUT -> {
                     val value = getInstructionValue(opCode, memory, pointer + 1)
                     systemOutput(value)
                 }
-                Operation.JUMP_IF_TRUE -> {
+                InstructionType.JUMP_IF_TRUE -> {
                     val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
                     val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     if (firstParameter != 0) {
@@ -45,7 +45,7 @@ class IntCodeComputer constructor(programString: String) {
                         memory.incrementInstructionPointer(opCode.instructionLength())
                     }
                 }
-                Operation.JUMP_IF_FALSE -> {
+                InstructionType.JUMP_IF_FALSE -> {
                     val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
                     val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     if (firstParameter == 0) {
@@ -54,7 +54,7 @@ class IntCodeComputer constructor(programString: String) {
                         memory.incrementInstructionPointer(opCode.instructionLength())
                     }
                 }
-                Operation.LESS_THAN -> {
+                InstructionType.LESS_THAN -> {
                     val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
                     val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     val updateIndex = memory.getInstructionAtAddress(pointer + 3)
@@ -64,7 +64,7 @@ class IntCodeComputer constructor(programString: String) {
                         memory.updateInstructionAtAddress(updateIndex, 0)
                     }
                 }
-                Operation.EQUALS -> {
+                InstructionType.EQUALS -> {
                     val firstParameter = getInstructionValue(opCode, memory, pointer + 1)
                     val secondParameter = getInstructionValue(opCode, memory, pointer + 2)
                     val updateIndex = memory.getInstructionAtAddress(pointer + 3)
@@ -74,15 +74,15 @@ class IntCodeComputer constructor(programString: String) {
                         memory.updateInstructionAtAddress(updateIndex, 0)
                     }
                 }
-                Operation.HALT -> {
+                InstructionType.HALT -> {
                     println("System Input: $systemInput")
                     println("System Output: $systemOutput")
                     return program.toString()
                 }
-                Operation.UNKNOWN -> throw IllegalArgumentException("Operation unknown for instruction ${opCode.getValue()}")
+                InstructionType.UNKNOWN -> throw IllegalArgumentException("Operation unknown for instruction ${opCode.getValue()}")
             }
 
-            if (opCode.operation() != Operation.JUMP_IF_FALSE && opCode.operation() != Operation.JUMP_IF_TRUE) {
+            if (opCode.operation() != InstructionType.JUMP_IF_FALSE && opCode.operation() != InstructionType.JUMP_IF_TRUE) {
                 memory.incrementInstructionPointer(opCode.instructionLength())
             }
         }

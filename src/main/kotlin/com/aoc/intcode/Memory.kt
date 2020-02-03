@@ -1,8 +1,12 @@
 package com.aoc.intcode
 
+import java.util.*
+
 class Memory constructor(private val initialMemorySnapshot: List<Int>) {
     var instructions: MutableList<Int> = initialMemorySnapshot.toMutableList()
     var instructionPointer = 0
+    private val input = LinkedList<Int>()
+    private val output = LinkedList<Int>()
 
     fun reset() {
         instructions = initialMemorySnapshot.toMutableList()
@@ -19,6 +23,17 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
     fun incrementInstructionPointer(value: Int) {
         instructionPointer += value
     }
+
+    fun systemInput(value: Int) = input.add(value)
+
+    private fun systemOutput(value: Int) = output.add(value)
+
+    fun getDiagnosticCode(): Int? {
+        if (output.size > 0) return output.last
+        throw IllegalStateException("System output is empty!")
+    }
+
+    fun getInput() = input[0]
 
     override fun toString() = instructions.toString()
 

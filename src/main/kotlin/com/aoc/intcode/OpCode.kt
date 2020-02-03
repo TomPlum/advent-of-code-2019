@@ -23,18 +23,18 @@ data class OpCode(val instructionValue: String) {
         }
     }
 
-    fun operation(): Operation {
+    fun operation(): InstructionType {
         return when(value) {
-            1 -> Operation.ADD
-            2 -> Operation.MULTIPLY
-            3 -> Operation.INPUT
-            4 -> Operation.OUTPUT
-            5 -> Operation.JUMP_IF_TRUE
-            6 -> Operation.JUMP_IF_FALSE
-            7 -> Operation.LESS_THAN
-            8 -> Operation.EQUALS
-            99 -> Operation.HALT
-            else -> Operation.UNKNOWN
+            1 -> InstructionType.ADD
+            2 -> InstructionType.MULTIPLY
+            3 -> InstructionType.INPUT
+            4 -> InstructionType.OUTPUT
+            5 -> InstructionType.JUMP_IF_TRUE
+            6 -> InstructionType.JUMP_IF_FALSE
+            7 -> InstructionType.LESS_THAN
+            8 -> InstructionType.EQUALS
+            99 -> InstructionType.HALT
+            else -> InstructionType.UNKNOWN
         }
     }
 

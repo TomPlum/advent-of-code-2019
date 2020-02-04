@@ -1,8 +1,8 @@
 package com.aoc.solutions
 
+import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.IntCodeComputer
-import com.aoc.input.Day
 
 fun main() {
     val inputReader = InputReader()

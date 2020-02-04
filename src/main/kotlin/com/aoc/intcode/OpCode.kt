@@ -6,7 +6,7 @@ import java.util.*
 
 data class OpCode(val instructionValue: String) {
     private var value: Int = 0
-    private val parameterModes: Stack<ParameterMode> = Stack()
+    val parameterModes: Stack<ParameterMode> = Stack()
 
     init {
         val paddedValue = instructionValue.padStart(4, '0')

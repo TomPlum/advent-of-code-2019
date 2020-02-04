@@ -1,7 +1,7 @@
 package com.aoc.intcode
 
-import java.lang.IllegalArgumentException
 import java.util.*
+
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
 
@@ -114,7 +114,7 @@ class IntCodeComputer constructor(programString: String) {
 
     private fun systemOutput(value: Int) = systemOutput.add(value)
 
-    fun getDiagnosticCode(): Int? {
+    fun getDiagnosticCode(): Int {
         if (systemOutput.size > 0) return systemOutput.last
         throw IllegalStateException("System output is empty!")
     }

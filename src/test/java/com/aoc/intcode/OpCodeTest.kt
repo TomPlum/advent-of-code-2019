@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class OpCodeTest {
     @ParameterizedTest
-    @ValueSource(ints = [-10, 0, 9, 98, 100])
+    @ValueSource(ints = [-10, 0, 9, 100])
     @DisplayName("Given an invalid OpCode value, when checking if valid, then it should return false")
     fun invalidValue(value: Int) {
         val opCode = OpCode(value.toString())

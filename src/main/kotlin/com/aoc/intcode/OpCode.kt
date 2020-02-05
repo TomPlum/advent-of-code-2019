@@ -2,6 +2,7 @@ package com.aoc.intcode
 
 import com.aoc.intcode.InstructionLength.*
 import com.aoc.intcode.strategy.*
+import com.aoc.intcode.strategy.instructions.*
 import java.util.*
 
 data class OpCode(val instructionValue: String) {

@@ -4,10 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
-import com.aoc.intcode.ParameterMode
+import com.aoc.intcode.strategy.instructions.JumpIfFalse
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.util.*
 
 class JumpIfFalseTest {
     private val strategy = JumpIfFalse()

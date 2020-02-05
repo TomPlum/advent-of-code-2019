@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
+import com.aoc.intcode.strategy.instructions.Output
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -19,7 +20,7 @@ class OutputTest {
         memorySnapshot.incrementInstructionPointer(2)
         parameterModes.push(ParameterMode.POSITION)
         val finalSnapshot = strategy.execute(memorySnapshot, parameterModes)
-        assertThat(finalSnapshot.getDiagnosticCode()).isEqualTo(50)
+        assertThat(finalSnapshot.getLastOutputValue()).isEqualTo(50)
     }
 
     @Test
@@ -29,6 +30,6 @@ class OutputTest {
         memorySnapshot.incrementInstructionPointer(2)
         parameterModes.push(ParameterMode.IMMEDIATE)
         val finalSnapshot = strategy.execute(memorySnapshot, parameterModes)
-        assertThat(finalSnapshot.getDiagnosticCode()).isEqualTo(1)
+        assertThat(finalSnapshot.getLastOutputValue()).isEqualTo(1)
     }
 }

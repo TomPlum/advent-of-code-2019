@@ -1,8 +1,9 @@
-package com.aoc.intcode.strategy
+package com.aoc.intcode.strategy.instructions
 
 import com.aoc.intcode.InstructionLength
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
+import com.aoc.intcode.strategy.InstructionStrategy
 import java.util.*
 
 class Equals: InstructionStrategy {

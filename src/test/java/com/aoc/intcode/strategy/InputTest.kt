@@ -4,11 +4,10 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
-import com.aoc.intcode.ParameterMode
+import com.aoc.intcode.strategy.instructions.Input
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.util.*
 
 class InputTest {
     private val strategy = Input()

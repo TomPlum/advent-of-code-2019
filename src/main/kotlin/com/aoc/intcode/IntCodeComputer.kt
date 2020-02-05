@@ -11,7 +11,7 @@ class IntCodeComputer constructor(programString: String) {
             try {
                 memory = opCode.getOperationStrategy().execute(memory, opCode.parameterModes)
             } catch (e: HaltProgram) {
-                return memory.instructions.joinToString(",", postfix = "") { it.toString() }
+                return program.toString()
             }
         }
     }
@@ -25,15 +25,9 @@ class IntCodeComputer constructor(programString: String) {
 
     fun startThermalRadiatorControllerDiagnosticTest() = program.memory.systemInput(5)
 
-    fun getProgramMemory(): Memory {
-        return program.memory
-    }
+    fun getProgramMemory(): Memory = program.memory
 
-    fun getDiagnosticCode(): Int? {
-        //TODO: move into memory as something like "Get last output value", then expose here as diagnostic code
-        if (program.memory.output.size > 0) return program.memory.getDiagnosticCode()
-        throw IllegalStateException("System output is empty!")
-    }
+    fun getDiagnosticCode(): Int? = getProgramMemory().getLastOutputValue()
 }
 
 

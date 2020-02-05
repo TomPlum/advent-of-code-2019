@@ -1,9 +1,9 @@
-package com.aoc.intcode.strategy.instructions
+package com.aoc.intcode.instructions.strategies
 
-import com.aoc.intcode.HaltProgram
+import com.aoc.intcode.exceptions.HaltProgram
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
-import com.aoc.intcode.strategy.InstructionStrategy
+import com.aoc.intcode.instructions.InstructionStrategy
 import java.util.*
 
 class Halt: InstructionStrategy {

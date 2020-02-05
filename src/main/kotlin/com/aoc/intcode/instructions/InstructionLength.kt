@@ -1,4 +1,4 @@
-package com.aoc.intcode
+package com.aoc.intcode.instructions
 
 enum class InstructionLength(val length: Int) {
     ONE_ADDRESS_INSTRUCTION(1),

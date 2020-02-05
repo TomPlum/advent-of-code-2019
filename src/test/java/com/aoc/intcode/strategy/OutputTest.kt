@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
-import com.aoc.intcode.strategy.instructions.Output
+import com.aoc.intcode.instructions.strategies.Output
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.*

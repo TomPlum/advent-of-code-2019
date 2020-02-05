@@ -1,8 +1,7 @@
 package com.aoc.intcode
 
-import com.aoc.intcode.InstructionLength.*
-import com.aoc.intcode.strategy.*
-import com.aoc.intcode.strategy.instructions.*
+import com.aoc.intcode.instructions.InstructionStrategy
+import com.aoc.intcode.instructions.strategies.*
 import java.util.*
 
 data class OpCode(val instructionValue: String) {
@@ -25,21 +24,6 @@ data class OpCode(val instructionValue: String) {
         }
     }
 
-    fun operation(): InstructionType {
-        return when(value) {
-            1 -> InstructionType.ADD
-            2 -> InstructionType.MULTIPLY
-            3 -> InstructionType.INPUT
-            4 -> InstructionType.OUTPUT
-            5 -> InstructionType.JUMP_IF_TRUE
-            6 -> InstructionType.JUMP_IF_FALSE
-            7 -> InstructionType.LESS_THAN
-            8 -> InstructionType.EQUALS
-            99 -> InstructionType.HALT
-            else -> InstructionType.UNKNOWN
-        }
-    }
-
     fun getOperationStrategy(): InstructionStrategy {
         return when(value) {
             1 -> Add()
@@ -52,21 +36,6 @@ data class OpCode(val instructionValue: String) {
             8 -> Equals()
             99 -> Halt()
             else -> Unknown()
-        }
-    }
-
-    fun instructionLength(): Int {
-        return when(value) {
-            1 -> FOUR_ADDRESS_INSTRUCTION.length
-            2 -> FOUR_ADDRESS_INSTRUCTION.length
-            3 -> TWO_ADDRESS_INSTRUCTION.length
-            4 -> TWO_ADDRESS_INSTRUCTION.length
-            5 -> THREE_ADDRESS_INSTRUCTION.length
-            6 -> THREE_ADDRESS_INSTRUCTION.length
-            7 -> FOUR_ADDRESS_INSTRUCTION.length
-            8 -> FOUR_ADDRESS_INSTRUCTION.length
-            99 -> ONE_ADDRESS_INSTRUCTION.length
-            else -> throw IllegalArgumentException("Invalid OpCode Value: $instructionValue")
         }
     }
 

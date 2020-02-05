@@ -1,4 +1,4 @@
-package com.aoc.intcode
+package com.aoc.intcode.exceptions
 
 import java.lang.Exception
 

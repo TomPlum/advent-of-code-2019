@@ -1,9 +1,9 @@
 package com.aoc.intcode.strategy
 
-import com.aoc.intcode.HaltProgram
+import com.aoc.intcode.exceptions.HaltProgram
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
-import com.aoc.intcode.strategy.instructions.Halt
+import com.aoc.intcode.instructions.strategies.Halt
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

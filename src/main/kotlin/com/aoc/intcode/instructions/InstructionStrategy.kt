@@ -1,4 +1,4 @@
-package com.aoc.intcode.strategy
+package com.aoc.intcode.instructions
 
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode

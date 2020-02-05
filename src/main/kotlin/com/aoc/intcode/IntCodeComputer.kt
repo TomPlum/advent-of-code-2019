@@ -1,5 +1,7 @@
 package com.aoc.intcode
 
+import com.aoc.intcode.exceptions.HaltProgram
+
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
 

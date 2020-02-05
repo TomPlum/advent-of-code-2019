@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 
 class OrbitalMapTest {
     @Test
+    @Disabled("Until continue with Day 6")
     @DisplayName("Given the example, when calculating the combined number of direct and indirect orbits, then it should return 42")
     fun example() {
         val input = listOf("COM)B", "B)C", "C)D", "D)E", "E)F", "B)G", "G)H", "D)I", "E)J", "J)K", "K)L")

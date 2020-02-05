@@ -12,7 +12,7 @@ class JumpIfFalse : InstructionStrategy {
         if (firstParameter == 0) {
             memorySnapshot.instructionPointer = secondParameter
         } else {
-            memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION.length)
+            memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION.length)
         }
         return memorySnapshot
     }

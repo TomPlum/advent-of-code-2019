@@ -47,10 +47,10 @@ data class OpCode(val instructionValue: String) {
             4 -> Output()
             5 -> JumpIfTrue()
             6 -> JumpIfFalse()
-            7 -> TODO()
-            8 -> TODO()
-            99 -> TODO()
-            else -> TODO()
+            7 -> LessThan()
+            8 -> Equals()
+            99 -> Halt()
+            else -> Unknown()
         }
     }
 

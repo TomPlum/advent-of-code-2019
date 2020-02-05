@@ -19,7 +19,7 @@ class JumpIfFalseTest {
         val opCode = OpCode("6")
         val memorySnapshot = Memory(listOf(6,2,1,99))
         val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
-        assertThat(finalSnapshot.instructionPointer).isEqualTo(2)
+        assertThat(finalSnapshot.instructionPointer).isEqualTo(3)
     }
 
     @Test
@@ -39,7 +39,7 @@ class JumpIfFalseTest {
         val opCode = OpCode("1106")
         val memorySnapshot = Memory(listOf(6,3,1,99))
         val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
-        assertThat(finalSnapshot.instructionPointer).isEqualTo(2)
+        assertThat(finalSnapshot.instructionPointer).isEqualTo(3)
     }
 
     @Test

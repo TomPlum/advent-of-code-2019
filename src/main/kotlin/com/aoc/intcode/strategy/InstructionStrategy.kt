@@ -15,4 +15,9 @@ interface InstructionStrategy {
             ParameterMode.IMMEDIATE -> valueIndex
         }
     }
+
+    fun getWriteToIndex(memorySnapshot: Memory, addressesAfterPointer: Int): Int {
+        val parameterIndex = memorySnapshot.instructionPointer + addressesAfterPointer
+        return memorySnapshot.getInstructionAtAddress(parameterIndex)
+    }
 }

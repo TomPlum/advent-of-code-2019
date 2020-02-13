@@ -2,10 +2,14 @@ package com.aoc.orbit
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EmptySource
+import org.junit.jupiter.params.provider.ValueSource
 
 class BodyTest {
     @Test
@@ -49,6 +53,60 @@ class BodyTest {
         assertThat(b.parent).isEqualTo(barycenter)
         assertThat(c.parent).isEqualTo(barycenter)
         assertThat(d.parent).isEqualTo(barycenter)
+    }
+
+    @Test
+    @DisplayName("Given a body with the name COM, when checking if it is the center of mass, then it should return true")
+    fun isMassCenter() {
+        val body = Body("COM")
+        val isMassCenter = body.isMassCenter()
+        assertThat(isMassCenter).isTrue()
+    }
+
+    @ParameterizedTest
+    @EmptySource
+    @ValueSource(strings = ["BYA", "LKA", "CAM", "C0M", "MOC", "OIA"])
+    @DisplayName("Given a body with the name that is NOT COM, when checking if it is the center of mass, then it should return false")
+    fun isNotMassCenter(name: String) {
+        val body = Body(name)
+        val isMassCenter = body.isMassCenter()
+        assertThat(isMassCenter).isFalse()
+    }
+
+    @Test
+    @DisplayName("Given a body with the name YOU, when checking if it is you, then it should return true")
+    fun isYou() {
+        val body = Body("YOU")
+        val isYou = body.isYou()
+        assertThat(isYou).isTrue()
+    }
+
+    @ParameterizedTest
+    @EmptySource
+    @ValueSource(strings = ["BYA", "LKA", "YUO", "Y0U", "MOC", "OIA"])
+    @DisplayName("Given a body with the name that is NOT YOU, when checking if it is you, then it should return false")
+    fun isNotYou(name: String) {
+        val body = Body(name)
+        val isYou = body.isYou()
+        assertThat(isYou).isFalse()
+    }
+
+    @Test
+    @DisplayName("Given a body with the name SAN, when checking if it is santa, then it should return true")
+    fun isSanta() {
+        val body = Body("SAN")
+        val isSanta = body.isSanta()
+        assertThat(isSanta).isTrue()
+    }
+
+    @ParameterizedTest
+    @EmptySource
+    @ValueSource(strings = ["BYA", "LKA", "SNA", "NAS", "MOC", "OIA"])
+    @DisplayName("Given a body with the name that is NOT SAN, when checking if it is santa, then it should return false")
+    fun isNotSanta(name: String) {
+        val body = Body(name)
+        val isSanta = body.isSanta()
+        assertThat(isSanta).isFalse()
     }
 
 }

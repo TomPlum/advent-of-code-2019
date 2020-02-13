@@ -18,4 +18,10 @@ data class Body (val name: String) {
         return getAncestralBodyCount() + orbitingBodies.map { it.getOrbitCount() }.sum()
     }
 
+    fun isMassCenter() = name == "COM"
+
+    fun isYou() = name == "YOU"
+
+    fun isSanta() = name == "SAN"
+
 }

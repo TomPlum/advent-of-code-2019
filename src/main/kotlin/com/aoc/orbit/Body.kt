@@ -12,5 +12,10 @@ data class Body (val name: String) {
         body.parent = this
     }
 
-    fun hasNoOrbitals(): Boolean = orbitingBodies.size == 0
+    private fun getAncestralBodyCount(): Int = if (parent != null) 1 + parent!!.getAncestralBodyCount() else 0
+
+    fun getOrbitCount(): Int {
+        return getAncestralBodyCount() + orbitingBodies.map { it.getOrbitCount() }.sum()
+    }
+
 }

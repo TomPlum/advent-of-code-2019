@@ -1,10 +1,10 @@
 package com.aoc.orbit
 
 class OrbitalMap(val input: List<String>) {
+    private val map: Set<Body>
 
-    fun readOrbits(): Int {
-
-        val map = input.fold(HashMap<String, Body>()) { map, bodyPair ->
+    init {
+        map = input.fold(HashMap<String, Body>()) { map, bodyPair ->
             val checksum = OrbitCountChecksum(bodyPair)
             val currentBarycenter = checksum.getBarycenter()
             val currentOrbital = checksum.getOrbital()
@@ -16,9 +16,18 @@ class OrbitalMap(val input: List<String>) {
 
             return@fold map
         }.values.toSet()
+    }
 
-        return map.first { it.isMassCenter() }.getOrbitCount()
+    fun readOrbits(): Int = map.first { it.isMassCenter() }.getOrbitCount()
 
+
+    fun orbitalTransfersRequiredToReachSanta(): Int {
+        val you = map.first { it.isYou() }.getAncestralBodies()
+        val santa = map.first { it.isSanta() }.getAncestralBodies()
+
+        val intersection = you.intersect(santa)
+
+        return (you.size - intersection.size) + (santa.size - intersection.size) - 2
     }
 
 }

@@ -24,4 +24,4 @@ https://adventofcode.com/2019/
 
 ## Day 6 - Universal Orbit Map
 **Part 1:** 314702 \
-**Part 2:** N/A
+**Part 2:** 439

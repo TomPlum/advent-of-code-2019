@@ -24,7 +24,7 @@ data class OpCode(val instructionValue: String) {
         }
     }
 
-    fun getOperationStrategy(): InstructionStrategy {
+    fun getInstructionStrategy(): InstructionStrategy {
         return when(value) {
             1 -> Add()
             2 -> Multiply()

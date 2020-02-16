@@ -11,7 +11,7 @@ class IntCodeComputer constructor(programString: String) {
         while (true) {
             val opCode = OpCode(memory.getCurrentInstruction().toString())
             try {
-                memory = opCode.getOperationStrategy().execute(memory, opCode.parameterModes)
+                memory = opCode.getInstructionStrategy().execute(memory, opCode.parameterModes)
             } catch (e: HaltProgram) {
                 return program.toString()
             }

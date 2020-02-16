@@ -34,7 +34,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 1, when getting the operation, then it should return ADD")
     fun operationOne() {
         val opCode = OpCode("1")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Add::class)
     }
 
@@ -42,7 +42,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 2, when getting the operation, then it should return MULTIPLY")
     fun operationTwo() {
         val opCode = OpCode("2")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Multiply::class)
     }
 
@@ -50,7 +50,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 3, when getting the operation, then it should return INPUT")
     fun operationThree() {
         val opCode = OpCode("3")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Input::class)
     }
 
@@ -58,7 +58,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 4, when getting the operation, then it should return OUTPUT")
     fun operationFour() {
         val opCode = OpCode("4")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Output::class)
     }
 
@@ -66,7 +66,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 5, when getting the operation, then it should return JUMP_IF_TRUE")
     fun operationFive() {
         val opCode = OpCode("5")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(JumpIfTrue::class)
     }
 
@@ -74,7 +74,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 6, when getting the operation, then it should return JUMP_IF_FALSE")
     fun operationSix() {
         val opCode = OpCode("6")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(JumpIfFalse::class)
     }
 
@@ -82,7 +82,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 7, when getting the operation, then it should return LESS_THAN")
     fun operationSeven() {
         val opCode = OpCode("7")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(LessThan::class)
     }
 
@@ -90,7 +90,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 8, when getting the operation, then it should return EQUALS")
     fun operationEight() {
         val opCode = OpCode("8")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Equals::class)
     }
 
@@ -98,7 +98,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode of value 99, when getting the operation, then it should return HALT")
     fun operationNinetyNine() {
         val opCode = OpCode("99")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Halt::class)
     }
 
@@ -106,7 +106,7 @@ class OpCodeTest {
     @DisplayName("Given an OpCode with 2 digits, when getting the operation, then it should parse based on the right-most integer")
     fun doubleDigitOpCode() {
         val opCode = OpCode("01")
-        val operation = opCode.getOperationStrategy()
+        val operation = opCode.getInstructionStrategy()
         assertThat(operation).isInstanceOf(Add::class)
     }
 

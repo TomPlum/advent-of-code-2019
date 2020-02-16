@@ -29,7 +29,7 @@ class IntCodeComputer constructor(programString: String) {
 
     fun getProgramMemory(): Memory = program.memory
 
-    fun getDiagnosticCode(): Int? = getProgramMemory().getLastOutputValue()
+    fun getDiagnosticCode(): Int = getProgramMemory().getLastOutputValue()
 }
 
 

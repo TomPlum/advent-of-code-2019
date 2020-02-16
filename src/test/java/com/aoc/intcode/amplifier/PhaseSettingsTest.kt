@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import java.lang.IllegalArgumentException
 
 class PhaseSettingsTest {
     @ParameterizedTest
@@ -30,5 +29,49 @@ class PhaseSettingsTest {
     fun invalidPhaseSettingsArityTooSmall() {
         val e = assertThrows<IllegalArgumentException> { PhaseSettings(setOf(0, 1, 2, 3, 4, -1)) }
         assertThat(e.message).isEqualTo("A PhaseSettings must have exactly 5 phase settings")
+    }
+
+    @Test
+    @DisplayName("Given a valid PhaseSettings, when getting a setting, it should return the first setting and remove it")
+    fun getSetting() {
+        val phaseSettings = PhaseSettings(setOf(0, 1, 2, 3, 4))
+        val settingZero = phaseSettings.getSetting()
+        assertThat(settingZero).isEqualTo(0)
+
+        val settingOne = phaseSettings.getSetting()
+        assertThat(settingOne).isEqualTo(1)
+
+        val settingTwo = phaseSettings.getSetting()
+        assertThat(settingTwo).isEqualTo(2)
+
+        val settingThree = phaseSettings.getSetting()
+        assertThat(settingThree).isEqualTo(3)
+
+        val settingFour = phaseSettings.getSetting()
+        assertThat(settingFour).isEqualTo(4)
+
+    }
+
+    @Test
+    @DisplayName("Given a valid PhaseSettings, when getting a setting for the 6th time, then it should throw an exception")
+    fun getSettingWhenNoneLeft() {
+        val phaseSettings = PhaseSettings(setOf(0, 1, 2, 3, 4))
+        val settingZero = phaseSettings.getSetting()
+        assertThat(settingZero).isEqualTo(0)
+
+        val settingOne = phaseSettings.getSetting()
+        assertThat(settingOne).isEqualTo(1)
+
+        val settingTwo = phaseSettings.getSetting()
+        assertThat(settingTwo).isEqualTo(2)
+
+        val settingThree = phaseSettings.getSetting()
+        assertThat(settingThree).isEqualTo(3)
+
+        val settingFour = phaseSettings.getSetting()
+        assertThat(settingFour).isEqualTo(4)
+
+        val e = assertThrows<IllegalCallerException> { phaseSettings.getSetting() }
+        assertThat(e.message).isEqualTo("Invalid setting request. There are no phase settings remaining")
     }
 }

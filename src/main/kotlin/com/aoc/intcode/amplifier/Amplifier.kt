@@ -1,5 +1,7 @@
 package com.aoc.intcode.amplifier
 
-class Amplifier (val phaseSetting: Int) {
-
+interface Amplifier {
+    fun inputSignal(inputSignal: Int)
+    fun outputsTo(amplifier: Amplifier)
+    fun loadAmplifierControllerSoftware(software: String)
 }

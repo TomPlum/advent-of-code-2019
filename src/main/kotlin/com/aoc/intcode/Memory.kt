@@ -28,7 +28,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
 
     fun systemOutput(value: Int) = output.add(value)
 
-    fun getLastOutputValue(): Int? {
+    fun getLastOutputValue(): Int {
         if (output.size > 0) return output.last
         throw IllegalStateException("System output is empty!")
     }

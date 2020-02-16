@@ -25,3 +25,7 @@ https://adventofcode.com/2019/
 ## Day 6 - Universal Orbit Map
 **Part 1:** 314702 \
 **Part 2:** 439
+
+##Day 7 - Amplification Circuit
+**Part 1:** N/A \
+**Part 2:** N/A 

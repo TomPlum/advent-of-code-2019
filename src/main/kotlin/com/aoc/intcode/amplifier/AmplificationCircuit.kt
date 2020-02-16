@@ -2,7 +2,7 @@ package com.aoc.intcode.amplifier
 
 class AmplificationCircuit(private val phaseSettings: PhaseSettings, private val software: String) {
 
-    fun calculateMaximumThrusterSignal(): Int {
+    fun calculateThrusterSignal(): Int {
         val a = InitialAmplifier(phaseSettings.getSetting())
         val b = ThrustAmplifier(phaseSettings.getSetting())
         val c = ThrustAmplifier(phaseSettings.getSetting())

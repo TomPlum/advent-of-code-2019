@@ -4,13 +4,12 @@ import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.amplifier.AmplificationCircuit
 import com.aoc.intcode.amplifier.PhaseSettings
-import java.util.*
 
 fun main() {
     val inputReader = InputReader()
     val software = inputReader.readInputAsSingleString(Day.from(7))
-    val perm = PhaseSettingPermutations()
-    val inputPermutations = perm.getPhaseSettingInputPermutations(mutableListOf(0, 1, 2, 3, 4), 0)
+    val perm = PhaseSettings(setOf(0,1,2,3,4)) //TODO: Make static so ignores constructor
+    val inputPermutations = perm.getAllPossiblePhaseSettingCombinations(mutableListOf(0, 1, 2, 3, 4))
 
     val thrusterSignals = mutableListOf<Int>()
 
@@ -22,27 +21,6 @@ fun main() {
     }
 
     val maximumThrusterSignal = thrusterSignals.max()
-    println("Part 1 Solution: $maximumThrusterSignal")
-}
-
-class PhaseSettingPermutations {
-    private val permutations = mutableListOf<Set<Int>>()
-
-    private fun permute(input: MutableList<Int>, k: Int) {
-        for (i in k until input.size) {
-            Collections.swap(input, i, k)
-            permute(input, k + 1)
-            Collections.swap(input, k, i)
-        }
-
-        if (k == input.size - 1) {
-            permutations.add(input.toSet())
-        }
-    }
-
-    fun getPhaseSettingInputPermutations(input: MutableList<Int>, k: Int): MutableList<Set<Int>> {
-        permute(input, k)
-        return permutations
-    }
+    println("Part 1 Solution: $maximumThrusterSignal") //TODO: Answers 21860. Move into other class and test
 }
 

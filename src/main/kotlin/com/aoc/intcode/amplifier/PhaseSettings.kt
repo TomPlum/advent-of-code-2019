@@ -26,4 +26,31 @@ class PhaseSettings(input: Set<Int>) {
         throw IllegalCallerException("Invalid setting request. There are no phase settings remaining")
     }
 
+    fun getAllPossiblePhaseSettingCombinations(phaseSettingValues: MutableList<Int>): MutableList<Set<Int>> {
+        val integerArrayPermutations = IntegerArrayPermutations()
+        return integerArrayPermutations.getPermutationsForIntegerArray(phaseSettingValues)
+    }
+
+    class IntegerArrayPermutations {
+        private val permutations = mutableListOf<Set<Int>>()
+
+        private fun permute(input: MutableList<Int>, k: Int) {
+            for (i in k until input.size) {
+                Collections.swap(input, i, k)
+                permute(input, k + 1)
+                Collections.swap(input, k, i)
+            }
+
+            if (k == input.size - 1) {
+                permutations.add(input.toSet())
+            }
+        }
+
+        fun getPermutationsForIntegerArray(input: MutableList<Int>): MutableList<Set<Int>> {
+            permute(input, 0)
+            return permutations
+        }
+    }
+
+
 }

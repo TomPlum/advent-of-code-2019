@@ -1,8 +1,8 @@
 package com.aoc.intcode.amplifier
 
-class AmplificationCircuit(private val phaseSettings: PhaseSettings, private val software: String) {
+class SeriesAmplificationCircuit : AmplificationCircuitStrategy {
 
-    fun calculateThrusterSignal(): Int {
+    override fun calculateThrusterSignal(software: String, phaseSettings: PhaseSettings): Int {
         val a = InitialAmplifier(phaseSettings.getSetting())
         val b = ThrustAmplifier(phaseSettings.getSetting())
         val c = ThrustAmplifier(phaseSettings.getSetting())

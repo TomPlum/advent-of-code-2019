@@ -12,7 +12,7 @@ data class PhaseSettings(val input: Set<Int>) {
         }
 
         input.forEach {
-            if (it < 0 || it > 4) throw IllegalArgumentException("Phase settings must be between 0 and 4 (inclusive)")
+            if (it < 0 || it > 9) throw IllegalArgumentException("Phase settings must be between 0 and 9 (inclusive)")
         }
 
         settings.addAll(input)

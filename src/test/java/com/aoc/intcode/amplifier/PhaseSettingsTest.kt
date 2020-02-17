@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class PhaseSettingsTest {
     @ParameterizedTest
-    @ValueSource(ints = [-1, 5])
+    @ValueSource(ints = [-1, 10])
     @DisplayName("Given an invalid phase setting, when creating a Phase Settings, then it should throw an IllegalArgumentException")
     fun invalidPhaseSettingValues(value: Int) {
         val e = assertThrows<IllegalArgumentException> { PhaseSettings(setOf(0, 1, 2, 3, value)) }
@@ -19,14 +19,14 @@ class PhaseSettingsTest {
 
     @Test
     @DisplayName("Given a Phase Settings with only 4 settings, when creating one, then it should throw an IllegalArgumentException")
-    fun invalidPhaseSettingsArityTooBig() {
+    fun invalidPhaseSettingsArityTooSmall() {
         val e = assertThrows<IllegalArgumentException> { PhaseSettings(setOf(0, 1, 2, 3)) }
         assertThat(e.message).isEqualTo("A PhaseSettings must have exactly 5 phase settings")
     }
 
     @Test
     @DisplayName("Given a Phase Settings with 6 settings, when creating one, then it should throw an IllegalArgumentException")
-    fun invalidPhaseSettingsArityTooSmall() {
+    fun invalidPhaseSettingsArityTooBig() {
         val e = assertThrows<IllegalArgumentException> { PhaseSettings(setOf(0, 1, 2, 3, 4, -1)) }
         assertThat(e.message).isEqualTo("A PhaseSettings must have exactly 5 phase settings")
     }

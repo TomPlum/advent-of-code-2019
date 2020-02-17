@@ -4,7 +4,7 @@ import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 
 data class PhaseSettings(val input: Set<Int>) {
-    private val settings: Queue<Int> = ArrayBlockingQueue(5)
+    private val settings: Queue<Int> = LinkedList()
 
     init {
         if (input.size != 5) {

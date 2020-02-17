@@ -1,4 +1,6 @@
-package com.aoc.intcode.amplifier
+package com.aoc.intcode.circuit
+
+import com.aoc.intcode.amplifier.*
 
 class SeriesAmplificationCircuit : AmplificationCircuitStrategy {
 

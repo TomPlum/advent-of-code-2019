@@ -1,7 +1,8 @@
-package com.aoc.intcode.amplifier
+package com.aoc.intcode.circuit
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.amplifier.PhaseSettings
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

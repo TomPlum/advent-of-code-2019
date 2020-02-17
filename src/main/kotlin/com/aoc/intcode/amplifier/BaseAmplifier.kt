@@ -3,7 +3,7 @@ package com.aoc.intcode.amplifier
 import com.aoc.intcode.IntCodeComputer
 
 abstract class BaseAmplifier(private val phaseSetting: Int) : Amplifier {
-    private lateinit var nextAmplifier: Amplifier
+    protected lateinit var nextAmplifier: Amplifier
     lateinit var computer: IntCodeComputer
 
     override fun inputSignal(inputSignal: Int) {

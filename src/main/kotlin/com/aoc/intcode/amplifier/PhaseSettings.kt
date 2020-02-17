@@ -1,10 +1,9 @@
 package com.aoc.intcode.amplifier
 
-import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 
-class PhaseSettings(input: Set<Int>) {
+data class PhaseSettings(val input: Set<Int>) {
     private val settings: Queue<Int> = ArrayBlockingQueue(5)
 
     init {
@@ -26,12 +25,15 @@ class PhaseSettings(input: Set<Int>) {
         throw IllegalCallerException("Invalid setting request. There are no phase settings remaining")
     }
 
-    fun getAllPossiblePhaseSettingCombinations(phaseSettingValues: MutableList<Int>): MutableList<Set<Int>> {
-        val integerArrayPermutations = IntegerArrayPermutations()
-        return integerArrayPermutations.getPermutationsForIntegerArray(phaseSettingValues)
+    companion object {
+        fun getAllPossiblePhaseSettingCombinations(phaseSettingValues: MutableList<Int>): List<PhaseSettings> {
+            val integerArrayPermutations = IntegerArrayPermutations()
+            val permutations = integerArrayPermutations.getPermutationsForIntegerArray(phaseSettingValues)
+            return permutations.map { PhaseSettings(it) }
+        }
     }
 
-    class IntegerArrayPermutations {
+    private class IntegerArrayPermutations {
         private val permutations = mutableListOf<Set<Int>>()
 
         private fun permute(input: MutableList<Int>, k: Int) {
@@ -46,8 +48,8 @@ class PhaseSettings(input: Set<Int>) {
             }
         }
 
-        fun getPermutationsForIntegerArray(input: MutableList<Int>): MutableList<Set<Int>> {
-            permute(input, 0)
+        fun getPermutationsForIntegerArray(values: MutableList<Int>): MutableList<Set<Int>> {
+            permute(values, 0)
             return permutations
         }
     }

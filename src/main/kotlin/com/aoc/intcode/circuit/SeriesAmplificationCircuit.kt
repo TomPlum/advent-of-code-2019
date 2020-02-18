@@ -21,4 +21,6 @@ class SeriesAmplificationCircuit : AmplificationCircuitStrategy {
 
         return e.getThrusterSignal()
     }
+
+    override fun getPhaseSettingConfiguration(): List<Int> = listOf(0,1,2,3,4)
 }

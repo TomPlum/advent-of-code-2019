@@ -2,12 +2,15 @@ package com.aoc.intcode.strategy
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.message
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
+import com.aoc.intcode.exceptions.SignalInterrupt
 import com.aoc.intcode.instructions.strategies.Input
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class InputTest {
     private val strategy = Input()
@@ -24,6 +27,16 @@ class InputTest {
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
 
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(1,12,15,12,3,1,99)))
+    }
+
+    @Test
+    @DisplayName("Given an Input OpCode (3) and NO system input, when executing the strategy, then it should throw a " +
+    "signal interrupt to inform the computer to wait")
+    fun inputWhenSystemMemoryHasNoInput() {
+        val opCode = OpCode("3")
+        val memorySnapshot = Memory(listOf(3,0,99))
+        val e = assertThrows<SignalInterrupt> { strategy.execute(memorySnapshot, opCode.parameterModes) }
+        assertThat(e.message).isEqualTo("SIGINT")
     }
 
     @Test

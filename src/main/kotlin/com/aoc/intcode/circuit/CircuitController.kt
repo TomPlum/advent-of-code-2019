@@ -4,7 +4,8 @@ import com.aoc.intcode.amplifier.PhaseSettings
 
 class CircuitController(private val software: String) {
     fun calculateMaximumThrusterSignal(circuitStrategy: AmplificationCircuitStrategy): Int {
-        val phaseSettingCombinations = PhaseSettings.getAllPossiblePhaseSettingCombinations(mutableListOf(0, 1, 2, 3, 4))
+        val phaseSettingValues = circuitStrategy.getPhaseSettingConfiguration()
+        val phaseSettingCombinations = PhaseSettings.getAllPossiblePhaseSettingCombinations(phaseSettingValues)
 
         val thrusterSignals = mutableListOf<Int>()
 

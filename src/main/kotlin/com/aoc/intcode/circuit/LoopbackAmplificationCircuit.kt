@@ -1,17 +1,14 @@
 package com.aoc.intcode.circuit
 
-import com.aoc.intcode.amplifier.FeedbackAmplifier
-import com.aoc.intcode.amplifier.InitialAmplifier
-import com.aoc.intcode.amplifier.PhaseSettings
-import com.aoc.intcode.amplifier.ThrustAmplifier
+import com.aoc.intcode.amplifier.*
 
 class LoopbackAmplificationCircuit : AmplificationCircuitStrategy {
 
     override fun calculateThrusterSignal(software: String, phaseSettings: PhaseSettings): Int {
-        val a = InitialAmplifier(phaseSettings.getSetting())
-        val b = FeedbackAmplifier(phaseSettings.getSetting())
-        val c = FeedbackAmplifier(phaseSettings.getSetting())
-        val d = FeedbackAmplifier(phaseSettings.getSetting())
+        val a = LoopInitialAmplifier(phaseSettings.getSetting())
+        val b = ThrustAmplifier(phaseSettings.getSetting())
+        val c = ThrustAmplifier(phaseSettings.getSetting())
+        val d = ThrustAmplifier(phaseSettings.getSetting())
         val e = FeedbackAmplifier(phaseSettings.getSetting())
 
         a.outputsTo(b)
@@ -20,9 +17,15 @@ class LoopbackAmplificationCircuit : AmplificationCircuitStrategy {
         d.outputsTo(e)
         e.outputsTo(a)
 
-        a.loadAmplifierControllerSoftware(software)
+        initialiseSoftware(software, a, b, c, d, e)
         a.start()
 
         return e.getThrusterSignal()
+    }
+
+    override fun getPhaseSettingConfiguration(): List<Int> = listOf(5,6,7,8,9)
+
+    private fun initialiseSoftware(software: String, vararg amplifiers: Amplifier) {
+        amplifiers.forEach { it.loadAmplifierControllerSoftware(software) }
     }
 }

@@ -1,19 +1,27 @@
 package com.aoc.intcode
 
 import com.aoc.intcode.exceptions.HaltProgram
+import com.aoc.intcode.exceptions.SignalInterrupt
 
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
+    var waiting = true
+    var programHalted = false
 
-    fun compute(): String {
+    fun compute() {
         var memory = program.memory
 
-        while (true) {
+        waiting = false
+
+        while (!waiting) {
             val opCode = OpCode(memory.getCurrentInstruction().toString())
             try {
                 memory = opCode.getInstructionStrategy().execute(memory, opCode.parameterModes)
+            } catch (e: SignalInterrupt) {
+                waiting = true
             } catch (e: HaltProgram) {
-                return program.toString()
+                programHalted = true
+                break
             }
         }
     }
@@ -30,6 +38,9 @@ class IntCodeComputer constructor(programString: String) {
     fun getProgramMemory(): Memory = program.memory
 
     fun getDiagnosticCode(): Int = getProgramMemory().getLastOutputValue()
+
+    fun getProgramCurrentState(): String = program.toString()
+
 }
 
 

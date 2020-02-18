@@ -14,7 +14,7 @@ class PhaseSettingsTest {
     @DisplayName("Given an invalid phase setting, when creating a Phase Settings, then it should throw an IllegalArgumentException")
     fun invalidPhaseSettingValues(value: Int) {
         val e = assertThrows<IllegalArgumentException> { PhaseSettings(setOf(0, 1, 2, 3, value)) }
-        assertThat(e.message).isEqualTo("Phase settings must be between 0 and 4 (inclusive)")
+        assertThat(e.message).isEqualTo("Phase settings must be between 0 and 9 (inclusive)")
     }
 
     @Test

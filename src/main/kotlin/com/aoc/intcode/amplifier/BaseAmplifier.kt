@@ -7,7 +7,6 @@ abstract class BaseAmplifier(private val phaseSetting: Int) : Amplifier {
     lateinit var computer: IntCodeComputer
 
     override fun inputSignal(inputSignal: Int) {
-        computer.getProgramMemory().systemInput(phaseSetting)
         computer.getProgramMemory().systemInput(inputSignal)
         computer.compute()
         nextAmplifier.inputSignal(computer.getDiagnosticCode())
@@ -19,6 +18,7 @@ abstract class BaseAmplifier(private val phaseSetting: Int) : Amplifier {
 
     override fun loadAmplifierControllerSoftware(software: String) {
         computer = IntCodeComputer(software)
+        computer.getProgramMemory().systemInput(phaseSetting)
         nextAmplifier.loadAmplifierControllerSoftware(software)
     }
 }

@@ -3,6 +3,7 @@ package com.aoc.intcode
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -54,10 +55,10 @@ class MemoryTest {
     }
 
     @Test
-    @DisplayName("Given a memory with no system input, when getting the input, then it should throw an IllegalArgumentException")
+    @DisplayName("Given a memory with no system input, when getting the input, then it should return null")
     fun getInputWhenEmpty() {
         val memory = Memory(initialMemorySnapshot)
-        val e = assertThrows<IllegalStateException> { memory.getInput() }
-        assertThat(e.message).isEqualTo("System Input is empty")
+        val input = memory.getInput()
+        assertThat(input).isNull()
     }
 }

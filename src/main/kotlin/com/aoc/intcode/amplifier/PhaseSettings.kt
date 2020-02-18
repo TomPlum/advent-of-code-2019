@@ -26,7 +26,7 @@ data class PhaseSettings(val input: Set<Int>) {
     }
 
     companion object {
-        fun getAllPossiblePhaseSettingCombinations(phaseSettingValues: MutableList<Int>): List<PhaseSettings> {
+        fun getAllPossiblePhaseSettingCombinations(phaseSettingValues: List<Int>): List<PhaseSettings> {
             val integerArrayPermutations = IntegerArrayPermutations()
             val permutations = integerArrayPermutations.getPermutationsForIntegerArray(phaseSettingValues)
             return permutations.map { PhaseSettings(it) }
@@ -36,7 +36,7 @@ data class PhaseSettings(val input: Set<Int>) {
     private class IntegerArrayPermutations {
         private val permutations = mutableListOf<Set<Int>>()
 
-        private fun permute(input: MutableList<Int>, k: Int) {
+        private fun permute(input: List<Int>, k: Int) {
             for (i in k until input.size) {
                 Collections.swap(input, i, k)
                 permute(input, k + 1)
@@ -48,7 +48,7 @@ data class PhaseSettings(val input: Set<Int>) {
             }
         }
 
-        fun getPermutationsForIntegerArray(values: MutableList<Int>): MutableList<Set<Int>> {
+        fun getPermutationsForIntegerArray(values: List<Int>): MutableList<Set<Int>> {
             permute(values, 0)
             return permutations
         }

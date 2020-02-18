@@ -2,6 +2,7 @@ package com.aoc.intcode
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isTrue
 import com.aoc.input.InputReader
 import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
@@ -19,32 +20,32 @@ class IntCodeComputerTest {
     @DisplayName("Given a valid program (example one), when computing, then it should return the correct final state")
     fun exampleProgramOne() {
         val computer = IntCodeComputer("1,0,0,0,99")
-        val finalState = computer.compute()
-        assertThat(finalState).isEqualTo("2,0,0,0,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("2,0,0,0,99")
     }
 
     @Test
     @DisplayName("Given a valid program (example two), when computing, then it should return the correct final state")
     fun exampleProgramTwo() {
         val computer = IntCodeComputer("2,3,0,3,99")
-        val finalState = computer.compute()
-        assertThat(finalState).isEqualTo("2,3,0,6,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("2,3,0,6,99")
     }
 
     @Test
     @DisplayName("Given a valid program (example three), when computing, then it should return the correct final state")
     fun exampleProgramThree() {
         val computer = IntCodeComputer("2,4,4,5,99,0")
-        val finalState = computer.compute()
-        assertThat(finalState).isEqualTo("2,4,4,5,99,9801")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("2,4,4,5,99,9801")
     }
 
     @Test
     @DisplayName("Given a valid program (example four), when computing, then it should return the correct final state")
     fun exampleProgramFour() {
         val computer = IntCodeComputer("1,1,1,4,99,5,6,0,99")
-        val finalState = computer.compute()
-        assertThat(finalState).isEqualTo("30,1,1,4,2,5,6,0,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("30,1,1,4,2,5,6,0,99")
     }
 
     @Test
@@ -52,7 +53,8 @@ class IntCodeComputerTest {
     fun restoreGravityAssistProgram() {
         val computer = IntCodeComputer("1,2,3,3,99")
         computer.restoreGravityAssistProgram(1, 2)
-        assertThat(computer.compute()).isEqualTo("1,1,2,3,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1,1,2,3,99")
     }
 
     @Test
@@ -106,8 +108,8 @@ class IntCodeComputerTest {
     @DisplayName("Given a JUMP_IF_TRUE OpCode(5) in IMMEDIATE_MODE, when the first parameter is zero, then it should do nothing")
     fun jumpIfTrueWithZeroParameter() {
         val computer = IntCodeComputer("1105,0,10,99")
-        val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("1105,0,10,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1105,0,10,99")
     }
 
     @Test
@@ -123,23 +125,24 @@ class IntCodeComputerTest {
     @DisplayName("Given a JUMP_IF_FALSE OpCode(1106) in IMMEDIATE mode, when the first parameter is non-zero, then it should do nothing")
     fun jumpIfFalseWithNonZeroParameter() {
         val computer = IntCodeComputer("1106,1,3,99")
-        val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("1106,1,3,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1106,1,3,99")
     }
 
     @Test
     @DisplayName("Given a LESS_THAN OpCode(7), when the first parameter is less than the second parameter, then it should store 1 in the position given by the third parameter")
     fun lessThan() {
         val computer = IntCodeComputer("7,1,2,0,99")
-        val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("1,1,2,0,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1,1,2,0,99")
     }
 
     @Test
     @DisplayName("Given a LESS_THAN OpCode(7) in IMMEDIATE_MODE, when the first parameter is greater than the second parameter, then it should store 0 in the position given by the third parameter")
     fun lessThanWhenFirstParameterIsGreaterThanSecond() {
         val computer = IntCodeComputer("1107,3,2,0,99")
-        val finalProgramState = computer.compute()
+        computer.compute()
+        val finalProgramState = computer.getProgramCurrentState()
         assertThat(finalProgramState).isEqualTo("0,3,2,0,99")
     }
 
@@ -147,16 +150,16 @@ class IntCodeComputerTest {
     @DisplayName("Given an EQUALS OpCode(8) in IMMEDIATE_MODE, when the first parameter is equals to the second parameter, then it should store 1 in the position given by the third parameter")
     fun equals() {
         val computer = IntCodeComputer("1108,5,5,1,99")
-        val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("1108,1,5,1,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1108,1,5,1,99")
     }
 
     @Test
     @DisplayName("Given an EQUALS OpCode(8) in IMMEDIATE_MODE, when the first parameter is not equal to the second parameter, then it should store 0 in the position given by the third parameter")
     fun equalsWhenNotEqual() {
         val computer = IntCodeComputer("1108,4,5,2,99")
-        val finalProgramState = computer.compute()
-        assertThat(finalProgramState).isEqualTo("1108,4,0,2,99")
+        computer.compute()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1108,4,0,2,99")
     }
 
     @Test
@@ -299,6 +302,16 @@ class IntCodeComputerTest {
         val computer = IntCodeComputer("8720")
         val e = assertThrows<IllegalArgumentException> { computer.compute() }
         assertThat(e.message).isEqualTo("Operation unknown for instruction 8720")
+    }
+
+    @Test
+    @DisplayName("Given a Input OpCode (3) and NO system input, when computing, then it should suspend execution and" +
+    "wait for further input. The instruction pointer should remain where it is")
+    fun inputShouldSetComputerToWaitingWhenNoSystemInput() {
+        val computer = IntCodeComputer("1,0,0,0,3,0,99")
+        computer.compute()
+        assertThat(computer.waiting).isTrue()
+        assertThat(computer.getProgramMemory().instructionPointer).isEqualTo(4)
     }
 
 }

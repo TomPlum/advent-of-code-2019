@@ -17,4 +17,12 @@ class CircuitControllerTest {
         val maximumThrusterSignal = controller.calculateMaximumThrusterSignal(SeriesAmplificationCircuit())
         assertThat(maximumThrusterSignal).isEqualTo(21860)
     }
+
+    @Test
+    @DisplayName("Given Day 7 Part 2 Puzzle Input, when calculating the maximum thruster signal, then it should return 2645740")
+    fun daySevenPartTwoSolution() {
+        val controller = CircuitController(puzzleInput)
+        val maximumThrusterSignal = controller.calculateMaximumThrusterSignal(LoopbackAmplificationCircuit())
+        assertThat(maximumThrusterSignal).isEqualTo(2645740)
+    }
 }

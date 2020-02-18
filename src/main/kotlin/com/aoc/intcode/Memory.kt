@@ -33,12 +33,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Int>) {
         throw IllegalStateException("System output is empty!")
     }
 
-    fun getInput(): Int {
-        if (input.size > 0) {
-            return input.poll()
-        }
-        throw IllegalStateException("System Input is empty")
-    }
+    fun getInput(): Int? = input.poll()
 
     override fun toString() = instructions.toString()
 

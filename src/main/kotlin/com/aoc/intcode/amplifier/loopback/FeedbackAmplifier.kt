@@ -16,7 +16,7 @@ class FeedbackAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSett
 
     override fun loadAmplifierControllerSoftware(software: String) {
         computer = IntCodeComputer(software)
-        computer.getProgramMemory().systemInput(phaseSetting) //Set PhaseSetting exactly once
+        computer.getProgramMemory().systemInput(phaseSetting)
     }
 
     fun getThrusterSignal(): Int = lastOutputSignal

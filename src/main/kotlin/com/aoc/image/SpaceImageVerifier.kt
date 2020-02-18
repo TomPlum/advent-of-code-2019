@@ -8,14 +8,10 @@ class SpaceImageVerifier(val image: SpaceImage) {
      */
     fun verify(paramOne: Int, paramTwo: Int, paramThree: Int): Int {
         val layer = image.layers.minBy { layer ->
-            layer.getRows().flatMap { row ->
-                row.pixels
-            }.count { pixels ->
-                pixels == paramOne
-            }
+            layer.rows.flatMap { row -> row.pixels }.count { pixels -> pixels == paramOne }
         }
 
-        val pixels = layer!!.getRows().flatMap { it.pixels }
+        val pixels = layer!!.rows.flatMap { it.pixels }
         return pixels.count { it == paramTwo } * pixels.count { it == paramThree}
     }
 }

@@ -16,6 +16,6 @@ class LoopInitialAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseS
 
     override fun loadAmplifierControllerSoftware(software: String) {
         computer = IntCodeComputer(software)
-        computer.getProgramMemory().systemInput(phaseSetting) //Set PhaseSetting exactly once
+        computer.getProgramMemory().systemInput(phaseSetting)
     }
 }

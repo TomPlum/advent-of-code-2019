@@ -28,4 +28,4 @@ https://adventofcode.com/2019/
 
 ## Day 7 - Amplification Circuit
 **Part 1:** 21860 \
-**Part 2:** N/A 
+**Part 2:** 2645740 

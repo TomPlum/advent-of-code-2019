@@ -1,6 +1,7 @@
-package com.aoc.intcode.amplifier
+package com.aoc.intcode.amplifier.loopback
 
 import com.aoc.intcode.IntCodeComputer
+import com.aoc.intcode.amplifier.BaseAmplifier
 
 class FeedbackAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSetting) {
     private var lastOutputSignal = 0

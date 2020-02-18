@@ -1,6 +1,8 @@
 package com.aoc.intcode.circuit
 
 import com.aoc.intcode.amplifier.*
+import com.aoc.intcode.amplifier.loopback.FeedbackAmplifier
+import com.aoc.intcode.amplifier.loopback.LoopInitialAmplifier
 
 class LoopbackAmplificationCircuit : AmplificationCircuitStrategy {
 

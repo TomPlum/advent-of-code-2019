@@ -1,6 +1,8 @@
-package com.aoc.intcode.amplifier
+package com.aoc.intcode.amplifier.series
 
 import com.aoc.intcode.IntCodeComputer
+import com.aoc.intcode.amplifier.Amplifier
+import com.aoc.intcode.amplifier.BaseAmplifier
 
 class OutputAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSetting) {
     private var outputSignal: Int = 0

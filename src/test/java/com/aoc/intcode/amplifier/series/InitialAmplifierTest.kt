@@ -1,7 +1,9 @@
-package com.aoc.intcode.amplifier
+package com.aoc.intcode.amplifier.series
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.amplifier.series.InitialAmplifier
+import com.aoc.intcode.amplifier.series.OutputAmplifier
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

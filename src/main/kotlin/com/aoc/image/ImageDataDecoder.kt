@@ -1,13 +1,12 @@
 package com.aoc.image
 
-class ImageDataDecoder(private val dimensions: SpaceImageDimensions) {
-    fun decode(imageData: List<Int>): SpaceImage {
-        var layers = mutableListOf<SpaceImageLayer>()
+class ImageDataDecoder {
 
-        imageData.chunked(dimensions.width * dimensions.height).forEach { layerData ->
-            layerData.map { SpaceImageLayer(layerData) }
-        }
-
-        return SpaceImage(listOf())
+    fun decode(imageDataString: String, dimensions: SpaceImageDimensions): SpaceImage {
+        val imageData: List<Int> = imageDataString.chunked(1).map { it.toInt() }
+        return SpaceImage(imageData.chunked(dimensions.width * dimensions.height).map {
+            SpaceImageLayer(it, dimensions)
+        })
     }
+
 }

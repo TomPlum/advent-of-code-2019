@@ -1,9 +1,10 @@
 package com.aoc.image
 
-class SpaceImageLayer(private val pixels: List<Int>) {
-    fun insertRow(pixels: List<Int>) {
+class SpaceImageLayer(pixels: List<Int>, dimensions: SpaceImageDimensions) {
+    private val rows: List<SpaceImageRow> = pixels.chunked(dimensions.width).map { SpaceImageRow(it) }
 
-    }
+    fun getRow(index: Int): SpaceImageRow = rows[index]
 
-    fun getRow(index: Int) = listOf<Int>()
+    fun getRows() = rows
+
 }

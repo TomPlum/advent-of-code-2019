@@ -2,30 +2,32 @@
 Advent of Code 2019 with Kotlin \
 https://adventofcode.com/2019/
 
-## Day 1 - The Tyranny of the Rocket Equation
-**Part 1:** 3184233 \
-**Part 2:** 4773483
+## My Solution Answers
 
-## Day 2 - 1202 Program Alarm
-**Part 1:** 10566835 \
-**Part 2:** 2347
-
-## Day 3 - Crossed Wires
-**Part 1:** 529 \
-**Part 2:** 20386
-
-## Day 4 - Secure Container
-**Part 1:** 466 \
-**Part 2:** 292
-
-## Day 5 - Sunny with a Chance of Asteroids
-**Part 1:** 5044655 \
-**Part 2:** 7408802
-
-## Day 6 - Universal Orbit Map
-**Part 1:** 314702 \
-**Part 2:** 439
-
-## Day 7 - Amplification Circuit
-**Part 1:** 21860 \
-**Part 2:** 2645740 
+| Day 	| Part 1 	| Part 2 	|
+|-----	|--------	|--------	|
+| 1   	| 3184233  	| 4773483   |
+| 2   	| 10566835 	| 2347      |
+| 3   	| 529      	| 20386    	|
+| 4   	| 466      	| 292     	|
+| 5   	| 5044655  	| 7408802 	|
+| 6   	| 314702   	| 439      	|
+| 7   	| 21860    	| 2645740  	|
+| 8   	| 2904     	|        	|
+| 9   	|        	|        	|
+| 10  	|        	|        	|
+| 11  	|        	|        	|
+| 12  	|        	|        	|
+| 13  	|        	|        	|
+| 14  	|        	|        	|
+| 15  	|        	|        	|
+| 16  	|        	|        	|
+| 17  	|        	|        	|
+| 18  	|        	|        	|
+| 19  	|        	|        	|
+| 20  	|        	|        	|
+| 21  	|        	|        	|
+| 22  	|        	|        	|
+| 23  	|        	|        	|
+| 24  	|        	|        	|
+| 25  	|        	|        	|

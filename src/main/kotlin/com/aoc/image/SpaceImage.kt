@@ -1,10 +1,7 @@
 package com.aoc.image
 
-class SpaceImage(val layers: List<SpaceImageLayer>) {
-
-    fun getImageLayer(index: Int) = layers[index]
-
+class SpaceImage(val layer: SpaceImageLayer) {
     override fun toString(): String {
-        return layers.joinToString { "$it./n" }
+        return layer.rows.joinToString(separator = "\n") { "$it" }
     }
 }

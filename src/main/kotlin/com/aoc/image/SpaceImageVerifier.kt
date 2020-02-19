@@ -1,6 +1,6 @@
 package com.aoc.image
 
-class SpaceImageVerifier(val image: SpaceImage) {
+class SpaceImageVerifier(val image: EncodedSpaceImage) {
 
     /**
      * The [SpaceImageVerifier] will return the result of the number of [paramTwo] pixels multiplied by the number

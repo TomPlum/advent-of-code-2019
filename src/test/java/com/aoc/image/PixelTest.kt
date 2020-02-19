@@ -33,4 +33,11 @@ class PixelTest {
         val e = assertThrows<IllegalStateException> { Pixel.fromColourCode(code) }
         assertThat(e.message).isEqualTo("Invalid Colour Code")
     }
+
+    @Test
+    fun toStringTest() {
+        val pixel = Pixel.TRANSPARENT
+        val toString = pixel.toString()
+        assertThat(toString).isEqualTo("2")
+    }
 }

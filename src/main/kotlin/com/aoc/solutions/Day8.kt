@@ -11,7 +11,7 @@ fun main() {
     val inputReader = InputReader()
     val imageData = inputReader.readInputAsSingleString(Day.from(8))
     val dimensions = SpaceImageDimensions(25, 6)
-    val image = ImageDataDecoder().decode(imageData, dimensions)
+    val image = ImageDataDecoder().assembleImageData(imageData, dimensions)
     val solution = SpaceImageVerifier(image).verify(Pixel.BLACK, Pixel.WHITE, Pixel.TRANSPARENT)
     println("Part 1 Solution: $solution")
 }

@@ -331,7 +331,7 @@ class IntCodeComputerTest {
     }
 
     @Test
-    @DisplayName("Given Day 9 Part 1 Example 3, when computing, then it should output1125899906842624")
+    @DisplayName("Given Day 9 Part 1 Example 3, when computing, then it should output 1125899906842624")
     fun dayNineExampleThree() {
         val computer = IntCodeComputer("104,1125899906842624,99")
         computer.compute()

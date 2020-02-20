@@ -13,7 +13,7 @@ https://adventofcode.com/2019/
 | 5   	| 5044655  	| 7408802 	| Sunny with a Chance of Asteroids          |                                         
 | 6   	| 314702   	| 439      	| Universal Orbit Map                       |                                
 | 7   	| 21860    	| 2645740  	| Amplification Circuit                     |
-| 8   	| 2904     	|        	| Space Image Format                        |
+| 8   	| 2904     	| HGBCF    	| Space Image Format                        |
 | 9   	|        	|        	|         |
 | 10  	|        	|        	|         |
 | 11  	|        	|        	|         |

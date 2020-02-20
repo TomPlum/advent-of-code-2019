@@ -5,6 +5,7 @@ import java.util.*
 class Memory constructor(private val initialMemorySnapshot: List<Int>) {
     var instructions: MutableList<Int> = initialMemorySnapshot.toMutableList()
     var instructionPointer = 0
+    var relativeBase = 0
     val input = LinkedList<Int>()
     val output = LinkedList<Int>()
 

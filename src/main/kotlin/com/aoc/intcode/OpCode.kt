@@ -34,6 +34,7 @@ data class OpCode(val instructionValue: String) {
             6 -> JumpIfFalse()
             7 -> LessThan()
             8 -> Equals()
+            9 -> OffsetRelativeBase()
             99 -> Halt()
             else -> Unknown()
         }
@@ -43,7 +44,7 @@ data class OpCode(val instructionValue: String) {
         return parameterModes.pop()
     }
 
-    fun isValid() = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 99).contains(value)
+    fun isValid() = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 99).contains(value)
 
     fun getValue() = instructionValue
 

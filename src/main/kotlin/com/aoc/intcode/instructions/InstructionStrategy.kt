@@ -13,6 +13,7 @@ interface InstructionStrategy {
         return when (mode) {
             ParameterMode.POSITION -> memorySnapshot.getInstructionAtAddress(valueIndex)
             ParameterMode.IMMEDIATE -> valueIndex
+            ParameterMode.RELATIVE -> TODO()
         }
     }
 

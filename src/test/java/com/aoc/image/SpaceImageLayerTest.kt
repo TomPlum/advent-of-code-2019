@@ -13,7 +13,7 @@ class SpaceImageLayerTest {
         val layer = SpaceImageLayer(listOf(Pixel.WHITE, Pixel.BLACK, Pixel.WHITE, Pixel.WHITE, Pixel.BLACK, Pixel.BLACK), dimensions)
         val firstRow = layer.getRow(0)
         val secondRow = layer.getRow(1)
-        assertThat(firstRow).isEqualTo(SpaceImageRow(listOf(Pixel.WHITE, Pixel.BLACK, Pixel.WHITE)))
-        assertThat(secondRow).isEqualTo(SpaceImageRow(listOf(Pixel.WHITE, Pixel.BLACK, Pixel.BLACK)))
+        assertThat(firstRow).isEqualTo(SpaceImageRow(mutableListOf(Pixel.WHITE, Pixel.BLACK, Pixel.WHITE)))
+        assertThat(secondRow).isEqualTo(SpaceImageRow(mutableListOf(Pixel.WHITE, Pixel.BLACK, Pixel.BLACK)))
     }
 }

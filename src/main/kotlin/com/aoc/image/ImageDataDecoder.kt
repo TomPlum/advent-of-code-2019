@@ -10,12 +10,29 @@ class ImageDataDecoder {
     }
 
     fun decode(encodedSpaceImage: EncodedSpaceImage): SpaceImage {
-        val flattenedLayers = flattenLayers(encodedSpaceImage.layers, encodedSpaceImage.getImageDimensions())
+        val flattenedLayers = flattenLayers(encodedSpaceImage.layers)
         return SpaceImage(flattenedLayers)
     }
 
-    private fun flattenLayers(layers: List<SpaceImageLayer>, dimensions: SpaceImageDimensions): SpaceImageLayer {
-        return SpaceImageLayer(listOf(), dimensions)
+    fun render(spaceImage: SpaceImage) {
+
+    }
+
+    private fun flattenLayers(layers: List<SpaceImageLayer>): SpaceImageLayer {
+        val flattenedImage = layers.first()
+
+        for (i in layers.indices) {
+            for (j in layers[i].rows.indices) {
+                for (k in layers[i].rows[j].pixels.indices) {
+                    val pixel = layers[i].rows[j].pixels[k]
+                    if (flattenedImage.rows[j].pixels[k] == Pixel.TRANSPARENT) {
+                        flattenedImage.rows[j].pixels[k] = pixel
+                    }
+                }
+            }
+        }
+
+        return flattenedImage
     }
 
 }

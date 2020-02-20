@@ -13,10 +13,10 @@ class ImageDataDecoderTest {
         val imageData = "021120201221"
         val dimensions = SpaceImageDimensions(3, 2)
         val spaceImage = ImageDataDecoder().assembleImageData(imageData, dimensions)
-        assertThat(spaceImage.layers[0].getRow(0)).isEqualTo(SpaceImageRow(listOf(Pixel.BLACK, Pixel.TRANSPARENT, Pixel.WHITE)))
-        assertThat(spaceImage.layers[0].getRow(1)).isEqualTo(SpaceImageRow(listOf(Pixel.WHITE, Pixel.TRANSPARENT, Pixel.BLACK)))
-        assertThat(spaceImage.layers[1].getRow(0)).isEqualTo(SpaceImageRow(listOf(Pixel.TRANSPARENT, Pixel.BLACK, Pixel.WHITE)))
-        assertThat(spaceImage.layers[1].getRow(1)).isEqualTo(SpaceImageRow(listOf(Pixel.TRANSPARENT, Pixel.TRANSPARENT, Pixel.WHITE)))
+        assertThat(spaceImage.layers[0].getRow(0)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.BLACK, Pixel.TRANSPARENT, Pixel.WHITE)))
+        assertThat(spaceImage.layers[0].getRow(1)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.WHITE, Pixel.TRANSPARENT, Pixel.BLACK)))
+        assertThat(spaceImage.layers[1].getRow(0)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.TRANSPARENT, Pixel.BLACK, Pixel.WHITE)))
+        assertThat(spaceImage.layers[1].getRow(1)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.TRANSPARENT, Pixel.TRANSPARENT, Pixel.WHITE)))
         println(spaceImage.toString())
     }
 
@@ -28,7 +28,7 @@ class ImageDataDecoderTest {
         val encodedSpaceImage = ImageDataDecoder().assembleImageData(imageData, dimensions)
         val spaceImage = ImageDataDecoder().decode(encodedSpaceImage)
         assertThat(spaceImage.layer.rows[0].pixels).isEqualTo(listOf(Pixel.BLACK, Pixel.WHITE))
-        assertThat(spaceImage.layer.rows[0].pixels).isEqualTo(listOf(Pixel.WHITE, Pixel.BLACK))
+        assertThat(spaceImage.layer.rows[1].pixels).isEqualTo(listOf(Pixel.WHITE, Pixel.BLACK))
         println(spaceImage.toString())
     }
 }

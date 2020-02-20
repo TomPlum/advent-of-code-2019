@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test
 
 class SpaceImageTest {
     @Test
-    fun toStringTest() {
+    fun rawToStringTest() {
         val pixels = listOf(Pixel.WHITE, Pixel.BLACK, Pixel.WHITE, Pixel.BLACK)
         val image = SpaceImage(SpaceImageLayer(pixels, SpaceImageDimensions(2, 2)))
-        println(image.toString())
-        assertThat(image.toString()).isEqualTo("10\n10")
+        assertThat(image.toRaw()).isEqualTo("1 0\n1 0")
     }
 }

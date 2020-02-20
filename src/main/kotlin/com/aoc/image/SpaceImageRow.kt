@@ -1,8 +1,18 @@
 package com.aoc.image
 
-data class SpaceImageRow(val pixels: List<Pixel>) {
+data class SpaceImageRow(val pixels: MutableList<Pixel>) {
 
     override fun toString(): String {
-        return pixels.joinToString(separator = "") { it.toString() }
+        return pixels.joinToString(separator = " ") {
+            if (it == Pixel.WHITE) {
+                "#"
+            } else {
+                " "
+            }
+        }
     }
+
+    fun toRaw(): String = pixels.joinToString(separator = " ") { "$it" }
+
+
 }

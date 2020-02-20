@@ -6,6 +6,7 @@ import assertk.assertions.message
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
 import com.aoc.intcode.exceptions.SignalInterrupt
+import com.aoc.intcode.instructions.InstructionLength
 import com.aoc.intcode.instructions.strategies.Input
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
@@ -21,7 +22,7 @@ class InputTest {
     fun inputPositionMode() {
         val opCode = OpCode("3")
         val memorySnapshot = Memory(listOf(1,0,15,12,3,1,99))
-        memorySnapshot.incrementInstructionPointer(4)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION)
         memorySnapshot.systemInput(12)
 
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
@@ -45,7 +46,7 @@ class InputTest {
     fun inputImmediateMode() {
         val opCode = OpCode("1103")
         val memorySnapshot = Memory(listOf(4,9,3,1,99))
-        memorySnapshot.incrementInstructionPointer(2)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         memorySnapshot.systemInput(3)
 
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)

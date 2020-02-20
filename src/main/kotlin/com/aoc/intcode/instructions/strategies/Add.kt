@@ -10,9 +10,9 @@ class Add : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
         val firstValue = getValue(memorySnapshot, modes.pop(), 1)
         val secondValue = getValue(memorySnapshot, modes.pop(), 2)
-        val updateAddress = memorySnapshot.getInstructionAtAddress(memorySnapshot.instructionPointer + 3)
+        val updateAddress = memorySnapshot.getInstructionAtAddress(memorySnapshot.instructionPointer + 3).toInt()
         memorySnapshot.updateInstructionAtAddress(updateAddress, firstValue + secondValue)
-        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION.length)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }
 }

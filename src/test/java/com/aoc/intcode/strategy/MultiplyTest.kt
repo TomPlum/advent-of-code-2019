@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
+import com.aoc.intcode.instructions.InstructionLength
 import com.aoc.intcode.instructions.strategies.Multiply
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,7 +27,7 @@ class MultiplyTest {
     fun multiplyWithNonZeroInstructionPointer() {
         val opCode = OpCode("3")
         val memorySnapshot = Memory(listOf(3,4,99,10,3,3,3))
-        memorySnapshot.incrementInstructionPointer(3)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
         val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(3,4,99,100,3,3,3)))
     }

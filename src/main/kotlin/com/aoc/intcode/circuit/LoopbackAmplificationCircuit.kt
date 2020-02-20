@@ -22,7 +22,7 @@ class LoopbackAmplificationCircuit : AmplificationCircuitStrategy {
         initialiseSoftware(software, a, b, c, d, e)
         a.start()
 
-        return e.getThrusterSignal()
+        return e.getThrusterSignal().toInt()
     }
 
     override fun getPhaseSettingConfiguration(): List<Int> = listOf(5,6,7,8,9)

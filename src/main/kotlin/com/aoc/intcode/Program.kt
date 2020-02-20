@@ -8,7 +8,7 @@ class Program (instructionString: String) {
         return memory.instructions.joinToString(",", postfix = "") { it.toString() }
     }
 
-    private fun parseInstructions(actions: String): MutableList<Int> = actions.split(",").map { it.toInt() }.toMutableList()
+    private fun parseInstructions(actions: String): MutableList<Long> = actions.split(",").map { it.toLong() }.toMutableList()
 
     init {
         this.memory = Memory(parseInstructions(instructionString))

@@ -1,40 +1,41 @@
 package com.aoc.intcode
 
+import com.aoc.intcode.instructions.InstructionLength
 import java.util.*
 
-class Memory constructor(private val initialMemorySnapshot: List<Int>) {
-    var instructions: MutableList<Int> = initialMemorySnapshot.toMutableList()
+class Memory constructor(private val initialMemorySnapshot: List<Long>) {
+    var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
     var instructionPointer = 0
     var relativeBase = 0
-    val input = LinkedList<Int>()
-    val output = LinkedList<Int>()
+    val input = LinkedList<Long>()
+    val output = LinkedList<Long>()
 
     fun reset() {
         instructions = initialMemorySnapshot.toMutableList()
     }
 
-    fun getCurrentInstruction(): Int = getInstructionAtAddress(instructionPointer)
+    fun getCurrentInstruction(): Long = getInstructionAtAddress(instructionPointer)
 
-    fun updateInstructionAtAddress(addressIndex: Int, instructionValue: Int) {
+    fun updateInstructionAtAddress(addressIndex: Int, instructionValue: Long) {
         instructions[addressIndex] = instructionValue
     }
 
-    fun getInstructionAtAddress(addressIndex: Int): Int = instructions[addressIndex]
+    fun getInstructionAtAddress(addressIndex: Int): Long = instructions[addressIndex]
 
-    fun incrementInstructionPointer(value: Int) {
-        instructionPointer += value
+    fun incrementInstructionPointer(length: InstructionLength) {
+        instructionPointer += length.value
     }
 
-    fun systemInput(value: Int) = input.add(value)
+    fun systemInput(value: Long) = input.add(value)
 
-    fun systemOutput(value: Int) = output.add(value)
+    fun systemOutput(value: Long) = output.add(value)
 
-    fun getLastOutputValue(): Int {
+    fun getLastOutputValue(): Long {
         if (output.size > 0) return output.last
         throw IllegalStateException("System output is empty!")
     }
 
-    fun getInput(): Int? = input.poll()
+    fun getInput(): Long? = input.poll()
 
     override fun toString() = instructions.toString()
 

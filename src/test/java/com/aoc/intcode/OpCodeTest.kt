@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class OpCodeTest {
     @ParameterizedTest
-    @ValueSource(ints = [-10, 0, 9, 100])
+    @ValueSource(ints = [-10, 0, 10, 100])
     @DisplayName("Given an invalid OpCode value, when checking if valid, then it should return false")
     fun invalidValue(value: Int) {
         val opCode = OpCode(value.toString())
@@ -22,7 +22,7 @@ class OpCodeTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [1, 2, 3, 4, 5, 6, 7, 8, 99])
+    @ValueSource(ints = [1, 2, 3, 4, 5, 6, 7, 8, 9, 99])
     @DisplayName("Given a valid OpCode value, when checking if valid, then it should return true")
     fun validValue(value: Int) {
         val opCode = OpCode(value.toString())
@@ -95,6 +95,14 @@ class OpCodeTest {
     }
 
     @Test
+    @DisplayName("Given an OpCode of value 9, when getting the operation, then it should return OFFSET_RELATIVE_BASE")
+    fun operationNine() {
+        val opCode = OpCode("9")
+        val operation = opCode.getInstructionStrategy()
+        assertThat(operation).isInstanceOf(OffsetRelativeBase::class)
+    }
+
+    @Test
     @DisplayName("Given an OpCode of value 99, when getting the operation, then it should return HALT")
     fun operationNinetyNine() {
         val opCode = OpCode("99")
@@ -110,9 +118,18 @@ class OpCodeTest {
         assertThat(operation).isInstanceOf(Add::class)
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = ["1", "01", "2", "02", "3", "03"])
+    @DisplayName("Given an OpCode with 1 or 2 digits, when getting the parameter mode, then it should be POSITION")
+    fun singleOrDoubleDigitOpCodeShouldDefaultToPositionMode(opCodeValue: String) {
+        val opCode = OpCode(opCodeValue)
+        val mode = opCode.getParameterMode()
+        assertThat(mode).isEqualTo(ParameterMode.POSITION)
+    }
+
     @Test
     @DisplayName("Given an OpCode with 3 digits and the first is 0, when getting the parameter mode, then it should be POSITION")
-    fun doubleDigitOpCodePositionMode() {
+    fun tripleDigitOpCodePositionMode() {
         val opCode = OpCode("001")
         val mode = opCode.getParameterMode()
         assertThat(mode).isEqualTo(ParameterMode.POSITION)
@@ -120,10 +137,17 @@ class OpCodeTest {
 
     @Test
     @DisplayName("Given an OpCode with 3 digits and the first is 1, when getting the parameter mode, then it should be IMMEDIATE")
-    fun tripleDigitOpCode() {
-        val opCode = OpCode("102")
+    fun tripleDigitOpCodeImmediateMode() {
+        val opCode = OpCode("105")
         val mode = opCode.getParameterMode()
         assertThat(mode).isEqualTo(ParameterMode.IMMEDIATE)
     }
 
+    @Test
+    @DisplayName("Given an OpCode with 3 digits and the first is 2, when getting the parameter mode, then it should be RELATIVE")
+    fun tripleDigitOpCodeRelativeMode() {
+        val opCode = OpCode("203")
+        val mode = opCode.getParameterMode()
+        assertThat(mode).isEqualTo(ParameterMode.RELATIVE)
+    }
 }

@@ -10,7 +10,7 @@ class Output : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
         val outputValue = getValue(memorySnapshot, modes.pop(), 1)
         memorySnapshot.systemOutput(outputValue)
-        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION.length)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }
 }

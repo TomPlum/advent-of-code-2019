@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.Memory
 import com.aoc.intcode.OpCode
+import com.aoc.intcode.instructions.InstructionLength
 import com.aoc.intcode.instructions.strategies.Add
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -18,7 +19,7 @@ class AddTest {
         val opCode = OpCode("1")
         val memorySnapshot = Memory(listOf(1,0,0,0))
 
-        val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
 
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(2,0,0,0)))
     }
@@ -29,8 +30,19 @@ class AddTest {
     fun addImmediateMode() {
         val opCode = OpCode("1101")
         val memorySnapshot = Memory(listOf(1101,56,11,3,99))
-        val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(1101,56,11,67,99)))
+    }
+
+    @Test
+    @DisplayName("Given a five digit Add OpCode (22202), when executing the strategy, then it should store the value of" +
+            "the sum of the sum of the relative base plus the first two parameters in the address given by the sum of" +
+            "the relative base and the third parameter")
+    fun addRelativeMode() {
+        val opCode = OpCode("22201")
+        val memorySnapshot = Memory(listOf(22202,0,0,3))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
+        assertThat(finalSnapshot).isEqualTo(Memory(listOf(22202,0,0,44404)))
     }
 
     @Test
@@ -39,9 +51,9 @@ class AddTest {
     fun addWithNonZeroInstructionPointer() {
         val opCode = OpCode("1")
         val memorySnapshot = Memory(listOf(3,4,99,1,3,3,3))
-        memorySnapshot.incrementInstructionPointer(3)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
 
-        val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
 
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(3,4,99,2,3,3,3)))
     }

@@ -12,7 +12,7 @@ class Input : InstructionStrategy {
         val inputAddress = getWriteToIndex(memorySnapshot, 1)
         val systemInputValue = memorySnapshot.getInput() ?: throw SignalInterrupt()
         memorySnapshot.updateInstructionAtAddress(inputAddress, systemInputValue)
-        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION.length)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }
 }

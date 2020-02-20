@@ -314,4 +314,27 @@ class IntCodeComputerTest {
         assertThat(computer.getProgramMemory().instructionPointer).isEqualTo(4)
     }
 
+    @Test
+    @DisplayName("Given Day 9 Part 1 Example 1, when computing, then it should output a copy of itself (Quine)")
+    fun dayNineExampleOne() {
+        val computer = IntCodeComputer("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")
+        computer.compute()
+        assertThat(computer.getProgramMemory().output).isEqualTo(listOf(109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99))
+    }
+
+    @Test
+    @DisplayName("Given Day 9 Part 1 Example 2, when computing, then it should output a 16 digit number")
+    fun dayNineExampleTwo() {
+        val computer = IntCodeComputer("1102,34915192,34915192,7,4,7,99,0")
+        computer.compute()
+        assertThat(computer.getDiagnosticCode().toString().length).isEqualTo(16)
+    }
+
+    @Test
+    @DisplayName("Given Day 9 Part 1 Example 3, when computing, then it should output1125899906842624")
+    fun dayNineExampleThree() {
+        val computer = IntCodeComputer("104,1125899906842624,99")
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(1125899906842624)
+    }
 }

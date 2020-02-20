@@ -12,7 +12,7 @@ class Multiply : InstructionStrategy {
         val secondValue = getValue(memorySnapshot, modes.pop(), 2)
         val updateAddress = getWriteToIndex(memorySnapshot, 3)
         memorySnapshot.updateInstructionAtAddress(updateAddress, firstValue * secondValue)
-        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION.length)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }
 }

@@ -3,10 +3,10 @@ package com.aoc.intcode.amplifier.loopback
 import com.aoc.intcode.IntCodeComputer
 import com.aoc.intcode.amplifier.BaseAmplifier
 
-class FeedbackAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSetting) {
-    private var lastOutputSignal = 0
+class FeedbackAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSetting) {
+    private var lastOutputSignal = 0L
 
-    override fun inputSignal(inputSignal: Int) {
+    override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().systemInput(inputSignal)
         computer.compute()
         lastOutputSignal = computer.getDiagnosticCode()
@@ -19,5 +19,5 @@ class FeedbackAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSett
         computer.getProgramMemory().systemInput(phaseSetting)
     }
 
-    fun getThrusterSignal(): Int = lastOutputSignal
+    fun getThrusterSignal(): Long = lastOutputSignal
 }

@@ -7,18 +7,18 @@ import java.util.*
 interface InstructionStrategy {
     fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory
 
-    fun getValue(memorySnapshot: Memory, mode: ParameterMode, addressesAfterPointer: Int): Int {
+    fun getValue(memorySnapshot: Memory, mode: ParameterMode, addressesAfterPointer: Int): Long {
         val parameterIndex = memorySnapshot.instructionPointer + addressesAfterPointer
-        val valueIndex = memorySnapshot.getInstructionAtAddress(parameterIndex)
+        val valueIndex = memorySnapshot.getInstructionAtAddress(parameterIndex).toInt()
         return when (mode) {
             ParameterMode.POSITION -> memorySnapshot.getInstructionAtAddress(valueIndex)
-            ParameterMode.IMMEDIATE -> valueIndex
-            ParameterMode.RELATIVE -> TODO()
+            ParameterMode.IMMEDIATE -> valueIndex.toLong()
+            ParameterMode.RELATIVE -> memorySnapshot.getInstructionAtAddress(memorySnapshot.relativeBase + valueIndex)
         }
     }
 
     fun getWriteToIndex(memorySnapshot: Memory, addressesAfterPointer: Int): Int {
         val parameterIndex = memorySnapshot.instructionPointer + addressesAfterPointer
-        return memorySnapshot.getInstructionAtAddress(parameterIndex)
+        return memorySnapshot.getInstructionAtAddress(parameterIndex).toInt()
     }
 }

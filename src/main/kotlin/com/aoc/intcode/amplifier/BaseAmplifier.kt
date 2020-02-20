@@ -2,11 +2,11 @@ package com.aoc.intcode.amplifier
 
 import com.aoc.intcode.IntCodeComputer
 
-abstract class BaseAmplifier(private val phaseSetting: Int) : Amplifier {
+abstract class BaseAmplifier(private val phaseSetting: Long) : Amplifier {
     protected lateinit var nextAmplifier: Amplifier
     lateinit var computer: IntCodeComputer
 
-    override fun inputSignal(inputSignal: Int) {
+    override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().systemInput(inputSignal)
         computer.compute()
         nextAmplifier.inputSignal(computer.getDiagnosticCode())

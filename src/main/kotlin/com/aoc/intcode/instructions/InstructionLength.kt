@@ -1,6 +1,6 @@
 package com.aoc.intcode.instructions
 
-enum class InstructionLength(val length: Int) {
+enum class InstructionLength(val value: Int) {
     ONE_ADDRESS_INSTRUCTION(1),
     TWO_ADDRESS_INSTRUCTION(2),
     THREE_ADDRESS_INSTRUCTION(3),

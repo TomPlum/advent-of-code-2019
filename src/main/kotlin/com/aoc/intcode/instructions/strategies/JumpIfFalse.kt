@@ -10,10 +10,10 @@ class JumpIfFalse : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
         val firstParameter = getValue(memorySnapshot, modes.pop(), 1)
         val secondParameter = getValue(memorySnapshot, modes.pop(), 2)
-        if (firstParameter == 0) {
-            memorySnapshot.instructionPointer = secondParameter
+        if (firstParameter == 0L) {
+            memorySnapshot.instructionPointer = secondParameter.toInt()
         } else {
-            memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION.length)
+            memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
         }
         return memorySnapshot
     }

@@ -3,12 +3,12 @@ package com.aoc.intcode.amplifier.loopback
 import com.aoc.intcode.IntCodeComputer
 import com.aoc.intcode.amplifier.BaseAmplifier
 
-class LoopInitialAmplifier(private val phaseSetting: Int) : BaseAmplifier(phaseSetting) {
+class LoopInitialAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSetting) {
     fun start() {
         inputSignal(0)
     }
 
-    override fun inputSignal(inputSignal: Int) {
+    override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().systemInput(inputSignal)
         computer.compute()
         nextAmplifier.inputSignal(computer.getDiagnosticCode())

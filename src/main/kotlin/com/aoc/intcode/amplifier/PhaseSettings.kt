@@ -18,9 +18,9 @@ data class PhaseSettings(val input: Set<Int>) {
         settings.addAll(input)
     }
 
-    fun getSetting(): Int {
+    fun getSetting(): Long {
         if (settings.size > 0) {
-            return settings.poll()
+            return settings.poll().toLong()
         }
         throw IllegalCallerException("Invalid setting request. There are no phase settings remaining")
     }

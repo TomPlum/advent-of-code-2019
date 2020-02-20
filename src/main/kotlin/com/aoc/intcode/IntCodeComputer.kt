@@ -26,7 +26,7 @@ class IntCodeComputer constructor(programString: String) {
         }
     }
 
-    fun restoreGravityAssistProgram(noun: Int, verb: Int) {
+    fun restoreGravityAssistProgram(noun: Long, verb: Long) {
         program.memory.updateInstructionAtAddress(1, noun)
         program.memory.updateInstructionAtAddress(2, verb)
     }
@@ -37,7 +37,7 @@ class IntCodeComputer constructor(programString: String) {
 
     fun getProgramMemory(): Memory = program.memory
 
-    fun getDiagnosticCode(): Int = getProgramMemory().getLastOutputValue()
+    fun getDiagnosticCode(): Long = getProgramMemory().getLastOutputValue()
 
     fun getProgramCurrentState(): String = program.toString()
 

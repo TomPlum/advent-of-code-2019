@@ -5,7 +5,7 @@ import com.aoc.intcode.instructions.strategies.*
 import java.util.*
 
 data class OpCode(val instructionValue: String) {
-    private var value: Int = 0
+    private var value: Long = 0
     val parameterModes: Stack<ParameterMode> = Stack()
 
     init {
@@ -13,29 +13,29 @@ data class OpCode(val instructionValue: String) {
         if (paddedValue.takeLast(2).toInt() == 99) {
             this.value = 99
         } else {
-            this.value = instructionValue.takeLast(1).toInt()
+            this.value = instructionValue.takeLast(1).toLong()
         }
         paddedValue.take(paddedValue.length - 2).forEach {
-            if (it == '1') {
-                parameterModes.push(ParameterMode.IMMEDIATE)
-            } else {
-                parameterModes.push(ParameterMode.POSITION)
-            }
+            parameterModes.push(when (it) {
+                '1' -> ParameterMode.IMMEDIATE
+                '2' -> ParameterMode.RELATIVE
+                else -> ParameterMode.POSITION
+            })
         }
     }
 
     fun getInstructionStrategy(): InstructionStrategy {
         return when(value) {
-            1 -> Add()
-            2 -> Multiply()
-            3 -> Input()
-            4 -> Output()
-            5 -> JumpIfTrue()
-            6 -> JumpIfFalse()
-            7 -> LessThan()
-            8 -> Equals()
-            9 -> OffsetRelativeBase()
-            99 -> Halt()
+            1L -> Add()
+            2L -> Multiply()
+            3L -> Input()
+            4L -> Output()
+            5L -> JumpIfTrue()
+            6L -> JumpIfFalse()
+            7L -> LessThan()
+            8L -> Equals()
+            9L -> OffsetRelativeBase()
+            99L -> Halt()
             else -> Unknown()
         }
     }
@@ -44,7 +44,7 @@ data class OpCode(val instructionValue: String) {
         return parameterModes.pop()
     }
 
-    fun isValid() = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 99).contains(value)
+    fun isValid() = arrayOf(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 99L).contains(value)
 
     fun getValue() = instructionValue
 

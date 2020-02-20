@@ -10,13 +10,13 @@ import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
 
 class MemoryTest {
-    private val initialMemorySnapshot = listOf(1, 2, 3, 4, 5)
+    private val initialMemorySnapshot = listOf<Long>(1, 2, 3, 4, 5)
 
     @Test
     @DisplayName("Given a valid address input, when creating memory, it should return the addresses")
     fun createMemory() {
         val memory = Memory(initialMemorySnapshot)
-        assertThat(memory.instructions).isEqualTo(listOf(1,2,3,4,5))
+        assertThat(memory.instructions).isEqualTo(listOf<Long>(1,2,3,4,5))
     }
 
     @Test
@@ -25,7 +25,7 @@ class MemoryTest {
         val memory = Memory(initialMemorySnapshot)
         memory.updateInstructionAtAddress(0, 10)
         memory.reset()
-        assertThat(memory.instructions).isEqualTo(listOf(1,2,3,4,5))
+        assertThat(memory.instructions).isEqualTo(listOf<Long>(1,2,3,4,5))
     }
 
     @Test

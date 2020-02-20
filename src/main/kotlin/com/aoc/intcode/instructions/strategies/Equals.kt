@@ -16,7 +16,7 @@ class Equals: InstructionStrategy {
         } else {
             memorySnapshot.updateInstructionAtAddress(updateIndex, 0)
         }
-        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION.length)
+        memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }
 

@@ -2,6 +2,7 @@ package com.aoc.solutions
 
 import com.aoc.input.Day
 import com.aoc.input.InputReader
+import com.aoc.intcode.BootMode
 import com.aoc.intcode.IntCodeComputer
 
 fun main() {
@@ -12,14 +13,14 @@ fun main() {
 
 private fun partOne(input: String) {
     val computer = IntCodeComputer(input)
-    computer.startBoostTest()
+    computer.onNextBoot(BootMode.BOOST_TEST)
     computer.compute()
     print("Part 1 Solution: ${computer.getDiagnosticCode()}")
 }
 
 private fun partTwo(input: String) {
     val computer = IntCodeComputer(input)
-    computer.startSensorBoostMode()
+    computer.onNextBoot(BootMode.SENSOR_BOOST)
     computer.compute()
     print("Part 2 Solution: ${computer.getDiagnosticCode()}")
 }

@@ -2,6 +2,7 @@ package com.aoc.solutions
 
 import com.aoc.input.Day
 import com.aoc.input.InputReader
+import com.aoc.intcode.BootMode
 import com.aoc.intcode.IntCodeComputer
 
 fun main() {
@@ -14,14 +15,14 @@ fun main() {
 
 private fun partTwo(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
-    computer.startThermalRadiatorControllerDiagnosticTest()
+    computer.onNextBoot(BootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
     val finalProgramState = computer.compute()
     println("Final Program State $finalProgramState")
 }
 
 private fun partOne(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
-    computer.startAirConditionerDiagnosticTest()
+    computer.onNextBoot(BootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
     val finalProgramState = computer.compute()
     println("Final Program State $finalProgramState")
 }

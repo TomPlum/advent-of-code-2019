@@ -31,13 +31,7 @@ class IntCodeComputer constructor(programString: String) {
         program.memory.updateInstructionAtAddress(2, verb)
     }
 
-    fun startAirConditionerDiagnosticTest() = program.memory.systemInput(1)
-
-    fun startThermalRadiatorControllerDiagnosticTest() = program.memory.systemInput(5)
-
-    fun startBoostTest() = program.memory.systemInput(1)
-
-    fun startSensorBoostMode() = program.memory.systemInput(2)
+    fun onNextBoot(mode: BootMode) = program.memory.systemInput(mode.systemInputCode)
 
     fun getProgramMemory(): Memory = program.memory
 

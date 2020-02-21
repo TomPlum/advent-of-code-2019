@@ -8,6 +8,8 @@ import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
@@ -81,7 +83,7 @@ class IntCodeComputerTest {
     fun dayFivePartTwoSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)
-        computer.startThermalRadiatorControllerDiagnosticTest()
+        computer.onNextBoot(BootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(7408802)
     }
@@ -91,7 +93,7 @@ class IntCodeComputerTest {
     fun dayFivePartOneSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
         val computer = IntCodeComputer(puzzleInput)
-        computer.startAirConditionerDiagnosticTest()
+        computer.onNextBoot(BootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(5044655)
     }
@@ -101,7 +103,7 @@ class IntCodeComputerTest {
     fun dayNinePartOneSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(9))
         val computer = IntCodeComputer(puzzleInput)
-        computer.startBoostTest()
+        computer.onNextBoot(BootMode.BOOST_TEST)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(3100786347L)
     }
@@ -111,7 +113,7 @@ class IntCodeComputerTest {
     fun dayNinePartTwoSolution() {
         val puzzleInput = InputReader().readInputAsSingleString(Day.from(9))
         val computer = IntCodeComputer(puzzleInput)
-        computer.startSensorBoostMode()
+        computer.onNextBoot(BootMode.SENSOR_BOOST)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(87023)
     }
@@ -356,5 +358,15 @@ class IntCodeComputerTest {
         val computer = IntCodeComputer("104,1125899906842624,99")
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1125899906842624)
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = BootMode::class)
+    @DisplayName("Given a custom boot mode for the IntCodeComputer, when setting the mode for the next boot, then it should" +
+    "set the associated code in the computers' system input")
+    fun onNextBoot(bootMode: BootMode) {
+        val computer = IntCodeComputer("99")
+        computer.onNextBoot(bootMode)
+        assertThat(computer.getProgramMemory().input[0]).isEqualTo(bootMode.systemInputCode)
     }
 }

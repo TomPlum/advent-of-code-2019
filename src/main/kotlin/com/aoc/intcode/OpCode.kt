@@ -2,6 +2,7 @@ package com.aoc.intcode
 
 import com.aoc.intcode.instructions.InstructionStrategy
 import com.aoc.intcode.instructions.strategies.*
+import java.lang.IllegalStateException
 import java.util.*
 
 data class OpCode(val instructionValue: String) {
@@ -9,7 +10,7 @@ data class OpCode(val instructionValue: String) {
     val parameterModes: Stack<ParameterMode> = Stack()
 
     init {
-        val paddedValue = instructionValue.padStart(4, '0')
+        val paddedValue = instructionValue.padStart(5, '0')
         if (paddedValue.takeLast(2).toInt() == 99) {
             this.value = 99
         } else {
@@ -17,9 +18,10 @@ data class OpCode(val instructionValue: String) {
         }
         paddedValue.take(paddedValue.length - 2).forEach {
             parameterModes.push(when (it) {
+                '0' -> ParameterMode.POSITION
                 '1' -> ParameterMode.IMMEDIATE
                 '2' -> ParameterMode.RELATIVE
-                else -> ParameterMode.POSITION
+                else -> throw IllegalStateException("OpCodes cannot have parameter modes with the value $it")
             })
         }
     }
@@ -41,8 +43,6 @@ data class OpCode(val instructionValue: String) {
     }
 
     fun getParameterMode(): ParameterMode = parameterModes.pop()
-
-    fun isValid() = arrayOf(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 99L).contains(value)
 
     fun getValue() = instructionValue
 

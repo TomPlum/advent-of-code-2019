@@ -10,7 +10,7 @@ class LessThan: InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
         val firstParameter = getValue(memorySnapshot, modes.pop(), 1)
         val secondParameter = getValue(memorySnapshot, modes.pop(), 2)
-        val updateIndex = getWriteToIndex(memorySnapshot, 3)
+        val updateIndex = getWriteToAddress(memorySnapshot, modes.pop(), 3)
         if (firstParameter < secondParameter) {
             memorySnapshot.updateInstructionAtAddress(updateIndex, 1)
         } else {

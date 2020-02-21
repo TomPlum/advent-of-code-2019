@@ -9,7 +9,7 @@ import java.util.*
 class OffsetRelativeBase : InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
         val parameter = getValue(memorySnapshot, modes.pop(), 1)
-        memorySnapshot.relativeBase += parameter.toInt()
+        memorySnapshot.relativeBase += parameter
         memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         return memorySnapshot
     }

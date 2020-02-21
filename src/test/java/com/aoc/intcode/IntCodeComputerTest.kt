@@ -299,9 +299,9 @@ class IntCodeComputerTest {
     @Test
     @DisplayName("Given an unknown OpCode, when computing, then it should throw an exception")
     fun unknownValue() {
-        val computer = IntCodeComputer("8720")
+        val computer = IntCodeComputer("1220")
         val e = assertThrows<IllegalArgumentException> { computer.compute() }
-        assertThat(e.message).isEqualTo("Operation unknown for instruction 8720")
+        assertThat(e.message).isEqualTo("Operation unknown for instruction 1220")
     }
 
     @Test

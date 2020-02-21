@@ -9,7 +9,7 @@ import kotlin.math.log
 class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
     var instructionPointer = 0L
-    var relativeBase = 0
+    var relativeBase = 0L
     val input = LinkedList<Long>()
     val output = LinkedList<Long>()
     val logger = LoggerFactory.getLogger(javaClass)

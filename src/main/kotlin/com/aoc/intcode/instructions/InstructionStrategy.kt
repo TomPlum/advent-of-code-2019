@@ -3,6 +3,7 @@ package com.aoc.intcode.instructions
 import com.aoc.intcode.Memory
 import com.aoc.intcode.ParameterMode
 import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 import java.util.*
 
 interface InstructionStrategy {
@@ -18,8 +19,13 @@ interface InstructionStrategy {
         }
     }
 
-    fun getWriteToIndex(memorySnapshot: Memory, addressesAfterPointer: Int): Long {
+    fun getWriteToAddress(memorySnapshot: Memory, mode: ParameterMode, addressesAfterPointer: Int): Long {
         val parameterIndex = memorySnapshot.instructionPointer + addressesAfterPointer
-        return memorySnapshot.getInstructionAtAddress(parameterIndex)
+        val parameterValue = memorySnapshot.getInstructionAtAddress(parameterIndex)
+        return when (mode) {
+            ParameterMode.POSITION -> parameterValue
+            ParameterMode.IMMEDIATE -> throw IllegalStateException("You cannot write to a memory address in immediate mode")
+            ParameterMode.RELATIVE -> memorySnapshot.relativeBase + parameterValue
+        }
     }
 }

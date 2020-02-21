@@ -12,24 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 class OpCodeTest {
-    @ParameterizedTest
-    @ValueSource(ints = [-10, 0, 10, 100])
-    @DisplayName("Given an invalid OpCode value, when checking if valid, then it should return false")
-    fun invalidValue(value: Int) {
-        val opCode = OpCode(value.toString())
-        val isValid = opCode.isValid()
-        assertThat(isValid).isFalse()
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = [1, 2, 3, 4, 5, 6, 7, 8, 9, 99])
-    @DisplayName("Given a valid OpCode value, when checking if valid, then it should return true")
-    fun validValue(value: Int) {
-        val opCode = OpCode(value.toString())
-        val isValid = opCode.isValid()
-        assertThat(isValid).isTrue()
-    }
-
     @Test
     @DisplayName("Given an OpCode of value 1, when getting the operation, then it should return ADD")
     fun operationOne() {

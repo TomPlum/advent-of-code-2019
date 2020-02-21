@@ -1,8 +1,10 @@
 package com.aoc.intcode
 
 import com.aoc.intcode.instructions.InstructionLength
+import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 import java.util.*
+import kotlin.math.log
 
 class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
@@ -10,6 +12,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var relativeBase = 0
     val input = LinkedList<Long>()
     val output = LinkedList<Long>()
+    val logger = LoggerFactory.getLogger(javaClass)
 
     fun reset() {
         instructions = initialMemorySnapshot.toMutableList()
@@ -35,6 +38,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     }
 
     fun incrementInstructionPointer(length: InstructionLength) {
+        logger.debug("Incrementing Instruction Pointer")
         instructionPointer += length.value
     }
 

@@ -41,16 +41,12 @@ class InputTest {
     }
 
     @Test
-    @Disabled("Input Opcode cannot be in immediate mode and the first and only parameter is a write to")
-    @DisplayName("Given an Input OpCode in IMMEDIATE MODE (1103), when executing the strategy, then it should take a value from the system input")
-    fun inputImmediateMode() {
-        val opCode = OpCode("1103")
-        val memorySnapshot = Memory(listOf(4,9,3,1,99))
-        memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
-        memorySnapshot.systemInput(3)
-
+    fun inputRelativeMode() {
+        val opCode = OpCode("203")
+        val memorySnapshot = Memory(listOf(203,7))
+        memorySnapshot.relativeBase = -6
+        memorySnapshot.systemInput(105L)
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
-
-        assertThat(finalSnapshot).isEqualTo(Memory(listOf(4,3,3,1,99)))
+        assertThat(finalSnapshot).isEqualTo(Memory(listOf(203,105)))
     }
 }

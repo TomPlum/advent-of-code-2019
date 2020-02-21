@@ -18,7 +18,7 @@ class MultiplyTest {
     fun multiplySingleDigitPositionMode() {
         val opCode = OpCode("3")
         val memorySnapshot = Memory(listOf(3,0,0,0))
-        val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(9,0,0,0)))
     }
 
@@ -28,7 +28,7 @@ class MultiplyTest {
         val opCode = OpCode("3")
         val memorySnapshot = Memory(listOf(3,4,99,10,3,3,3))
         memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
-        val finalSnapshot = strategy.execute(memorySnapshot, StrategyTestUtility.getParameterModes(opCode))
+        val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(3,4,99,100,3,3,3)))
     }
 }

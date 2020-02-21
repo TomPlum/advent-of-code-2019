@@ -35,6 +35,8 @@ class IntCodeComputer constructor(programString: String) {
 
     fun startThermalRadiatorControllerDiagnosticTest() = program.memory.systemInput(5)
 
+    fun startBoostTest() = program.memory.systemInput(1)
+
     fun getProgramMemory(): Memory = program.memory
 
     fun getDiagnosticCode(): Long = getProgramMemory().getLastOutputValue()

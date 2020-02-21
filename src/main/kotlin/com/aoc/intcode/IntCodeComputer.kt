@@ -37,6 +37,8 @@ class IntCodeComputer constructor(programString: String) {
 
     fun startBoostTest() = program.memory.systemInput(1)
 
+    fun startSensorBoostMode() = program.memory.systemInput(2)
+
     fun getProgramMemory(): Memory = program.memory
 
     fun getDiagnosticCode(): Long = getProgramMemory().getLastOutputValue()

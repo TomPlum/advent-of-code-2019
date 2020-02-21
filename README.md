@@ -14,7 +14,7 @@ https://adventofcode.com/2019/
 | 06   	| 314702   	| 439      	| Universal Orbit Map                       |                                
 | 07   	| 21860    	| 2645740  	| Amplification Circuit                     |
 | 08   	| 2904     	| HGBCF    	| Space Image Format                        |
-| 09   	| 3100786347| -       	| Sensor Boost                              |
+| 09   	| 3100786347| 87023    	| Sensor Boost                              |
 | 10  	| -       	| -       	| Monitoring Station                        |
 | 11  	| -       	| -       	| Space Police                              |
 | 12  	| -       	| -       	| The N-Body Problem                        |

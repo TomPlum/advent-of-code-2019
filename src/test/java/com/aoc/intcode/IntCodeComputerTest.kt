@@ -97,6 +97,16 @@ class IntCodeComputerTest {
     }
 
     @Test
+    @DisplayName("Given Day 9 - Part 1 puzzle input, when inputting the BOOST test code, then it should output 3100786347")
+    fun dayNinePartOneSolution() {
+        val puzzleInput = InputReader().readInputAsSingleString(Day.from(9))
+        val computer = IntCodeComputer(puzzleInput)
+        computer.startBoostTest()
+        computer.compute()
+        assertThat(computer.getDiagnosticCode()).isEqualTo(3100786347L)
+    }
+
+    @Test
     @DisplayName("Given a JUMP_IF_TRUE OpCode(5) in IMMEDIATE_MODE, when the first parameter is non-zero, then it should set the instruction pointer to the value from the second parameter")
     fun jumpIfTrue() {
         val computer = IntCodeComputer("1105,1,3,99")

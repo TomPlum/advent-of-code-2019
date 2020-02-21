@@ -1,11 +1,12 @@
 package com.aoc.intcode
 
 import com.aoc.intcode.instructions.InstructionLength
+import java.lang.IllegalArgumentException
 import java.util.*
 
 class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
-    var instructionPointer = 0
+    var instructionPointer = 0L
     var relativeBase = 0
     val input = LinkedList<Long>()
     val output = LinkedList<Long>()
@@ -16,11 +17,22 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
 
     fun getCurrentInstruction(): Long = getInstructionAtAddress(instructionPointer)
 
-    fun updateInstructionAtAddress(addressIndex: Int, instructionValue: Long) {
-        instructions[addressIndex] = instructionValue
+    fun updateInstructionAtAddress(addressIndex: Long, instructionValue: Long) {
+        padMemory(addressIndex)
+        instructions[addressIndex.toInt()] = instructionValue
     }
 
-    fun getInstructionAtAddress(addressIndex: Int): Long = instructions[addressIndex]
+    fun getInstructionAtAddress(addressIndex: Long): Long {
+        padMemory(addressIndex)
+        return instructions[addressIndex.toInt()]
+    }
+
+    private fun padMemory(addressIndex: Long) {
+        if (addressIndex < 0) throw IllegalArgumentException("Invalid Memory Address ($addressIndex)")
+        if (addressIndex > instructions.size - 1) {
+            instructions.apply { repeat((addressIndex - instructions.size + 1).toInt()) { this.add(0) } }
+        }
+    }
 
     fun incrementInstructionPointer(length: InstructionLength) {
         instructionPointer += length.value

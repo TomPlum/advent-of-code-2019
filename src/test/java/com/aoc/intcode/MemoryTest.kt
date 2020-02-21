@@ -7,7 +7,7 @@ import assertk.assertions.isNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalStateException
+import java.lang.IllegalArgumentException
 
 class MemoryTest {
     private val initialMemorySnapshot = listOf<Long>(1, 2, 3, 4, 5)
@@ -42,6 +42,44 @@ class MemoryTest {
         val memory = Memory(initialMemorySnapshot)
         val addressValue = memory.getInstructionAtAddress(3)
         assertThat(addressValue).isEqualTo(4)
+    }
+
+    @Test
+    @DisplayName("Given a valid set of addresses, when getting the instruction at a positive address that does not exist," +
+    "then it should return 0")
+    fun getFromNonExistentPositiveAddress() {
+        val memory = Memory(initialMemorySnapshot)
+        val addressValue = memory.getInstructionAtAddress(50)
+        assertThat(addressValue).isEqualTo(0)
+    }
+
+    @Test
+    @DisplayName("Given a valid set of addresses, when getting the instruction at a negative address (that cannot exist)," +
+    "then it should throw an IllegalArgumentException")
+    fun getFromNonExistentNegativeAddress() {
+        val memory = Memory(initialMemorySnapshot)
+        val e = assertThrows<IllegalArgumentException> { memory.getInstructionAtAddress(-1) }
+        assertThat(e.message).isEqualTo("Invalid Memory Address (-1)")
+    }
+
+    @Test
+    @DisplayName("Given a valid set of addresses, when updating the instruction value at a positive address that does" +
+    "not exist, then it should pad the intermediary addresses with 0s and write the value")
+    fun writeToNonExistentPositiveAddress() {
+        val memory = Memory(initialMemorySnapshot)
+        memory.updateInstructionAtAddress(8, 4986L)
+        assertThat(memory.getInstructionAtAddress(6)).isEqualTo(0)
+        assertThat(memory.getInstructionAtAddress(7)).isEqualTo(0)
+        assertThat(memory.getInstructionAtAddress(8)).isEqualTo(4986L)
+    }
+
+    @Test
+    @DisplayName("Given a valid set of addresses, when updating the instruction value at a negative address" +
+            "(that cannot exist), then it should throw an IllegalArgumentException")
+    fun writeToNonExistentNegativeAddress() {
+        val memory = Memory(initialMemorySnapshot)
+        val e = assertThrows<IllegalArgumentException> { memory.updateInstructionAtAddress(-125, 0L) }
+        assertThat(e.message).isEqualTo("Invalid Memory Address (-125)")
     }
 
     @Test

@@ -11,7 +11,7 @@ class JumpIfTrue : InstructionStrategy {
         val firstParameter = getValue(memorySnapshot, modes.pop(), 1)
         val secondParameter = getValue(memorySnapshot, modes.pop(), 2)
         if (firstParameter != 0L) {
-            memorySnapshot.instructionPointer = secondParameter.toInt()
+            memorySnapshot.instructionPointer = secondParameter
         } else {
             memorySnapshot.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
         }

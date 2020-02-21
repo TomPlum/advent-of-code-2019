@@ -1,4 +1,7 @@
-package com.aoc.image
+package com.aoc.image.utility
+
+import com.aoc.image.EncodedSpaceImage
+import com.aoc.image.Pixel
 
 class SpaceImageVerifier(val image: EncodedSpaceImage) {
 

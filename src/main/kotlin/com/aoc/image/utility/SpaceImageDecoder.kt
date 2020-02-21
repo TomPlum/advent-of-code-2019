@@ -1,21 +1,18 @@
-package com.aoc.image
+package com.aoc.image.utility
 
-class ImageDataDecoder {
+import com.aoc.image.EncodedSpaceImage
+import com.aoc.image.Pixel
+import com.aoc.image.SpaceImage
+import com.aoc.image.SpaceImageLayer
 
-    fun assembleImageData(imageDataString: String, dimensions: SpaceImageDimensions): EncodedSpaceImage {
-        val imageData: List<Pixel> = imageDataString.chunked(1).map { Pixel.fromColourCode(it.toInt()) }
-        return EncodedSpaceImage(imageData.chunked(dimensions.width * dimensions.height).map {
-            SpaceImageLayer(it, dimensions)
-        })
-    }
-
+/**
+ * Takes an [EncodedSpaceImage] and decodes it by flattening the layers and exposing the uppermost
+ * non-transparent pixels.
+ */
+class SpaceImageDecoder {
     fun decode(encodedSpaceImage: EncodedSpaceImage): SpaceImage {
         val flattenedLayers = flattenLayers(encodedSpaceImage.layers)
         return SpaceImage(flattenedLayers)
-    }
-
-    fun render(spaceImage: SpaceImage) {
-
     }
 
     private fun flattenLayers(layers: List<SpaceImageLayer>): SpaceImageLayer {
@@ -34,5 +31,4 @@ class ImageDataDecoder {
 
         return flattenedImage
     }
-
 }

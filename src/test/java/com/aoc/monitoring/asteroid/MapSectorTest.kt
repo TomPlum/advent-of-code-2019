@@ -35,20 +35,6 @@ class MapSectorTest {
         assertThat(e.message).isEqualTo("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")
     }
 
-    @Test
-    fun toStringTestAsteroid() {
-        val mapSector = MapSector("#", 0, 0)
-        val toString = mapSector.toString()
-        assertThat(toString).isEqualTo("#")
-    }
-
-    @Test
-    fun toStringTestEmpty() {
-        val mapSector = MapSector(".", 0, 0)
-        val toString = mapSector.toString()
-        assertThat(toString).isEqualTo(".")
-    }
-
     @ParameterizedTest
     @CsvSource(value = ["0,0,1,1", "0,0, 2,2", "3,3,5,5", "5,0,0,5"], delimiter = ',')
     @DisplayName("Coordinates whose x & y ordinates are the same should be diagonal at 45deg")

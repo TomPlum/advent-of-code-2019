@@ -10,7 +10,7 @@ class AsteroidMapTest {
     @Test
     @DisplayName("Given valid Asteroid Map input data, when constructing an Asteroid Map, then it should parse it correctly")
     fun initParsesMapDataCorrectly() {
-        val input = InputReader().readInputAsString("/asteroid/example-one.txt").values
+        val input = InputReader().readInputAsString("/asteroid/example-1.txt").values
         val map = AsteroidMap(input)
         assertThat(map.getRow(0)).isEqualTo(".#..#")
         assertThat(map.getRow(1)).isEqualTo(".....")
@@ -20,9 +20,37 @@ class AsteroidMapTest {
     }
 
     @Test
-    fun lineOfSight() {
-        val input = InputReader().readInputAsString("/asteroid/example-one.txt").values
-        val map = AsteroidMap(input)
-        map.getAsteroidSightLine(1, 0, 4, 4)
+    fun optimalMappingStationSectorExampleOne() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-1.txt").values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 3, 4), 8))
+    }
+
+    @Test
+    fun optimalMappingStationSectorExampleTwo() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-2.txt").values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 5, 8), 33))
+    }
+
+    @Test
+    fun optimalMappingStationSectorExampleThree() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-3.txt").values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 1, 2), 35))
+    }
+
+    @Test
+    fun optimalMappingStationSectorExampleFour() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-4.txt").values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 6, 3), 47))
+    }
+
+    @Test
+    fun optimalMappingStationSectorExampleFive() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 11, 13), 210))
     }
 }

@@ -4,7 +4,7 @@ import java.lang.IllegalArgumentException
 import kotlin.math.abs
 import kotlin.math.atan2
 
-class MapSector(private val contents: String, val x: Int, val y: Int) {
+data class MapSector(val contents: String, val x: Int, val y: Int) {
 
     /**
      * Calculates the clockwise angle between two [MapSector]
@@ -26,5 +26,4 @@ class MapSector(private val contents: String, val x: Int, val y: Int) {
         }
     }
 
-    override fun toString() = contents
 }

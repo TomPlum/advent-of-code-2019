@@ -9,17 +9,20 @@ class AsteroidMap(mapData: List<String>) {
         }.flatten().toSet()
     }
 
-    fun getRow(index: Int) = map.filter { it.y == index }.joinToString(separator = "")
+    fun getRow(index: Int) = map.filter { it.y == index }.joinToString(separator = "") {it.contents}
 
-    fun getAsteroidSightLine(x1: Int, y1: Int, x2: Int, y2: Int) {
-        //https://stackoverflow.com/questions/14066933/direct-way-of-computing-clockwise-angle-between-2-vectors/16544330#16544330
+    /**
+     * @return A [Pair] of the optimal [MapSector] and the number of asteroids within
+     * line of sight of a monitoring station if it was placed in this sector.
+     */
+    fun getOptimalAsteroidMappingStationSector(): Pair<MapSector, Int> {
         val asteroids = map.filter { it.hasAsteroid() }
         asteroids.map { sourceSector ->
             asteroids.map {
             }
         }
-        val sectorOne = getSector(x1, y1)
-        val sectorTwo = getSector(x2, y2)
+
+        return Pair(MapSector("#", 0, 0), 0)
     }
 
     private fun getSector(x: Int, y: Int): MapSector = map.find { it.x == x && it.y == y }!!

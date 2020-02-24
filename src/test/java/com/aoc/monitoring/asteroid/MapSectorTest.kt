@@ -4,23 +4,25 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.EmptySource
 import org.junit.jupiter.params.provider.ValueSource
 
 class MapSectorTest {
     @Test
     fun hasAsteroid() {
-        val mapSector = MapSector("#")
+        val mapSector = MapSector("#", 0, 0)
         val hasAsteroid = mapSector.hasAsteroid()
         assertThat(hasAsteroid).isTrue()
     }
 
     @Test
     fun isEmpty() {
-        val mapSector = MapSector(".")
+        val mapSector = MapSector(".", 0, 0)
         val hasAsteroid = mapSector.hasAsteroid()
         assertThat(hasAsteroid).isFalse()
     }
@@ -29,21 +31,49 @@ class MapSectorTest {
     @EmptySource
     @ValueSource(strings = ["##", "..", "A", "1"])
     fun invalidContentsValue(contents: String) {
-        val e = assertThrows<IllegalArgumentException> { MapSector(contents).hasAsteroid() }
+        val e = assertThrows<IllegalArgumentException> { MapSector(contents, 0, 0).hasAsteroid() }
         assertThat(e.message).isEqualTo("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")
     }
 
     @Test
     fun toStringTestAsteroid() {
-        val mapSector = MapSector("#")
+        val mapSector = MapSector("#", 0, 0)
         val toString = mapSector.toString()
         assertThat(toString).isEqualTo("#")
     }
 
     @Test
     fun toStringTestEmpty() {
-        val mapSector = MapSector(".")
+        val mapSector = MapSector(".", 0, 0)
         val toString = mapSector.toString()
         assertThat(toString).isEqualTo(".")
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["0,0,1,1", "0,0, 2,2", "3,3,5,5", "5,0,0,5"], delimiter = ',')
+    @DisplayName("Coordinates whose x & y ordinates are the same should be diagonal at 45deg")
+    fun angleBetweenWhenSectorsAreExactlyDiagonal(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(45.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["4,5,5,5", "5,5,6,5"], delimiter = ',')
+    @DisplayName("Coordinates that have the same y-ordinate should be horizontal at 180deg")
+    fun angleBetweenWhenSectorsAreOnTheSameRow(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(180.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["3,3,3,2", "3,3,3,0", "0,5,0,2", "12,15,12,0"], delimiter = ',')
+    @DisplayName("Coordinates that have the same x-ordinate and a lesser y-ordinate should be vertical at 90deg")
+    fun angleBetweenWhenTargetSectorIsVerticallyAbove(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(90.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["3,3,3,7", "3,3,3,21", "0,5,0,10", "12,15,12,16"], delimiter = ',')
+    @DisplayName("Coordinates that have the same x-ordinate and a greater y-ordinate should be vertical at 0deg")
+    fun angleBetweenWhenTargetSectorIsVerticallyBelow(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(0.0)
     }
 }

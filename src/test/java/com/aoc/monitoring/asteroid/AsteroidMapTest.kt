@@ -44,7 +44,7 @@ class AsteroidMapTest {
     fun optimalMappingStationSectorExampleFour() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-4.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 6, 3), 47))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 6, 3), 41))
     }
 
     @Test

@@ -13,17 +13,21 @@ class AsteroidMap(mapData: List<String>) {
 
     /**
      * @return A [Pair] of the optimal [MapSector] and the number of asteroids within
-     * line of sight of a monitoring station if it was placed in this sector.
+     * line of sight of the monitoring station if it was placed in this sector.
      */
     fun getOptimalAsteroidMappingStationSector(): Pair<MapSector, Int> {
         val asteroids = map.filter { it.hasAsteroid() }
-        asteroids.map { sourceSector ->
-            asteroids.map {
-            }
+        val angleMap: MutableMap<MapSector, Set<Double>> = mutableMapOf()
+        asteroids.map { sourceAsteroid ->
+            val targetAsteroids = asteroids.filter { it != sourceAsteroid }
+            angleMap.put(sourceAsteroid, targetAsteroids.map { targetAsteroid ->
+                sourceAsteroid.angleBetween(targetAsteroid)
+            }.toSet())
         }
 
-        return Pair(MapSector("#", 0, 0), 0)
+        val optimal = angleMap.maxBy { it.value.size }
+
+        return Pair(optimal!!.key, optimal.value.size)
     }
 
-    private fun getSector(x: Int, y: Int): MapSector = map.find { it.x == x && it.y == y }!!
 }

@@ -15,7 +15,7 @@ https://adventofcode.com/2019/
 | 07   	| 21860    	| 2645740  	| Amplification Circuit                     |
 | 08   	| 2904     	| HGBCF    	| Space Image Format                        |
 | 09   	| 3100786347| 87023    	| Sensor Boost                              |
-| 10  	| -       	| -       	| Monitoring Station                        |
+| 10  	| 263      	| -       	| Monitoring Station                        |
 | 11  	| -       	| -       	| Space Police                              |
 | 12  	| -       	| -       	| The N-Body Problem                        |
 | 13  	| -       	| -       	| Care Package                              |

@@ -2,6 +2,7 @@ package com.aoc.monitoring.asteroid
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.input.Day
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -52,5 +53,14 @@ class AsteroidMapTest {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
         assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 11, 13), 210))
+    }
+
+    @Test
+    @DisplayName("Given Day 10 Part 1 puzzle input, when calculating the number of asteroids in the direct line of sight" +
+            "of a monitoring station placed in the optimal position, then it should return 263 at (23, 29)")
+    fun solutionPartOne() {
+        val map = AsteroidMap(InputReader().readInputString(Day.from(10)).values)
+        val optimalSector = map.getOptimalAsteroidMappingStationSector()
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 23, 29), 263))
     }
 }

@@ -57,7 +57,7 @@ class AsteroidMapTest {
 
     @Test
     @DisplayName("Given Day 10 Part 1 puzzle input, when calculating the number of asteroids in the direct line of sight" +
-            "of a monitoring station placed in the optimal position, then it should return 263 at (23, 29)")
+    "of a monitoring station placed in the optimal position, then it should return 263 at (23, 29)")
     fun solutionPartOne() {
         val map = AsteroidMap(InputReader().readInputString(Day.from(10)).values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()

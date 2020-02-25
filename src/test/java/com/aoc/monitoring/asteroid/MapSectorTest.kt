@@ -36,6 +36,13 @@ class MapSectorTest {
     }
 
     @ParameterizedTest
+    @CsvSource(value = ["3,3,3,2", "3,3,3,0", "0,5,0,2", "12,15,12,0"], delimiter = ',')
+    @DisplayName("Coordinates that have the same x-ordinate and a lesser y-ordinate should be vertical at 90deg")
+    fun angleBetweenWhenTargetSectorIsVerticallyAbove(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(0.0)
+    }
+
+    @ParameterizedTest
     @CsvSource(value = ["0,0,1,1", "0,0, 2,2", "3,3,5,5"], delimiter = ',')
     @DisplayName("Coordinates that are diagonal should be -135deg when target is bottom right")
     fun angleBetweenWhenSectorsAreExactlyDiagonalBottomRight(x1: Int, y1: Int, x2: Int, y2: Int) {
@@ -57,16 +64,27 @@ class MapSectorTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = ["3,3,3,2", "3,3,3,0", "0,5,0,2", "12,15,12,0"], delimiter = ',')
-    @DisplayName("Coordinates that have the same x-ordinate and a lesser y-ordinate should be vertical at 90deg")
-    fun angleBetweenWhenTargetSectorIsVerticallyAbove(x1: Int, y1: Int, x2: Int, y2: Int) {
-        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(90.0)
-    }
-
-    @ParameterizedTest
     @CsvSource(value = ["3,3,3,7", "3,3,3,21", "0,5,0,10", "12,15,12,16"], delimiter = ',')
     @DisplayName("Coordinates that have the same x-ordinate and a greater y-ordinate should be vertical at -90deg")
     fun angleBetweenWhenTargetSectorIsVerticallyBelow(x1: Int, y1: Int, x2: Int, y2: Int) {
         assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(-90.0)
+    }
+
+    @Test
+    fun anglesShouldBeCalculatedClockwiseFromTheTop() {
+        val middle = MapSector("#", 1, 1)
+        val topLeft = MapSector("#", 0, 0)
+        val topMiddle = MapSector("#", 1, 0)
+        val topRight = MapSector("#", 2, 0)
+        val middleRight = MapSector("#", 2, 1)
+        val bottomRight = MapSector("#", 2, 2)
+        val bottomMiddle = MapSector("#", 1, 2)
+        val bottomLeft = MapSector("#", 0, 2)
+        val middleLeft = MapSector("#", 0, 1)
+
+        listOf(topLeft, topMiddle, topRight, middleRight, bottomRight, bottomMiddle, bottomLeft, middleLeft).forEach {
+            val angle = middle.angleBetween(it)
+            print("Angle between (${middle.x}, ${middle.y}) and (${it.x}, ${it.y}) is $angle \n")
+        }
     }
 }

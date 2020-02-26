@@ -3,9 +3,11 @@ package com.aoc.panel
 import kotlin.math.abs
 
 class Panel constructor(private val firstWire: Wire, private val secondWire: Wire) {
-    fun findIntersectionPointClosestToCentralPort(): Int? {
-        return firstWire.getPath().intersect(secondWire.getPath()).toList().map { manhattanDistance(it.x, it.y) }.min()
-    }
+    fun findIntersectionPointClosestToCentralPort(): Int? = firstWire.getPath()
+            .intersect(secondWire.getPath()).toList()
+            .map { manhattanDistance(it.x, it.y) }
+            .min()
+
 
     fun findShortestCombinedIntersectionPaths(): Int? {
         val intersectionDistances = mutableListOf<Int>()

@@ -1,5 +1,7 @@
 package com.aoc.monitoring.asteroid
 
+import java.util.*
+
 class AsteroidMap(mapData: List<String>) {
     private var map: Set<MapSector>
 
@@ -28,6 +30,24 @@ class AsteroidMap(mapData: List<String>) {
         val optimal = angleMap.maxBy { it.value.size }
 
         return Pair(optimal!!.key, optimal.value.size)
+    }
+
+    /**
+     * The Instant Monitoring Station that was deployed on the asteroid of the optimal [MapSector] fires a
+     * vaporising laser that starts from the vertical position and rotates clockwise until all the asteroids on
+     * the map have been destroyed.
+     * @return The [MapSector] containing the 200th asteroid to be destroyed
+     */
+    fun vaporiseAsteroidBelt(): MapSector {
+        val asteroids = map.filter { it.hasAsteroid() }
+        val laserStation = getOptimalAsteroidMappingStationSector().first
+        val angleDistanceMap: SortedMap<Double, MutableSet<Int>> = sortedMapOf()
+        asteroids.map {
+            val angle = laserStation.angleBetween(it)
+            val distance = laserStation.distanceBetween(it)
+            angleDistanceMap.computeIfAbsent(angle) { mutableSetOf() }.add(distance)
+        }
+        return MapSector("#", 0 ,0)
     }
 
 }

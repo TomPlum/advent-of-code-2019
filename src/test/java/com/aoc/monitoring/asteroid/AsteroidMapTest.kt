@@ -63,4 +63,13 @@ class AsteroidMapTest {
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
         assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 23, 29), 263))
     }
+
+    @Test
+    @DisplayName("Given Day 10 Example 5 input, when calculating the coordinates of the 200th asteroid to be destoryed," +
+    "then it should return (8, 2)")
+    fun asteroidVaporisationFromExampleFiveMap() {
+        val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
+        val twoHundredthAsteroid = map.vaporiseAsteroidBelt()
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 8, 2))
+    }
 }

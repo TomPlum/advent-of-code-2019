@@ -6,27 +6,24 @@ import kotlin.math.atan2
 data class MapSector(val contents: String, val x: Int, val y: Int) {
 
     /**
-     * Calculates the positive clockwise angle between two [MapSector]
+     * Calculates the positive clockwise angle between two [MapSector] in degrees.
+     * Angles are calculated from the sector's true north in the range of 0 =< angle < 360.
      */
     fun angleBetween(sector: MapSector): Double {
-        val dy = (this.y - sector.y).toDouble()
-        val dx = (this.x - sector.x).toDouble()
-       /* val angle = (atan2(dy, dx) * 180) / Math.PI
-
-        return when {
-            angle in 0.0..90.0 -> abs(angle - 90)
-            angle < 0 -> abs(angle) + 90
-            else -> 450 - angle
-        }*/
-        return atan2(dy, dx) * (180 / Math.PI)
+        val angle = atan2((y - sector.y).toDouble(), (x - sector.x).toDouble()) * (180 / Math.PI) - 90.00
+        return if (angle < 0) { angle + 360.00 } else angle
     }
 
-    fun hasAsteroid(): Boolean {
-        return when(contents) {
-            "#" -> true
-            "." -> false
-            else -> throw IllegalArgumentException("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")
-        }
+    /**
+     * Calculates the Manhattan Distance between two [MapSector] as an integer
+     */
+    fun distanceBetween(sector: MapSector) = abs(this.x - sector.x) + abs(this.y - sector.y)
+
+    fun hasAsteroid() = when (contents) {
+        "#" -> true
+        "." -> false
+        else -> throw IllegalArgumentException("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")
     }
+
 
 }

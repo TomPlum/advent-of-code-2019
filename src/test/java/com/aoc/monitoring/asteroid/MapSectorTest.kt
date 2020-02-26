@@ -37,37 +37,58 @@ class MapSectorTest {
 
     @ParameterizedTest
     @CsvSource(value = ["3,3,3,2", "3,3,3,0", "0,5,0,2", "12,15,12,0"], delimiter = ',')
-    @DisplayName("Coordinates that have the same x-ordinate and a lesser y-ordinate should be vertical at 90deg")
+    @DisplayName("Coordinates that have the same x-ordinate and a lesser y-ordinate should be vertical at 0deg")
     fun angleBetweenWhenTargetSectorIsVerticallyAbove(x1: Int, y1: Int, x2: Int, y2: Int) {
         assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(0.0)
     }
 
     @ParameterizedTest
-    @CsvSource(value = ["0,0,1,1", "0,0, 2,2", "3,3,5,5"], delimiter = ',')
-    @DisplayName("Coordinates that are diagonal should be -135deg when target is bottom right")
-    fun angleBetweenWhenSectorsAreExactlyDiagonalBottomRight(x1: Int, y1: Int, x2: Int, y2: Int) {
-        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(-135.0)
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = ["5,0,0,5", "4,4,3,5"], delimiter = ',')
-    @DisplayName("Coordinates that are diagonal should be -45deg when target is top right")
+    @CsvSource(value = ["0,5,5,0", "3,5,4,4"], delimiter = ',')
+    @DisplayName("Coordinates that are diagonal should be 45deg when target is top right")
     fun angleBetweenWhenSectorsAreExactlyDiagonalTopRight(x1: Int, y1: Int, x2: Int, y2: Int) {
-        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(-45.0)
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(45.0)
     }
 
     @ParameterizedTest
     @CsvSource(value = ["4,5,5,5", "5,5,6,5"], delimiter = ',')
-    @DisplayName("Coordinates that have the same y-ordinate should be horizontal at 180deg")
-    fun angleBetweenWhenSectorsAreOnTheSameRow(x1: Int, y1: Int, x2: Int, y2: Int) {
-        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(180.0)
+    @DisplayName("Coordinates that have the same y-ordinate and a greater x-ordinate should be horizontal at 90deg")
+    fun angleBetweenWhenSectorsAreHorizontallyPerpendicularToTheRight(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(90.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["0,0,1,1", "0,0,2,2", "3,3,5,5"], delimiter = ',')
+    @DisplayName("Coordinates that are diagonal should be 135deg when target is bottom right")
+    fun angleBetweenWhenSectorsAreExactlyDiagonalBottomRight(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(135.0)
     }
 
     @ParameterizedTest
     @CsvSource(value = ["3,3,3,7", "3,3,3,21", "0,5,0,10", "12,15,12,16"], delimiter = ',')
     @DisplayName("Coordinates that have the same x-ordinate and a greater y-ordinate should be vertical at -90deg")
     fun angleBetweenWhenTargetSectorIsVerticallyBelow(x1: Int, y1: Int, x2: Int, y2: Int) {
-        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(-90.0)
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(180.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["1,1,0,2", "5,5,4,6", "10,10,8,12"], delimiter = ',')
+    @DisplayName("Coordinates that are diagonal should be 225deg when target is bottom left")
+    fun angleBetweenWhenSectorsAreExactlyDiagonalBottomLeft(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(225.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["4,5,3,5", "5,5,4,5", "10,1,3,1"], delimiter = ',')
+    @DisplayName("Coordinates that have the same y-ordinate and a lesser x-ordinate should be horizontal at 270deg")
+    fun angleBetweenWhenSectorsAreHorizontallyPerpendicularToTheLeft(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(270.0)
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["1,1,0,0", "5,5,4,4", "10,8,8,6"], delimiter = ',')
+    @DisplayName("Coordinates that are diagonal should be 315deg when target is top left")
+    fun angleBetweenWhenSectorsAreExactlyDiagonalTopLeft(x1: Int, y1: Int, x2: Int, y2: Int) {
+        assertThat(MapSector("#", x1, y1).angleBetween(MapSector("#", x2, y2))).isEqualTo(315.0)
     }
 
     @Test

@@ -1,18 +1,13 @@
 package com.aoc.monitoring.asteroid
 
 class AsteroidMap(mapData: List<String>) {
-    private var map: Set<MapSector>
     private var asteroids: Set<MapSector>
 
     init {
-        map = mapData.mapIndexed { y, row ->
+        asteroids = mapData.asSequence().mapIndexed { y, row ->
             row.chunked(1).mapIndexed { x, contents -> MapSector(contents, x, y) }
-        }.flatten().toSet()
-
-        asteroids = map.filter { it.hasAsteroid() }.toSet()
+        }.flatten().filter { it.hasAsteroid() }.toSet()
     }
-
-    fun getRow(index: Int) = map.filter { it.y == index }.joinToString(separator = "") { it.contents }
 
     /**
      * @return A [Pair] of the optimal [MapSector] and the number of asteroids within
@@ -36,6 +31,7 @@ class AsteroidMap(mapData: List<String>) {
      * The Instant Monitoring Station that was deployed on the asteroid of the optimal [MapSector] fires a
      * vaporising laser that starts from the vertical position and rotates clockwise until all the asteroids on
      * the map have been destroyed.
+     * @param n The nth asteroid to be vaporised as per the aforementioned order where 1 is the first.
      * @return The [MapSector] containing the [n]th asteroid to be destroyed.
      */
     fun vaporiseAsteroidBelt(n: Int): MapSector {
@@ -59,6 +55,7 @@ class AsteroidMap(mapData: List<String>) {
      * To win the bet with the elves on which asteroid be the 200th to be vaporised, this function returns the value
      * when multiplying the asteroids x-ordinate by 100 and adding it it's y-ordinate.
      * @return ([MapSector.x] * 100) + [MapSector.y].y
+     * @see AsteroidMap.vaporiseAsteroidBelt
      */
     fun winBetWithElves(): Int {
         val asteroid = vaporiseAsteroidBelt(200)

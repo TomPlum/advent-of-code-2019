@@ -17,9 +17,9 @@ data class MapSector(val contents: String, val x: Int, val y: Int) {
     /**
      * Calculates the Manhattan Distance between two [MapSector] as an integer
      */
-    fun distanceBetween(sector: MapSector) = abs(this.x - sector.x) + abs(this.y - sector.y)
+    fun distanceBetween(sector: MapSector): Int = abs(this.x - sector.x) + abs(this.y - sector.y)
 
-    fun hasAsteroid() = when (contents) {
+    fun hasAsteroid(): Boolean = when (contents) {
         "#" -> true
         "." -> false
         else -> throw IllegalArgumentException("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")

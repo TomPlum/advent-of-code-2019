@@ -9,4 +9,5 @@ fun main() {
 
     val asteroidMap = AsteroidMap(input)
     print("Solution Part 1: ${asteroidMap.getOptimalAsteroidMappingStationSector()}")
+    print("Solution Part 2: ${asteroidMap.winBetWithElves()}")
 }

@@ -41,13 +41,13 @@ class AsteroidMap(mapData: List<String>) {
     fun vaporiseAsteroidBelt(): MapSector {
         val asteroids = map.filter { it.hasAsteroid() }
         val laserStation = getOptimalAsteroidMappingStationSector().first
-        val angleDistanceMap: SortedMap<Double, MutableSet<Int>> = sortedMapOf()
-        asteroids.map {
-            val angle = laserStation.angleBetween(it)
-            val distance = laserStation.distanceBetween(it)
-            angleDistanceMap.computeIfAbsent(angle) { mutableSetOf() }.add(distance)
+        val angleDistanceMap: SortedMap<Double, MutableSet<Pair<MapSector, Int>>> = sortedMapOf()
+        asteroids.map { asteroid ->
+            val angle = laserStation.angleBetween(asteroid)
+            val distance = laserStation.distanceBetween(asteroid)
+            angleDistanceMap.computeIfAbsent(angle) { sortedSetOf() }.add(Pair(asteroid, distance))
         }
-        return MapSector("#", 0 ,0)
+        return MapSector("#", 0, 0)
     }
 
 }

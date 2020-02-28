@@ -10,6 +10,9 @@ class AsteroidMap(mapData: List<String>) {
     }
 
     /**
+     * The elves want to build and Asteroid Monitoring Station on an asteroid nearby in the given [AsteroidMap].
+     * The optimal [MapSector] is the one in which has direct line of sight of the most asteroids.
+     *
      * @return A [Pair] of the optimal [MapSector] and the number of asteroids within
      * line of sight of the monitoring station if it was placed in this sector.
      */

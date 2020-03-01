@@ -11,25 +11,19 @@ class PaintingRobot(instructions: String) {
     private var y = 0
 
     fun start(startingPanelColour: HullPaint) {
-        //Start Black Panel
         computer.getProgramMemory().systemInput(startingPanelColour.colourCode.toLong())
 
         while (!computer.programHalted) {
-            //Compute based on current input to produce the two output codes
             computer.compute()
 
             val systemOutput = computer.getProgramMemory().getLastTwoOutputValues()
 
-            //First output is the colour in which to paint the current panel
             paint(systemOutput.first.toInt())
 
-            //Second output is the direction the robot should turn (0 = Left 90deg, 1 = Right 90deg)
             turn(systemOutput.second.toInt())
 
-            //After robot turns it should move forward exactly 1 panel
             moveForward()
 
-            //Input into IntCodeComputer subject to current panel colour (0 if Black, 1 if White)
             computer.getProgramMemory().systemInput(getCurrentPanelColour().colourCode.toLong())
         }
 

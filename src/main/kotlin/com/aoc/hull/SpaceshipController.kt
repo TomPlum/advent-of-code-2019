@@ -3,15 +3,17 @@ package com.aoc.hull
 class SpaceshipController {
 
     /**
-     * In order to comply with Space Law, the Spaceship must have a clearly visible Registration Identifier.
+     * In order to comply with Space Law, the Spaceship must have a clearly visible [RegistrationIdentifier].
      * To quickly satisfy the Space Police's request, the ship must deploy an emergency [PaintingRobot].
      * Upon deployment, the robot will follow the Elves' instructions are paint the [Hull] appropriately.
      *
-     * @return The freshly painted [Hull] with a clearly visible Registration Identifier.
+     * @param instructions The instruction String to be passed to the [PaintingRobot] internal [IntCodeComputer]
+     * @param startingPanelColour The colour of the [Panel] in which to deploy the [PaintingRobot]
+     * @return The freshly painted [Hull] with a clearly visible [RegistrationIdentifier]
      */
-    fun deployEmergencyHullPaintingRobot(instructions: String): Hull {
+    fun deployEmergencyHullPaintingRobot(instructions: String, startingPanelColour: HullPaint): Hull {
         val robot = PaintingRobot(instructions)
-        robot.start()
+        robot.start(startingPanelColour)
         return robot.getPaintedHull()
     }
 }

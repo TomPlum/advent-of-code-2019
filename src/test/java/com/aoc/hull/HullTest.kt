@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class HullTest {
+
     @Test
     @DisplayName("Given a new Hull, when painting a Panel, then it should add the Panel to the Hull with the correct coordinates and colour")
     fun paintPanel() {
@@ -37,5 +38,12 @@ class HullTest {
         val hull = Hull()
         val panelColour = hull.getPanelColour(20, 60)
         assertThat(panelColour).isEqualTo(HullPaint.BLACK)
+    }
+
+    @Test
+    fun getRegistrationIdentifier() {
+        val hull = Hull()
+        hull.paintPanel(3, 5, HullPaint.WHITE)
+        assertThat(hull.getRegistrationIdentifier()).isEqualTo(RegistrationIdentifier(mapOf(Pair(Panel(3, 5), HullPaint.WHITE))))
     }
 }

@@ -10,9 +10,9 @@ class PaintingRobot(instructions: String) {
     private var x = 0
     private var y = 0
 
-    fun start() {
+    fun start(startingPanelColour: HullPaint) {
         //Start Black Panel
-        computer.getProgramMemory().systemInput(HullPaint.BLACK.colourCode.toLong())
+        computer.getProgramMemory().systemInput(startingPanelColour.colourCode.toLong())
 
         while (!computer.programHalted) {
             //Compute based on current input to produce the two output codes
@@ -48,9 +48,9 @@ class PaintingRobot(instructions: String) {
     }
 
     private fun moveForward() = when(direction) {
-        Direction.UP -> y++
+        Direction.UP -> y--
         Direction.RIGHT -> x++
-        Direction.DOWN -> y--
+        Direction.DOWN -> y++
         Direction.LEFT -> x--
     }
 

@@ -51,6 +51,21 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
         throw IllegalStateException("System output is empty!")
     }
 
+
+    /**
+     * Returns the last two values from the system output. The values are returned as a pair in the format
+     * Pair(output[n-2], output[n-1]) where n is the length of the system output. The values are removed from the
+     * system output when they are read via this function.
+     */
+    fun getLastTwoOutputValues(): Pair<Long, Long> {
+        if (output.size > 0) {
+            val lastValue = output.pollLast()
+            val secondToLastValue = output.pollLast()
+            return Pair(secondToLastValue, lastValue)
+        }
+        throw IllegalStateException("System output is empty!")
+    }
+
     fun getInput(): Long? = input.poll()
 
     override fun toString() = instructions.toString()

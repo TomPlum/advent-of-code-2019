@@ -26,6 +26,7 @@ class MotionSimulatorTest {
         val motionSimulator = MotionSimulator(moonPositions)
         motionSimulator.simulate(100)
         val totalSystemEnergy = motionSimulator.calculateTotalSystemEnergy()
+        println("\nEnergy after 100 steps:")
         moonPositions.forEach { println("pot: ${it.calculatePotentialEnergy()};   kin: ${it.calculateKineticEnergy()};   total: ${it.calculateTotalEnergy()}") }
         assertThat(totalSystemEnergy).isEqualTo(1940)
     }

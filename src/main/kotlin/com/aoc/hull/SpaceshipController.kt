@@ -7,7 +7,7 @@ class SpaceshipController {
      * To quickly satisfy the Space Police's request, the ship must deploy an emergency [PaintingRobot].
      * Upon deployment, the robot will follow the Elves' instructions are paint the [Hull] appropriately.
      *
-     * @param instructions The instruction String to be passed to the [PaintingRobot] internal [IntCodeComputer]
+     * @param instructions The instruction String to be passed to the internal [com.aoc.intcode.IntCodeComputer] of the [PaintingRobot]
      * @param startingPanelColour The colour of the [Panel] in which to deploy the [PaintingRobot]
      * @return The freshly painted [Hull] with a clearly visible [RegistrationIdentifier]
      */

@@ -14,7 +14,7 @@ class WireCoordinateTest {
     @DisplayName("Given two Points that have the same cartesian coordinate, when checking their equality, they should be equal")
     fun equalityTest(x0: Int, y0: Int, x1: Int, y1: Int) {
         val pointOne = WireCoordinate(x0, y0)
-        val pointTwo = WireCoordinate(y1, y1)
+        val pointTwo = WireCoordinate(x1, y1)
         assertThat(pointOne).isEqualTo(pointTwo)
     }
 

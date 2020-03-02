@@ -17,7 +17,7 @@ https://adventofcode.com/2019/
 | 09   	| 3100786347| 87023    	| Sensor Boost                              |
 | 10  	| 263      	| 1110     	| Monitoring Station                        |
 | 11  	| 1564     	| RFEPCFEB 	| Space Police                              |
-| 12  	| -       	| -       	| The N-Body Problem                        |
+| 12  	| 7722     	| -       	| The N-Body Problem                        |
 | 13  	| -       	| -       	| Care Package                              |
 | 14  	| -       	| -       	| Space Stoichiometry                       |
 | 15  	| -       	| -       	| Oxygen System                             |

@@ -61,4 +61,11 @@ class MotionSimulatorTest {
         motionSimulator.simulate(1000)
         assertThat(motionSimulator.calculateTotalSystemEnergy()).isEqualTo(7722)
     }
+
+    @Test
+    fun partTwoSolution() {
+        val input = InputReader().readInputString(Day.from(12)).values
+        val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
+        assertThat(motionSimulator.determineTimeStepsUntilHistoryRepeats()).isEqualTo(292653556339368L)
+    }
 }

@@ -16,16 +16,26 @@ class MotionSimulator(private val moons: Set<Moon>) {
         }
     }
 
-    fun simulate(timeSteps: Int) = (0 until timeSteps).forEach { timeStep ->
-
+    /**
+     * For the given number of [timeSteps] the gravity and velocity is applied to each of the [moons].
+     * Gravity is applied only to the [uniqueMoonPairs], whereas Velocity is applied to each of the [moons].
+     * @see [Moon.applyGravity]
+     * @see [Moon.applyVelocity]
+     */
+    fun simulate(timeSteps: Int) = repeat( (0 until timeSteps).count() ) {
         uniqueMoonPairs.forEach { it.first.applyGravity(it.second) }
-
         moons.forEach { it.applyVelocity() }
-
-        //println("\nAfter ${timeStep + 1} steps:")
-        //moons.forEach { println(it.toString()) }
     }
 
+
+    /**
+     * Calculates the number of time steps until all of the moons are aligned in the exact same [Point3D] positions
+     * and [Velocity3D] values. This is the point in which history repeats itself. It is calculated by finding the
+     * 'period' of each axis of all the moons. Each time a [Moon] has the same [Point3D] and [Velocity3D] axis
+     * respectively as the initial state, it is recorded and the simulation is ran for one more time step.
+     * Once all three axis periods have been found, the lowest common multiple of these values is equal to the time
+     * step in which all four moons are in their initial state again.
+     */
     fun determineTimeStepsUntilHistoryRepeats(): Long {
         var xPeriod = 0L
         var yPeriod = 0L
@@ -38,16 +48,20 @@ class MotionSimulator(private val moons: Set<Moon>) {
             timeStep++
 
             if (xPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityX(it.second) }) xPeriod = timeStep
+
             if (yPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityY(it.second) }) yPeriod = timeStep
+
             if (zPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityZ(it.second) }) zPeriod = timeStep
 
         }
 
-        //print("$xPeriod, $yPeriod, $zPeriod")
-
         return Formulae.lcm(listOf(xPeriod, yPeriod, zPeriod))
     }
 
+    /**
+     * Calculates the total energy of the system in its current state.
+     * @see [Moon.calculateTotalEnergy]
+     */
     fun calculateTotalSystemEnergy() = moons.toList().map { it.calculateTotalEnergy() }.sum()
 
 }

@@ -8,6 +8,9 @@ import java.util.*
 class ScanningModule {
     private val names = LinkedList(listOf("Io", "Europa", "Ganymede", "Callisto"))
 
+    /**
+     * Reads the moon positional data, parses each line into a [Moon] and returns a [Set].
+     */
     fun scanLocalSectorForMoons(positionalData: List<String>): Set<Moon> = positionalData
             .map { line ->
                 val coords = line.removeSurrounding("<", ">").split(", ").map { it.substring(2).toInt() }

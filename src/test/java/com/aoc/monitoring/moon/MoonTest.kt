@@ -2,6 +2,8 @@ package com.aoc.monitoring.moon
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -60,6 +62,90 @@ class MoonTest {
         val moon = Moon("Ganymede", Point3D(-1, 5, 3), Velocity3D(-2, 12, 3))
         val potentialEnergy = moon.calculateTotalEnergy()
         assertThat(potentialEnergy).isEqualTo(153)
+    }
+
+    @Test
+    fun hasSamePositionAndVelocityX() {
+        val sourceMoon = Moon("Ganymede", Point3D(3, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 2, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityX(targetMoon)).isTrue()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionX() {
+        val sourceMoon = Moon("Ganymede", Point3D(1, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 2, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityX(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSameVelocityX() {
+        val sourceMoon = Moon("Ganymede", Point3D(3, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 2, 8), Velocity3D(6, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityX(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionOrVelocityX() {
+        val sourceMoon = Moon("Ganymede", Point3D(3, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(1, 2, 8), Velocity3D(6, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityX(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun hasSamePositionAndVelocityY() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 5, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityY(targetMoon)).isTrue()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionY() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 3, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityY(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSameVelocityY() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 1), Velocity3D(0, 5, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 5, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityY(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionOrVelocityY() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 1), Velocity3D(0, 5, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 3, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityY(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun hasSamePositionAndVelocityZ() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 6, 8), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 5, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityZ(targetMoon)).isTrue()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionZ() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 1), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 3, 8), Velocity3D(0, 0, 0))
+        assertThat(sourceMoon.hasSamePositionVelocityZ(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSameVelocityZ() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 8), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 3, 8), Velocity3D(0, 0, 8))
+        assertThat(sourceMoon.hasSamePositionVelocityZ(targetMoon)).isFalse()
+    }
+
+    @Test
+    fun doesNotHaveSamePositionOrVelocityZ() {
+        val sourceMoon = Moon("Ganymede", Point3D(2, 5, 3), Velocity3D(0, 0, 0))
+        val targetMoon = Moon("Europa", Point3D(3, 3, 8), Velocity3D(0, 0, 8))
+        assertThat(sourceMoon.hasSamePositionVelocityZ(targetMoon)).isFalse()
     }
 
     @Test

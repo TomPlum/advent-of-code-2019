@@ -33,6 +33,28 @@ class MotionSimulatorTest {
     }
 
     @Test
+    @DisplayName("Given Day 12 Example 1 Input Data, when determining the number of time steps until history repeats" +
+    "itself, then it should return 2772 time steps.")
+    fun determineWhenHistoryRepeatsItselfExampleOne() {
+        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-1.txt").values
+        val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
+        val motionSimulator = MotionSimulator(moonPositions)
+        val timeSteps = motionSimulator.determineTimeStepsUntilHistoryRepeats()
+        assertThat(timeSteps).isEqualTo(2772)
+    }
+
+    @Test
+    @DisplayName("Given Day 12 Example 2 Input Data, when determining the number of time steps until history repeats" +
+    "itself, then it should return 4686774924 time steps.")
+    fun determineWhenHistoryRepeatsItselfExampleTwo() {
+        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-2.txt").values
+        val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
+        val motionSimulator = MotionSimulator(moonPositions)
+        val timeSteps = motionSimulator.determineTimeStepsUntilHistoryRepeats()
+        assertThat(timeSteps).isEqualTo(4686774924)
+    }
+
+    @Test
     fun partOneSolution() {
         val input = InputReader().readInputString(Day.from(12)).values
         val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))

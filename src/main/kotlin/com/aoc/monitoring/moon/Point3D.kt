@@ -1,5 +1,5 @@
 package com.aoc.monitoring.moon
 
-data class Point3D(var x: Int, var y: Int, var z: Int) {
+data class Point3D(val x: Int, val y: Int, val z: Int) {
     override fun toString() = "pos=<x=$x, y=$y, z=$z>"
 }

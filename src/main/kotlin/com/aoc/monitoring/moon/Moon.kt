@@ -64,17 +64,17 @@ data class Moon(val name: String, var position: Point3D, var velocity: Velocity3
     /**
      * @return true if this and [that] have the same [Point3D.x] and [Velocity3D.x] values. false if not.
      */
-    fun hasSamePositionVelocityX(that: Moon) = this.position.x == that.position.x || this.velocity.x == that.velocity.x
+    fun hasSamePositionVelocityX(that: Moon) = this.position.x == that.position.x && this.velocity.x == that.velocity.x
 
     /**
      * @return true if this and [that] have the same [Point3D.y] and [Velocity3D.y] values. false if not.
      */
-    fun hasSamePositionVelocityY(that: Moon) = this.position.y == that.position.y || this.velocity.y == that.velocity.y
+    fun hasSamePositionVelocityY(that: Moon) = this.position.y == that.position.y && this.velocity.y == that.velocity.y
 
     /**
      * @return true if this and [that] have the same [Point3D.z] and [Velocity3D.z] values. false if not.
      */
-    fun hasSamePositionVelocityZ(that: Moon) = this.position.z == that.position.z || this.velocity.z == that.velocity.z
+    fun hasSamePositionVelocityZ(that: Moon) = this.position.z == that.position.z && this.velocity.z == that.velocity.z
 
     
     override fun toString() = "$position, $velocity"

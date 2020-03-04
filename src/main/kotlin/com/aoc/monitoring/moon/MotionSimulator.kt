@@ -22,41 +22,30 @@ class MotionSimulator(private val moons: Set<Moon>) {
 
         moons.forEach { it.applyVelocity() }
 
-        println("\nAfter ${timeStep + 1} steps:")
-        moons.forEach { println(it.toString()) }
+        //println("\nAfter ${timeStep + 1} steps:")
+        //moons.forEach { println(it.toString()) }
     }
 
-    fun determineTimeStepsUntilHistoryRepeats(): Int {
-        var xPeriod = 0
-        var yPeriod = 0
-        var zPeriod = 0
+    fun determineTimeStepsUntilHistoryRepeats(): Long {
+        var xPeriod = 0L
+        var yPeriod = 0L
+        var zPeriod = 0L
 
-        var timeStep = 0
+        var timeStep = 0L
 
-        while (xPeriod == 0 || yPeriod == 0 || zPeriod == 0) {
+        while (xPeriod == 0L || yPeriod == 0L || zPeriod == 0L) {
             simulate(1)
             timeStep++
 
-            //Finding when all moons have zero velocity and multiplying period by 2 should find the answer
-           /* if (xPeriod == 0 && moons.all { it.velocity.x == 0 }) xPeriod = timeStep
-            if (yPeriod == 0 && moons.all { it.velocity.y == 0 }) yPeriod = timeStep
-            if (zPeriod == 0 && moons.all { it.velocity.z == 0 }) zPeriod = timeStep*/
-
-            if (xPeriod == 0 && initialState.zip(moons).all { it.first.hasSamePositionVelocityX(it.second) }) xPeriod = timeStep
-            if (yPeriod == 0 && initialState.zip(moons).all { it.first.hasSamePositionVelocityY(it.second) }) yPeriod = timeStep
-            if (zPeriod == 0 && initialState.zip(moons).all { it.first.hasSamePositionVelocityZ(it.second) }) zPeriod = timeStep
-
-           /* initialState.zip(moons).forEach {
-                if (xPeriod == 0 && it.first.hasSamePositionVelocityX(it.second)) xPeriod = timeStep
-                if (yPeriod == 0 && it.first.hasSamePositionVelocityY(it.second)) yPeriod = timeStep
-                if (zPeriod == 0 && it.first.hasSamePositionVelocityZ(it.second)) zPeriod = timeStep
-            }*/
+            if (xPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityX(it.second) }) xPeriod = timeStep
+            if (yPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityY(it.second) }) yPeriod = timeStep
+            if (zPeriod == 0L && initialState.zip(moons).all { it.first.hasSamePositionVelocityZ(it.second) }) zPeriod = timeStep
 
         }
 
-        print("$xPeriod, $yPeriod, $zPeriod")
+        //print("$xPeriod, $yPeriod, $zPeriod")
 
-        return Formulae.lcm(listOf(xPeriod, yPeriod, zPeriod)) * 2
+        return Formulae.lcm(listOf(xPeriod, yPeriod, zPeriod))
     }
 
     fun calculateTotalSystemEnergy() = moons.toList().map { it.calculateTotalEnergy() }.sum()

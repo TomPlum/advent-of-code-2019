@@ -9,5 +9,6 @@ fun main() {
     val input = InputReader().readInputString(Day.from(12)).values
     val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
     motionSimulator.simulate(1000)
-    println("Part 1 Solution: ${motionSimulator.calculateTotalSystemEnergy()}")
+    println("Part 1 Solution: ${motionSimulator.calculateTotalSystemEnergy()}\n")
+    println("Part 2 Solution: ${motionSimulator.determineTimeStepsUntilHistoryRepeats()}")
 }

@@ -2,13 +2,13 @@ package com.aoc.math
 
 class Formulae {
     companion object {
-        fun lcm(ints: List<Int>): Int {
-           var result = ints[0]
-            ints.forEachIndexed { i, _ -> result = lcm(result, ints[i]) }
+        fun lcm(input: List<Long>): Long {
+           var result = input[0]
+            input.forEachIndexed { i, _ -> result = lcm(result, input[i]) }
             return result
         }
 
-        private fun gcd(a: Int, b: Int): Int {
+        private fun gcd(a: Long, b: Long): Long {
             var n1 = a
             var n2 = b
             while (n1 != n2) {
@@ -17,7 +17,7 @@ class Formulae {
             return n1
         }
 
-        private fun lcm(a: Int, b: Int) = a * (b / gcd(a, b))
+        private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
     }
 
 

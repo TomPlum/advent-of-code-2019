@@ -5,8 +5,16 @@ import java.util.*
 class SystemOutput {
     val values = LinkedList<Long>()
 
+    /**
+     * Adds a single [value] to the [SystemOutput] internal [values]
+     */
     fun add(value: Long) = values.add(value)
 
+
+    /**
+     * Gets the last value from the [SystemOutput] internal [values].
+     * The value is not consumed.
+     */
     fun getLastValue(): Long {
         if (values.size > 0) return values.last
         throw IllegalStateException("System output is empty!")

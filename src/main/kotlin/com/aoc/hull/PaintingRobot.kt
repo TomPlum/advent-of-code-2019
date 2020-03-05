@@ -16,7 +16,7 @@ class PaintingRobot(instructions: String) {
         while (!computer.programHalted) {
             computer.compute()
 
-            val systemOutput = computer.getProgramMemory().getLastTwoOutputValues()
+            val systemOutput = computer.getProgramMemory().output.getLastTwoValues()
 
             paint(systemOutput.first.toInt())
 

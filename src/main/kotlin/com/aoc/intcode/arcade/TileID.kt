@@ -1,11 +1,11 @@
 package com.aoc.intcode.arcade
 
-enum class TileID {
-    EMPTY,
-    WALL,
-    BLOCK,
-    HORIZONTAL_PADDLE,
-    BALL;
+enum class TileID(val displayIcon: String) {
+    EMPTY (" "),
+    WALL ("|"),
+    BLOCK ("="),
+    HORIZONTAL_PADDLE ("_"),
+    BALL ("o");
 
     companion object {
         fun fromValue(value: Int) = when(value) {

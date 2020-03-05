@@ -15,4 +15,10 @@ class ArcadeCabinetTest {
         val blockQuantity = ArcadeCabinet(input).getTileQuantity(TileID.BLOCK)
         assertThat(blockQuantity).isEqualTo(247)
     }
+
+    @Test
+    fun startGame() {
+        val input = InputReader().readInputAsSingleString(Day.from(13))
+        ArcadeCabinet(input).startGame()
+    }
 }

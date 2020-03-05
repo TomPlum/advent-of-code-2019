@@ -22,7 +22,7 @@ class OutputTest {
         val memorySnapshot = Memory(listOf(3,50,4,1,99))
         memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
-        assertThat(finalSnapshot.getLastOutputValue()).isEqualTo(50)
+        assertThat(finalSnapshot.output.getLastValue()).isEqualTo(50)
     }
 
     @Test
@@ -32,7 +32,7 @@ class OutputTest {
         val memorySnapshot = Memory(listOf(3,50,4,1,99))
         memorySnapshot.incrementInstructionPointer(InstructionLength.TWO_ADDRESS_INSTRUCTION)
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
-        assertThat(finalSnapshot.getLastOutputValue()).isEqualTo(1)
+        assertThat(finalSnapshot.output.getLastValue()).isEqualTo(1)
     }
 
     @Test
@@ -43,6 +43,6 @@ class OutputTest {
         val memorySnapshot = Memory(listOf(204,-1999,99))
         memorySnapshot.relativeBase = 2000
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
-        assertThat(finalSnapshot.getLastOutputValue()).isEqualTo(-1999)
+        assertThat(finalSnapshot.output.getLastValue()).isEqualTo(-1999)
     }
 }

@@ -7,7 +7,6 @@ import assertk.assertions.isNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 
 class MemoryTest {
     private val initialMemorySnapshot = listOf<Long>(1, 2, 3, 4, 5)
@@ -98,24 +97,5 @@ class MemoryTest {
         val memory = Memory(initialMemorySnapshot)
         val input = memory.getInput()
         assertThat(input).isNull()
-    }
-
-    @Test
-    @DisplayName("Given a memory snapshot with two output values, when getting the last two output values, then it" +
-    "should return a pair with the second to last and last values in the first and second position of a Pair respectively")
-    fun getLastTwoOutputValues() {
-        val memory = Memory(initialMemorySnapshot)
-        memory.systemOutput(5L)
-        memory.systemOutput(12L)
-        assertThat(memory.getLastTwoOutputValues()).isEqualTo(Pair(5L, 12L))
-    }
-
-    @Test
-    fun getLastTwoOutputValuesShouldConsumeSystemOutput() {
-        val memory = Memory(initialMemorySnapshot)
-        memory.systemOutput(2)
-        memory.systemOutput(6)
-        memory.getLastTwoOutputValues()
-        assertThat(memory.output).isEmpty()
     }
 }

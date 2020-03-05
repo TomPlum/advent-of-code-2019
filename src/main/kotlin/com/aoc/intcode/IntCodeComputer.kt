@@ -31,7 +31,7 @@ class IntCodeComputer constructor(programString: String) {
         program.memory.updateInstructionAtAddress(2, verb)
     }
 
-    fun onNextBoot(mode: BootMode) = program.memory.systemInput(mode.systemInputCode)
+    fun onNextBoot(mode: BootMode) = program.memory.input.add(mode.systemInputCode)
 
     fun getProgramMemory(): Memory = program.memory
 

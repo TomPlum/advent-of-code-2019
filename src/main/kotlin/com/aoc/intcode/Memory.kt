@@ -2,13 +2,12 @@ package com.aoc.intcode
 
 import com.aoc.intcode.instructions.InstructionLength
 import org.slf4j.LoggerFactory
-import java.util.*
 
 class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
     var instructionPointer = 0L
     var relativeBase = 0L
-    val input = LinkedList<Long>()
+    val input = SystemInput()
     val output = SystemOutput()
     val logger = LoggerFactory.getLogger(javaClass)
 
@@ -39,10 +38,6 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
         logger.debug("Incrementing Instruction Pointer")
         instructionPointer += length.value
     }
-
-    fun systemInput(value: Long) = input.add(value)
-
-    fun getInput(): Long? = input.poll()
 
     override fun toString() = instructions.toString()
 

@@ -85,17 +85,17 @@ class MemoryTest {
     @DisplayName("Given a memory with a single system input, when getting the input, then it should consume and return the value")
     fun getInputShouldConsumeValue() {
         val memory = Memory(initialMemorySnapshot)
-        memory.systemInput(1)
-        val input = memory.getInput()
+        memory.input.add(1)
+        val input = memory.input.getValue()
         assertThat(input).isEqualTo(1)
-        assertThat(memory.input).isEmpty()
+        assertThat(memory.input.values).isEmpty()
     }
 
     @Test
     @DisplayName("Given a memory with no system input, when getting the input, then it should return null")
     fun getInputWhenEmpty() {
         val memory = Memory(initialMemorySnapshot)
-        val input = memory.getInput()
+        val input = memory.input.getValue()
         assertThat(input).isNull()
     }
 }

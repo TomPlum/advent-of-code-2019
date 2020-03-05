@@ -23,7 +23,7 @@ class InputTest {
         val opCode = OpCode("3")
         val memorySnapshot = Memory(listOf(1,0,15,12,3,1,99))
         memorySnapshot.incrementInstructionPointer(InstructionLength.FOUR_ADDRESS_INSTRUCTION)
-        memorySnapshot.systemInput(12)
+        memorySnapshot.input.add(12)
 
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
 
@@ -45,7 +45,7 @@ class InputTest {
         val opCode = OpCode("203")
         val memorySnapshot = Memory(listOf(203,7))
         memorySnapshot.relativeBase = -6
-        memorySnapshot.systemInput(105L)
+        memorySnapshot.input.add(105L)
         val finalSnapshot = strategy.execute(memorySnapshot, opCode.parameterModes)
         assertThat(finalSnapshot).isEqualTo(Memory(listOf(203,105)))
     }

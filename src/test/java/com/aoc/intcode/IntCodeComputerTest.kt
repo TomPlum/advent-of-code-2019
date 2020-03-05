@@ -188,7 +188,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 1 (POSITION MODE), when inputting 8 into the computer, then it should output 1")
     fun equalsExampleTestInPositionModeWithCorrectInput() {
         val computer = IntCodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
-        computer.getProgramMemory().systemInput(8)
+        computer.getProgramMemory().input.add(8)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1)
     }
@@ -197,7 +197,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 1 (POSITION MODE), when inputting 2 into the computer, then it should output 0")
     fun equalsExampleTestInPositionModeWithIncorrectInput() {
         val computer = IntCodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
-        computer.getProgramMemory().systemInput(2)
+        computer.getProgramMemory().input.add(2)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(0)
     }
@@ -206,7 +206,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 2 (POSITION MODE), when inputting 5 into the computer, then it should output 1")
     fun lessThanExampleTestInPositionModeWithCorrectInput() {
         val computer = IntCodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
-        computer.getProgramMemory().systemInput(5)
+        computer.getProgramMemory().input.add(5)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1)
     }
@@ -215,7 +215,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 2 (POSITION MODE), when inputting 9 into the computer, then it should output 0")
     fun lessExampleTestInPositionModeWithIncorrectInput() {
         val computer = IntCodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
-        computer.getProgramMemory().systemInput(9)
+        computer.getProgramMemory().input.add(9)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(0)
     }
@@ -224,7 +224,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 1 (IMMEDIATE MODE), when inputting 8 into the computer, then it should output 1")
     fun equalsExampleTestInImmediateModeWithCorrectInput() {
         val computer = IntCodeComputer("3,3,1108,-1,8,3,4,3,99")
-        computer.getProgramMemory().systemInput(8)
+        computer.getProgramMemory().input.add(8)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1)
     }
@@ -233,7 +233,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 1 (IMMEDIATE MODE), when inputting 2 into the computer, then it should output 0")
     fun equalsExampleTestInImmediateModeWithIncorrectInput() {
         val computer = IntCodeComputer("3,3,1108,-1,8,3,4,3,99")
-        computer.getProgramMemory().systemInput(2)
+        computer.getProgramMemory().input.add(2)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(0)
     }
@@ -242,7 +242,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 2 (IMMEDIATE MODE), when inputting 5 into the computer, then it should output 1")
     fun lessThanExampleTestInImmediateModeWithCorrectInput() {
         val computer = IntCodeComputer("3,3,1107,-1,8,3,4,3,99")
-        computer.getProgramMemory().systemInput(5)
+        computer.getProgramMemory().input.add(5)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1)
     }
@@ -251,7 +251,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Example 2 (IMMEDIATE MODE), when inputting 9 into the computer, then it should output 0")
     fun lessExampleTestInImmediateModeWithIncorrectInput() {
         val computer = IntCodeComputer("3,3,1107,-1,8,3,4,3,99")
-        computer.getProgramMemory().systemInput(9)
+        computer.getProgramMemory().input.add(9)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(0)
     }
@@ -260,7 +260,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Jump Test 1 (POSITION MODE), when inputting a 0, then it should output a 0")
     fun jumpTestOne() {
         val computer = IntCodeComputer("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9")
-        computer.getProgramMemory().systemInput(0)
+        computer.getProgramMemory().input.add(0)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(0)
     }
@@ -269,7 +269,7 @@ class IntCodeComputerTest {
     @DisplayName("Given Day 5 Jump Test 2 (IMMEDIATE MODE), when inputting a non-zero number, then it should output a 1")
     fun jumpTestTwo() {
         val computer = IntCodeComputer("3,3,1105,-1,9,1101,0,0,12,4,12,99,1")
-        computer.getProgramMemory().systemInput(24)
+        computer.getProgramMemory().input.add(24)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1)
     }
@@ -279,7 +279,7 @@ class IntCodeComputerTest {
     @DisplayName("Given the Day 5 larger example, when inputting a number less than 8, then it should output 999")
     fun largeExampleWhenInputLessThanEight() {
         val computer = IntCodeComputer(largeExampleProgram)
-        computer.getProgramMemory().systemInput(4)
+        computer.getProgramMemory().input.add(4)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(999)
     }
@@ -288,7 +288,7 @@ class IntCodeComputerTest {
     @DisplayName("Given the Day 5 larger example, when inputting 8, then it should output 1000")
     fun largeExampleWhenInputEqualsEight() {
         val computer = IntCodeComputer(largeExampleProgram)
-        computer.getProgramMemory().systemInput(8)
+        computer.getProgramMemory().input.add(8)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1000)
     }
@@ -297,7 +297,7 @@ class IntCodeComputerTest {
     @DisplayName("Given the Day 5 larger example, when inputting a value greater than 8, then it should output 1001")
     fun largeExampleWhenInputGreaterThanEight() {
         val computer = IntCodeComputer(largeExampleProgram)
-        computer.getProgramMemory().systemInput(23)
+        computer.getProgramMemory().input.add(23)
         computer.compute()
         assertThat(computer.getDiagnosticCode()).isEqualTo(1001)
     }
@@ -367,6 +367,6 @@ class IntCodeComputerTest {
     fun onNextBoot(bootMode: BootMode) {
         val computer = IntCodeComputer("99")
         computer.onNextBoot(bootMode)
-        assertThat(computer.getProgramMemory().input[0]).isEqualTo(bootMode.systemInputCode)
+        assertThat(computer.getProgramMemory().input.values[0]).isEqualTo(bootMode.systemInputCode)
     }
 }

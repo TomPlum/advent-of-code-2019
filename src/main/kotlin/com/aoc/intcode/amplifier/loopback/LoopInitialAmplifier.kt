@@ -9,13 +9,13 @@ class LoopInitialAmplifier(private val phaseSetting: Long) : BaseAmplifier(phase
     }
 
     override fun inputSignal(inputSignal: Long) {
-        computer.getProgramMemory().systemInput(inputSignal)
+        computer.getProgramMemory().input.add(inputSignal)
         computer.compute()
         nextAmplifier.inputSignal(computer.getDiagnosticCode())
     }
 
     override fun loadAmplifierControllerSoftware(software: String) {
         computer = IntCodeComputer(software)
-        computer.getProgramMemory().systemInput(phaseSetting)
+        computer.getProgramMemory().input.add(phaseSetting)
     }
 }

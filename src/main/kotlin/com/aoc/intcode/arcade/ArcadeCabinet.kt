@@ -21,7 +21,7 @@ class ArcadeCabinet(private val gameSoftware: String) {
             updateDisplay()
 
             if (computer.waiting) {
-                computer.getProgramMemory().systemInput(getJoystickCommand().toLong())
+                computer.getProgramMemory().input.add(getJoystickCommand().toLong())
             }
         }
     }

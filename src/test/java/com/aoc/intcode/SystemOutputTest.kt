@@ -10,6 +10,13 @@ import org.junit.jupiter.api.assertThrows
 
 class SystemOutputTest {
     @Test
+    fun addTest() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(172)
+        assertThat(systemOutput.values[0]).isEqualTo(172)
+    }
+
+    @Test
     @DisplayName("Given a system out with two output values, when getting the last two output values, then it" +
     "should return a pair with the second to last and last values in the first and second position of a Pair respectively")
     fun getLastTwoOutputValues() {

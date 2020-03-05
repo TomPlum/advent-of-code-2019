@@ -7,7 +7,7 @@ class FeedbackAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSet
     private var lastOutputSignal = 0L
 
     override fun inputSignal(inputSignal: Long) {
-        computer.getProgramMemory().systemInput(inputSignal)
+        computer.getProgramMemory().input.add(inputSignal)
         computer.compute()
         lastOutputSignal = computer.getDiagnosticCode()
 
@@ -16,7 +16,7 @@ class FeedbackAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSet
 
     override fun loadAmplifierControllerSoftware(software: String) {
         computer = IntCodeComputer(software)
-        computer.getProgramMemory().systemInput(phaseSetting)
+        computer.getProgramMemory().input.add(phaseSetting)
     }
 
     fun getThrusterSignal(): Long = lastOutputSignal

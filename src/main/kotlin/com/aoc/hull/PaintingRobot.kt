@@ -11,7 +11,7 @@ class PaintingRobot(instructions: String) {
     private var y = 0
 
     fun start(startingPanelColour: HullPaint) {
-        computer.getProgramMemory().systemInput(startingPanelColour.colourCode.toLong())
+        computer.getProgramMemory().input.add(startingPanelColour.colourCode.toLong())
 
         while (!computer.programHalted) {
             computer.compute()
@@ -24,7 +24,7 @@ class PaintingRobot(instructions: String) {
 
             moveForward()
 
-            computer.getProgramMemory().systemInput(getCurrentPanelColour().colourCode.toLong())
+            computer.getProgramMemory().input.add(getCurrentPanelColour().colourCode.toLong())
         }
 
     }

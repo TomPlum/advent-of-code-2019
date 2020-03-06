@@ -12,11 +12,10 @@ class SystemOutput {
 
 
     /**
-     * Gets the last value from the [SystemOutput] internal [values].
-     * The value is not consumed.
+     * Gets the last value from the [SystemOutput] internal [values] and consumes it.
      */
     fun getLastValue(): Long {
-        if (values.size > 0) return values.last
+        if (values.size > 0) return values.pollLast()
         throw IllegalStateException("System output is empty!")
     }
 

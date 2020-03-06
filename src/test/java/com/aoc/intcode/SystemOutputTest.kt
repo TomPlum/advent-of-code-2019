@@ -99,6 +99,16 @@ class SystemOutputTest {
     }
 
     @Test
+    @DisplayName("Given a system out with one output value, when getting the last output value, then it" +
+            "should consume the value and leave the system output empty")
+    fun getLastValueShouldConsumeSystemOutput() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(6)
+        systemOutput.getLastValue()
+        assertThat(systemOutput.values).isEmpty()
+    }
+
+    @Test
     @DisplayName("Given two System Output, when they have the same internal values, then they should be equal")
     fun equalityTestPositive() {
         val first = SystemOutput()

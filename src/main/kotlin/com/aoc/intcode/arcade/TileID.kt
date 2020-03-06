@@ -17,4 +17,6 @@ enum class TileID(val displayIcon: String) {
             else -> throw IllegalArgumentException("Invalid Tile ID ($value)")
         }
     }
+
+    override fun toString() = displayIcon
 }

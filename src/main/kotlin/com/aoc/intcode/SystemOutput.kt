@@ -25,14 +25,15 @@ class SystemOutput {
      * Pair(output[n-2], output[n-1]) where n is the length of the System Output.
      * The values are removed from the system output when they are read via this function.
      * @return The last two values of the [SystemOutput.values]
+     * @throws IllegalStateException if [values] has a length less than 2
      */
     fun getLastTwoValues(): Pair<Long, Long> {
-        if (values.size > 0) {
+        if (values.size > 1) {
             val lastValue = values.pollLast()
             val secondToLastValue = values.pollLast()
             return Pair(secondToLastValue, lastValue)
         }
-        throw IllegalStateException("System output is empty!")
+        throw IllegalStateException("System output must have at least two values")
     }
 
     /**
@@ -40,15 +41,16 @@ class SystemOutput {
      * Triple(output[n-3], output[n-2], output[n-1]) where n is the length of the System Output.
      * The values are removed from the system output when they are read via this function.
      * @return The last two values of the [SystemOutput.values]
+     * @throws IllegalStateException if [values] has a length less than 3
      */
     fun getLastThreeValues(): Triple<Long, Long, Long> {
-        if (values.size > 0) {
-            val lastValue = values.pollLast()
-            val secondToLastValue = values.pollLast()
-            val thirdLastValue = values.pollLast()
-            return Triple(thirdLastValue, secondToLastValue, lastValue)
+        if (values.size > 2) {
+            //val lastValue = values.pollLast()
+            //val secondToLastValue = values.pollLast()
+            //val thirdLastValue = values.pollLast()
+            return Triple(values.pollFirst(), values.pollFirst(), values.pollFirst())
         }
-        throw IllegalStateException("System output is empty!")
+        throw IllegalStateException("System output must have at least three values")
     }
 
     override fun toString() = values.toString()

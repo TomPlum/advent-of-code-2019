@@ -41,7 +41,7 @@ class SystemOutputTest {
     @DisplayName("Given an empty System Output, when getting the last two values, then it should throw an IllegalStateException")
     fun getLastTwoValuesWhenEmpty() {
         val e = assertThrows<IllegalStateException> { SystemOutput().getLastTwoValues() }
-        assertThat(e.message).isEqualTo("System output is empty!")
+        assertThat(e.message).isEqualTo("System output must have at least two values")
     }
 
     @Test
@@ -71,7 +71,7 @@ class SystemOutputTest {
     @DisplayName("Given an empty System Output, when getting the last three values, then it should throw an IllegalStateException")
     fun getLastThreeValuesWhenEmpty() {
         val e = assertThrows<IllegalStateException> { SystemOutput().getLastThreeValues() }
-        assertThat(e.message).isEqualTo("System output is empty!")
+        assertThat(e.message).isEqualTo("System output must have at least three values")
     }
 
     @Test

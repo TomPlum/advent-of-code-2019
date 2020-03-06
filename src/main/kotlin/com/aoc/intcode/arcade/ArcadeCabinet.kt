@@ -6,7 +6,6 @@ import kotlin.math.abs
 
 class ArcadeCabinet(gameSoftware: String) {
     private var computer = IntCodeComputer(gameSoftware)
-    // private var tiles = mutableSetOf<Tile>()
     private val tilesNew : MutableMap<Point2D, TileID> = mutableMapOf()
     private var ballStates: MutableList<Point2D> = mutableListOf()
     private var score = 0
@@ -16,19 +15,11 @@ class ArcadeCabinet(gameSoftware: String) {
     init {
         playForFree()
         computer.compute()
-       /* tiles = computer.getProgramMemory().output.values.chunked(3).map {
-            (Tile(TileID.fromValue(it[2].toInt()), Point2D(it[0].toInt(), it[1].toInt())))
-        }.sortedBy { it.position.x }.toMutableSet()*/
-       /* tilesNew = computer.getProgramMemory().output.values.chunked(3).map {
-           Point2D(it[0].toInt(), it[1].toInt()) to TileID.fromValue(it[2].toInt())
-        }.toMap().toMutableMap()*/
         updateTiles()
         startingBlocks = getTileQuantity(TileID.BLOCK)
     }
 
     fun startGame(): Int {
-        //computer = IntCodeComputer(gameSoftware) //Reset
-
         while (!computer.programHalted) {
             frame++
 
@@ -59,20 +50,6 @@ class ArcadeCabinet(gameSoftware: String) {
         val paddlePosition = tilesNew.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()
         val yDelta = abs(ballCurrentPosition.y - paddlePosition.y) //Vertical distance between paddle and balls current position
         val ballMovingRight = ballCurrentPosition.x > getLastBallPosition().x
-      /*  val ballMovingDown = yDelta > 0
-        val paddleTargetPosition = if (ballMovingDown) {
-            if (ballMovingRight) {
-                Point2D(ballCurrentPosition.x + yDelta, ballCurrentPosition.y + yDelta)
-            } else {
-                Point2D(ballCurrentPosition.x - yDelta, ballCurrentPosition.y - yDelta)
-            }
-        } else { //Ball Moving Up
-           if (ballMovingRight) {
-               Point2D(ballCurrentPosition.x + 1, 20) //20 is paddle y-axis value
-           } else {
-               Point2D(ballCurrentPosition.x - 1, 20)
-           }
-        }*/
 
         val paddleTargetPosition = if (ballMovingRight) {
                 Point2D(ballCurrentPosition.x + yDelta, ballCurrentPosition.y + yDelta)
@@ -112,15 +89,10 @@ class ArcadeCabinet(gameSoftware: String) {
     }
 
     private fun updateDisplay() {
-        // repeat(tiles.maxBy { it.position.y }!!.position.y) { print("\b") } //Clear Screen
-        //repeat(tiles.count()) { print("\b") }
         repeat(37) { print("-") }
         print("\n")
         println("| Frame: $frame | B: ${tilesNew.filterValues { it == TileID.BALL }.keys.first()} | P: ${tilesNew.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()}")
         println("| Score: $score | Blocks: ${tilesNew.filterValues { it == TileID.BLOCK }.count()}/$startingBlocks |")
-        /*tiles.forEach {
-            if (it.position.x == 36) print("$it\n") else print(it)
-        }*/
 
         tilesNew.forEach {
             if (it.key.x == 36) print("${it.value}\n") else print(it.value)

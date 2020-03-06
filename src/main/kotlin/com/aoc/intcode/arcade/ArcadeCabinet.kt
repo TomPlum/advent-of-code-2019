@@ -18,6 +18,7 @@ class ArcadeCabinet(private val gameSoftware: String) {
         computer.getProgramMemory().updateInstructionAtAddress(0, 2) //Play For Free
         while (!computer.programHalted) {
             computer.compute()
+
             updateDisplay()
 
             if (computer.waiting) {

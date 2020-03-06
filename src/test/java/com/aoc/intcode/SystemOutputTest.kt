@@ -38,6 +38,43 @@ class SystemOutputTest {
     }
 
     @Test
+    @DisplayName("Given an empty System Output, when getting the last two values, then it should throw an IllegalStateException")
+    fun getLastTwoValuesWhenEmpty() {
+        val e = assertThrows<IllegalStateException> { SystemOutput().getLastTwoValues() }
+        assertThat(e.message).isEqualTo("System output is empty!")
+    }
+
+    @Test
+    @DisplayName("Given a system output with three values, when getting the last three output values, then it should" +
+    "return a triple with the third to last, second to last and last values in the Triple respectively.")
+    fun getLastThreeOutputValues() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(5)
+        systemOutput.add(12)
+        systemOutput.add(56)
+        assertThat(systemOutput.getLastThreeValues()).isEqualTo(Triple(5L, 12L, 56L))
+    }
+
+    @Test
+    @DisplayName("Given a system out with three output values, when getting the last three output values, then it" +
+    "should consume the values and leave the system output empty")
+    fun getLastThreeOutputValuesShouldConsumeSystemOutput() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(2)
+        systemOutput.add(6)
+        systemOutput.add(56)
+        systemOutput.getLastThreeValues()
+        assertThat(systemOutput.values).isEmpty()
+    }
+
+    @Test
+    @DisplayName("Given an empty System Output, when getting the last three values, then it should throw an IllegalStateException")
+    fun getLastThreeValuesWhenEmpty() {
+        val e = assertThrows<IllegalStateException> { SystemOutput().getLastThreeValues() }
+        assertThat(e.message).isEqualTo("System output is empty!")
+    }
+
+    @Test
     @DisplayName("Given a system out with a single value, when getting the last value, it should return the only value")
     fun getLastValueSingleValue() {
         val systemOutput = SystemOutput()

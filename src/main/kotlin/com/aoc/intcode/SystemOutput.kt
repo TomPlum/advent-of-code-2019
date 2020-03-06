@@ -23,8 +23,8 @@ class SystemOutput {
 
     /**
      * Returns the last two values from the [SystemOutput]. The [values] are returned as a [Pair] in the format
-     * Pair(output[n-2], output[n-1]) where n is the length of the System Output. The values are removed from the
-     * system output when they are read via this function.
+     * Pair(output[n-2], output[n-1]) where n is the length of the System Output.
+     * The values are removed from the system output when they are read via this function.
      * @return The last two values of the [SystemOutput.values]
      */
     fun getLastTwoValues(): Pair<Long, Long> {
@@ -32,6 +32,22 @@ class SystemOutput {
             val lastValue = values.pollLast()
             val secondToLastValue = values.pollLast()
             return Pair(secondToLastValue, lastValue)
+        }
+        throw IllegalStateException("System output is empty!")
+    }
+
+    /**
+     * Returns the last three values from the [SystemOutput]. The [values] are returned as a [Triple] in the format
+     * Triple(output[n-3], output[n-2], output[n-1]) where n is the length of the System Output.
+     * The values are removed from the system output when they are read via this function.
+     * @return The last two values of the [SystemOutput.values]
+     */
+    fun getLastThreeValues(): Triple<Long, Long, Long> {
+        if (values.size > 0) {
+            val lastValue = values.pollLast()
+            val secondToLastValue = values.pollLast()
+            val thirdLastValue = values.pollLast()
+            return Triple(thirdLastValue, secondToLastValue, lastValue)
         }
         throw IllegalStateException("System output is empty!")
     }

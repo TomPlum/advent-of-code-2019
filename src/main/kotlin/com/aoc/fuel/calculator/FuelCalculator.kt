@@ -1,4 +1,4 @@
-package com.aoc.fuel
+package com.aoc.fuel.calculator
 
 import kotlin.math.floor;
 

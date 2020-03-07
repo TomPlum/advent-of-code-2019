@@ -1,7 +1,8 @@
-package com.aoc.fuel
+package com.aoc.fuel.calculator
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.fuel.calculator.FuelCalculator
 import com.aoc.input.InputReader
 import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName

@@ -1,6 +1,6 @@
 package com.aoc.solutions
 
-import com.aoc.fuel.FuelCalculator
+import com.aoc.fuel.calculator.FuelCalculator
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 

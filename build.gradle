@@ -80,4 +80,5 @@ jacocoTestReport {
         html.enabled = true
         csv.enabled = false
     }
+
 }

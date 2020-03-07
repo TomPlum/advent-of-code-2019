@@ -13,20 +13,21 @@ class ArcadeCabinet(gameSoftware: String) {
     init {
         playForFree()
         computer.compute()
-        updateTiles()
+        updateTiles(true)
         startingBlocks = getTileQuantity(TileID.BLOCK)
     }
 
     /**
      * Automatically plays the game to win.
+     * @param debug if true it will print the game display to the console. Increases frame-delay significantly.
      * @return Final scores once all the blocks have been broken by the ball.
      */
-    fun startGame(): Long {
+    fun startGame(debug: Boolean): Long {
         while (!computer.programHalted) {
             frame++
             if (computer.waiting) computer.getProgramMemory().input.add(getJoystickCommand().toLong())
             computer.compute()
-            updateTiles()
+            updateTiles(debug)
         }
 
         if (tiles.filterValues { it == TileID.BLOCK }.count() > 0) {
@@ -56,7 +57,7 @@ class ArcadeCabinet(gameSoftware: String) {
         }
     }
 
-    private fun updateTiles() {
+    private fun updateTiles(debug: Boolean) {
         val output = computer.getProgramMemory().output
         while(output.values.isNotEmpty()) {
             val tileData = output.getLastThreeValues()
@@ -70,7 +71,7 @@ class ArcadeCabinet(gameSoftware: String) {
             }
         }
 
-        updateDisplay()
+        if (debug) updateDisplay()
     }
 
     private fun updateDisplay() {

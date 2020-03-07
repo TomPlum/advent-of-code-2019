@@ -9,5 +9,5 @@ fun main() {
     val input = InputReader().readInputAsSingleString(Day.from(13))
     val arcadeCabinet = ArcadeCabinet(input)
     println("Solution Part 1: ${arcadeCabinet.getTileQuantity(TileID.BLOCK)}\n")
-    println("Solution Part 2: ${arcadeCabinet.startGame()}")
+    println("Solution Part 2: ${arcadeCabinet.startGame(true)}")
 }

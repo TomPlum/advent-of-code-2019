@@ -1,6 +1,5 @@
 package com.aoc.intcode
 
-import java.lang.IllegalStateException
 import java.util.*
 
 class SystemInput {
@@ -15,4 +14,6 @@ class SystemInput {
      * Removes and returns the value at the front of the [values]
      */
     fun getValue(): Long? = values.poll() //?: throw IllegalStateException("System input is empty!")
+
+    override fun toString() = values.toString()
 }

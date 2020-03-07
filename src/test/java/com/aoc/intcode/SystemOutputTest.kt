@@ -127,4 +127,13 @@ class SystemOutputTest {
         second.add(5)
         assertThat(first).isNotEqualTo(second)
     }
+
+    @Test
+    fun toStringTest() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(7)
+        systemOutput.add(4)
+        systemOutput.add(1)
+        assertThat(systemOutput.toString()).isEqualTo("[7, 4, 1]")
+    }
 }

@@ -17,8 +17,9 @@ class ArcadeCabinetTest {
     }
 
     @Test
-    fun startGame() {
+    fun solutionPartTwo() {
         val input = InputReader().readInputAsSingleString(Day.from(13))
-        ArcadeCabinet(input).startGame()
+        val score = ArcadeCabinet(input).startGame()
+        assertThat(score).isEqualTo(12954)
     }
 }

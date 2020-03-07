@@ -48,4 +48,13 @@ class SystemInputTest {
         val e = assertThrows<IllegalStateException> { SystemInput().getValue() }
         assertThat(e.message).isEqualTo("System input is empty!")
     }
+
+    @Test
+    fun toStringTest() {
+        val systemInput = SystemInput()
+        systemInput.add(7)
+        systemInput.add(4)
+        systemInput.add(1)
+        assertThat(systemInput.toString()).isEqualTo("[7, 4, 1]")
+    }
 }

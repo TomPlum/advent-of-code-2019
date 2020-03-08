@@ -9,16 +9,16 @@ import org.junit.jupiter.api.Test
 class OreTest {
     @Test
     fun toStringTest() {
-        assertThat(Ore(10).toString()).isEqualTo("10 ORE")
+        assertThat(Ore(10.0).toString()).isEqualTo("10 ORE")
     }
 
     @Test
     fun equalityTestPositive() {
-        assertThat(Ore(15)).isEqualTo(Ore(15))
+        assertThat(Ore(15.0)).isEqualTo(Ore(15.0))
     }
 
     @Test
     fun equalityTestNegative() {
-        assertThat(Ore(4)).isNotEqualTo(Ore(15))
+        assertThat(Ore(4.0)).isNotEqualTo(Ore(15.0))
     }
 }

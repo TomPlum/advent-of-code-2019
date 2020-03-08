@@ -9,26 +9,26 @@ import org.junit.jupiter.api.Test
 class ChemicalTest {
     @Test
     fun toStringTest() {
-        assertThat(Chemical("A", 7).toString()).isEqualTo("7 A")
+        assertThat(Chemical("A", 7.0).toString()).isEqualTo("7 A")
     }
 
     @Test
     fun toStringTestPositive() {
-        assertThat(Chemical("A", 6)).isEqualTo(Chemical("A", 6))
+        assertThat(Chemical("A", 6.0)).isEqualTo(Chemical("A", 6.0))
     }
 
     @Test
     fun toStringTestNegativeDifferentNames() {
-        assertThat(Chemical("B", 6)).isNotEqualTo(Chemical("A", 6))
+        assertThat(Chemical("B", 6.0)).isNotEqualTo(Chemical("A", 6.0))
     }
 
     @Test
     fun toStringTestNegativeDifferentQuantities() {
-        assertThat(Chemical("A", 12)).isNotEqualTo(Chemical("A", 6))
+        assertThat(Chemical("A", 12.0)).isNotEqualTo(Chemical("A", 6.0))
     }
 
     @Test
     fun toStringTestNegativeDifferentNamesAndQuantities() {
-        assertThat(Chemical("B", 12)).isNotEqualTo(Chemical("A", 6))
+        assertThat(Chemical("B", 12.0)).isNotEqualTo(Chemical("A", 6.0))
     }
 }

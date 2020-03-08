@@ -9,16 +9,16 @@ import org.junit.jupiter.api.Test
 class FuelTest {
     @Test
     fun toStringTest() {
-        assertThat(Fuel(1).toString()).isEqualTo("1 FUEL")
+        assertThat(Fuel(1.0).toString()).isEqualTo("1 FUEL")
     }
 
     @Test
     fun equalityTestPositive() {
-        assertThat(Fuel(15)).isEqualTo(Fuel(15))
+        assertThat(Fuel(15.0)).isEqualTo(Fuel(15.0))
     }
 
     @Test
     fun equalityTestNegative() {
-        assertThat(Fuel(4)).isNotEqualTo(Fuel(15))
+        assertThat(Fuel(4.0)).isNotEqualTo(Fuel(15.0))
     }
 }

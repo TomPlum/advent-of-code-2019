@@ -6,6 +6,14 @@ import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
 
 class LaboratoryTest {
+
+    @Test
+    fun exampleZero() {
+        val reactionData = InputReader().readInputAsString("/reactions/example-0.txt").values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(31)
+    }
+
     @Test
     fun exampleOne() {
         val reactionData = InputReader().readInputAsString("/reactions/example-1.txt").values

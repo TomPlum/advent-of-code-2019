@@ -2,6 +2,7 @@ package com.aoc.fuel.factory
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.input.Day
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
 
@@ -40,5 +41,12 @@ class LaboratoryTest {
         val reactionData = InputReader().readInputAsString("/reactions/example-4.txt").values
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(2210736)
+    }
+
+    @Test
+    fun solutionPartOne() {
+        val reactionData = InputReader().readInputString(Day.from(14)).values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(1037742)
     }
 }

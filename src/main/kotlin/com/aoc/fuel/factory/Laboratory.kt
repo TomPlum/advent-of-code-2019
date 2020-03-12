@@ -2,12 +2,16 @@ package com.aoc.fuel.factory
 
 import kotlin.math.ceil
 import kotlin.math.max
-import com.aoc.fuel.factory.components.Ore
-import com.aoc.fuel.factory.components.ReactionComponent
+import com.aoc.fuel.factory.components.*
 
 class Laboratory(private val reactions: List<Reaction>) {
     private val surplusComponents = mutableMapOf<String, Int>()
 
+    /**
+     * Calculates the quantity of [Ore] required to produce 1 unit of [Fuel].
+     * Wasted [ReactionComponent] are kept to a minimum by utilising surplus [Chemical]
+     * from previous [Reaction].
+     */
     fun minimumOreToProduceOneFuel() = oreRequirementsFor("FUEL", 1)
 
     /**
@@ -17,21 +21,23 @@ class Laboratory(private val reactions: List<Reaction>) {
      * @param quantity The current [ReactionComponent.quantity]. This is multiplied recursively to calculate [Ore]
      */
     private fun oreRequirementsFor(componentName: String, quantity: Int): Int {
-        val producingReaction = findReactionThatProduces(componentName)
+        val producingReaction = reactions.find { it.produces.name == componentName }!!
+
         val surplusQuantity = surplusComponents.getOrDefault(componentName, 0)
-        val quantityNeeded = ceil((max(quantity - surplusQuantity, 0).toDouble() / producingReaction.produces.quantity.toDouble())).toInt()
-        val surplus = (producingReaction.produces.quantity * quantityNeeded) - (quantity - surplusQuantity)
-        if (componentName != "ORE") surplusComponents[componentName] = surplus
+        val timesToReact = ceil((max(quantity - surplusQuantity, 0).toDouble() / producingReaction.produces.quantity.toDouble())).toInt()
+
+        val surplus = (producingReaction.produces.quantity * timesToReact) - (quantity - surplusQuantity)
+        surplusComponents[componentName] = surplus
+
         var oreRequired = 0
         producingReaction.consumes.forEach {
             oreRequired += if (it.name == "ORE") {
-                quantityNeeded * it.quantity
+                timesToReact * it.quantity
             } else {
-                oreRequirementsFor(it.name, quantityNeeded * it.quantity)
+                oreRequirementsFor(it.name, timesToReact * it.quantity)
             }
         }
         return oreRequired
     }
 
-    private fun findReactionThatProduces(componentName: String) = reactions.find { it.produces.name == componentName }!!
 }

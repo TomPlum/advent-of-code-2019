@@ -9,16 +9,16 @@ class NanoFactory(private val reactionData: List<String>) {
         val inputStrings = it.split("=>")[0].trim().split(", ")
         val inputs = inputStrings
                 .map { string -> string.split(" ") }
-                .map { term ->  parseComponent(term[0].toDouble(), term[1]) }
+                .map { term ->  parseComponent(term[0].toInt(), term[1]) }
                 .toSet()
 
         val outputString = it.split("=>")[1].trim().split(" ")
-        val output = parseComponent(outputString[0].toDouble(), outputString[1])
+        val output = parseComponent(outputString[0].toInt(), outputString[1])
 
         Reaction(inputs, output)
     }
 
-    private fun parseComponent(quantity: Double, name: String) = when(name) {
+    private fun parseComponent(quantity: Int, name: String) = when(name) {
         "ORE" -> Ore(quantity)
         "FUEL" -> Fuel(quantity)
         else -> Chemical(name, quantity)

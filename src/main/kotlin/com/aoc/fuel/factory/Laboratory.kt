@@ -14,6 +14,8 @@ class Laboratory(private val reactions: List<Reaction>) {
      */
     fun minimumOreToProduceOneFuel() = oreRequirementsFor("FUEL", 1)
 
+    fun maximumFuelProducedFromOneTrillionOre() = 1
+
     /**
      * Calculates the minimum amount of [Ore] required to produce [quantity] amount of the given
      * [ReactionComponent] specified by the given [componentName].

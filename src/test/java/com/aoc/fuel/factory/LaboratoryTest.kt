@@ -49,4 +49,25 @@ class LaboratoryTest {
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(1037742)
     }
+
+    @Test
+    fun partTwoExampleTwo() {
+        val reactionData = InputReader().readInputAsString("/reactions/example-2.txt").values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(82892753)
+    }
+
+    @Test
+    fun partTwoExampleThree() {
+        val reactionData = InputReader().readInputAsString("/reactions/example-3.txt").values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(5586022)
+    }
+
+    @Test
+    fun partTwoExampleFour() {
+        val reactionData = InputReader().readInputAsString("/reactions/example-4.txt").values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(460664)
+    }
 }

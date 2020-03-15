@@ -14,10 +14,10 @@ class Laboratory(private val reactions: List<Reaction>) {
      */
     fun minimumOreToProduceOneFuel() = oreRequirementsFor("FUEL", 1)
 
-    fun maximumFuelProducedFromOneTrillionOre(): Int {
+    fun maximumFuelProducedFromOneTrillionOre(): Long {
         var oreRemaining = 1_000_000_000_000
-        var fuel = 0;
-        var fuelToProduce = 100
+        var fuel = 0L;
+        var fuelToProduce = 950 //Arbitrary starting value. 950 produces a relatively quick runtime.
         var approachingLimit = false
 
         while (oreRemaining >= 0) {
@@ -27,11 +27,13 @@ class Laboratory(private val reactions: List<Reaction>) {
                 fuelToProduce = 1
                 continue
             }
+
+            if (oreRequired > oreRemaining) return fuel
             oreRemaining -= oreRequired
             fuel += fuelToProduce
         }
 
-        return fuel - 1
+        return fuel
     }
 
     /**

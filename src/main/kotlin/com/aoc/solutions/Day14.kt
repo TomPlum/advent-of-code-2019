@@ -8,6 +8,7 @@ import com.aoc.input.InputReader
 fun main() {
     val input = InputReader().readInputString(Day.from(14)).values
     val reactions = NanoFactory(input).produceReactionList()
-    val lab = Laboratory(reactions)
-    println("Solution Part 1: ${lab.minimumOreToProduceOneFuel()}")
+
+    println("Solution Part 1: ${Laboratory(reactions).minimumOreToProduceOneFuel()} Ore")
+    println("Solution Part 2: ${Laboratory(reactions).maximumFuelProducedFromOneTrillionOre()} Fuel")
 }

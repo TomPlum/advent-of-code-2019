@@ -54,20 +54,20 @@ class LaboratoryTest {
     fun partTwoExampleTwo() {
         val reactionData = InputReader().readInputAsString("/reactions/example-2.txt").values
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
-        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(82892753)
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(82_892_753)
     }
 
     @Test
     fun partTwoExampleThree() {
         val reactionData = InputReader().readInputAsString("/reactions/example-3.txt").values
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
-        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(5586022)
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(5_586_022)
     }
 
     @Test
     fun partTwoExampleFour() {
         val reactionData = InputReader().readInputAsString("/reactions/example-4.txt").values
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
-        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(460664)
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(460_664)
     }
 }

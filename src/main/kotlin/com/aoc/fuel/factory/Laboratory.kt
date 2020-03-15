@@ -14,7 +14,25 @@ class Laboratory(private val reactions: List<Reaction>) {
      */
     fun minimumOreToProduceOneFuel() = oreRequirementsFor("FUEL", 1)
 
-    fun maximumFuelProducedFromOneTrillionOre() = 1
+    fun maximumFuelProducedFromOneTrillionOre(): Int {
+        var oreRemaining = 1_000_000_000_000
+        var fuel = 0;
+        var fuelToProduce = 100
+        var approachingLimit = false
+
+        while (oreRemaining >= 0) {
+            val oreRequired = oreRequirementsFor("FUEL", fuelToProduce)
+            if (!approachingLimit && oreRequired > oreRemaining) {
+                approachingLimit = true
+                fuelToProduce = 1
+                continue
+            }
+            oreRemaining -= oreRequired
+            fuel += fuelToProduce
+        }
+
+        return fuel - 1
+    }
 
     /**
      * Calculates the minimum amount of [Ore] required to produce [quantity] amount of the given

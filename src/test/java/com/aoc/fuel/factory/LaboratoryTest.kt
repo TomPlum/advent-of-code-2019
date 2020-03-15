@@ -70,4 +70,11 @@ class LaboratoryTest {
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(460_664)
     }
+
+    @Test
+    fun solutionPartTwo() {
+        val reactionData = InputReader().readInputString(Day.from(14)).values
+        val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
+        assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(1572358)
+    }
 }

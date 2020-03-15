@@ -19,7 +19,7 @@ https://adventofcode.com/2019/
 | 11  	| 1564     	| RFEPCFEB 	        | Space Police                              |
 | 12  	| 7722     	| 292653556339368  	| The N-Body Problem                        |
 | 13  	| 247     	| 12954    	        | Care Package                              |
-| 14  	| 1037742  	| 1572359  	        | Space Stoichiometry                       |
+| 14  	| 1037742  	| 1572358  	        | Space Stoichiometry                       |
 | 15  	| -       	| -             	| Oxygen System                             |
 | 16  	| -       	| -             	| Flawed Frequency Transmission             |
 | 17  	| -       	| -             	| Set and Forget                            |

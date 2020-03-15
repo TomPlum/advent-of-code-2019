@@ -14,6 +14,9 @@ class Laboratory(private val reactions: List<Reaction>) {
      */
     fun minimumOreToProduceOneFuel() = oreRequirementsFor("FUEL", 1)
 
+    /**
+     * Calculates the maximum amount of [Fuel] that can be produced from 1x10^12 [Ore]
+     */
     fun maximumFuelProducedFromOneTrillionOre(): Long {
         var oreRemaining = 1_000_000_000_000
         var fuel = 0L;

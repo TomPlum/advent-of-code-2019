@@ -3,14 +3,15 @@ package com.aoc.password
 import com.aoc.password.strategy.*
 
 class PasswordUtility {
+    /**
+     * Calculates the number of valid [Password] combinations from the given [range] of [Password.value]
+     * @param range Input range in the format of 123456-123456
+     * @param strategy The [PasswordValidationStrategy] in which to validate the passwords
+     */
     fun calculatePossiblePasswordCombinations(range: String, strategy: PasswordValidationStrategy): Int {
-        //TODO: Make Functional
-        val inputs = range.split("-")
-        var combinations = 0
-        for (i in inputs[0].toInt()..inputs[1].toInt()) {
-            if (Password(i.toString()).isValid(strategy)) combinations++
+        return (range.split("-")[0].toInt()..range.split("-")[1].toInt()).sumBy {
+            if (Password(it.toString()).isValid(strategy)) 1 else 0
         }
-        return combinations
     }
 
     /**

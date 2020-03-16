@@ -19,7 +19,7 @@ class Laboratory(private val reactions: List<Reaction>) {
      */
     fun maximumFuelProducedFromOneTrillionOre(): Long {
         var oreRemaining = 1_000_000_000_000
-        var fuel = 0L;
+        var fuel = 0L
         var fuelToProduce = 950 //Arbitrary starting value. 950 produces a relatively quick runtime.
         var approachingLimit = false
 

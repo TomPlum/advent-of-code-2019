@@ -1,6 +1,6 @@
 package com.aoc.fuel.calculator
 
-import kotlin.math.floor;
+import kotlin.math.floor
 
 class FuelCalculator {
     fun calculateModuleFuel(mass: Int) : Int = (floor(mass.toDouble() / 3) - 2).toInt()

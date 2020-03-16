@@ -14,5 +14,4 @@ data class SpaceImageRow(val pixels: MutableList<Pixel>) {
 
     fun toRaw(): String = pixels.joinToString(separator = " ") { "$it" }
 
-
 }

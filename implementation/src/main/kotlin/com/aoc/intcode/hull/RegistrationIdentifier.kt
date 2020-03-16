@@ -1,4 +1,4 @@
-package com.aoc.hull
+package com.aoc.intcode.hull
 
 data class RegistrationIdentifier(private val panels: Map<Panel, HullPaint>) {
     override fun toString(): String {

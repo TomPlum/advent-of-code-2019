@@ -1,4 +1,4 @@
-package com.aoc.hull
+package com.aoc.intcode.hull
 
 class Hull(var panels: MutableMap<Panel, HullPaint> = mutableMapOf()) {
 

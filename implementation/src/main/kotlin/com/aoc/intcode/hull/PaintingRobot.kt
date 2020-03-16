@@ -1,4 +1,4 @@
-package com.aoc.hull
+package com.aoc.intcode.hull
 
 import com.aoc.intcode.computer.IntCodeComputer
 import java.lang.IllegalArgumentException

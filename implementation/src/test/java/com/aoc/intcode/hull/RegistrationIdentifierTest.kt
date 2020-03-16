@@ -1,4 +1,4 @@
-package com.aoc.hull
+package com.aoc.intcode.hull
 
 import org.junit.jupiter.api.Test
 

@@ -2,8 +2,8 @@ package com.aoc.solutions
 
 import com.aoc.hull.HullPaint
 import com.aoc.hull.SpaceshipController
-import com.aoc.input.Day
-import com.aoc.input.InputReader
+import input.Day
+import input.InputReader
 
 fun main() {
     val input = InputReader().readInputAsSingleString(Day.from(11))

@@ -2,7 +2,7 @@ package com.aoc.monitoring.moon
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.input.InputReader
+import input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

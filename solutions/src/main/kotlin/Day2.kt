@@ -1,7 +1,7 @@
 package com.aoc.solutions
 
-import com.aoc.input.Day
-import com.aoc.input.InputReader
+import input.Day
+import input.InputReader
 import com.aoc.intcode.computer.IntCodeComputer
 
 fun main() {

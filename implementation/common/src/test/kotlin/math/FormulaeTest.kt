@@ -1,6 +1,7 @@
-package com.aoc.math
+package math
 
 import assertk.assertThat
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Test
 
 class FormulaeTest {

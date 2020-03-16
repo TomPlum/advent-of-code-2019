@@ -1,7 +1,7 @@
 package com.aoc.solutions
 
-import com.aoc.input.Day
-import com.aoc.input.InputReader
+import input.Day
+import input.InputReader
 import com.aoc.intcode.circuit.CircuitController
 import com.aoc.intcode.circuit.LoopbackAmplificationCircuit
 import com.aoc.intcode.circuit.SeriesAmplificationCircuit

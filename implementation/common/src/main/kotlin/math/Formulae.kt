@@ -1,4 +1,4 @@
-package com.aoc.math
+package math
 
 class Formulae {
     companion object {

@@ -1,4 +1,4 @@
-package com.aoc.input
+package input
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

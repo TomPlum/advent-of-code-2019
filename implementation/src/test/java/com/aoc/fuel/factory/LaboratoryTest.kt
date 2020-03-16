@@ -2,8 +2,8 @@ package com.aoc.fuel.factory
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.input.Day
-import com.aoc.input.InputReader
+import input.Day
+import input.InputReader
 import org.junit.jupiter.api.Test
 
 class LaboratoryTest {

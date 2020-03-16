@@ -3,10 +3,8 @@ package com.aoc.intcode.computer
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isTrue
-import com.aoc.input.InputReader
-import com.aoc.input.Day
-import com.aoc.intcode.computer.BootMode
-import com.aoc.intcode.computer.IntCodeComputer
+import input.InputReader
+import input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

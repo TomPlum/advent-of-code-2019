@@ -1,7 +1,7 @@
 package com.aoc.intcode.arcade
 
 import com.aoc.intcode.computer.IntCodeComputer
-import com.aoc.math.Point2D
+import math.Point2D
 
 class ArcadeCabinet(gameSoftware: String) {
     private var computer = IntCodeComputer(gameSoftware)

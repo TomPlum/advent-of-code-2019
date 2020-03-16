@@ -1,3 +1,3 @@
-package com.aoc.input
+package input
 
 data class Input<T>(var values: List<T>)

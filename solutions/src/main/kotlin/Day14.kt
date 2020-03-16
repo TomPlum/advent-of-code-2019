@@ -2,8 +2,8 @@ package com.aoc.solutions
 
 import com.aoc.fuel.factory.Laboratory
 import com.aoc.fuel.factory.NanoFactory
-import com.aoc.input.Day
-import com.aoc.input.InputReader
+import input.Day
+import input.InputReader
 
 fun main() {
     val input = InputReader().readInputString(Day.from(14)).values

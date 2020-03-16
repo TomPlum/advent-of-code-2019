@@ -1,6 +1,6 @@
 package com.aoc.monitoring.moon
 
-import com.aoc.math.Formulae
+import math.Formulae
 
 class MotionSimulator(private val moons: Set<Moon>) {
     private val initialState: Set<Moon> = moons.map { it.copy() }.toSet()

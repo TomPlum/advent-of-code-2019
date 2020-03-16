@@ -2,8 +2,8 @@ package com.aoc.solutions
 
 import com.aoc.input.Day
 import com.aoc.input.InputReader
-import com.aoc.intcode.BootMode
-import com.aoc.intcode.IntCodeComputer
+import com.aoc.intcode.computer.BootMode
+import com.aoc.intcode.computer.IntCodeComputer
 
 fun main() {
     val input = InputReader().readInputAsSingleString(Day.from(9))

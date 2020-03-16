@@ -1,6 +1,6 @@
 package com.aoc.intcode.arcade
 
-import com.aoc.intcode.IntCodeComputer
+import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.math.Point2D
 
 class ArcadeCabinet(gameSoftware: String) {

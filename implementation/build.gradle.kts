@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":implementation:common"))
+
     //JUnit & Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")

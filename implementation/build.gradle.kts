@@ -18,7 +18,6 @@ dependencies {
 
 val test by tasks.getting(Test::class) {
     useJUnitPlatform { }
-    //destinationFile = file("${buildDir}/jacoco/test.exec")
 }
 
 val testCoverage by tasks.registering {

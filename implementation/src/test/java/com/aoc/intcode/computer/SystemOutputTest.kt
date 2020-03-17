@@ -4,7 +4,6 @@ import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import com.aoc.intcode.computer.SystemOutput
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -46,32 +45,44 @@ class SystemOutputTest {
     }
 
     @Test
-    @DisplayName("Given a system output with three values, when getting the last three output values, then it should" +
-    "return a triple with the third to last, second to last and last values in the Triple respectively.")
-    fun getLastThreeOutputValues() {
+    @DisplayName("Given a system output with three values, when getting the first three output values, then it should" +
+    "return a triple first, second and third values in the Triple respectively.")
+    fun getFirstThreeOutputValues() {
         val systemOutput = SystemOutput()
         systemOutput.add(5)
         systemOutput.add(12)
         systemOutput.add(56)
-        assertThat(systemOutput.getLastThreeValues()).isEqualTo(Triple(5L, 12L, 56L))
+        assertThat(systemOutput.getFirstThreeValues()).isEqualTo(Triple(5L, 12L, 56L))
     }
 
     @Test
-    @DisplayName("Given a system out with three output values, when getting the last three output values, then it" +
+    @DisplayName("Given a system output with four values, when getting the first three output values, then it should" +
+    "return a triple first, second and third values in the Triple respectively.")
+    fun getFirstThreeOutputValuesWhenOutputHasMoreThanThree() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(5)
+        systemOutput.add(12)
+        systemOutput.add(56)
+        systemOutput.add(75)
+        assertThat(systemOutput.getFirstThreeValues()).isEqualTo(Triple(5L, 12L, 56L))
+    }
+
+    @Test
+    @DisplayName("Given a system out with three output values, when getting the first three output values, then it" +
     "should consume the values and leave the system output empty")
-    fun getLastThreeOutputValuesShouldConsumeSystemOutput() {
+    fun getFirstThreeOutputValuesShouldConsumeSystemOutput() {
         val systemOutput = SystemOutput()
         systemOutput.add(2)
         systemOutput.add(6)
         systemOutput.add(56)
-        systemOutput.getLastThreeValues()
+        systemOutput.getFirstThreeValues()
         assertThat(systemOutput.values).isEmpty()
     }
 
     @Test
-    @DisplayName("Given an empty System Output, when getting the last three values, then it should throw an IllegalStateException")
-    fun getLastThreeValuesWhenEmpty() {
-        val e = assertThrows<IllegalStateException> { SystemOutput().getLastThreeValues() }
+    @DisplayName("Given an empty System Output, when getting the first three values, then it should throw an IllegalStateException")
+    fun getFirstThreeValuesWhenEmpty() {
+        val e = assertThrows<IllegalStateException> { SystemOutput().getFirstThreeValues() }
         assertThat(e.message).isEqualTo("System output must have at least three values")
     }
 

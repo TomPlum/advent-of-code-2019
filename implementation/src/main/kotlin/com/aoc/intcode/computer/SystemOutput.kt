@@ -37,17 +37,14 @@ class SystemOutput {
     }
 
     /**
-     * Returns the last three values from the [SystemOutput]. The [values] are returned as a [Triple] in the format
-     * Triple(output[n-3], output[n-2], output[n-1]) where n is the length of the System Output.
+     * Returns the first three values from the [SystemOutput]. The [values] are returned as a [Triple] in the format
+     * Triple(output[0], output[1], output[2]) where [values] is zero-based indexed.
      * The values are removed from the system output when they are read via this function.
-     * @return The last two values of the [SystemOutput.values]
+     * @return The first three values of the [SystemOutput.values]
      * @throws IllegalStateException if [values] has a length less than 3
      */
-    fun getLastThreeValues(): Triple<Long, Long, Long> {
+    fun getFirstThreeValues(): Triple<Long, Long, Long> {
         if (values.size > 2) {
-            //val lastValue = values.pollLast()
-            //val secondToLastValue = values.pollLast()
-            //val thirdLastValue = values.pollLast()
             return Triple(values.pollFirst(), values.pollFirst(), values.pollFirst())
         }
         throw IllegalStateException("System output must have at least three values")

@@ -11,7 +11,7 @@ class RepairDroid(instructions: String) {
     private var x = 0
     private var y = 0
 
-    fun depthFirstSearch(): Int {
+    fun locateShipsOxygenSystem(): Int {
         visited.push(Pair(Point2D(0, 0), Direction.NORTH))
 
         while (true) {

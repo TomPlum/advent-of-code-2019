@@ -2,87 +2,70 @@ package com.aoc.intcode.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
 import math.Point2D
-import java.lang.IllegalStateException
 import java.util.*
 
 class RepairDroid(instructions: String) {
     private val computer = IntCodeComputer(instructions)
-    private val knownCoordinates = mutableMapOf(Pair(Point2D(0, 0), "D"))
-    private var currentDirection = Direction.NORTH
-    private var history = Stack<Point2D>()
+    private val knownCoordinates = mutableMapOf(Pair(Point2D(0, 0), ShipFloorTile.DROID))
+    private val visited = Stack<Pair<Point2D, Direction>>()
     private var x = 0
     private var y = 0
 
-    fun locateOxygenSystem(): Point2D {
-        while (!computer.programHalted) {
-            computer.getProgramMemory().input.add(currentDirection.code.toLong())
+    fun depthFirstSearch(): Int {
+        visited.push(Pair(Point2D(0, 0), Direction.NORTH))
 
+        while (true) {
+            val direction = getNextDirection()
+
+            computer.getProgramMemory().input.add(direction.code.toLong())
             computer.compute()
 
-            when(DroidResponse.fromCode(computer.getDiagnosticCode().toInt())) {
-                DroidResponse.HIT_WALL_POSITION_NOT_CHANGED -> updateDirection()
-                DroidResponse.SUCCESSFULLY_CHANGED_POSITION -> updatePosition()
-                DroidResponse.LOCATED_OXYGEN_SYSTEM -> return Point2D(x, y)
+            when (DroidResponse.fromCode(computer.getDiagnosticCode().toInt())) {
+                DroidResponse.HIT_WALL_POSITION_NOT_CHANGED -> {
+                    //Record Wall Coordinate
+                    when (direction) {
+                        Direction.NORTH -> knownCoordinates[Point2D(x, y + 1)] = ShipFloorTile.WALL
+                        Direction.EAST -> knownCoordinates[Point2D(x + 1, y)] = ShipFloorTile.WALL
+                        Direction.SOUTH -> knownCoordinates[Point2D(x, y - 1)] = ShipFloorTile.WALL
+                        Direction.WEST -> knownCoordinates[Point2D(x - 1, y)] = ShipFloorTile.WALL
+                    }
+                }
+                DroidResponse.SUCCESSFULLY_CHANGED_POSITION -> {
+                    //Record Current Coordinate As Traversable
+                    knownCoordinates[Point2D(x, y)] = ShipFloorTile.TRAVERSABLE
+
+                    //Increment Relevant Ordinate
+                    when (direction) {
+                        Direction.NORTH -> y++
+                        Direction.EAST -> x++
+                        Direction.SOUTH -> y--
+                        Direction.WEST -> x--
+                    }
+
+                    //Updated Visited Tiles (Unless Backtracking)
+                    if (!knownCoordinates.containsKey(Point2D(x, y))) {
+                        visited.push(Pair(Point2D(x, y), direction))
+                    }
+
+                    //Record New Coordinate As Droid Current Position
+                    knownCoordinates[Point2D(x, y)] = ShipFloorTile.DROID
+                }
+                DroidResponse.LOCATED_OXYGEN_SYSTEM ->  {
+                    printShipFloor()
+                    return visited.size
+                }
             }
 
-            printShipFloor()
-
-        }
-
-        throw IllegalStateException("Program Halted Unexpectedly!")
-    }
-
-    private fun updatePosition() {
-        //Record Current Coordinate As Traversable
-        knownCoordinates[Point2D(x, y)] = "."
-
-        when(currentDirection) {
-            Direction.NORTH -> y++
-            Direction.EAST -> x++
-            Direction.SOUTH -> y--
-            Direction.WEST -> x--
-        }
-
-        //Record New Coordinate As Droid Current Position
-        knownCoordinates[Point2D(x, y)] = "D"
-
-        //Update History
-        history.push(Point2D(x, y))
-
-        if (getUnexploredSurroundingCoordinateDirection() != null) {
-            currentDirection = getUnexploredSurroundingCoordinateDirection()!!
         }
     }
 
-    private fun updateDirection() {
-        //Record Wall Coordinate
-        when(currentDirection) {
-            Direction.NORTH -> knownCoordinates[Point2D(x, y + 1)] = "#"
-            Direction.EAST -> knownCoordinates[Point2D(x + 1, y)] = "#"
-            Direction.SOUTH -> knownCoordinates[Point2D(x, y - 1)] = "#"
-            Direction.WEST -> knownCoordinates[Point2D(x - 1, y)] = "#"
-        }
-
-        //Dead End (3 Surrounding Tiles Are Walls)
-        if (scanSurroundings().count { it == "#" } == 3 && scanSurroundings().count { it == "." } == 1) backtrack()
-
-        currentDirection = getUnexploredSurroundingCoordinateDirection() ?: currentDirection.randomise()
-    }
-
-    private fun backtrack() {
-        var foundUntraversedLocation = false
-
-        while(!foundUntraversedLocation) {
-            if (scanSurroundings().contains(" ")) {
-                foundUntraversedLocation = true
-                knownCoordinates[Point2D(x, y)] = "D"
-            } else {
-                val lastPosition = history.pop()
-                x = lastPosition.x
-                y = lastPosition.y
-                knownCoordinates[lastPosition] = "."
-            }
-            printShipFloor()
+    private fun getNextDirection(): Direction {
+        val unexploredTileDirection = getUnexploredSurroundingCoordinateDirection()
+        return if (unexploredTileDirection == null) {
+            val lastMoveDirection = visited.pop().second
+            lastMoveDirection.reverse()
+        } else {
+            unexploredTileDirection
         }
     }
 
@@ -95,18 +78,6 @@ class RepairDroid(instructions: String) {
         return null
     }
 
-    private fun scanSurroundings(): List<String> {
-        return listOf(getCoordinateDirectly(Direction.NORTH), getCoordinateDirectly(Direction.EAST),
-                     getCoordinateDirectly(Direction.WEST), getCoordinateDirectly(Direction.SOUTH))
-    }
-
-    private fun getCoordinateDirectly(direction: Direction) = when(direction) {
-        Direction.NORTH -> knownCoordinates.getOrDefault(Point2D(x, y + 1), " ")
-        Direction.EAST -> knownCoordinates.getOrDefault(Point2D(x + 1, y), " ")
-        Direction.SOUTH -> knownCoordinates.getOrDefault(Point2D(x, y - 1), " ")
-        Direction.WEST -> knownCoordinates.getOrDefault(Point2D(x - 1, y), " ")
-    }
-
     private fun printShipFloor() {
         repeat(10) { print("\n") }
         val xMin = knownCoordinates.keys.minBy { it.x }!!.x
@@ -117,7 +88,7 @@ class RepairDroid(instructions: String) {
 
         (yMin..yMax).forEach { y ->
             (xMin..xMax).forEach { x ->
-                print(knownCoordinates.getOrDefault(Point2D(x, y), " "))
+                print(knownCoordinates.getOrDefault(Point2D(x, y), ShipFloorTile.UNKNOWN))
             }
             print("\n")
         }

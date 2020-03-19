@@ -8,6 +8,6 @@ class RepairDroidTest {
     @Test
     fun test() {
         val instructions = InputReader().readInputAsSingleString(Day.from(15))
-        RepairDroid(instructions).locateOxygenSystem()
+        RepairDroid(instructions).depthFirstSearch()
     }
 }

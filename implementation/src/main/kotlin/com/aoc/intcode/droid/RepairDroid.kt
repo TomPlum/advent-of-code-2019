@@ -14,12 +14,15 @@ class RepairDroid(instructions: String) {
     /**
      * Command the [RepairDroid] to explore the ship in order to find the Oxygen System.
      * The search algorithm is a DFS (Depth First Search), meaning it is not the most efficient.
-     * @return The coordinates of the desitnation and the number of movements the droid has to take in order to reach it.
+     * @return The coordinates of the destination and the number of movements the droid has to take in order to reach it.
      */
     fun locateShipsOxygenSystem(): Pair<Point2D, Int> {
+        //Set Starting Tile & Initial Movement Direction
         visited.push(Pair(Point2D(0, 0), Direction.NORTH))
 
-        while (true) {
+        var oxygenSystemInfo: Pair<Point2D, Int>? = null
+
+        while (!visited.isEmpty()) {
             val direction = getNextDirection()
 
             computer.getProgramMemory().input.add(direction.code.toLong())
@@ -56,12 +59,41 @@ class RepairDroid(instructions: String) {
                     knownCoordinates[Point2D(x, y)] = ShipFloorTile.DROID
                 }
                 DroidResponse.LOCATED_OXYGEN_SYSTEM ->  {
-                    printShipFloor()
-                    return Pair(Point2D(x, y), visited.size)
+                    //Record Current Coordinate As Traversable
+                    knownCoordinates[Point2D(x, y)] = ShipFloorTile.TRAVERSABLE
+
+                    oxygenSystemInfo = Pair(Point2D(x, y ), visited.size)
+
+                    //Increment Relevant Ordinate
+                    when (direction) {
+                        Direction.NORTH -> y++
+                        Direction.EAST -> x++
+                        Direction.SOUTH -> y--
+                        Direction.WEST -> x--
+                    }
+
+                    //Updated Visited Tiles (Unless Backtracking)
+                    if (!knownCoordinates.containsKey(Point2D(x, y))) {
+                        visited.push(Pair(Point2D(x, y), direction))
+                    }
+
+                    //Record Wall Coordinate
+                    when (direction) {
+                        Direction.NORTH -> knownCoordinates[Point2D(x, y + 1)] = ShipFloorTile.OXYGEN_SYSTEM
+                        Direction.EAST -> knownCoordinates[Point2D(x + 1, y)] = ShipFloorTile.OXYGEN_SYSTEM
+                        Direction.SOUTH -> knownCoordinates[Point2D(x, y - 1)] = ShipFloorTile.OXYGEN_SYSTEM
+                        Direction.WEST -> knownCoordinates[Point2D(x - 1, y)] = ShipFloorTile.OXYGEN_SYSTEM
+                    }
                 }
             }
         }
+
+        printShipFloor()
+        println("Oxygen System Location ${oxygenSystemInfo!!.first}")
+        return oxygenSystemInfo
     }
+
+    fun downloadShipMappingData() = knownCoordinates
 
     private fun getNextDirection() = getUnexploredSurroundingCoordinateDirection() ?: visited.pop().second.reverse()
 

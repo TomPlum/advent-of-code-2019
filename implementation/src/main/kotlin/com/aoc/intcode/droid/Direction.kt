@@ -7,28 +7,13 @@ enum class Direction(val code: Int) {
     EAST(4);
 
     /**
-     * Rotates the current [Direction] by 90deg.
+     * Returns the opposite direction.
+     * Allows the [RepairDroid] to reverse when backtracking.
      */
-    fun rotateClockwise(): Direction = when (this) {
-        NORTH -> EAST
-        EAST -> SOUTH
-        SOUTH -> WEST
-        WEST -> NORTH
-    }
-
     fun reverse(): Direction = when(this) {
         NORTH -> SOUTH
         EAST -> WEST
         SOUTH -> NORTH
         WEST -> EAST
     }
-
-    fun randomise() = when ((1..4).shuffled().first()) {
-        1 -> NORTH
-        2 -> SOUTH
-        3 -> WEST
-        4 -> EAST
-        else -> throw IllegalArgumentException("Invalid Directional Code")
-    }
-
 }

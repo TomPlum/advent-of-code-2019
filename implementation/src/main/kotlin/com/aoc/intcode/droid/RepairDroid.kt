@@ -11,6 +11,11 @@ class RepairDroid(instructions: String) {
     private var x = 0
     private var y = 0
 
+    /**
+     * Command the [RepairDroid] to explore the ship in order to find the Oxygen System.
+     * The search algorithm is a DFS (Depth First Search), meaning it is not the most efficient.
+     * @return The number of movements the droid has to take in order to reach the destination.
+     */
     fun locateShipsOxygenSystem(): Int {
         visited.push(Pair(Point2D(0, 0), Direction.NORTH))
 
@@ -55,31 +60,20 @@ class RepairDroid(instructions: String) {
                     return visited.size
                 }
             }
-
         }
     }
 
-    private fun getNextDirection(): Direction {
-        val unexploredTileDirection = getUnexploredSurroundingCoordinateDirection()
-        return if (unexploredTileDirection == null) {
-            val lastMoveDirection = visited.pop().second
-            lastMoveDirection.reverse()
-        } else {
-            unexploredTileDirection
-        }
-    }
+    private fun getNextDirection() = getUnexploredSurroundingCoordinateDirection() ?: visited.pop().second.reverse()
 
     private fun getUnexploredSurroundingCoordinateDirection(): Direction? {
-        knownCoordinates.getOrElse(Point2D(x, y + 1)) { return Direction.NORTH }
-        knownCoordinates.getOrElse(Point2D(x + 1, y)) { return Direction.EAST }
-        knownCoordinates.getOrElse(Point2D(x, y - 1)) { return Direction.SOUTH }
-        knownCoordinates.getOrElse(Point2D(x - 1, y)) { return Direction.WEST }
-
+        if (!knownCoordinates.containsKey(Point2D(x, y + 1))) return Direction.NORTH
+        if (!knownCoordinates.containsKey(Point2D(x + 1, y))) return Direction.EAST
+        if (!knownCoordinates.containsKey(Point2D(x, y - 1))) return Direction.SOUTH
+        if (!knownCoordinates.containsKey(Point2D(x - 1, y))) return Direction.WEST
         return null
     }
 
     private fun printShipFloor() {
-        repeat(10) { print("\n") }
         val xMin = knownCoordinates.keys.minBy { it.x }!!.x
         val yMax = knownCoordinates.keys.maxBy { it.y }!!.y
 

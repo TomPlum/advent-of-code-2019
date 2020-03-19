@@ -14,9 +14,9 @@ class RepairDroid(instructions: String) {
     /**
      * Command the [RepairDroid] to explore the ship in order to find the Oxygen System.
      * The search algorithm is a DFS (Depth First Search), meaning it is not the most efficient.
-     * @return The number of movements the droid has to take in order to reach the destination.
+     * @return The coordinates of the desitnation and the number of movements the droid has to take in order to reach it.
      */
-    fun locateShipsOxygenSystem(): Int {
+    fun locateShipsOxygenSystem(): Pair<Point2D, Int> {
         visited.push(Pair(Point2D(0, 0), Direction.NORTH))
 
         while (true) {
@@ -57,7 +57,7 @@ class RepairDroid(instructions: String) {
                 }
                 DroidResponse.LOCATED_OXYGEN_SYSTEM ->  {
                     printShipFloor()
-                    return visited.size
+                    return Pair(Point2D(x, y), visited.size)
                 }
             }
         }

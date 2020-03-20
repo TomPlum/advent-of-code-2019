@@ -5,7 +5,6 @@ import kotlin.math.abs
 class Transmitter(private val inputSignal: Signal) {
 
     fun flawedFrequencyTransmission(phases: Int): Signal {
-        println("Input signal: $inputSignal")
         var outputSignal = inputSignal
         (1..phases).forEach { phase ->
             outputSignal = Signal((inputSignal.sequence.indices).map { sequenceIndex ->
@@ -13,7 +12,7 @@ class Transmitter(private val inputSignal: Signal) {
                 val sum = outputSignal.sequence.sumBy {
                     it * pattern.getValue()
                 }
-                abs(sum.toString().last().toString().toInt())
+                abs(sum.toString().last().toString().toInt()) //TODO Make this not disgusting
             })
         }
         return outputSignal

@@ -12,5 +12,7 @@ data class Signal(val sequence: List<Int>) {
         return SignalPattern(basePattern.flatMap { datum -> (0..sequenceIndex).map { datum } })
     }
 
+    fun getFirstEightValues() = Signal(sequence.dropLast(sequence.size - 8))
+
     override fun toString() = sequence.joinToString(separator = "")
 }

@@ -2,7 +2,7 @@ package com.aoc.radio
 
 import java.util.*
 
-class SignalPattern(private val basePattern: List<Int>) {
+data class SignalPattern(private val basePattern: List<Int>) {
     private val values = LinkedList(basePattern.drop(1))
 
     fun getValue(): Int {

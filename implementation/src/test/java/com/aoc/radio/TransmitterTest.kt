@@ -2,7 +2,9 @@ package com.aoc.radio
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import input.Day
 import input.InputReader
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class TransmitterTest {
@@ -11,7 +13,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-1.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(4)
-        assertThat(outputSignal.toString()).isEqualTo("01029498")
+        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("01029498")
     }
 
     @Test
@@ -19,7 +21,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-2.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.toString()).isEqualTo("24176176")
+        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("24176176")
     }
 
     @Test
@@ -27,7 +29,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-3.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.toString()).isEqualTo("73745418")
+        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("73745418")
     }
 
     @Test
@@ -35,6 +37,16 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-4.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.toString()).isEqualTo("52432133")
+        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("52432133")
+    }
+
+    @Test
+    @DisplayName("Given Day 16 Puzzle Input, after 100 phases of FFT, then the first eight digits of the output signal" +
+    "should be 77038830")
+    fun solutionPartOne() {
+        val data = InputReader().readInputAsSingleString(Day.from(16))
+        val inputSignal = Receiver().listen(data)
+        val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
+        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("77038830")
     }
 }

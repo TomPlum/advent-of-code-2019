@@ -1,7 +1,7 @@
 package com.aoc.radio
 
-class Transmitter {
-    fun flawedFrequencyTransmission(phases: Int): String {
-        return ""
+class Transmitter(private val signal: Signal) {
+    fun flawedFrequencyTransmission(phases: Int): Signal {
+        return Signal(listOf())
     }
 }

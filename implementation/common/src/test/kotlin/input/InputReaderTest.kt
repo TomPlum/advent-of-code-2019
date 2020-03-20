@@ -37,4 +37,10 @@ class InputReaderTest {
         val input = inputReader.readInputAsSingleString(testDay)
         assertThat(input).isEqualTo("1")
     }
+
+    @Test
+    fun readAsSingleStringFromFilePath() {
+        val input = inputReader.readInputAsSingleString("/day100/input.txt")
+        assertThat(input).isEqualTo("1")
+    }
 }

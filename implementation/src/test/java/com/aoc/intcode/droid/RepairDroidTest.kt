@@ -12,6 +12,6 @@ class RepairDroidTest {
     fun partOneSolution() {
         val instructions = InputReader().readInputAsSingleString(Day.from(15))
         val distance = RepairDroid(instructions).locateShipsOxygenSystem()
-        assertThat(distance).isEqualTo(Pair(Point2D(-13, 12), 212))
+        assertThat(distance).isEqualTo(Pair(Point2D(-12, 12), 212))
     }
 }

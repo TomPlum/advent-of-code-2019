@@ -4,6 +4,7 @@ import java.io.File
 
 class InputReader {
     fun readInputAsString(filePath: String): Input<String> = Input(readFile(filePath).readLines())
+    fun readInputAsSingleString(filePath: String): String = readInputAsString(filePath).values[0]
 
     fun readInputString(day: Day): Input<String> = Input(readLines(day))
     fun readInputInteger(day: Day): Input<Int> = Input(readLines(day).map { it.toInt() })

@@ -13,7 +13,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-1.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(4)
-        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("01029498")
+        assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("01029498")
     }
 
     @Test
@@ -21,7 +21,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-2.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("24176176")
+        assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("24176176")
     }
 
     @Test
@@ -29,7 +29,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-3.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("73745418")
+        assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("73745418")
     }
 
     @Test
@@ -37,7 +37,7 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString("/radio/example-input-4.txt")
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("52432133")
+        assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("52432133")
     }
 
     @Test
@@ -47,6 +47,33 @@ class TransmitterTest {
         val data = InputReader().readInputAsSingleString(Day.from(16))
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
-        assertThat(outputSignal.getFirstEightValues().toString()).isEqualTo("77038830")
+        assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("77038830")
+    }
+
+    @Test
+    fun partTwoExampleOne() {
+        val data = InputReader().readInputAsSingleString("/radio/example-input-5.txt")
+        val inputSignal = Receiver().listen(data).convertToRealSignal()
+        val transmitter = Transmitter(inputSignal)
+        val decodedSignalMessage = transmitter.decodeRealSignalMessage()
+        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(84462026))
+    }
+
+    @Test
+    fun partTwoExampleTwo() {
+        val data = InputReader().readInputAsSingleString("/radio/example-input-6.txt")
+        val inputSignal = Receiver().listen(data).convertToRealSignal()
+        val transmitter = Transmitter(inputSignal)
+        val decodedSignalMessage = transmitter.decodeRealSignalMessage()
+        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(78725270))
+    }
+
+    @Test
+    fun partTwoExampleThree() {
+        val data = InputReader().readInputAsSingleString("/radio/example-input-7.txt")
+        val inputSignal = Receiver().listen(data).convertToRealSignal()
+        val transmitter = Transmitter(inputSignal)
+        val decodedSignalMessage = transmitter.decodeRealSignalMessage()
+        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(53553731))
     }
 }

@@ -35,6 +35,16 @@ class SignalTest {
 
     @Test
     fun getFirstEightValues() {
-        assertThat(Signal(listOf(0,3,0,8,1,7,7,0,8,8)).getFirstEightValues()).isEqualTo(Signal(listOf(0,3,0,8,1,7,7,0)))
+        assertThat(Signal(listOf(0,3,0,8,1,7,7,0,8,8)).getFirstNValues(8)).isEqualTo(Signal(listOf(0,3,0,8,1,7,7,0)))
+    }
+
+    @Test
+    fun getFirstSevenValues() {
+        assertThat(Signal(listOf(0,3,0,8,1,7,7,0,8,8)).getFirstNValues(7)).isEqualTo(Signal(listOf(0,3,0,8,1,7,7)))
+    }
+
+    @Test
+    fun convertToRealSignal() {
+        assertThat(Signal(listOf(1)).convertToRealSignal().sequence.size).isEqualTo(10000)
     }
 }

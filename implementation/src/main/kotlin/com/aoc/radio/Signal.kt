@@ -12,7 +12,13 @@ data class Signal(val sequence: List<Int>) {
         return SignalPattern(basePattern.flatMap { datum -> (0..sequenceIndex).map { datum } })
     }
 
-    fun getFirstEightValues() = Signal(sequence.dropLast(sequence.size - 8))
+    fun getFirstNValues(n: Int) = Signal(sequence.dropLast(sequence.size - n))
+
+    fun convertToRealSignal(): Signal {
+        val realSignalSequence = mutableListOf<Int>()
+        (1..10000).forEach { _ -> realSignalSequence.addAll(sequence) }
+        return Signal(realSignalSequence)
+    }
 
     override fun toString() = sequence.joinToString(separator = "")
 }

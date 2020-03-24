@@ -10,4 +10,5 @@ data class SignalPattern(private val basePattern: List<Int>) {
         return values.pollFirst()
     }
 
+    override fun toString() = values.joinToString()
 }

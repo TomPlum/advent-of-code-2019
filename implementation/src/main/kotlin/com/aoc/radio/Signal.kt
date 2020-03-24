@@ -20,5 +20,7 @@ data class Signal(val sequence: List<Int>) {
         return Signal(realSignalSequence)
     }
 
+    fun length() = sequence.size
+
     override fun toString() = sequence.joinToString(separator = "")
 }

@@ -21,7 +21,7 @@ https://adventofcode.com/2019/
 | 13  	| 247     	| 12954    	        | Care Package                              |
 | 14  	| 1037742  	| 1572358  	        | Space Stoichiometry                       |
 | 15  	| 212      	| 358             	| Oxygen System                             |
-| 16  	| 77038830 	| -             	| Flawed Frequency Transmission             |
+| 16  	| 77038830 	| 28135104         	| Flawed Frequency Transmission             |
 | 17  	| -       	| -             	| Set and Forget                            |
 | 18  	| -       	| -             	| Many-Worlds Interpretation                |
 | 19  	| -       	| -             	| Tractor Beam                              |

@@ -76,4 +76,12 @@ class TransmitterTest {
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
         assertThat(decodedSignalMessage.toString()).isEqualTo("53553731")
     }
+
+    @Test
+    fun solutionPartTwo() {
+        val data = InputReader().readInputAsSingleString(Day.from(16))
+        val inputSignal = Receiver().listen(data).convertToRealSignal()
+        val outputSignal = Transmitter(inputSignal).decodeRealSignalMessage()
+        assertThat(outputSignal.toString()).isEqualTo("28135104")
+    }
 }

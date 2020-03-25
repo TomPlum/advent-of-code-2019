@@ -56,7 +56,7 @@ class TransmitterTest {
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
-        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(84462026))
+        assertThat(decodedSignalMessage.toString()).isEqualTo("84462026")
     }
 
     @Test
@@ -65,7 +65,7 @@ class TransmitterTest {
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
-        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(78725270))
+        assertThat(decodedSignalMessage.toString()).isEqualTo("78725270")
     }
 
     @Test
@@ -74,12 +74,6 @@ class TransmitterTest {
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
-        assertThat(decodedSignalMessage.sequence).isEqualTo(listOf(53553731))
-    }
-
-    @Test
-    fun investigatingPartTwo() {
-        val data = InputReader().readInputAsSingleString("/radio/example-input-1.txt")
-        Transmitter(Receiver().listen(data)).decodeRealSignalMessage()
+        assertThat(decodedSignalMessage.toString()).isEqualTo("53553731")
     }
 }

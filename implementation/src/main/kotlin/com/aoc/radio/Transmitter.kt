@@ -45,12 +45,12 @@ class Transmitter(private val inputSignal: Signal) {
      * 4. Our output signal for the latter half of the signal is 851.
      */
     fun decodeRealSignalMessage(): Signal {
-        val sig = inputSignal.sequence.chunked(inputSignal.length() / 2)[1].toMutableList()
-        val messageStartIndex = inputSignal.getFirstNValues(7).sequence.joinToString(separator = "").toInt() - sig.size
+        val sig = inputSignal.getSecondHalf()
+        val messageOffset = inputSignal.getMessageOffset() - sig.size
         (1..100).forEach { _ ->
-            (sig.size - 2 downTo messageStartIndex).forEach { i -> sig[i] = (sig[i + 1] + sig[i]) % 10 }
+            (sig.size - 2 downTo messageOffset).forEach { i -> sig[i] = (sig[i + 1] + sig[i]) % 10 }
         }
-        return Signal(sig.slice(IntRange(messageStartIndex, messageStartIndex + 7)))
+        return Signal(sig).getMessage()
     }
 
 }

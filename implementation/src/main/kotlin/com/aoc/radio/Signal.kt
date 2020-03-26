@@ -20,6 +20,12 @@ data class Signal(val sequence: List<Int>) {
         return Signal(realSignalSequence)
     }
 
+    fun getSecondHalf() = sequence.chunked(sequence.size / 2)[1].toMutableList()
+
+    fun getMessageOffset() = getFirstNValues(7).sequence.joinToString(separator = "").toInt()
+
+    fun getMessage() = Signal(sequence.slice(IntRange(getMessageOffset(), getMessageOffset() + 7)))
+
     fun length() = sequence.size
 
     override fun toString() = sequence.joinToString(separator = "")

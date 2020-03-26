@@ -47,4 +47,24 @@ class SignalTest {
     fun convertToRealSignal() {
         assertThat(Signal(listOf(1)).convertToRealSignal().sequence.size).isEqualTo(10000)
     }
+
+    @Test
+    fun length() {
+        assertThat(Signal(listOf(1,2,3,4,5,6)).length()).isEqualTo(6)
+    }
+
+    @Test
+    fun getSecondHalf() {
+        assertThat(Signal(listOf(1,2,3,4,5,6,7,8)).getSecondHalf()).isEqualTo(listOf(5,6,7,8))
+    }
+
+    @Test
+    fun getMessageOffset() {
+        assertThat(Signal(listOf(0,3,0,3,6,7,3,2,5,7,7,2,1,2,9,4,4,0,6,3,4,9)).getMessageOffset()).isEqualTo(303673)
+    }
+
+    @Test
+    fun getMessage() {
+        assertThat(Signal(listOf(0,0,0,0,0,0,9,5,6,1,7,4,2,3,5,4,1)).getMessage()).isEqualTo(Signal(listOf(1,7,4,2,3,5,4,1)))
+    }
 }

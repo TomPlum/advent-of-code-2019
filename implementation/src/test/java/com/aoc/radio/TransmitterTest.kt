@@ -41,8 +41,8 @@ class TransmitterTest {
     }
 
     @Test
-    @DisplayName("Given Day 16 Puzzle Input, after 100 phases of FFT, then the first eight digits of the output signal" +
-    "should be 77038830")
+    @DisplayName("Solution Part 1 - Given Day 16 Puzzle Input, after 100 phases of FFT, then the first eight digits of" +
+            " the output signal should be 77038830")
     fun solutionPartOne() {
         val data = InputReader().readInputAsSingleString(Day.from(16))
         val inputSignal = Receiver().listen(data)
@@ -78,6 +78,8 @@ class TransmitterTest {
     }
 
     @Test
+    @DisplayName("Solution Part 2 - Given Day 16 Puzzle Input, after converting to the real signal and 100 phases of " +
+            "FFT, then the message at he offset should be 28135104")
     fun solutionPartTwo() {
         val data = InputReader().readInputAsSingleString(Day.from(16))
         val inputSignal = Receiver().listen(data).convertToRealSignal()

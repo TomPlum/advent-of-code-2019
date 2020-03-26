@@ -10,7 +10,7 @@ buildscript {
 
 plugins {
     idea
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version "1.3.71"
 }
 
 subprojects {
@@ -24,7 +24,6 @@ subprojects {
     }
 
     dependencies {
-        //Kotlin Standard Libraries
         implementation(kotlin("stdlib-jdk8"))
         implementation(kotlin("reflect"))
     }

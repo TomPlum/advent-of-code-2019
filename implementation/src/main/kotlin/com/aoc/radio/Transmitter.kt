@@ -5,15 +5,45 @@ import kotlin.math.abs
 class Transmitter(private val inputSignal: Signal) {
 
     //TODO Improve Runtime Performance
+    /**
+     * Runs Flawed Frequency Transmission (FFT) on the [inputSignal] for the given number of [phases] and returns the
+     * output signal produced by the algorithm.
+     *
+     * To calculate FFT for a single phase, each digit in the [Signal.sequence] changes to the sum of the product
+     * of each digit and it's corresponding [SignalPattern] value.
+     *
+     * - E.g Your input signal is 12345678
+     * 1. For the first value, 1, you take all the values in the [inputSignal] = 12345678
+     * 2. 1 is at index 0 so the [SignalPattern] will omit the first value of the base pattern so we multiply 1 * 1
+     * 3. 2 is at index 1 so the [SignalPattern] will return value 0 so we multiply 2 * 0
+     * 4. ...this happens for each of the values. The [SignalPattern] will reset to the base pattern after exhausting all its values.
+     * 5. Once the sum has been calculated for a given digit, the right-most value is taken. I.e. -17 = 7.
+     * 6. ...this happens for each values in the [inputSignal] where the [SignalPattern] changes based on the index.
+     * 7. Finally the above steps are iterated for each of the [phases] until and Output Signal is produced.
+     *
+     * - The above example for a single phase of FFT with real calculations looks like this;
+     *
+     * 1*1  + 2*0  + 3*-1 + 4*0  + 5*1  + 6*0  + 7*-1 + 8*0  = 4
+     * 1*0  + 2*1  + 3*1  + 4*0  + 5*0  + 6*-1 + 7*-1 + 8*0  = 8
+     * 1*0  + 2*0  + 3*1  + 4*1  + 5*1  + 6*0  + 7*0  + 8*0  = 2
+     * 1*0  + 2*0  + 3*0  + 4*1  + 5*1  + 6*1  + 7*1  + 8*0  = 2
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*1  + 6*1  + 7*1  + 8*1  = 6
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*1  + 7*1  + 8*1  = 1
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*0  + 7*1  + 8*1  = 5
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*0  + 7*0  + 8*1  = 8
+     *
+     * After 1 phase of FFT: 48226158
+     *
+     * @see Signal
+     * @see SignalPattern
+     * @return [Signal] after the given number of [phases] of Flawed Frequency Transmission.
+     */
     fun flawedFrequencyTransmission(phases: Int): Signal {
         var outputSignal = inputSignal
         (1..phases).forEach { _ ->
-            outputSignal = Signal((inputSignal.sequence.indices).map { sequenceIndex ->
-                val pattern = outputSignal.getPattern(sequenceIndex)
-                val sum = outputSignal.sequence.sumBy {
-                    it * pattern.getValue()
-                }
-                abs(sum % 10)
+            outputSignal = Signal((inputSignal.sequence.indices).map { i ->
+                val pattern = outputSignal.getPattern(i)
+                abs(outputSignal.sequence.sumBy { it * pattern.getValue() } % 10)
             })
         }
         return outputSignal
@@ -43,6 +73,10 @@ class Transmitter(private val inputSignal: Signal) {
      * 2. The next value (i = 4) is calculated by s[ i ] = mod( s[ i + 1 ] + s[ i ] , 10 ) -> s[4] = mod(7+8, 10) = 5
      * 3. The next value (i = 3) is now mod(6+5, 10) = 1. This is the last digit in the latter-half of the sequence.
      * 4. Our output signal for the latter half of the signal is 851.
+     *
+     * @see Signal
+     * @see SignalPattern
+     * @return Decoded Eight Digit Signal Message
      */
     fun decodeRealSignalMessage(): Signal {
         val seq = inputSignal.sequence.toMutableList()

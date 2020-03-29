@@ -9,8 +9,11 @@ class VacuumRobot(val instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
     fun explore() {
-        while (!computer.programHalted) {
-
-        }
+        computer.compute()
+        val systemOutput = computer.getProgramMemory().output
+        val map = ScaffoldMap(systemOutput.values)
+        print(map)
     }
+
+
 }

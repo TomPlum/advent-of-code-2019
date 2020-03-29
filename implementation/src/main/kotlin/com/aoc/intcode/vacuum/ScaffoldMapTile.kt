@@ -1,6 +1,6 @@
 package com.aoc.intcode.vacuum
 
-class ScaffoldMapTile(private var value: Char) {
+data class ScaffoldMapTile(private var value: Char) {
 
     fun isScaffold() = value == '#'
 

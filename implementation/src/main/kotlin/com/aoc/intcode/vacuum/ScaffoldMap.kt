@@ -12,13 +12,24 @@ class ScaffoldMap(initialData: List<Long>) {
             if (datum == 10L) {
                 x = 0
                 y++
+            } else {
+                this.data[Point2D(x, y)] = ScaffoldMapTile(datum.toChar())
+                x++
             }
-            this.data[Point2D(x, y)] = ScaffoldMapTile(datum.toChar())
-            x++
         }
+        findIntersection().forEach { position -> update(position, ScaffoldMapTile.intersection()) }
     }
 
-    fun update(input: Char, position: Point2D) = data.put(position, ScaffoldMapTile(input))
+    fun calculateAlignmentParameterSum() = getIntersections().sumBy { it.x * it.y }
+
+    private fun getIntersections() = data.filter { it.value.isIntersection() }.keys.toSet()
+
+    private fun findIntersection(): Set<Point2D> = data
+            .filterValues { it.isScaffold() }
+            .filter { datum -> datum.key.adjacentPoints().all { point -> data.getOrDefault(point, ScaffoldMapTile.empty()).isScaffold() } }
+            .keys.toSet()
+
+    private fun update(position: Point2D, type: ScaffoldMapTile) = data.put(position, type)
 
     override fun toString(): String {
         val xMin = data.keys.minBy { it.x }!!.x

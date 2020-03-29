@@ -9,6 +9,6 @@ class VacuumRobotTest {
     fun explore() {
         val instructions = InputReader().readInputAsSingleString(Day.from(17))
         val robot = VacuumRobot(instructions)
-        robot.explore()
+        robot.exploreShipsExteriorScaffolding()
     }
 }

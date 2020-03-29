@@ -8,11 +8,10 @@ import com.aoc.intcode.computer.IntCodeComputer
 class VacuumRobot(val instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
-    fun explore() {
+    fun exploreShipsExteriorScaffolding(): ScaffoldMap {
         computer.compute()
         val systemOutput = computer.getProgramMemory().output
-        val map = ScaffoldMap(systemOutput.values)
-        print(map)
+        return ScaffoldMap(systemOutput.values)
     }
 
 

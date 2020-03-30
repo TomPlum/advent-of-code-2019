@@ -44,6 +44,11 @@ class ScaffoldMapTileTest {
     }
 
     @Test
+    fun unknown() {
+        assertThat(ScaffoldMapTile.unknown()).isEqualTo(ScaffoldMapTile('!'))
+    }
+
+    @Test
     fun solutionPartOne() {
         val instruction = InputReader().readInputAsSingleString(Day.from(17))
         val scaffoldMap = VacuumRobot(instruction).exploreShipsExteriorScaffolding()

@@ -40,7 +40,7 @@ class ScaffoldMap(initialData: List<Long>) {
 
         return (yMin..yMax).joinToString("\n") { y ->
             (xMin..xMax).joinToString(separator = " ") { x ->
-                data.getOrDefault(Point2D(x, y), ScaffoldMapTile('!')).toString()
+                data.getOrDefault(Point2D(x, y), ScaffoldMapTile.unknown()).toString()
             }
         }
     }

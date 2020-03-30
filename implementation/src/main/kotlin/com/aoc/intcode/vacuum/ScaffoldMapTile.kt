@@ -1,6 +1,8 @@
 package com.aoc.intcode.vacuum
 
-data class ScaffoldMapTile(private var value: Char) {
+import map.MapTile
+
+data class ScaffoldMapTile(override var value: Char) : MapTile<Char>(value) {
 
     fun isScaffold() = value == '#'
 
@@ -12,5 +14,4 @@ data class ScaffoldMapTile(private var value: Char) {
         fun unknown() = ScaffoldMapTile('!')
     }
 
-    override fun toString() = value.toString()
 }

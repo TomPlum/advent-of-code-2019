@@ -12,5 +12,5 @@ fun main() {
     println("Solution Part 1: ${paintedHullStartingBlack.getTimesPanelsPainted()}")
 
     val paintedHullStartingWhite = controller.deployEmergencyHullPaintingRobot(input, HullPaint.WHITE)
-    println("Solution Part 2:\n${paintedHullStartingWhite.getRegistrationIdentifier()}")
+    println("Solution Part 2:\n${paintedHullStartingWhite}")
 }

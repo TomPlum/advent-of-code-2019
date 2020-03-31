@@ -12,7 +12,7 @@ class HullTest {
     fun paintPanel() {
         val hull = Hull()
         hull.paintPanel(0, 0, HullPaint.WHITE)
-        assertThat(hull.panels).isEqualTo(mapOf(Pair(Panel(0, 0), HullPaint.WHITE)))
+        assertThat(hull.getPanelColour(0, 0)).isEqualTo(HullPaint.WHITE)
     }
 
     @Test
@@ -21,7 +21,7 @@ class HullTest {
         val hull = Hull()
         hull.paintPanel(4, 5, HullPaint.WHITE)
         hull.paintPanel(4, 5, HullPaint.BLACK)
-        assertThat(hull.panels).isEqualTo(mapOf(Pair(Panel(4, 5), HullPaint.BLACK)))
+        assertThat(hull.getPanelColour(4, 5)).isEqualTo(HullPaint.BLACK)
     }
 
     @Test
@@ -40,10 +40,4 @@ class HullTest {
         assertThat(panelColour).isEqualTo(HullPaint.BLACK)
     }
 
-    @Test
-    fun getRegistrationIdentifier() {
-        val hull = Hull()
-        hull.paintPanel(3, 5, HullPaint.WHITE)
-        assertThat(hull.getRegistrationIdentifier()).isEqualTo(RegistrationIdentifier(mapOf(Pair(Panel(3, 5), HullPaint.WHITE))))
-    }
 }

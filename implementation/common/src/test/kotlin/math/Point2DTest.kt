@@ -2,6 +2,7 @@ package math
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEqualTo
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -9,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class Point2DTest {
-
 
     @Nested
     inner class OrthogonallyAdjacent {
@@ -119,5 +119,42 @@ class Point2DTest {
         fun angleBetweenWhenSectorsAreExactlyDiagonalTopLeft(x1: Int, y1: Int, x2: Int, y2: Int) {
             assertThat(Point2D(x1, y1).angleBetween(Point2D(x2, y2))).isEqualTo(315.0)
         }
+    }
+
+    @Nested
+    inner class Shift {
+        @Test
+        fun shiftUp() {
+            assertThat(Point2D(0,0).shift(Direction.UP)).isEqualTo(Point2D(0,1))
+        }
+
+        @Test
+        fun shiftRight() {
+            assertThat(Point2D(0,0).shift(Direction.RIGHT)).isEqualTo(Point2D(1,0))
+        }
+
+        @Test
+        fun shiftDown() {
+            assertThat(Point2D(0,0).shift(Direction.DOWN)).isEqualTo(Point2D(0,-1))
+        }
+
+        @Test
+        fun shiftLeft() {
+            assertThat(Point2D(0,0).shift(Direction.LEFT)).isEqualTo(Point2D(-1,0))
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["1,1,1,1", "2,2,2,2", "-1,-1,-1,-1"])
+    @DisplayName("Given two Points that have the same cartesian coordinate, when checking their equality, they should be equal")
+    fun equalityTest(x0: Int, y0: Int, x1: Int, y1: Int) {
+        assertThat(Point2D(x0, y0)).isEqualTo(Point2D(x1, y1))
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = ["1,1,0,1", "1,1,1,-1", "0,2,2,0"])
+    @DisplayName("Given two Points that have the different cartesian coordinate, when checking their equality, they should not be equal")
+    fun inequalityTest(x0: Int, y0: Int, x1: Int, y1: Int) {
+        assertThat(Point2D(x0, y0)).isNotEqualTo(Point2D(x1, y1))
     }
 }

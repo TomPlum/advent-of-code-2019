@@ -1,11 +1,11 @@
 package com.aoc.panel
 
-import kotlin.math.abs
+import math.Point2D
 
 class Panel constructor(private val firstWire: Wire, private val secondWire: Wire) {
     fun findIntersectionPointClosestToCentralPort(): Int? = firstWire.getPath()
             .intersect(secondWire.getPath()).toList()
-            .map { manhattanDistance(it.x, it.y) }
+            .map { it.distanceBetween(Point2D(0,0)) }
             .min()
 
 
@@ -20,5 +20,4 @@ class Panel constructor(private val firstWire: Wire, private val secondWire: Wir
         return intersectionDistances.min()?.plus(2)
     }
 
-    private fun manhattanDistance(x1: Int, y1: Int) = abs(x1) + abs(y1)
 }

@@ -1,28 +1,20 @@
 package com.aoc.panel
 
+import math.Point2D
+
 class Wire constructor(input: String) {
     val segments: List<WireSegment> = input.split(",").map { WireSegment(it.substring(0, 1), it.substring(1).toInt()) }
 
-    fun getPath(): List<WireCoordinate> {
-        val path: MutableList<WireCoordinate> = mutableListOf()
-        var coordinate = WireCoordinate()
+    fun getPath(): List<Point2D> {
+        val path: MutableList<Point2D> = mutableListOf()
+        var coordinate = Point2D(0,0)
         segments.forEach { segment ->
             (0 until segment.length).forEach { _ ->
-                coordinate = updateOrdinate(segment, coordinate)
-                path.add(WireCoordinate(coordinate.x, coordinate.y))
+                coordinate = coordinate.shift(segment.direction)
+                path.add(Point2D(coordinate.x, coordinate.y))
             }
         }
         return path
-    }
-
-    private fun updateOrdinate(segment: WireSegment, wireCoordinate: WireCoordinate): WireCoordinate {
-        when (segment.direction) {
-            "U" -> wireCoordinate.y += 1
-            "R" -> wireCoordinate.x += 1
-            "D" -> wireCoordinate.y -= 1
-            "L" -> wireCoordinate.x -= 1
-        }
-        return wireCoordinate
     }
 
 }

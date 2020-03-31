@@ -2,6 +2,7 @@ package com.aoc.intcode.hull
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import math.Direction
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

@@ -21,7 +21,20 @@ data class Point2D(val x: Int, val y: Int) {
      */
     fun angleBetween(point: Point2D): Double {
         val angle = atan2((y - point.y).toDouble(), (x - point.x).toDouble()) * (180 / Math.PI) - 90.00
-        return if (angle < 0) { angle + 360.00 } else angle
+        return if (angle < 0) {
+            angle + 360.00
+        } else angle
+    }
+
+    /**
+     * Shifts the [Point2D] one unit in the given [direction].
+     * E.g. (0, 0) shifted [Direction.RIGHT] would become (1, 0)
+     */
+    fun shift(direction: Direction): Point2D = when (direction) {
+        Direction.UP -> Point2D(x, y + 1)
+        Direction.RIGHT -> Point2D(x + 1, y)
+        Direction.DOWN -> Point2D(x, y - 1)
+        Direction.LEFT -> Point2D(x - 1, y)
     }
 
     override fun toString() = "($x, $y)"

@@ -1,4 +1,4 @@
-package com.aoc.intcode.hull
+package math
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

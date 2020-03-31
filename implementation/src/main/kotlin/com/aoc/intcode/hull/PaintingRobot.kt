@@ -1,6 +1,7 @@
 package com.aoc.intcode.hull
 
 import com.aoc.intcode.computer.IntCodeComputer
+import math.Direction
 import java.lang.IllegalArgumentException
 
 class PaintingRobot(instructions: String) {

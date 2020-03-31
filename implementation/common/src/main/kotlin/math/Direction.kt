@@ -1,4 +1,4 @@
-package com.aoc.intcode.hull
+package math
 
 enum class Direction {
     UP, RIGHT, DOWN, LEFT;

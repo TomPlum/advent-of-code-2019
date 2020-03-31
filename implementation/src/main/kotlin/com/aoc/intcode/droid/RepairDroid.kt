@@ -38,16 +38,16 @@ class RepairDroid(instructions: String) {
                     //Record Wall Coordinate
                     val wall = ShipFloorTile.WALL
                     when (direction) {
-                        Direction.NORTH -> map.updateTile(Point2D(x, y + 1), wall)
-                        Direction.EAST -> map.updateTile(Point2D(x + 1, y), wall)
-                        Direction.SOUTH -> map.updateTile(Point2D(x, y - 1), wall)
-                        Direction.WEST -> map.updateTile(Point2D(x - 1, y), wall)
+                        Direction.NORTH -> map.addTile(Point2D(x, y + 1), wall)
+                        Direction.EAST -> map.addTile(Point2D(x + 1, y), wall)
+                        Direction.SOUTH -> map.addTile(Point2D(x, y - 1), wall)
+                        Direction.WEST -> map.addTile(Point2D(x - 1, y), wall)
                     }
                 }
                 DroidResponse.SUCCESSFULLY_CHANGED_POSITION -> {
                     //Record Current Coordinate As Traversable (Unless Inside Oxygen System)
                     if (map.tileType(Point2D(x, y)) != ShipFloorTile.OXYGEN_SYSTEM) {
-                        map.updateTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
+                        map.addTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
                     }
 
                     //Increment Relevant Ordinate
@@ -59,18 +59,18 @@ class RepairDroid(instructions: String) {
                     }
 
                     //Record New Coordinate As Droid Current Position
-                    map.updateTile(Point2D(x, y), ShipFloorTile.DROID)
+                    map.addTile(Point2D(x, y), ShipFloorTile.DROID)
                 }
                 DroidResponse.LOCATED_OXYGEN_SYSTEM -> {
                     //Record Current Coordinate As Traversable
-                    map.updateTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
+                    map.addTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
 
                     //Increment Relevant Ordinate
                     move(direction)
 
                     //Log Oxygen System Details
                     oxygenSystemInfo = Pair(Point2D(x, y), path.size)
-                    map.updateTile(Point2D(x, y), ShipFloorTile.OXYGEN_SYSTEM)
+                    map.addTile(Point2D(x, y), ShipFloorTile.OXYGEN_SYSTEM)
 
                     //Log Oxygen System Visit
                     path.push(Pair(Point2D(x, y), direction))

@@ -13,16 +13,16 @@ class OxygenSystem(private val map: ShipFloorMap) {
      */
     fun oxygenateShip(): Int {
         val tileToBeOxygenated = setOf(ShipFloorTile.TRAVERSABLE, ShipFloorTile.DROID, ShipFloorTile.OXYGEN_SYSTEM)
-        val traversableTiles = map.data.filterValues { it in tileToBeOxygenated }.toMutableMap()
-        val oxygenSystem = map.data.filterValues { it == ShipFloorTile.OXYGEN_SYSTEM }
+        val traversableTiles = map.getData().filterValues { it in tileToBeOxygenated }.toMutableMap()
+        val oxygenSystem = map.getData().filterValues { it == ShipFloorTile.OXYGEN_SYSTEM }
         val nextTiles = mutableSetOf(oxygenSystem.keys.first())
         var minutesElapsed = 0
-        while (map.data.containsValue(ShipFloorTile.TRAVERSABLE)) {
+        while (map.getData().containsValue(ShipFloorTile.TRAVERSABLE)) {
             val adjacentTraversable = nextTiles.flatMap { it.adjacentPoints() }.filter { it in traversableTiles.keys }
             nextTiles.clear()
             nextTiles.addAll(adjacentTraversable)
             traversableTiles.filterKeys { it in adjacentTraversable }.forEach {
-                map.updateTile(it.key, ShipFloorTile.OXYGENATED)
+                map.addTile(it.key, ShipFloorTile.OXYGENATED)
             }
             //println(map)
             minutesElapsed++

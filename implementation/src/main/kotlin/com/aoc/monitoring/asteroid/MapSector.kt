@@ -3,7 +3,7 @@ package com.aoc.monitoring.asteroid
 import kotlin.math.abs
 import kotlin.math.atan2
 
-data class MapSector(val contents: String, val x: Int, val y: Int) {
+data class MapSector(val contents: String, val x: Int, val y: Int) { //TODO: Replace with Point2D
 
     /**
      * Calculates the positive clockwise angle between two [MapSector] in degrees.

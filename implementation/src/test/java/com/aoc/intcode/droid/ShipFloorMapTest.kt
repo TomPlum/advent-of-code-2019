@@ -10,22 +10,22 @@ import org.junit.jupiter.api.Test
 class ShipFloorMapTest {
     @Test
     fun newMapShouldHaveDefaultDroidLocation() {
-        assertThat(ShipFloorMap().data[Point2D(0, 0)]).isEqualTo(ShipFloorTile.DROID)
+        assertThat(ShipFloorMap().getData()[Point2D(0, 0)]).isEqualTo(ShipFloorTile.DROID)
     }
 
     @Test
     fun updateUnknownTileShouldAdd() {
         val emptyMap = ShipFloorMap()
-        emptyMap.updateTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
-        assertThat(emptyMap.data[Point2D(0, -1)]).isEqualTo(ShipFloorTile.TRAVERSABLE)
+        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
+        assertThat(emptyMap.getData()[Point2D(0, -1)]).isEqualTo(ShipFloorTile.TRAVERSABLE)
     }
 
     @Test
     fun updateKnownTileShouldReplace() {
         val emptyMap = ShipFloorMap()
-        emptyMap.updateTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
-        emptyMap.updateTile(Point2D(0, -1), ShipFloorTile.OXYGEN_SYSTEM)
-        assertThat(emptyMap.data[Point2D(0, -1)]).isEqualTo(ShipFloorTile.OXYGEN_SYSTEM)
+        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
+        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.OXYGEN_SYSTEM)
+        assertThat(emptyMap.getData()[Point2D(0, -1)]).isEqualTo(ShipFloorTile.OXYGEN_SYSTEM)
     }
 
     @Test

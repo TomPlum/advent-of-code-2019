@@ -1,23 +1,20 @@
 package com.aoc.monitoring.asteroid
 
+import math.Point2D
 import kotlin.math.abs
 import kotlin.math.atan2
 
-data class MapSector(val contents: String, val x: Int, val y: Int) { //TODO: Replace with Point2D
+data class MapSector(val contents: String, val position: Point2D) { //TODO: Replace with Point2D
 
     /**
      * Calculates the positive clockwise angle between two [MapSector] in degrees.
-     * Angles are calculated from the sector's true north in the range of 0 =< angle < 360.
      */
-    fun angleBetween(sector: MapSector): Double {
-        val angle = atan2((y - sector.y).toDouble(), (x - sector.x).toDouble()) * (180 / Math.PI) - 90.00
-        return if (angle < 0) { angle + 360.00 } else angle
-    }
+    fun angleBetween(sector: MapSector): Double = this.position.angleBetween(sector.position)
 
     /**
      * Calculates the Manhattan Distance between two [MapSector] as an integer
      */
-    fun distanceBetween(sector: MapSector): Int = abs(this.x - sector.x) + abs(this.y - sector.y)
+    fun distanceBetween(sector: MapSector): Int = sector.position.distanceBetween(this.position)
 
     fun hasAsteroid(): Boolean = when (contents) {
         "#" -> true

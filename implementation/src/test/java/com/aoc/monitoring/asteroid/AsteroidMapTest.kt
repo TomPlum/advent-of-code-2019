@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import input.Day
 import input.InputReader
+import math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -13,35 +14,35 @@ class AsteroidMapTest {
     fun optimalMappingStationSectorExampleOne() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-1.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 3, 4), 8))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(3, 4)), 8))
     }
 
     @Test
     fun optimalMappingStationSectorExampleTwo() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-2.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 5, 8), 33))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(5, 8)), 33))
     }
 
     @Test
     fun optimalMappingStationSectorExampleThree() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-3.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 1, 2), 35))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(1, 2)), 35))
     }
 
     @Test
     fun optimalMappingStationSectorExampleFour() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-4.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 6, 3), 41))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(6, 3)), 41))
     }
 
     @Test
     fun optimalMappingStationSectorExampleFive() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 11, 13), 210))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(11, 13)), 210))
     }
 
     @Test
@@ -50,7 +51,7 @@ class AsteroidMapTest {
     fun solutionPartOne() {
         val map = AsteroidMap(InputReader().readInputString(Day.from(10)).values)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
-        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", 23, 29), 263))
+        assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(23, 29)), 263))
     }
 
     @Test
@@ -59,7 +60,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber1() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(1)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 11, 12))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(11, 12)))
     }
 
     @Test
@@ -68,7 +69,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber2() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(2)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 12, 1))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(12, 1)))
     }
 
     @Test
@@ -77,7 +78,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber3() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(3)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 12, 2))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(12, 2)))
     }
 
     @Test
@@ -86,7 +87,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber10() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(10)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 12, 8))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(12, 8)))
     }
 
     @Test
@@ -95,7 +96,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber20() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(20)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 16, 0))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(16, 0)))
     }
 
     @Test
@@ -104,7 +105,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber50() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(50)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 16, 9))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(16, 9)))
     }
 
     @Test
@@ -113,7 +114,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber100() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(100)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 10, 16))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(10, 16)))
     }
 
     @Test
@@ -122,7 +123,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber199() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(199)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 9, 6))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(9, 6)))
     }
 
     @Test
@@ -131,7 +132,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber200() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(200)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 8, 2))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(8, 2)))
     }
 
     @Test
@@ -140,7 +141,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber201() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(201)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 10, 9))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(10, 9)))
     }
 
     @Test
@@ -149,7 +150,7 @@ class AsteroidMapTest {
     fun exampleFiveAsteroidVaporisedNumber299() {
         val map = AsteroidMap(InputReader().readInputAsString("/asteroid/example-5.txt").values)
         val twoHundredthAsteroid = map.vaporiseAsteroidBelt(299)
-        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", 11, 1))
+        assertThat(twoHundredthAsteroid).isEqualTo(MapSector("#", Point2D(11, 1)))
     }
 
     @Test

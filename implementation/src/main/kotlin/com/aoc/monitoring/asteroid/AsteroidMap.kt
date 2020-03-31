@@ -1,11 +1,13 @@
 package com.aoc.monitoring.asteroid
 
+import math.Point2D
+
 class AsteroidMap(mapData: List<String>) {
     private var asteroids: Set<MapSector>
 
     init {
         asteroids = mapData.asSequence().mapIndexed { y, row ->
-            row.chunked(1).mapIndexed { x, contents -> MapSector(contents, x, y) }
+            row.chunked(1).mapIndexed { x, contents -> MapSector(contents, Point2D(x, y)) }
         }.flatten().filter { it.hasAsteroid() }.toSet()
     }
 
@@ -57,12 +59,12 @@ class AsteroidMap(mapData: List<String>) {
     /**
      * To win the bet with the elves on which asteroid be the 200th to be vaporised, this function returns the value
      * when multiplying the asteroids x-ordinate by 100 and adding it it's y-ordinate.
-     * @return ([MapSector.x] * 100) + [MapSector.y].y
+     * @return ([MapSector.position] x * 100) + [MapSector.position] y
      * @see AsteroidMap.vaporiseAsteroidBelt
      */
     fun winBetWithElves(): Int {
         val asteroid = vaporiseAsteroidBelt(200)
-        return (asteroid.x * 100) + asteroid.y
+        return (asteroid.position.x * 100) + asteroid.position.y
     }
 
 }

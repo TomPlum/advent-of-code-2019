@@ -11,4 +11,12 @@ class VacuumRobotTest {
         val robot = VacuumRobot(instructions)
         robot.exploreShipsExteriorScaffolding()
     }
+
+    @Test
+    fun partTwo() {
+        val instructions = InputReader().readInputAsSingleString(Day.from(17))
+        val robot = VacuumRobot(instructions)
+        robot.forceWakeUp()
+
+    }
 }

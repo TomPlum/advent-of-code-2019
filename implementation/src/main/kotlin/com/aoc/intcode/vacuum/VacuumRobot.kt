@@ -14,5 +14,11 @@ class VacuumRobot(val instructions: String) {
         return ScaffoldMap(systemOutput.values)
     }
 
-
+    /**
+     * Forces the [VacuumRobot] to wake up. Doing so will cause the robot to automatically prompt the user
+     * for movement instructions.
+     */
+    fun forceWakeUp() {
+        computer.getProgramMemory().updateInstructionAtAddress(0, 2L)
+    }
 }

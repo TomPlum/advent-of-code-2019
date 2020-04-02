@@ -1,9 +1,7 @@
 package com.aoc.intcode.computer
 
 import assertk.assertThat
-import assertk.assertions.isEmpty
-import assertk.assertions.isEqualTo
-import assertk.assertions.isNotEqualTo
+import assertk.assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -13,7 +11,7 @@ class SystemOutputTest {
     fun addTest() {
         val systemOutput = SystemOutput()
         systemOutput.add(172)
-        assertThat(systemOutput.values[0]).isEqualTo(172)
+        assertThat(systemOutput.getLastValue()).isEqualTo(172)
     }
 
     @Test
@@ -34,7 +32,7 @@ class SystemOutputTest {
         systemOutput.add(2)
         systemOutput.add(6)
         systemOutput.getLastTwoValues()
-        assertThat(systemOutput.values).isEmpty()
+        assertThat(systemOutput.isEmpty()).isTrue()
     }
 
     @Test
@@ -76,7 +74,7 @@ class SystemOutputTest {
         systemOutput.add(6)
         systemOutput.add(56)
         systemOutput.getFirstThreeValues()
-        assertThat(systemOutput.values).isEmpty()
+        assertThat(systemOutput.isEmpty()).isTrue()
     }
 
     @Test
@@ -117,7 +115,47 @@ class SystemOutputTest {
         val systemOutput = SystemOutput()
         systemOutput.add(6)
         systemOutput.getLastValue()
-        assertThat(systemOutput.values).isEmpty()
+        assertThat(systemOutput.isEmpty()).isTrue()
+    }
+
+    @Test
+    @DisplayName("Given a SystemOutput with values, when getting values, then it should consume and return them all")
+    fun getAllValuesWhenSystemOutHasValues() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(15L)
+        systemOutput.add(1L)
+        assertThat(systemOutput.getValues()).isEqualTo(listOf<Long>(15,1))
+        assertThat(systemOutput.isEmpty())
+    }
+
+    @Test
+    fun getAllValuesWhenSystemOutputIsEmpty() {
+        val e = assertThrows<IllegalStateException> { SystemOutput().getValues() }
+        assertThat(e.message).isEqualTo("System Output is empty!")
+    }
+
+    @Test
+    fun isEmptyPositive() {
+        assertThat(SystemOutput().isEmpty()).isTrue()
+    }
+
+    @Test
+    fun isEmptyNegative() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(12L)
+        assertThat(systemOutput.isEmpty()).isFalse()
+    }
+
+    @Test
+    fun isNotEmptyPositive() {
+        val systemOutput = SystemOutput()
+        systemOutput.add(12L)
+        assertThat(systemOutput.isNotEmpty()).isTrue()
+    }
+
+    @Test
+    fun isNotEmptyNegative() {
+        assertThat(SystemOutput().isNotEmpty()).isFalse()
     }
 
     @Test

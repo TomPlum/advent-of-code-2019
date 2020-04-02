@@ -3,7 +3,7 @@ package com.aoc.intcode.computer
 import java.util.*
 
 class SystemOutput {
-    val values = LinkedList<Long>()
+    private val values = LinkedList<Long>()
 
     /**
      * Adds a single [value] to the [SystemOutput] internal [values]
@@ -49,6 +49,27 @@ class SystemOutput {
         }
         throw IllegalStateException("System output must have at least three values")
     }
+
+    /**
+     * Consumes all values in FIFO order.
+     * @return List of all [SystemOutput] values.
+     */
+    fun getValues(): List<Long> {
+        if (values.isEmpty()) throw IllegalStateException("System Output is empty!")
+        val consumed = mutableListOf<Long>()
+        while(values.iterator().hasNext()) consumed.add(values.pollFirst())
+        return consumed
+    }
+
+    /**
+     * @return True if the [SystemOutput] is empty, false if it is not.
+     */
+    fun isEmpty() = values.isEmpty()
+
+    /**
+     * @return True if the [SystemOutput] has no values left, false if it does.
+     */
+    fun isNotEmpty() = values.isNotEmpty()
 
     override fun toString() = values.toString()
 

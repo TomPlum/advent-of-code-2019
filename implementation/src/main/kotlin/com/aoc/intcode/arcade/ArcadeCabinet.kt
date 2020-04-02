@@ -59,7 +59,7 @@ class ArcadeCabinet(gameSoftware: String) {
 
     private fun updateTiles(debug: Boolean) {
         val output = computer.getProgramMemory().output
-        while(output.values.isNotEmpty()) {
+        while(output.isNotEmpty()) {
             val tileData = output.getFirstThreeValues()
 
             if (tileData.first.toInt() == -1 && tileData.second.toInt() == 0) {

@@ -2,6 +2,7 @@ package com.aoc.intcode.computer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import input.InputReader
 import input.Day
@@ -368,5 +369,23 @@ class IntCodeComputerTest {
         val computer = IntCodeComputer("99")
         computer.onNextBoot(bootMode)
         assertThat(computer.getProgramMemory().input.values[0]).isEqualTo(bootMode.systemInputCode)
+    }
+
+    @Test
+    fun reset() {
+        val computer = IntCodeComputer("7,1,2,0,99")
+        computer.compute()
+
+        //Before
+        assertThat(computer.programHalted).isTrue()
+        assertThat(computer.waiting).isFalse()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("1,1,2,0,99")
+
+        computer.reset()
+
+        //After
+        assertThat(computer.programHalted).isFalse()
+        assertThat(computer.waiting).isTrue()
+        assertThat(computer.getProgramCurrentState()).isEqualTo("7,1,2,0,99")
     }
 }

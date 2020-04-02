@@ -39,6 +39,12 @@ class IntCodeComputer constructor(programString: String) {
 
     fun getProgramCurrentState(): String = program.toString()
 
+    fun reset() {
+        program.memory.reset()
+        waiting = true
+        programHalted = false
+    }
+
 }
 
 

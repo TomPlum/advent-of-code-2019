@@ -2,7 +2,7 @@ package com.aoc.intcode.vacuum
 
 import map.MapTile
 
-data class ScaffoldMapTile(override var value: Char) : MapTile<Char>(value) {
+class ScaffoldMapTile(override var value: Char) : MapTile<Char>(value) {
 
     fun isScaffold() = value == '#'
 
@@ -13,5 +13,4 @@ data class ScaffoldMapTile(override var value: Char) : MapTile<Char>(value) {
         fun intersection() = ScaffoldMapTile('O')
         fun unknown() = ScaffoldMapTile('!')
     }
-
 }

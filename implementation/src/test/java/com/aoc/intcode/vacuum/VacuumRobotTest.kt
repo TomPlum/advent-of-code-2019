@@ -11,13 +11,13 @@ class VacuumRobotTest {
     fun solutionPartOne() {
         val instructions = InputReader().readInputAsSingleString(Day.from(17))
         val robot = VacuumRobot(instructions)
-        assertThat(robot.exploreShipsExteriorScaffolding().calculateAlignmentParameterSum()).isEqualTo(7404)
+        assertThat(robot.scanShipsExteriorScaffolding().calculateAlignmentParameterSum()).isEqualTo(7404)
     }
 
     @Test
     fun solutionPartTwo() {
         val instructions = InputReader().readInputAsSingleString(Day.from(17))
         val robot = VacuumRobot(instructions)
-        assertThat(robot.getDustCollectionReport()).isEqualTo(929045L)
+        assertThat(robot.notifyRobotsAboutSolarFlare()).isEqualTo(929045L)
     }
 }

@@ -5,18 +5,41 @@ import com.aoc.intcode.vacuum.FunctionParameter.LEFT
 import com.aoc.intcode.vacuum.FunctionParameter.RIGHT
 
 /**
+ * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.
+ * Unfortunately, this has cut off the Wi-Fi for many small robots that, unaware of the impending danger, are now
+ * trapped on exterior scaffolding on the unsafe side of the shield.
+ *
+ * The [VacuumRobot] has a low-quality video camera capable of streaming a continuous video feed and a bright LED
+ * light that makes it easier to identify its location and surroundings.
+ *
  * @param instructions The Aft Scaffolding Control and Information Interface (ASCII) program.
  */
 class VacuumRobot(val instructions: String) {
     private var computer = IntCodeComputer(instructions)
 
-    fun exploreShipsExteriorScaffolding(): ScaffoldMap {
+    /**
+     * Runs the ASCII [instructions] on the [computer] to produce the current view
+     * of the ships exterior scaffolding.
+     */
+    fun scanShipsExteriorScaffolding(): ScaffoldMap {
         computer.compute()
         val systemOutput = computer.getProgramMemory().output
         return ScaffoldMap(systemOutput.getValues())
     }
 
-    fun getDustCollectionReport(): Long {
+    /**
+     * Traverses the entirety of the [ScaffoldMap] and notifies each of the robots of the impending Solar Flare.
+     * As the robot is a [VacuumRobot], it cleans each of the robots on the way and records the dust collected.
+     *
+     * 1. Forces the [VacuumRobot] to wake up.
+     * 2. Inputs the Main [MovementRoutine].
+     * 3. Inputs each of the three [MovementFunction] (A, B & C).
+     * 4. Inputs 'Toggle Continuous Video Feed' Toggle
+     *
+     * Once the robot has reached the final [ScaffoldMapTile], it returns to the starting position and
+     * returns the [DustCollectionReport].
+     */
+    fun notifyRobotsAboutSolarFlare(): DustCollectionReport {
         forceWakeUp()
 
         val routine = getManualMovementRoutine()
@@ -52,7 +75,7 @@ class VacuumRobot(val instructions: String) {
         val dustCollected = computer.getProgramMemory().output.getLastValue()
         println("Dust Collected: $dustCollected")
 
-        return dustCollected
+        return DustCollectionReport(dustCollected)
     }
 
     private fun update() {

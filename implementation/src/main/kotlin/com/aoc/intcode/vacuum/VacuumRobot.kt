@@ -16,12 +16,11 @@ class VacuumRobot(val instructions: String) {
         return ScaffoldMap(systemOutput.getValues())
     }
 
-    fun getDustCollectionReport() {
+    fun getDustCollectionReport(): Long {
         forceWakeUp()
-        executeMainMovementRoutine(getManualMovementRoutine())
-    }
 
-    private fun executeMainMovementRoutine(routine: MovementRoutine): Long {
+        val routine = getManualMovementRoutine()
+
         //Input Main Movement Routine
         routine.getRoutine().forEach { computer.getProgramMemory().input.add(it) }
         println("Inputting: $routine \n")

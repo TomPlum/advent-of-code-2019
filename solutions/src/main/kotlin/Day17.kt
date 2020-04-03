@@ -9,4 +9,5 @@ fun main() {
     val scaffoldMap = VacuumRobot(instruction).exploreShipsExteriorScaffolding()
     println("Solution Part 1: ${scaffoldMap.calculateAlignmentParameterSum()}")
     println(scaffoldMap)
+    println("Solution Part 2: ${VacuumRobot(instruction).getDustCollectionReport()}")
 }

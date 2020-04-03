@@ -22,7 +22,7 @@ https://adventofcode.com/2019/
 | 14  	| 1037742  	| 1572358  	        | Space Stoichiometry                       |
 | 15  	| 212      	| 358             	| Oxygen System                             |
 | 16  	| 77038830 	| 28135104         	| Flawed Frequency Transmission             |
-| 17  	| 7404    	| -             	| Set and Forget                            |
+| 17  	| 7404    	| 929045           	| Set and Forget                            |
 | 18  	| -       	| -             	| Many-Worlds Interpretation                |
 | 19  	| -       	| -             	| Tractor Beam                              |
 | 20  	| -       	| -             	| Donut Maze                                |

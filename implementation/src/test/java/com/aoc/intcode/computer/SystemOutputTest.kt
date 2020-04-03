@@ -159,6 +159,18 @@ class SystemOutputTest {
     }
 
     @Test
+    fun parseAsciiToString() {
+        val systemOutput = SystemOutput();
+        systemOutput.add(77)
+        systemOutput.add(97)
+        systemOutput.add(105)
+        systemOutput.add(110)
+        systemOutput.add(58)
+        systemOutput.add(10)
+        assertThat(systemOutput.parseStringFromAscii()).isEqualTo("Main:\n")
+    }
+
+    @Test
     @DisplayName("Given two System Output, when they have the same internal values, then they should be equal")
     fun equalityTestPositive() {
         val first = SystemOutput()

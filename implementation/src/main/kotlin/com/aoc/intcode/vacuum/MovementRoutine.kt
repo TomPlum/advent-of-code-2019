@@ -2,9 +2,9 @@ package com.aoc.intcode.vacuum
 
 import java.util.*
 
-class MovementRoutine {
+class MovementRoutine : Iterable<MovementFunction> {
 
-    private val functions = LinkedList<MovementFunction>()
+    val functions = LinkedList<MovementFunction>()
 
     fun add(function: MovementFunction): MovementRoutine {
         functions.add(function)
@@ -13,5 +13,9 @@ class MovementRoutine {
 
     fun getFunction() = functions.pollFirst()!!
 
-    override fun toString() = functions.joinToString(separator = ",") { it.name.toString() }
+    fun getRoutine() = functions.map { it.name }.joinToString(",").map { it.toLong() }.toMutableList().also { it.add(10) }
+
+    override fun toString() = functions.joinToString(",") { it.name.toString() }
+
+    override fun iterator() = functions.iterator()
 }

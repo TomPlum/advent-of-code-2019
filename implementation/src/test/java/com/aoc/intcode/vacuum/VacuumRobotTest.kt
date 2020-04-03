@@ -16,7 +16,6 @@ class VacuumRobotTest {
     fun partTwo() {
         val instructions = InputReader().readInputAsSingleString(Day.from(17))
         val robot = VacuumRobot(instructions)
-        robot.forceWakeUp()
-
+        robot.getDustCollectionReport()
     }
 }

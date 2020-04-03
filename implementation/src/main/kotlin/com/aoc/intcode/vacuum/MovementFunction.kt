@@ -3,19 +3,30 @@ package com.aoc.intcode.vacuum
 class MovementFunction(val name: Char) {
     private val sequence = mutableListOf<Int>()
 
-    fun add(parameter: FunctionParameter, units: Char): MovementFunction {
+    /**
+     * Adds two values to the [MovementFunction] sequence for the [VacuumRobot].
+     * The first commands the robot to turn for the given [FunctionParameter].
+     * The second commands the robot to move forward for the given number of [units].
+     */
+    fun add(parameter: FunctionParameter, units: Int): MovementFunction {
         if (sequence.isNotEmpty()) addDelimiter()
         sequence.add(parameter.code.toInt())
         addDelimiter()
-        sequence.add(units.toInt())
+        if (units > 9) {
+            units.toString().forEach { sequence.add(it.toInt()) }
+        } else {
+            sequence.add(units.toString().first().toInt())
+        }
         return this
     }
 
     fun getSequence(): MutableList<Int> {
+        //if (sequence.size > 20) throw IllegalStateException("Movement Functions cannot be greater than 20 characters!")
         sequence.add(10)
         return sequence
     }
 
     private fun addDelimiter() = sequence.add(44)
 
+    override fun toString() = getSequence().toString()
 }

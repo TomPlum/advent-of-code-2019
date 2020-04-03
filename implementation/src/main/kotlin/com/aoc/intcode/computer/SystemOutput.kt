@@ -71,6 +71,10 @@ class SystemOutput {
      */
     fun isNotEmpty() = values.isNotEmpty()
 
+    fun parseStringFromAscii() = values.joinToString("") { it.toChar().toString() }
+
+    fun clear() = values.clear()
+
     override fun toString() = values.toString()
 
     override fun equals(other: Any?): Boolean {

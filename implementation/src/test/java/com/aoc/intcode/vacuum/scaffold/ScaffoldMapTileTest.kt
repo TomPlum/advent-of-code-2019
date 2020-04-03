@@ -1,11 +1,10 @@
-package com.aoc.intcode.vacuum
+package com.aoc.intcode.vacuum.scaffold
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
-import input.Day
-import input.InputReader
+import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource

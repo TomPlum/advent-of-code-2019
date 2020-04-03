@@ -1,4 +1,4 @@
-package com.aoc.intcode.vacuum
+package com.aoc.intcode.vacuum.scaffold
 
 import map.MapTile
 

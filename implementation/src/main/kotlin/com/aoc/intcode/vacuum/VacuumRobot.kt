@@ -1,9 +1,14 @@
 package com.aoc.intcode.vacuum
 
 import com.aoc.intcode.computer.IntCodeComputer
-import com.aoc.intcode.vacuum.FunctionID.*
-import com.aoc.intcode.vacuum.FunctionParameter.LEFT
-import com.aoc.intcode.vacuum.FunctionParameter.RIGHT
+import com.aoc.intcode.vacuum.function.FunctionID.*
+import com.aoc.intcode.vacuum.function.FunctionParameter.LEFT
+import com.aoc.intcode.vacuum.function.FunctionParameter.RIGHT
+import com.aoc.intcode.vacuum.function.MovementFunctionA
+import com.aoc.intcode.vacuum.function.MovementFunctionB
+import com.aoc.intcode.vacuum.function.MovementFunctionC
+import com.aoc.intcode.vacuum.function.MovementRoutine
+import com.aoc.intcode.vacuum.scaffold.ScaffoldMap
 
 /**
  * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.
@@ -98,6 +103,6 @@ class VacuumRobot(val instructions: String) {
         val a = MovementFunctionA().add(LEFT, 6).add(RIGHT, 12).add(LEFT, 6).add(LEFT, 8).add(LEFT, 8)
         val b = MovementFunctionB().add(LEFT, 4).add(LEFT, 4).add(LEFT, 6)
         val c = MovementFunctionC().add(LEFT, 6).add(RIGHT, 12).add(RIGHT, 8).add(LEFT, 8)
-        return MovementRoutine(a,b,c).create(A, A, C, B, C, A, B, C, B, A)
+        return MovementRoutine(a, b, c).create(A, A, C, B, C, A, B, C, B, A)
     }
 }

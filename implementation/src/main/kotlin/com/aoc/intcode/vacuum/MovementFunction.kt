@@ -21,7 +21,6 @@ abstract class MovementFunction(val ID: FunctionID) {
     }
 
     fun getSequence(): MutableList<Int> {
-        //if (sequence.size > 20) throw IllegalStateException("Movement Functions cannot be greater than 20 characters!")
         sequence.add(10)
         return sequence
     }

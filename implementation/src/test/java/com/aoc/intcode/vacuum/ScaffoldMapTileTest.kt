@@ -49,9 +49,7 @@ class ScaffoldMapTileTest {
     }
 
     @Test
-    fun solutionPartOne() {
-        val instruction = InputReader().readInputAsSingleString(Day.from(17))
-        val scaffoldMap = VacuumRobot(instruction).scanShipsExteriorScaffolding()
-        assertThat(scaffoldMap.calculateAlignmentParameterSum()).isEqualTo(7404)
+    fun toStringTest() {
+        assertThat(ScaffoldMapTile.intersection().toString()).isEqualTo("O")
     }
 }

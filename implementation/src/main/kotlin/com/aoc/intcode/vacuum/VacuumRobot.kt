@@ -66,7 +66,7 @@ class VacuumRobot(val instructions: String) {
     private fun inputMovementFunctions(routine: MovementRoutine) {
         routine.getBaseFunctions().forEach { func ->
             func.getSequence().forEach { computer.getProgramMemory().input.add(it.toLong()) }
-            println("Inputting: ${func.ID} \n")
+            println("Inputting: $func \n")
             update()
         }
     }

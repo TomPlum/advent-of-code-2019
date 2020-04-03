@@ -18,6 +18,6 @@ class VacuumRobotTest {
     fun solutionPartTwo() {
         val instructions = InputReader().readInputAsSingleString(Day.from(17))
         val robot = VacuumRobot(instructions)
-        assertThat(robot.notifyRobotsAboutSolarFlare()).isEqualTo(929045L)
+        assertThat(robot.notifyRobotsAboutSolarFlare().quantity).isEqualTo(929045L)
     }
 }

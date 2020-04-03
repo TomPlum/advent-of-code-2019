@@ -1,6 +1,7 @@
 package com.aoc.intcode.vacuum
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.vacuum.FunctionID.*
 import com.aoc.intcode.vacuum.FunctionParameter.LEFT
 import com.aoc.intcode.vacuum.FunctionParameter.RIGHT
 
@@ -49,26 +50,10 @@ class VacuumRobot(val instructions: String) {
         println("Inputting: $routine \n")
         update()
 
-        //Input A
-        val a = routine.functions.first { it.name == 'A' }
-        a.getSequence().forEach { value -> computer.getProgramMemory().input.add(value.toLong()) }
-        println("Inputting: $a \n")
-        update()
-
-        //Input B
-        val b = routine.functions.first { it.name == 'B' }
-        b.getSequence().forEach { value -> computer.getProgramMemory().input.add(value.toLong()) }
-        println("Inputting: $b \n")
-        update()
-
-        //Input C
-        val c = routine.functions.first { it.name == 'C' }
-        c.getSequence().forEach { value -> computer.getProgramMemory().input.add(value.toLong()) }
-        println("Inputting: $c \n")
-        update()
+        inputMovementFunctions(routine)
 
         //Input Continuous Video Feed
-        toggleContinuousVideoFeed(false)
+        toggleContinuousVideoFeed(true)
 
         //Get Dust Report
         computer.compute()
@@ -76,6 +61,14 @@ class VacuumRobot(val instructions: String) {
         println("Dust Collected: $dustCollected")
 
         return DustCollectionReport(dustCollected)
+    }
+
+    private fun inputMovementFunctions(routine: MovementRoutine) {
+        routine.getBaseFunctions().forEach { func ->
+            func.getSequence().forEach { computer.getProgramMemory().input.add(it.toLong()) }
+            println("Inputting: ${func.ID} \n")
+            update()
+        }
     }
 
     private fun update() {
@@ -102,9 +95,9 @@ class VacuumRobot(val instructions: String) {
     }
 
     private fun getManualMovementRoutine(): MovementRoutine {
-        val a = MovementFunction('A').add(LEFT, 6).add(RIGHT, 12).add(LEFT, 6).add(LEFT, 8).add(LEFT, 8)
-        val b = MovementFunction('B').add(LEFT, 4).add(LEFT, 4).add(LEFT, 6)
-        val c = MovementFunction('C').add(LEFT, 6).add(RIGHT, 12).add(RIGHT, 8).add(LEFT, 8)
-        return MovementRoutine().add(a).add(a).add(c).add(b).add(c).add(a).add(b).add(c).add(b).add(a)
+        val a = MovementFunctionA().add(LEFT, 6).add(RIGHT, 12).add(LEFT, 6).add(LEFT, 8).add(LEFT, 8)
+        val b = MovementFunctionB().add(LEFT, 4).add(LEFT, 4).add(LEFT, 6)
+        val c = MovementFunctionC().add(LEFT, 6).add(RIGHT, 12).add(RIGHT, 8).add(LEFT, 8)
+        return MovementRoutine(a,b,c).create(A, A, C, B, C, A, B, C, B, A)
     }
 }

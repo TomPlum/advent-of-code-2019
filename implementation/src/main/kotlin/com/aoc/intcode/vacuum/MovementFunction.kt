@@ -1,6 +1,6 @@
 package com.aoc.intcode.vacuum
 
-class MovementFunction(val name: Char) {
+abstract class MovementFunction(val ID: FunctionID) {
     private val sequence = mutableListOf<Int>()
 
     /**

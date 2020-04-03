@@ -2,20 +2,28 @@ package com.aoc.intcode.vacuum
 
 import java.util.*
 
-class MovementRoutine : Iterable<MovementFunction> {
+class MovementRoutine(val a: MovementFunction, val b: MovementFunction, val c: MovementFunction) : Iterable<MovementFunction> {
 
-    val functions = LinkedList<MovementFunction>()
+    private val functions = LinkedList<MovementFunction>()
 
-    fun add(function: MovementFunction): MovementRoutine {
-        functions.add(function)
+    fun create(vararg order: FunctionID): MovementRoutine {
+        order.forEach { add(it) }
         return this
     }
 
     fun getFunction() = functions.pollFirst()!!
 
-    fun getRoutine() = functions.map { it.name }.joinToString(",").map { it.toLong() }.toMutableList().also { it.add(10) }
+    fun getBaseFunctions() = setOf(a,b,c)
 
-    override fun toString() = functions.joinToString(",") { it.name.toString() }
+    fun getRoutine() = functions.map { it.ID }.joinToString(",").map { it.toLong() }.toMutableList().also { it.add(10) }
+
+    private fun add(function: FunctionID) = when (function) {
+        FunctionID.A -> functions.add(a)
+        FunctionID.B -> functions.add(b)
+        FunctionID.C -> functions.add(c)
+    }
+
+    override fun toString() = functions.joinToString(",") { it.ID.toString() }
 
     override fun iterator() = functions.iterator()
 }

@@ -11,8 +11,6 @@ class MovementRoutine(val a: MovementFunction, val b: MovementFunction, val c: M
         return this
     }
 
-    fun getFunction() = functions.pollFirst()!!
-
     fun getBaseFunctions() = setOf(a,b,c)
 
     fun getRoutine() = functions.map { it.ID }.joinToString(",").map { it.toLong() }.toMutableList().also { it.add(10) }

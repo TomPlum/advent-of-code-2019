@@ -49,26 +49,43 @@ class VacuumRobot(val instructions: String) {
      * returns the [DustCollectionReport].
      */
     fun notifyRobotsAboutSolarFlare(): DustCollectionReport {
+        //Force Wake
         forceWakeUp()
 
         val routine = getManualMovementRoutine()
 
         //Input Main Movement Routine
-        routine.getRoutine().forEach { computer.getProgramMemory().input.add(it) }
-        println("Inputting: $routine \n")
-        update()
+        inputMainMovementRoutine(routine)
 
+        //Input Movement Functions (A, B, C)
         inputMovementFunctions(routine)
 
         //Input Continuous Video Feed
         toggleContinuousVideoFeed(true)
 
         //Get Dust Report
-        computer.compute()
-        val dustCollected = computer.getProgramMemory().output.getLastValue()
-        println("Dust Collected: $dustCollected")
+        return getDustCollectionReport()
+    }
 
-        return DustCollectionReport(dustCollected)
+
+    /**
+     * Inputs the Main [MovementRoutine] into the [IntCodeComputer]
+     */
+    private fun inputMainMovementRoutine(routine: MovementRoutine) {
+        routine.getRoutine().forEach { computer.getProgramMemory().input.add(it) }
+        println("Inputting: $routine \n")
+        update()
+    }
+
+    /**
+     * Runs the [IntCodeComputer] and returns the final [SystemOutput] value.
+     * This Non-ASCII values represent the quantity of dust collected by the [VacuumRobot].
+     */
+    private fun getDustCollectionReport(): DustCollectionReport {
+        computer.compute()
+        val quantity = computer.getProgramMemory().output.getLastValue()
+        println("Dust Collected: $quantity")
+        return DustCollectionReport(quantity)
     }
 
     /**

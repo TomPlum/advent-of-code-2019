@@ -67,7 +67,6 @@ class VacuumRobot(val instructions: String) {
         return getDustCollectionReport()
     }
 
-
     /**
      * Inputs the Main [MovementRoutine] into the [IntCodeComputer]
      */

@@ -4,11 +4,14 @@ import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.vacuum.function.FunctionID.*
 import com.aoc.intcode.vacuum.function.FunctionParameter.LEFT
 import com.aoc.intcode.vacuum.function.FunctionParameter.RIGHT
+import com.aoc.intcode.vacuum.function.MovementFunction
 import com.aoc.intcode.vacuum.function.MovementFunctionA
 import com.aoc.intcode.vacuum.function.MovementFunctionB
 import com.aoc.intcode.vacuum.function.MovementFunctionC
 import com.aoc.intcode.vacuum.function.MovementRoutine
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMap
+import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
+import com.aoc.intcode.computer.SystemOutput
 
 /**
  * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.
@@ -68,6 +71,9 @@ class VacuumRobot(val instructions: String) {
         return DustCollectionReport(dustCollected)
     }
 
+    /**
+     * Iterates over the [MovementRoutine.getBaseFunctions] and inputs each of them into the [IntCodeComputer]
+     */
     private fun inputMovementFunctions(routine: MovementRoutine) {
         routine.getBaseFunctions().forEach { func ->
             func.getSequence().forEach { computer.getProgramMemory().input.add(it.toLong()) }
@@ -76,6 +82,9 @@ class VacuumRobot(val instructions: String) {
         }
     }
 
+    /**
+     * Runs the [IntCodeComputer], prints the response and clears the [SystemOutput]
+     */
     private fun update() {
         computer.compute()
         print("Robot: ${computer.getProgramMemory().output.parseStringFromAscii()}")
@@ -92,6 +101,11 @@ class VacuumRobot(val instructions: String) {
         update()
     }
 
+    /**
+     * Enables the [VacuumRobot] continuous video feed. The robot will respond with the current view of
+     * the [ScaffoldMap] every times it changes [ScaffoldMapTile]. Although its useful to see what is going on,
+     * it uses a lot of processing power and can cause the [IntCodeComputer] to overheat.
+     */
     private fun toggleContinuousVideoFeed(toggle: Boolean) {
         val input = if (toggle) 'y' else 'n'
         println("Inputting: $input \n")
@@ -99,6 +113,10 @@ class VacuumRobot(val instructions: String) {
         computer.getProgramMemory().input.add('\n'.toLong())
     }
 
+    /**
+     * Defines the 3 [MovementFunction] and creates the [MovementRoutine] that will guide the [VacuumRobot]
+     * across the [ScaffoldMap] so that it traverses every [ScaffoldMapTile].
+     */
     private fun getManualMovementRoutine(): MovementRoutine {
         val a = MovementFunctionA().add(LEFT, 6).add(RIGHT, 12).add(LEFT, 6).add(LEFT, 8).add(LEFT, 8)
         val b = MovementFunctionB().add(LEFT, 4).add(LEFT, 4).add(LEFT, 6)

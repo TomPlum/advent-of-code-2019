@@ -3,9 +3,10 @@ package com.aoc.vault
 import map.Map
 import math.Point2D
 
-class VaultMap(private val initialData: List<String>) : Map<VaultTile>() {
+class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
     private val keysCollected = mutableSetOf<VaultTile>()
+    private val startingPosition = filterTiles { it.isEntrance() }.values.first()
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -27,6 +28,14 @@ class VaultMap(private val initialData: List<String>) : Map<VaultTile>() {
      */
     fun collectKeys(): Int {
         return 0
+    }
+
+    private fun accessibleKeys() {
+
+    }
+
+    private fun getShortestPathToDoor() {
+
     }
 
 }

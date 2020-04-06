@@ -19,6 +19,6 @@ class Hull : Map<HullPaint>() {
      *
      * @return The number of panels painted at least once.
      */
-    fun getTimesPanelsPainted() = getData().size
+    fun getTimesPanelsPainted() = tileQuantity()
 
 }

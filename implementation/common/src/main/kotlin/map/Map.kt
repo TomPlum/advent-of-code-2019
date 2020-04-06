@@ -6,12 +6,14 @@ abstract class Map<T> {
     private val data = mutableMapOf<Point2D, T>()
 
     fun addTile(position: Point2D, tile: T) = data.put(position, tile)
-
-    fun hasRecorded(position: Point2D) = data.containsKey(position)
-
     fun getTile(position: Point2D, default: T) = data.getOrDefault(position, default)
 
-    fun getData() = data //TODO: Not necessary due to Kotlin properties.. don't want to fully expose
+    fun hasRecorded(position: Point2D) = data.containsKey(position)
+    fun hasTile(value: T) = data.containsValue(value)
+
+    fun tileQuantity() = data.size
+
+    fun filterTiles(predicate: (T) -> Boolean) = data.filterValues(predicate)
 
     override fun toString(): String {
         val xMin = data.keys.minBy { it.x }!!.x

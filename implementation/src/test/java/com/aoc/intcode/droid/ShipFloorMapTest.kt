@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test
 class ShipFloorMapTest {
     @Test
     fun newMapShouldHaveDefaultDroidLocation() {
-        assertThat(ShipFloorMap().getData()[Point2D(0, 0)]).isEqualTo(ShipFloorTile.DROID)
+        assertThat(ShipFloorMap().getTile(Point2D(0, 0), ShipFloorTile.UNKNOWN)).isEqualTo(ShipFloorTile.DROID)
     }
 
     @Test
     fun updateUnknownTileShouldAdd() {
         val emptyMap = ShipFloorMap()
         emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
-        assertThat(emptyMap.getData()[Point2D(0, -1)]).isEqualTo(ShipFloorTile.TRAVERSABLE)
+        assertThat(emptyMap.getTile(Point2D(0, -1), ShipFloorTile.UNKNOWN)).isEqualTo(ShipFloorTile.TRAVERSABLE)
     }
 
     @Test
@@ -25,7 +25,7 @@ class ShipFloorMapTest {
         val emptyMap = ShipFloorMap()
         emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
         emptyMap.addTile(Point2D(0, -1), ShipFloorTile.OXYGEN_SYSTEM)
-        assertThat(emptyMap.getData()[Point2D(0, -1)]).isEqualTo(ShipFloorTile.OXYGEN_SYSTEM)
+        assertThat(emptyMap.getTile(Point2D(0, -1), ShipFloorTile.UNKNOWN)).isEqualTo(ShipFloorTile.OXYGEN_SYSTEM)
     }
 
     @Test

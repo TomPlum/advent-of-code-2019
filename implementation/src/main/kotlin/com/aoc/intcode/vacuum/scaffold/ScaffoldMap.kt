@@ -22,13 +22,12 @@ class ScaffoldMap(initialData: List<Long>) : Map<ScaffoldMapTile>() {
 
     fun calculateAlignmentParameterSum() = getIntersections().sumBy { it.x * it.y }
 
-    private fun getIntersections() = getData().filter { it.value.isIntersection() }.keys.toSet()
+    private fun getIntersections() = filterTiles { it.isIntersection() }.keys.toSet()
 
-    private fun findIntersection(): Set<Point2D> = getData()
-            .filterValues { it.isScaffold() }
+    private fun findIntersection(): Set<Point2D> = filterTiles { it.isScaffold() }
             .filter { datum ->
                 datum.key.adjacentPoints().all { point ->
-                    getData().getOrDefault(point, ScaffoldMapTile.empty()).isScaffold()
+                    getTile(point, ScaffoldMapTile.empty()).isScaffold()
                 }
             }.keys.toSet()
 

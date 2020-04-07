@@ -54,4 +54,15 @@ class VaultTileTest {
     fun isDoorNegative(value: Char) {
         assertThat(VaultTile(value).isDoor()).isFalse()
     }
+
+    @Test
+    fun isTraversablePositive() {
+        assertThat(VaultTile('.').isTraversable()).isTrue()
+    }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['a','A','#','@','b','-'])
+    fun isTraversableNegative(value: Char) {
+        assertThat(VaultTile(value).isTraversable()).isFalse()
+    }
 }

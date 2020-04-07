@@ -83,7 +83,6 @@ class VacuumRobot(val instructions: String) {
     private fun getDustCollectionReport(): DustCollectionReport {
         computer.compute()
         val quantity = computer.getProgramMemory().output.getLastValue()
-        println("Dust Collected: $quantity")
         return DustCollectionReport(quantity)
     }
 

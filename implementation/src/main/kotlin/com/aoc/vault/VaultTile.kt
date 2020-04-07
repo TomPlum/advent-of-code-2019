@@ -10,4 +10,6 @@ class VaultTile(private val marker: Char) : MapTile<Char>(marker) {
     fun isWall() = marker == '#'
 
     fun isDoor() = marker.isLetter() && marker.isUpperCase()
+
+    fun isTraversable() = marker == '.'
 }

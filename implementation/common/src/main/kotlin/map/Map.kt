@@ -16,6 +16,7 @@ abstract class Map<T> {
 
     fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { it in positions }
     fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
+    fun findTile(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
 
     fun adjacentTiles(position: Point2D) = data.filterKeys { it in position.adjacentPoints() }
 
@@ -34,6 +35,6 @@ abstract class Map<T> {
            "$y " + (xMin..xMax).joinToString(separator = " ") { x ->
                 data.getOrDefault(Point2D(x, y), " ").toString()
             }
-        }
+        } + "\n"
     }
 }

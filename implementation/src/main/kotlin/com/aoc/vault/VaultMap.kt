@@ -2,11 +2,12 @@ package com.aoc.vault
 
 import map.Map
 import math.Point2D
+import kotlin.IllegalStateException
 
 class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
-    private val keysCollected = mutableSetOf<VaultTile>()
-    private val startingPosition: Point2D
+    private var currentPosition: Point2D
+    private var stepsTaken = 0
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -22,7 +23,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         }
 
         println(this)
-        startingPosition = filterTiles { it.isEntrance() }.keys.first()
+        currentPosition = filterTiles { it.isEntrance() }.keys.first()
     }
 
     /**
@@ -31,27 +32,66 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
      * @return The number of steps taken in order to collect all keys.
      */
     fun collectKeys(): Int {
-        val accessibleKeys = accessibleKeys()
-        return 0
+        while (keysRemain()) {
+            //Get Key
+            val (pos, tile) = accessibleKeys().minBy { getShortestPathSteps(it.first) }!!
+            stepsTaken += getShortestPathSteps(pos)
+            updateCurrentPosition(pos)
+
+            //Unlock Door
+            val doorLocation = findTile { it.value == tile.value.toUpperCase() } ?: return stepsTaken
+            stepsTaken += getShortestPathSteps(doorLocation)
+            updateCurrentPosition(doorLocation)
+        }
+
+        return stepsTaken
     }
 
-    private fun accessibleKeys(): Int {
-        var keys = 0
-        val nextPositions = mutableSetOf(startingPosition)
-        val scannedTiles = mutableSetOf(startingPosition)
+    private fun accessibleKeys(): MutableSet<Pair<Point2D, VaultTile>> {
+        val keys = mutableSetOf<Pair<Point2D, VaultTile>>()
+        val nextPositions = mutableSetOf(currentPosition)
+        val scannedTiles = mutableSetOf(currentPosition)
         while (nextPositions.isNotEmpty()) {
             val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in scannedTiles }.toSet()
             scannedTiles.addAll(adjacentPositions)
-            val tiles = filterPoints(adjacentPositions)
+
+            val adjacentTiles = filterPoints(adjacentPositions)
             nextPositions.clear()
-            tiles.filterValues { it.isTraversable() || it.isKey() }.forEach { nextPositions.add(it.key) }
-            keys += tiles.filterValues { it.isKey() }.count()
+            adjacentTiles.filterValues { it.isTraversable() || it.isKey() }.forEach { nextPositions.add(it.key) }
+            keys.addAll(adjacentTiles.filterValues { it.isKey() }.map { it.toPair() } )
         }
         return keys
     }
 
+    private fun getShortestPathSteps(destination: Point2D): Int {
+        val nextPositions = mutableSetOf(currentPosition)
+        val scannedTiles = mutableSetOf(currentPosition)
+        var steps = 0
+        while (nextPositions.isNotEmpty()) {
+            steps++
+            val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in scannedTiles }.toSet()
+            scannedTiles.addAll(adjacentPositions)
+
+            val adjacentTiles = filterPoints(adjacentPositions)
+            if (adjacentTiles.containsKey(destination)) return steps
+
+            nextPositions.clear()
+            adjacentTiles.filterValues { it.isTraversable() || it.isKey() }.forEach { nextPositions.add(it.key) }
+        }
+        throw IllegalStateException("Error finding the shortest path between $currentPosition and $destination")
+    }
+
     private fun getShortestPathToDoor() {
 
+    }
+
+    private fun keysRemain() = filterTiles { it.isKey() }.count() > 0
+
+    private fun updateCurrentPosition(newPosition: Point2D) {
+        addTile(currentPosition, VaultTile('.'))
+        addTile(newPosition, VaultTile('@'))
+        currentPosition = newPosition
+        println(this)
     }
 
 }

@@ -2,7 +2,7 @@
 Advent of Code 2019 with Kotlin \
 https://adventofcode.com/2019/
 
-## My Solution Answers
+## Answer Table
 
 | Day 	| Part 1 	| Part 2 	        | Name                                      |
 |-------|-----------|-------------------|----------------------------------------   |

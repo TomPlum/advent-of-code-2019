@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import input.Day
 import input.InputReader
+import log.AdventLogger
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -27,8 +28,8 @@ class MotionSimulatorTest {
         val motionSimulator = MotionSimulator(moonPositions)
         motionSimulator.simulate(100)
         val totalSystemEnergy = motionSimulator.calculateTotalSystemEnergy()
-        println("\nEnergy after 100 steps:")
-        moonPositions.forEach { println("pot: ${it.calculatePotentialEnergy()};   kin: ${it.calculateKineticEnergy()};   total: ${it.calculateTotalEnergy()}") }
+        AdventLogger.debug("\nEnergy after 100 steps:")
+        moonPositions.forEach { AdventLogger.debug("pot: ${it.calculatePotentialEnergy()};   kin: ${it.calculateKineticEnergy()};   total: ${it.calculateTotalEnergy()}") }
         assertThat(totalSystemEnergy).isEqualTo(1940)
     }
 

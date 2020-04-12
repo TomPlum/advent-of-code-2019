@@ -20,7 +20,6 @@ class ImageDataAssemblerTest {
         assertThat(spaceImage.layers[0].getRow(1)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.WHITE, Pixel.TRANSPARENT, Pixel.BLACK)))
         assertThat(spaceImage.layers[1].getRow(0)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.TRANSPARENT, Pixel.BLACK, Pixel.WHITE)))
         assertThat(spaceImage.layers[1].getRow(1)).isEqualTo(SpaceImageRow(mutableListOf(Pixel.TRANSPARENT, Pixel.TRANSPARENT, Pixel.WHITE)))
-        println(spaceImage.toString())
     }
 
 }

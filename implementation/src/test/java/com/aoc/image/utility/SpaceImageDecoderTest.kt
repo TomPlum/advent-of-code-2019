@@ -17,6 +17,5 @@ class SpaceImageDecoderTest {
         val spaceImage = SpaceImageDecoder().decode(encodedSpaceImage)
         assertThat(spaceImage.layer.rows[0].pixels).isEqualTo(listOf(Pixel.BLACK, Pixel.WHITE))
         assertThat(spaceImage.layer.rows[1].pixels).isEqualTo(listOf(Pixel.WHITE, Pixel.BLACK))
-        println(spaceImage.toString())
     }
 }

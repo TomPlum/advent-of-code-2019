@@ -1,5 +1,6 @@
 package com.aoc.intcode.droid
 
+import log.AdventLogger
 import math.Point2D
 
 class OxygenSystem(private val map: ShipFloorMap) {
@@ -24,7 +25,7 @@ class OxygenSystem(private val map: ShipFloorMap) {
             traversableTiles.filterKeys { it in adjacentTraversable }.forEach {
                 map.addTile(it.key, ShipFloorTile.OXYGENATED)
             }
-            //println(map)
+            AdventLogger.info(map)
             minutesElapsed++
         }
         return minutesElapsed

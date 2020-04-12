@@ -91,22 +91,4 @@ class MapSectorTest {
     fun angleBetweenWhenSectorsAreExactlyDiagonalTopLeft(x1: Int, y1: Int, x2: Int, y2: Int) {
         assertThat(MapSector("#", Point2D(x1, y1)).angleBetween(MapSector("#", Point2D(x2, y2)))).isEqualTo(315.0)
     }
-
-    @Test
-    fun anglesShouldBeCalculatedClockwiseFromTheTop() {
-        val middle = MapSector("#", Point2D(1, 1))
-        val topLeft = MapSector("#", Point2D(0, 0))
-        val topMiddle = MapSector("#", Point2D(1, 0))
-        val topRight = MapSector("#", Point2D(2, 0))
-        val middleRight = MapSector("#", Point2D(2, 1))
-        val bottomRight = MapSector("#", Point2D(2, 2))
-        val bottomMiddle = MapSector("#", Point2D(1, 2))
-        val bottomLeft = MapSector("#", Point2D(0, 2))
-        val middleLeft = MapSector("#", Point2D(0, 1))
-
-        listOf(topLeft, topMiddle, topRight, middleRight, bottomRight, bottomMiddle, bottomLeft, middleLeft).forEach {
-            val angle = middle.angleBetween(it)
-            print("Angle between (${middle.position.x}, ${middle.position.y}) and (${it.position.x}, ${it.position.y}) is $angle \n")
-        }
-    }
 }

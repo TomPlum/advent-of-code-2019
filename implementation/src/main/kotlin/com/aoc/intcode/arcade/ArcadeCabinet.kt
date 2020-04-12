@@ -1,6 +1,7 @@
 package com.aoc.intcode.arcade
 
 import com.aoc.intcode.computer.IntCodeComputer
+import log.AdventLogger
 import math.Point2D
 
 class ArcadeCabinet(gameSoftware: String) {
@@ -13,27 +14,26 @@ class ArcadeCabinet(gameSoftware: String) {
     init {
         playForFree()
         computer.compute()
-        updateTiles(true)
+        updateTiles()
         startingBlocks = getTileQuantity(TileID.BLOCK)
     }
 
     /**
      * Automatically plays the game to win.
-     * @param debug if true it will print the game display to the console. Increases frame-delay significantly.
      * @return Final scores once all the blocks have been broken by the ball.
      */
-    fun startGame(debug: Boolean): Long {
+    fun startGame(): Long {
         while (!computer.programHalted) {
             frame++
             if (computer.waiting) computer.getProgramMemory().input.add(getJoystickCommand().toLong())
             computer.compute()
-            updateTiles(debug)
+            updateTiles()
         }
 
         if (tiles.filterValues { it == TileID.BLOCK }.count() > 0) {
-            println("GAME OVER!")
+            AdventLogger.info("GAME OVER!")
         } else {
-            println("You Win! Final Score: $score")
+            AdventLogger.info("Congratulations, You Win! Final Score: $score")
         }
 
         return score
@@ -57,7 +57,7 @@ class ArcadeCabinet(gameSoftware: String) {
         }
     }
 
-    private fun updateTiles(debug: Boolean) {
+    private fun updateTiles() {
         val output = computer.getProgramMemory().output
         while(output.isNotEmpty()) {
             val tileData = output.getFirstThreeValues()
@@ -71,18 +71,20 @@ class ArcadeCabinet(gameSoftware: String) {
             }
         }
 
-        if (debug) updateDisplay()
+        updateDisplay()
     }
 
     private fun updateDisplay() {
-        repeat(37) { print("-") }
-        print("\n")
-        println("| Frame: $frame | B: ${tiles.filterValues { it == TileID.BALL }.keys.first()} | P: ${tiles.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()}")
-        println("| Score: $score | Blocks: ${tiles.filterValues { it == TileID.BLOCK }.count()}/$startingBlocks |")
+        var s = ""
+        repeat(37) { s += "-" }
+        s += "\n"
+        s += "| Frame: $frame | B: ${tiles.filterValues { it == TileID.BALL }.keys.first()} | P: ${tiles.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()}\n"
+        s += "| Score: $score | Blocks: ${tiles.filterValues { it == TileID.BLOCK }.count()}/$startingBlocks |\n"
 
         tiles.forEach {
-            if (it.key.x == 36) print("${it.value}\n") else print(it.value)
+            if (it.key.x == 36) s += "${it.value}\n" else s += it.value
         }
+        AdventLogger.info(s)
     }
 
 }

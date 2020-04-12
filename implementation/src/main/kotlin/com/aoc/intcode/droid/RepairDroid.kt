@@ -1,6 +1,7 @@
 package com.aoc.intcode.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
+import log.AdventLogger
 import math.Point2D
 import java.util.*
 
@@ -78,8 +79,8 @@ class RepairDroid(instructions: String) {
             }
         }
 
-        println(map)
-        println("Oxygen System Location ${oxygenSystemInfo!!.first}")
+        AdventLogger.info(map)
+        AdventLogger.info("Oxygen System Location ${oxygenSystemInfo!!.first}")
         return oxygenSystemInfo
     }
 

@@ -12,6 +12,7 @@ import com.aoc.intcode.vacuum.function.MovementRoutine
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMap
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
 import com.aoc.intcode.computer.SystemOutput
+import log.AdventLogger
 
 /**
  * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.
@@ -72,7 +73,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun inputMainMovementRoutine(routine: MovementRoutine) {
         routine.getRoutine().forEach { computer.getProgramMemory().input.add(it) }
-        println("Inputting: $routine \n")
+        AdventLogger.debug("Inputting: $routine \n")
         update()
     }
 
@@ -92,7 +93,7 @@ class VacuumRobot(val instructions: String) {
     private fun inputMovementFunctions(routine: MovementRoutine) {
         routine.getBaseFunctions().forEach { func ->
             func.getSequence().forEach { computer.getProgramMemory().input.add(it.toLong()) }
-            println("Inputting: $func \n")
+            AdventLogger.debug("Inputting: $func \n")
             update()
         }
     }
@@ -102,7 +103,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun update() {
         computer.compute()
-        print("Robot: ${computer.getProgramMemory().output.parseStringFromAscii()}")
+        AdventLogger.debug("Robot: ${computer.getProgramMemory().output.parseStringFromAscii()}")
         computer.getProgramMemory().output.clear()
     }
 
@@ -123,7 +124,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun toggleContinuousVideoFeed(toggle: Boolean) {
         val input = if (toggle) 'y' else 'n'
-        println("Inputting: $input \n")
+        AdventLogger.debug("Inputting: $input \n")
         computer.getProgramMemory().input.add(input.toLong())
         computer.getProgramMemory().input.add('\n'.toLong())
     }

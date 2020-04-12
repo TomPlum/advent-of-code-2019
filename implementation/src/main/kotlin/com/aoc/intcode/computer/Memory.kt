@@ -1,7 +1,7 @@
 package com.aoc.intcode.computer
 
 import com.aoc.intcode.computer.instructions.InstructionLength
-import org.slf4j.LoggerFactory
+import log.AdventLogger
 
 class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var instructions: MutableList<Long> = initialMemorySnapshot.toMutableList()
@@ -9,7 +9,6 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     var relativeBase = 0L
     val input = SystemInput()
     val output = SystemOutput()
-    val logger = LoggerFactory.getLogger(javaClass)
 
     fun reset() {
         instructions = initialMemorySnapshot.toMutableList()
@@ -35,7 +34,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     }
 
     fun incrementInstructionPointer(length: InstructionLength) {
-        logger.debug("Incrementing Instruction Pointer")
+        AdventLogger.debug("Incrementing Instruction Pointer")
         instructionPointer += length.value
     }
 

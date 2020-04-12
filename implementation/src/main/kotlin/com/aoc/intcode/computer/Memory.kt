@@ -34,7 +34,7 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
     }
 
     fun incrementInstructionPointer(length: InstructionLength) {
-        AdventLogger.debug("Incrementing Instruction Pointer")
+        AdventLogger.trace("Incrementing Instruction Pointer")
         instructionPointer += length.value
     }
 

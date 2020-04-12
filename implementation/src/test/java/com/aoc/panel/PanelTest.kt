@@ -72,7 +72,6 @@ class PanelTest {
     }
 
     @Test
-    @Disabled("Takes too long to run. Performance improvement needed.")
     @DisplayName("Given Day 3 puzzle input, when calculating the shortest combined intersection distance, then it should return 20386")
     fun solutionPartTwo() {
         val panel = Panel(Wire(wireStrings[0]), Wire(wireStrings[1]))

@@ -4,8 +4,10 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.panel.Wire
 import com.aoc.panel.WireSegment
+import math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class WireTest {
     @Test
@@ -24,8 +26,17 @@ class WireTest {
 
     @Test
     fun getPath() {
-        val wire = Wire("R2,U3,L1")
-        val path = wire.getPath()
-        assertThat(path.toString()).isEqualTo("[(1, 0), (2, 0), (2, 1), (2, 2), (2, 3), (1, 3)]")
+        assertThat(Wire("R2,U3,L1").path.toString()).isEqualTo("[(1, 0), (2, 0), (2, 1), (2, 2), (2, 3), (1, 3)]")
+    }
+
+    @Test
+    fun stepsTo() {
+        assertThat(Wire("R75,D30,R83,U83,L12,D49,R71,U7,L72").stepsTo(Point2D(158, -12))).isEqualTo(205)
+    }
+
+    @Test
+    fun stepsToInvalidPosition() {
+        val e = assertThrows<IllegalArgumentException> { Wire("R2,U8,D9").stepsTo(Point2D(78, 1)) }
+        assertThat(e.message).isEqualTo("Wire(input=R2,U8,D9) does not contains (78, 1)")
     }
 }

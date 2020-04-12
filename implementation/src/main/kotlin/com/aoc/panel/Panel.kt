@@ -2,22 +2,25 @@ package com.aoc.panel
 
 import math.Point2D
 
-class Panel constructor(private val firstWire: Wire, private val secondWire: Wire) {
-    fun findIntersectionPointClosestToCentralPort(): Int? = firstWire.getPath()
-            .intersect(secondWire.getPath()).toList()
-            .map { it.distanceBetween(Point2D(0,0)) }
-            .min()
+class Panel(private val firstWire: Wire, private val secondWire: Wire) {
 
+    private val intersections = firstWire.path.intersect(secondWire.path)
 
-    fun findShortestCombinedIntersectionPaths(): Int? {
-        val intersectionDistances = mutableListOf<Int>()
-        firstWire.getPath().forEachIndexed { i, w1 ->
-            secondWire.getPath().forEachIndexed { j, w2 ->
-                if (w1 == w2) intersectionDistances.add(i + j)
-            }
-        }
+    /**
+     * Calculates the distance between the central port and the closest intersection.
+     * @see Point2D.distanceBetween
+     */
+    fun findIntersectionPointClosestToCentralPort() = intersections.map { it.distanceBetween(Point2D(0, 0)) }.min()
 
-        return intersectionDistances.min()?.plus(2)
+    /**
+     * The circuit is timing-sensitive and so the signal delay needs to be minimised.
+     * Calculates the shortest combined number of steps to reach an intersection between [firstWire] and [secondWire]
+     * @return steps taken
+     * @throws IllegalStateException if there are no intersections found between the two wires
+     */
+    fun findShortestCombinedIntersectionPaths(): Int {
+        return intersections.map {
+            firstWire.stepsTo(it) + secondWire.stepsTo(it) + 2
+        }.min() ?: throw IllegalStateException("No Intersections Found")
     }
-
 }

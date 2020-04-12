@@ -19,5 +19,4 @@ class Logger {
         fun trace(message: String) = logger.trace(message)
     }
 
-    override fun toString() = "AoC Logger"
 }

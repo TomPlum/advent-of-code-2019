@@ -1,4 +1,4 @@
-package com.aoc.log
+package log
 
 import org.slf4j.LoggerFactory.getLogger
 
@@ -19,4 +19,5 @@ class Logger {
         fun trace(message: String) = logger.trace(message)
     }
 
+    override fun toString() = "AoC Logger"
 }

@@ -50,6 +50,6 @@ class ShipFloorMapTest {
 
     @Test
     fun toStringNewMap() {
-        assertThat(ShipFloorMap().toString()).isEqualTo("D")
+        assertThat(ShipFloorMap().toString()).isEqualTo("D\n")
     }
 }

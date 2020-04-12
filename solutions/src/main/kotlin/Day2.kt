@@ -16,7 +16,8 @@ private fun partOne(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
     computer.restoreGravityAssistProgram(12, 2)
     computer.compute()
-    println("Solution 1: " + computer.getProgramMemory().getInstructionAtAddress(0))
+    val firstValue = computer.getProgramMemory().getInstructionAtAddress(0)
+    println("Solution 1: ${firstValue}is the value at position 0")
 }
 
 private fun partTwo(memoryAddresses: String) {

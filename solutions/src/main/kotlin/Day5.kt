@@ -9,7 +9,6 @@ fun main() {
     val inputReader = InputReader()
     val memoryAddresses = inputReader.readInputAsSingleString(Day.from(5))
     partOne(memoryAddresses)
-
     partTwo(memoryAddresses)
 }
 

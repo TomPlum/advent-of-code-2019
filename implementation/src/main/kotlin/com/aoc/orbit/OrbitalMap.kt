@@ -20,7 +20,6 @@ class OrbitalMap(val input: List<String>) {
 
     fun readOrbits(): Int = map.first { it.isMassCenter() }.getOrbitCount()
 
-
     fun orbitalTransfersRequiredToReachSanta(): Int {
         val you = map.first { it.isYou() }.getAncestralBodies()
         val santa = map.first { it.isSanta() }.getAncestralBodies()

@@ -18,6 +18,10 @@ dependencies {
     testRuntimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.13.0")
 }
 
+subprojects {
+    apply(plugin = "jacoco")
+}
+
 val test by tasks.getting(Test::class) {
     useJUnitPlatform { }
 }

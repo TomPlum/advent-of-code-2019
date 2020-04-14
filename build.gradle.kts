@@ -1,10 +1,12 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+        google()
     }
 
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71")
+        classpath(kotlin("gradle-plugin", version = "1.3.71"))
     }
 }
 
@@ -21,6 +23,8 @@ subprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
+        google()
     }
 
     dependencies {

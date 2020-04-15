@@ -7,7 +7,7 @@ Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a n
 I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.
 Meaning I'm focusing more on design, readability, ensuring code is test-driven with full coverage etc. 
 This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of
-runtime complexity will be refactored and improvement upon in a later pass of the days.
+runtime complexity will be refactored and improved upon in a later pass of the days.
 
 ## Answer Table
 

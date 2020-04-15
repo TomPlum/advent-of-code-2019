@@ -1,6 +1,13 @@
 # Advent of Code (2019)
-Advent of Code 2019 with Kotlin \
-https://adventofcode.com/2019/
+
+[![GitHub Issues](https://img.shields.io/github/issues/TomPlum/advent-of-code-2019.svg)](https://github.com/TomPlum/advent-of-code-2019/issues)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=green)
+
+Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
+I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.
+Meaning I'm focusing more on design, readability, ensuring code is test-driven with full coverage etc. 
+This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of
+runtime complexity will be refactored and improvement upon in a later pass of the days.
 
 ## Answer Table
 

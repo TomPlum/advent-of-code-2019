@@ -6,13 +6,13 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.3.71"))
+        classpath(kotlin("gradle-plugin", version = "1.3.72"))
     }
 }
 
 plugins {
     idea
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version "1.3.72"
 }
 
 subprojects {

@@ -1,8 +1,8 @@
 # Advent of Code (2019)
 
 [![GitHub Issues](https://img.shields.io/github/issues/TomPlum/advent-of-code-2019.svg)](https://github.com/TomPlum/advent-of-code-2019/issues)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=green)
-![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2019)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=brightgreen)
+![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2019?color=informational)
 
 Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
 I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.

@@ -1,4 +1,4 @@
-# Advent of Code (2019)
+# :christmas_tree: Advent of Code (2019)
 
 [![GitHub Issues](https://img.shields.io/github/issues/TomPlum/advent-of-code-2019.svg)](https://github.com/TomPlum/advent-of-code-2019/issues)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=brightgreen)

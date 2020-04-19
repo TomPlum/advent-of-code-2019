@@ -1,1 +1,3 @@
-The trick is to use a combination of depth first search first to find all relevant weighted paths to nearest keys and Dijkstra to find the final minimum path.
+The trick is to use a combination of depth first search first to find all relevant weighted paths to nearest keys and
+Dijkstra to find the final minimum path.
+

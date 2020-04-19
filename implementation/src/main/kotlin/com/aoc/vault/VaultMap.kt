@@ -9,6 +9,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
     private var currentPosition: Point2D
     private var stepsTaken = 0F
     private val keys = mutableSetOf<Key>()
+    private val totalKeyQuantity: Int
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -24,6 +25,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         }
 
         currentPosition = filterTiles { it.isEntrance() }.keys.first()
+        totalKeyQuantity = filterTiles { it.isKey() }.count()
 
         AdventLogger.debug("Starting Position: $currentPosition")
         AdventLogger.debug(this)
@@ -60,18 +62,21 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         filterTiles { it.isEntrance() }.forEach { keys.add(Key(it.value.value, it.key, mutableSetOf())) }
 
         graphKeyPaths(keys.filter { it.name == '@' }.toSet())
+        val allChildren = keys.find { it.name == '@' }!!.getAllChildren()
         return 0;
     }
 
     private fun graphKeyPaths(foundKeys: Set<Key>) {
         foundKeys.forEach { sourceKey ->
-            val accessibleKeys = getUncollectedAccessibleKeys(sourceKey.pos)
-            accessibleKeys.forEach { targetKey ->
-                val weight = getShortestPathSteps(sourceKey.pos, targetKey.pos)
-                keys.find { it == sourceKey }!!.mapTo(targetKey, weight)
+            if (sourceKey.collectedKeys.count() < totalKeyQuantity) {
+                val accessibleKeys = getUncollectedAccessibleKeys(sourceKey.pos)
+                accessibleKeys.forEach { targetKey ->
+                    val weight = getShortestPathSteps(sourceKey.pos, targetKey.pos)
+                    keys.find { it == sourceKey }!!.mapTo(targetKey, weight)
+                }
+                keys.addAll(accessibleKeys)
+                graphKeyPaths(accessibleKeys)
             }
-            keys.addAll(accessibleKeys)
-            graphKeyPaths(accessibleKeys)
         }
     }
 
@@ -108,7 +113,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         var steps = 0F
         val nextPositions = mutableSetOf(source)
         val visited = mutableSetOf(source)
-        val blockingDoors = mutableSetOf<VaultTile>()
+        //val blockingDoors = mutableSetOf<VaultTile>()
         while (nextPositions.isNotEmpty()) {
             steps++
 
@@ -120,10 +125,18 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
             if (adjacentTiles.containsKey(destination)) return steps
 
             nextPositions.clear()
-            adjacentTiles.filterValues { it.isTraversable() || it.isKey() || it.isDoor() }.forEach { nextPositions.add(it.key) }
-            adjacentTiles.filterValues { it.isDoor() }.forEach { blockingDoors.add(it.value) }
+
+            //Add Traversable & Key Tiles Up-Next
+            adjacentTiles.filterValues { it.isTraversable() || it.isKey() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
+
+            //Add Doors (That We Have Keys For) Up-Next
+            adjacentTiles.filterValues { it.isDoor() }.filter { door ->
+                keys.count { key -> key.name.equals(door.value.value, true) } == 1
+            }.forEach { nextPositions.add(it.key) }
+
+            //adjacentTiles.filterValues { it.isDoor() }.forEach { blockingDoors.add(it.value) }
         }
-        AdventLogger.debug("The path between $currentPosition -> $destination is blocked by ${blockingDoors.joinToString { it.value.toString() }}")
+        //AdventLogger.debug("The path between $currentPosition -> $destination is blocked by ${blockingDoors.joinToString { it.value.toString() }}")
         return Float.POSITIVE_INFINITY
     }
 

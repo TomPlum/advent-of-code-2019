@@ -100,9 +100,14 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                 keys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
 
+            //Add  Keys
             keyTiles.addAll(adjacentTiles.filterValues { it.isKey() }.map { it.toPair() } )
         }
-        return keyTiles.map { Key(it.second.value, it.first, keys.toSet()) }.filter { !keys.contains(it) }.toSet()
+
+        //Map & Filter Keys if Collected
+        return keyTiles.map { Key(it.second.value, it.first, keys.toSet()) }.filter { foundKey ->
+            keys.count { key -> key.name.equals(foundKey.name, true) } == 1
+        }.toSet()
     }
 
     /**

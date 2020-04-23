@@ -1,3 +1,6 @@
 The trick is to use a combination of depth first search first to find all relevant weighted paths to nearest keys and
 Dijkstra to find the final minimum path.
 
+Okay, what do we know?
+
+- We need to find every possible combination of paths/order in which you collect the keys.

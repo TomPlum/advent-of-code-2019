@@ -63,6 +63,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
         graphKeyPaths(keys.filter { it.name == '@' }.toSet())
         val allChildren = keys.find { it.name == '@' }!!.getAllChildren()
+        val sum = allChildren.flatMap { it.keys.values }.sum()
         return 0;
     }
 
@@ -100,13 +101,13 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                 keys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
 
-            //Add  Keys
+            //Add Keys
             keyTiles.addAll(adjacentTiles.filterValues { it.isKey() }.map { it.toPair() } )
         }
 
-        //Map & Filter Keys if Collected
+        //Map & Filter Keys if Not Collected
         return keyTiles.map { Key(it.second.value, it.first, keys.toSet()) }.filter { foundKey ->
-            keys.count { key -> key.name.equals(foundKey.name, true) } == 1
+            keys.count { key -> key.name.equals(foundKey.name, true) } == 0
         }.toSet()
     }
 

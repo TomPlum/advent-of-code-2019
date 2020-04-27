@@ -7,8 +7,6 @@ import math.Point2D
 class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
     private var currentPosition: Point2D
-    private var stepsTaken = 0F
-    private val keys = mutableSetOf<Key>()
     private val totalKeyQuantity: Int
 
     init {
@@ -56,13 +54,14 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
     }
 */
     fun collectKeys2(): Int {
-        //Graph Key Paths
+        //Find Entrance
+        val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
-        //Add Starting Position
-        filterTiles { it.isEntrance() }.forEach { keys.add(Key(it.value.value, it.key, mutableSetOf())) }
+        //Turn Entrance -> Key (Root Node)
+        val root = Key(entranceTile.value.value, entranceTile.key, setOf())
 
-        graphKeyPaths(keys.filter { it.name == '@' }.toSet())
-        val allChildren = keys.find { it.name == '@' }!!.getAllChildren()
+        graphKeyPaths(setOf(root))
+        val allChildren = root.getAllChildren()
         val sum = allChildren.flatMap { it.keys.values }.sum()
         return 0;
     }
@@ -70,21 +69,23 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
     private fun graphKeyPaths(foundKeys: Set<Key>) {
         foundKeys.forEach { sourceKey ->
             if (sourceKey.collectedKeys.count() < totalKeyQuantity) {
-                val accessibleKeys = getUncollectedAccessibleKeys(sourceKey.pos)
+                val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { targetKey ->
-                    val weight = getShortestPathSteps(sourceKey.pos, targetKey.pos)
-                    keys.find { it == sourceKey }!!.mapTo(targetKey, weight)
+                    val weight = getShortestPathSteps(sourceKey, targetKey)
+                    sourceKey.mapTo(targetKey, weight)
                 }
-                keys.addAll(accessibleKeys)
+                //keys.addAll(accessibleKeys)
                 graphKeyPaths(accessibleKeys)
             }
         }
     }
 
-    private fun getUncollectedAccessibleKeys(source: Point2D): Set<Key> {
+    private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): Set<Key> {
         val keyTiles = mutableSetOf<Pair<Point2D, VaultTile>>()
-        val nextPositions = mutableSetOf(source)
-        val visited = mutableSetOf(source)
+        val nextPositions = mutableSetOf(sourceKey.pos)
+        val visited = mutableSetOf(sourceKey.pos)
+        val collectedKeys = sourceKey.collectedKeys + sourceKey
+        
         while (nextPositions.isNotEmpty()) {
             //Get Un-Visited Adjacent Points
             val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }.toSet()
@@ -98,12 +99,12 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
             //Add Doors (That We Have Keys For) Up-Next
             adjacentTiles.filterValues { it.isDoor() }.filter { door ->
-                keys.count { key -> key.name.equals(door.value.value, true) } == 1
+                collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
 
             //Add Keys We've Already Collected
             adjacentTiles.filterValues { it.isKey() }.filterValues {
-                keys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
+                collectedKeys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
             }.forEach { nextPositions.add(it.key) }
 
             //Add Keys
@@ -111,8 +112,8 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         }
 
         //Map & Filter Keys if Not Collected
-        return keyTiles.map { Key(it.second.value, it.first, keys.toSet()) }.filter { foundKey ->
-            keys.count { key -> key.name.equals(foundKey.name, true) } == 0
+        return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
+            collectedKeys.count { key -> key.name.equals(foundKey.name, true) } == 0
         }.toSet()
     }
 
@@ -120,11 +121,12 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
      * Finds the shortest path between the [source] and the [destination].
      * @return The length of the path in steps taken. If un-reachable, returns [Float.POSITIVE_INFINITY]
      */
-    private fun getShortestPathSteps(source: Point2D, destination: Point2D): Float {
+    private fun getShortestPathSteps(source: Key, destination: Key): Float {
         var steps = 0F
-        val nextPositions = mutableSetOf(source)
-        val visited = mutableSetOf(source)
-        //val blockingDoors = mutableSetOf<VaultTile>()
+        val nextPositions = mutableSetOf(source.pos)
+        val visited = mutableSetOf(source.pos)
+        val collectedKeys = source.collectedKeys + source
+
         while (nextPositions.isNotEmpty()) {
             steps++
 
@@ -133,7 +135,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
             visited.addAll(adjacentPositions)
 
             val adjacentTiles = filterPoints(adjacentPositions)
-            if (adjacentTiles.containsKey(destination)) return steps
+            if (adjacentTiles.containsKey(destination.pos)) return steps
 
             nextPositions.clear()
 
@@ -142,7 +144,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
             //Add Doors (That We Have Keys For) Up-Next
             adjacentTiles.filterValues { it.isDoor() }.filter { door ->
-                keys.count { key -> key.name.equals(door.value.value, true) } == 1
+                collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
 
             //adjacentTiles.filterValues { it.isDoor() }.forEach { blockingDoors.add(it.value) }

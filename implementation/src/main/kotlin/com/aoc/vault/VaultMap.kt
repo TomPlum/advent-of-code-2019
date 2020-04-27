@@ -93,12 +93,17 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
             val adjacentTiles = filterPoints(adjacentPositions)
             nextPositions.clear()
 
-            //Add Traversable & Key Tiles Up-Next
-            adjacentTiles.filterValues { it.isTraversable() || it.isKey() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
+            //Add Traversable Tiles & The Entrance (In-Case we backtrack over it)
+            adjacentTiles.filterValues { it.isTraversable() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
 
             //Add Doors (That We Have Keys For) Up-Next
             adjacentTiles.filterValues { it.isDoor() }.filter { door ->
                 keys.count { key -> key.name.equals(door.value.value, true) } == 1
+            }.forEach { nextPositions.add(it.key) }
+
+            //Add Keys We've Already Collected
+            adjacentTiles.filterValues { it.isKey() }.filterValues {
+                keys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
             }.forEach { nextPositions.add(it.key) }
 
             //Add Keys

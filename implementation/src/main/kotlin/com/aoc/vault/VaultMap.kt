@@ -34,26 +34,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
      * The algorithm finds the order in which picking the keys up results in the lowest number of steps taken.
      * @return The number of steps taken in order to collect all keys.
      */
- /*   fun collectKeys(): Float {
-        while (keysRemain()) {
-            //Get Key
-            val (pos, tile) = accessibleTiles { it.isKey() }.minBy { getShortestPathSteps(it.first) }!!
-            AdventLogger.debug("Collecting Key: ${tile.value}")
-            stepsTaken += getShortestPathSteps(pos)
-            updateCurrentPosition(pos)
-
-            //Unlock Door
-            val accessibleDoors = accessibleTiles { it.isDoor() }
-            val doorLocation = findTile { it.value == tile.value.toUpperCase() } ?: return stepsTaken
-            AdventLogger.debug("Unlocking Door: ${tile.value.toUpperCase()}")
-            stepsTaken += getShortestPathSteps(doorLocation)
-            updateCurrentPosition(doorLocation)
-        }
-
-        return stepsTaken
-    }
-*/
-    fun collectKeys2(): Int {
+    fun collectKeys(): Int {
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
@@ -74,7 +55,6 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                     val weight = getShortestPathSteps(sourceKey, targetKey)
                     sourceKey.mapTo(targetKey, weight)
                 }
-                //keys.addAll(accessibleKeys)
                 graphKeyPaths(accessibleKeys)
             }
         }
@@ -146,20 +126,8 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
             adjacentTiles.filterValues { it.isDoor() }.filter { door ->
                 collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
-
-            //adjacentTiles.filterValues { it.isDoor() }.forEach { blockingDoors.add(it.value) }
         }
-        //AdventLogger.debug("The path between $currentPosition -> $destination is blocked by ${blockingDoors.joinToString { it.value.toString() }}")
         return Float.POSITIVE_INFINITY
-    }
-
-    private fun keysRemain() = filterTiles { it.isKey() }.count() > 0
-
-    private fun updateCurrentPosition(newPosition: Point2D) {
-        addTile(currentPosition, VaultTile('.'))
-        addTile(newPosition, VaultTile('@'))
-        currentPosition = newPosition
-        AdventLogger.debug(this)
     }
 
 }

@@ -42,9 +42,23 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         val root = Key(entranceTile.value.value, entranceTile.key, setOf())
 
         graphKeyPaths(setOf(root))
-        val allChildren = root.getAllChildren()
-        val sum = allChildren.flatMap { it.keys.values }.sum()
-        return 0;
+
+        val finalKey = root.getAllChildren().filter { it.collectedKeys.size == totalKeyQuantity }
+        val min = finalKey.map { shortestPath(it.collectedKeys.toList()) }.min()
+
+        return min!!.toInt()
+    }
+
+    private fun shortestPath(keys: List<Key>): Float {
+        var cumulativeWeight = 0F
+        keys.forEachIndexed { i, key ->
+            cumulativeWeight += if (key.keys.size == 1) {
+                key.keys.values.sum()
+            } else {
+                key.getLinkedKey(keys[i + 1].name).values.sum()
+            }
+        }
+        return cumulativeWeight
     }
 
     private fun graphKeyPaths(foundKeys: Set<Key>) {

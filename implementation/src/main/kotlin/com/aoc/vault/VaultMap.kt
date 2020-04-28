@@ -65,22 +65,24 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         foundKeys.forEach { sourceKey ->
             if (sourceKey.collectedKeys.count() < totalKeyQuantity) {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
-                accessibleKeys.forEach { targetKey ->
-                    val weight = getShortestPathSteps(sourceKey, targetKey)
-                    sourceKey.mapTo(targetKey, weight)
+                accessibleKeys.forEach { entry ->
+                    sourceKey.mapTo(entry.key, entry.value)
                 }
-                graphKeyPaths(accessibleKeys)
+                graphKeyPaths(accessibleKeys.keys)
             }
         }
     }
 
-    private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): Set<Key> {
-        val keyTiles = mutableSetOf<Pair<Point2D, VaultTile>>()
+    private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {
+        val keyTiles = mutableSetOf<Triple<Point2D, VaultTile, Float>>()
         val nextPositions = mutableSetOf(sourceKey.pos)
         val visited = mutableSetOf(sourceKey.pos)
         val collectedKeys = sourceKey.collectedKeys + sourceKey
-        
+        var steps = 0F
+
         while (nextPositions.isNotEmpty()) {
+            steps++
+
             //Get Un-Visited Adjacent Points
             val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }.toSet()
             visited.addAll(adjacentPositions)
@@ -101,14 +103,18 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                 collectedKeys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
             }.forEach { nextPositions.add(it.key) }
 
-            //Add Keys
-            keyTiles.addAll(adjacentTiles.filterValues { it.isKey() }.map { it.toPair() } )
+            //Record Accessible Keys
+            keyTiles.addAll(adjacentTiles.filterValues { it.isKey() }.map { Triple(it.key, it.value, steps) })
         }
 
         //Map & Filter Keys if Not Collected
-        return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
+        return keyTiles.associate { Key(it.second.value, it.first, collectedKeys) to it.third }
+                .filter { entry -> collectedKeys.count { key -> key.name.equals(entry.key.name, true) } == 0 }
+        .toMutableMap()
+
+      /*  return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
             collectedKeys.count { key -> key.name.equals(foundKey.name, true) } == 0
-        }.toSet()
+        }.map {  }*/
     }
 
     /**

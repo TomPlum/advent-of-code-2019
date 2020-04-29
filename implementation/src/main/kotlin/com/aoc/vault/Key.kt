@@ -10,4 +10,6 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
     fun getAllChildren(): Set<Key> = keys.keys + keys.keys.flatMap { it.getAllChildren() }
 
     fun getLinkedKey(name: Char) = keys.filter { it.key.name == name }
+
+    override fun toString() = name.toString()
 }

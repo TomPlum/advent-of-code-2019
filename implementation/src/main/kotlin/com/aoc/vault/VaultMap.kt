@@ -35,12 +35,15 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
      * @return The number of steps taken in order to collect all keys.
      */
     fun collectKeys(): Int {
+        //Thread.sleep(7000)
+
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
         //Turn Entrance -> Key (Root Node)
         val root = Key(entranceTile.value.value, entranceTile.key, setOf())
 
+        //Create Key Graph
         graphKeyPaths(setOf(root))
 
         val finalKey = root.getAllChildren().filter { it.collectedKeys.size == totalKeyQuantity }
@@ -64,8 +67,10 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
     private fun graphKeyPaths(foundKeys: Set<Key>) {
         foundKeys.forEach { sourceKey ->
             if (sourceKey.collectedKeys.count() < totalKeyQuantity) {
+                //TODO: If path between target->source has already been calculated, grab from the graph.
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { entry ->
+                    AdventLogger.debug("Mapping $sourceKey -> ${entry.key}")
                     sourceKey.mapTo(entry.key, entry.value)
                 }
                 graphKeyPaths(accessibleKeys.keys)

@@ -8,6 +8,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
     private var currentPosition: Point2D
     private val totalKeyQuantity: Int
+    private val root: Key
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -23,9 +24,15 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         }
 
         currentPosition = filterTiles { it.isEntrance() }.keys.first()
-        totalKeyQuantity = filterTiles { it.isKey() }.count()
+        totalKeyQuantity = filterTiles { it.isKey() || it.isEntrance() }.count()
 
-        AdventLogger.debug("Starting Position: $currentPosition")
+        //Find Entrance
+        val entranceTile = filterTiles { it.isEntrance() }.entries.first()
+
+        //Turn Entrance -> Key (Root Node)
+        root = Key(entranceTile.value.value, entranceTile.key, setOf())
+
+        AdventLogger.debug("Entrance Position: $currentPosition")
         AdventLogger.debug(this)
     }
 
@@ -37,28 +44,28 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
     fun collectKeys(): Int {
         //Thread.sleep(7000)
 
-        //Find Entrance
-        val entranceTile = filterTiles { it.isEntrance() }.entries.first()
-
-        //Turn Entrance -> Key (Root Node)
-        val root = Key(entranceTile.value.value, entranceTile.key, setOf())
-
         //Create Key Graph
         graphKeyPaths(setOf(root))
 
-        val finalKey = root.getAllChildren().filter { it.collectedKeys.size == totalKeyQuantity }
-        val min = finalKey.map { shortestPath(it.collectedKeys.toList()) }.min()
+        val paths = getCompletePaths()
+        val shortestPathSteps = paths.map { shortestPath(it.collectedKeys.toList()) }.min()
 
-        return min!!.toInt()
+        AdventLogger.info("\nFound ${paths.size} paths.")
+        AdventLogger.info("The shortest path was ${shortestPathSteps!!.toInt()} steps.")
+
+        return shortestPathSteps.toInt()
     }
 
+    private fun getCompletePaths() = root.getAllChildren().filter { it.collectedKeysQuantity() == totalKeyQuantity }
+
+    //TODO: Make this functional
     private fun shortestPath(keys: List<Key>): Float {
         var cumulativeWeight = 0F
         keys.forEachIndexed { i, key ->
-            cumulativeWeight += if (key.keys.size == 1) {
-                key.keys.values.sum()
+            cumulativeWeight += if (key.linkedKeys.size == 1) {
+                key.linkedKeys.values.first()
             } else {
-                key.getLinkedKey(keys[i + 1].name).values.sum()
+                key.getLinkedKeyWeight(keys[i + 1].name)
             }
         }
         return cumulativeWeight
@@ -66,11 +73,18 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
     private fun graphKeyPaths(foundKeys: Set<Key>) {
         foundKeys.forEach { sourceKey ->
-            if (sourceKey.collectedKeys.count() < totalKeyQuantity) {
-                //TODO: If path between target->source has already been calculated, grab from the graph.
+            if (sourceKey.collectedKeysQuantity() == totalKeyQuantity) {
+                AdventLogger.debug("Found Path: ${sourceKey.pathString()} - ${shortestPath(sourceKey.collectedKeys.toList())} ")
+            }
+            if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
+                //If we've already graphed the key, grab it from the graph
+                /*if (root.getAllChildren().contains(sourceKey)) {
+                    val existing = root.getAllChildren().filter { it.name == sourceKey.name }
+                    val withMostKeys = existing.maxBy { it.linkedKeys.count() }
+                }*/
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { entry ->
-                    AdventLogger.debug("Mapping $sourceKey -> ${entry.key}")
+                    AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
                     sourceKey.mapTo(entry.key, entry.value)
                 }
                 graphKeyPaths(accessibleKeys.keys)
@@ -115,11 +129,11 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         //Map & Filter Keys if Not Collected
         return keyTiles.associate { Key(it.second.value, it.first, collectedKeys) to it.third }
                 .filter { entry -> collectedKeys.count { key -> key.name.equals(entry.key.name, true) } == 0 }
-        .toMutableMap()
+                .toMutableMap()
 
-      /*  return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
-            collectedKeys.count { key -> key.name.equals(foundKey.name, true) } == 0
-        }.map {  }*/
+        /*  return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
+              collectedKeys.count { key -> key.name.equals(foundKey.name, true) } == 0
+          }.map {  }*/
     }
 
     /**

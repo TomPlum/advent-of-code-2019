@@ -5,7 +5,7 @@ import math.Point2D
 data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
     val linkedKeys = mutableMapOf<Key, Float>()
 
-    fun mapTo(key: Key, weight: Float) = linkedKeys.put(key, weight)
+    fun linkTo(key: Key, weight: Float) = linkedKeys.put(key, weight)
 
     fun getAllChildren(): Set<Key> = linkedKeys.keys + linkedKeys.keys.flatMap { it.getAllChildren() }
 

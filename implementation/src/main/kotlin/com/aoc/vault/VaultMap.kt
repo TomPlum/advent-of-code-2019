@@ -85,7 +85,7 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { entry ->
                     AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
-                    sourceKey.mapTo(entry.key, entry.value)
+                    sourceKey.linkTo(entry.key, entry.value)
                 }
                 graphKeyPaths(accessibleKeys.keys)
             }

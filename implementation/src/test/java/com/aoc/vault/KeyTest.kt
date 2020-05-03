@@ -43,6 +43,11 @@ class KeyTest {
     }
 
     @Test
+    fun toStringTest() {
+        assertThat(Key('a', Point2D(0,0), setOf()).toString()).isEqualTo("a")
+    }
+
+    @Test
     fun equalityPositive() {
         val e1 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
         val e2 = Key('e', Point2D(5, 17), setOf(a,b,c,d))

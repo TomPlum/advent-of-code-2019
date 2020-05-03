@@ -7,3 +7,4 @@ Okay, what do we know?
 
 Performance Issues
 - Introduce Cache
+- Can we not just graph all the weights between all the keys once at the start? Then traverse this graph?

@@ -6,7 +6,6 @@ import math.Point2D
 
 class VaultMap(initialData: List<String>) : Map<VaultTile>() {
 
-    private var currentPosition: Point2D
     private val totalKeyQuantity: Int
     private val root: Key
 
@@ -23,7 +22,6 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
             y++
         }
 
-        currentPosition = filterTiles { it.isEntrance() }.keys.first()
         totalKeyQuantity = filterTiles { it.isKey() || it.isEntrance() }.count()
 
         //Find Entrance
@@ -32,7 +30,6 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         //Turn Entrance -> Key (Root Node)
         root = Key(entranceTile.value.value, entranceTile.key, setOf())
 
-        AdventLogger.debug("Entrance Position: $currentPosition")
         AdventLogger.debug(this)
     }
 
@@ -42,8 +39,6 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
      * @return The number of steps taken in order to collect all keys.
      */
     fun collectKeys(): Int {
-        //Thread.sleep(7000)
-
         //Create Key Graph
         graphKeyPaths(setOf(root))
 
@@ -130,10 +125,6 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
         return keyTiles.associate { Key(it.second.value, it.first, collectedKeys) to it.third }
                 .filter { entry -> collectedKeys.count { key -> key.name.equals(entry.key.name, true) } == 0 }
                 .toMutableMap()
-
-        /*  return keyTiles.map { Key(it.second.value, it.first, collectedKeys) }.filter { foundKey ->
-              collectedKeys.count { key -> key.name.equals(foundKey.name, true) } == 0
-          }.map {  }*/
     }
 
     /**

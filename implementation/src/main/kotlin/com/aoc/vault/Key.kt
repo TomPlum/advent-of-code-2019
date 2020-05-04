@@ -17,5 +17,17 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
 
     fun pathString(): String = "[${(collectedKeys + this).joinToString(", ") { it.name.toString() } }]"
 
+    override fun equals(other: Any?): Boolean {
+        if (other !is Key) return false
+        if (name != other.name) return false
+        if (pos != other.pos) return false
+        if (collectedKeys.map { it.name } != other.collectedKeys.map { it.name }) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
     override fun toString() = name.toString()
 }

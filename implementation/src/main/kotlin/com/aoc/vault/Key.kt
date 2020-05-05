@@ -17,6 +17,8 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
 
     fun pathString(): String = "[${(collectedKeys + this).joinToString(", ") { it.name.toString() } }]"
 
+    fun hasTransitivelyLinkedKey(key: Key) = getAllChildren().contains(key)
+
     override fun equals(other: Any?): Boolean {
         if (other !is Key) return false
         if (name != other.name) return false

@@ -127,37 +127,4 @@ class VaultMap(initialData: List<String>) : Map<VaultTile>() {
                 .toMutableMap()
     }
 
-    /**
-     * Finds the shortest path between the [source] and the [destination].
-     * @return The length of the path in steps taken. If un-reachable, returns [Float.POSITIVE_INFINITY]
-     */
-    private fun getShortestPathSteps(source: Key, destination: Key): Float {
-        var steps = 0F
-        val nextPositions = mutableSetOf(source.pos)
-        val visited = mutableSetOf(source.pos)
-        val collectedKeys = source.collectedKeys + source
-
-        while (nextPositions.isNotEmpty()) {
-            steps++
-
-            //Get Un-Visited Adjacent Points
-            val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }.toSet()
-            visited.addAll(adjacentPositions)
-
-            val adjacentTiles = filterPoints(adjacentPositions)
-            if (adjacentTiles.containsKey(destination.pos)) return steps
-
-            nextPositions.clear()
-
-            //Add Traversable & Key Tiles Up-Next
-            adjacentTiles.filterValues { it.isTraversable() || it.isKey() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
-
-            //Add Doors (That We Have Keys For) Up-Next
-            adjacentTiles.filterValues { it.isDoor() }.filter { door ->
-                collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
-            }.forEach { nextPositions.add(it.key) }
-        }
-        return Float.POSITIVE_INFINITY
-    }
-
 }

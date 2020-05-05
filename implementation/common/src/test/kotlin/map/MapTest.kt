@@ -86,6 +86,19 @@ class MapTest {
         assertThat(map.filterTiles { it.isMyTestValue() }).isEqualTo(mapOf(Pair(Point2D(0, 0), targetTile)))
     }
 
+    @Test
+    fun filterPoints() {
+        val map = ExampleMap()
+        for (y in 0..100) {
+            for (x in 0..100) {
+                map.addTile(Point2D(x, y), ExampleTile(y))
+            }
+        }
+        val tiles = map.filterPoints(setOf(Point2D(17, 4), Point2D(56, 86), Point2D(100, 100), Point2D(25, 99)))
+        assertThat(tiles).isEqualTo(mapOf(Pair(Point2D(17,4), ExampleTile(4)), Pair(Point2D(56,86), ExampleTile(86)),
+                Pair(Point2D(25,99), ExampleTile(99)), Pair(Point2D(100,100), ExampleTile(100))))
+    }
+
     private class ExampleTile(private val data: Int) : MapTile<Int>(data) {
         fun isMyTestValue() = data == 12
     }

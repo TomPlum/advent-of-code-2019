@@ -32,6 +32,8 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 
 ## What I Learned
 
+### Kotlin & Kotlin Gradle DSL
+
 ## Answer Table
 
 | Day 	| Part 1 	| Part 2 	        | Name                                      |

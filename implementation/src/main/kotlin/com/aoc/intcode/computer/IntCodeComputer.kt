@@ -1,13 +1,27 @@
 package com.aoc.intcode.computer
 
+import com.aoc.intcode.computer.instructions.strategies.Input
+import com.aoc.intcode.computer.instructions.strategies.Halt
+import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.exceptions.SignalInterrupt
 
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
     var waiting = true
-    var programHalted = false
+    var halted = false
 
+    /**
+     * Runs the [program] in it's current state until the [IntCodeComputer] is either [waiting], or [halted].
+     *
+     * The [IntCodeComputer] will only enter [waiting] state when an [Input] [OpCode] is executed
+     * and a [SignalInterrupt] is thrown. The [SystemInput] must be provided a value for the [Program] to proceed.
+     *
+     * Furthermore, it will only become [halted] when a [Halt] [OpCode] is executed. The only way to recover from
+     * this scenario is to create a new instance of the [IntCodeComputer] or [reset].
+     *
+     * The main design pattern in this implementation is the 'Strategy' Pattern, abstracted by [InstructionStrategy]
+     */
     fun run() {
         var memory = program.memory
 
@@ -20,7 +34,7 @@ class IntCodeComputer constructor(programString: String) {
             } catch (e: SignalInterrupt) {
                 waiting = true
             } catch (e: HaltProgram) {
-                programHalted = true
+                halted = true
                 break
             }
         }
@@ -42,7 +56,7 @@ class IntCodeComputer constructor(programString: String) {
     fun reset() {
         program.memory.reset()
         waiting = true
-        programHalted = false
+        halted = false
     }
 
 }

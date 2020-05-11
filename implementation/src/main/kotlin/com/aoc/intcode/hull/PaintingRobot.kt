@@ -14,7 +14,7 @@ class PaintingRobot(instructions: String) {
     fun start(startingPanelColour: HullPaint) {
         computer.getProgramMemory().input.add(startingPanelColour.colourCode.toLong())
 
-        while (!computer.programHalted) {
+        while (!computer.halted) {
             computer.run()
 
             val systemOutput = computer.getProgramMemory().output.getLastTwoValues()

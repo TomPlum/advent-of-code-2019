@@ -11,7 +11,7 @@ class FeedbackAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSet
         computer.run()
         lastOutputSignal = computer.getDiagnosticCode()
 
-        if (!computer.programHalted) nextAmplifier.inputSignal(lastOutputSignal)
+        if (!computer.halted) nextAmplifier.inputSignal(lastOutputSignal)
     }
 
     override fun loadAmplifierControllerSoftware(software: String) {

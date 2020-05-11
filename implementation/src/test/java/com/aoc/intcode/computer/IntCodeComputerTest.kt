@@ -377,14 +377,14 @@ class IntCodeComputerTest {
         computer.run()
 
         //Before
-        assertThat(computer.programHalted).isTrue()
+        assertThat(computer.halted).isTrue()
         assertThat(computer.waiting).isFalse()
         assertThat(computer.getProgramCurrentState()).isEqualTo("1,1,2,0,99")
 
         computer.reset()
 
         //After
-        assertThat(computer.programHalted).isFalse()
+        assertThat(computer.halted).isFalse()
         assertThat(computer.waiting).isTrue()
         assertThat(computer.getProgramCurrentState()).isEqualTo("7,1,2,0,99")
     }

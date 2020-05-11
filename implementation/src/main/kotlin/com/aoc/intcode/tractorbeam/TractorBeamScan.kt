@@ -4,4 +4,6 @@ import map.Map
 
 class TractorBeamScan : Map<DroneState>() {
     fun getPointsAffectedByBeam(): Int = filterTiles { it == DroneState.PROPAGATING }.count()
+
+    fun getArea() = tileQuantity()
 }

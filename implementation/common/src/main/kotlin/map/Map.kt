@@ -12,7 +12,7 @@ abstract class Map<T> {
     fun hasRecorded(position: Point2D): Boolean = data.containsKey(position)
     fun hasTile(value: T): Boolean = data.containsValue(value)
 
-    fun tileQuantity(): Int = data.size
+    protected fun tileQuantity(): Int = data.size
 
     fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { it in positions }
     fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)

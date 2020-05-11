@@ -7,9 +7,10 @@ import java.lang.IllegalArgumentException
 
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
-    private val scan = TractorBeamScan()
 
-    fun scanAreaSurroundingEmitter(gridSize: Long): Int {
+    fun scanAreaSurroundingEmitter(gridSize: Long): TractorBeamScan {
+        val scan = TractorBeamScan()
+
         (0 until gridSize).forEach { y ->
             (0 until gridSize).forEach { x ->
                 deployDrone(x, y)
@@ -18,8 +19,9 @@ class DroneSystem(input: String) {
                 computer.reset()
             }
         }
+
         AdventLogger.debug(scan)
-        return scan.getPointsAffectedByBeam()
+        return scan
     }
 
     private fun getDroneState(): DroneState {

@@ -10,7 +10,14 @@ class DroneSystemTest {
     @Test
     fun partOne() {
         val input = InputReader().readInputAsSingleString(Day.from(19))
-        val pointsAffected = DroneSystem(input).scanAreaSurroundingEmitter(50)
-        assertThat(pointsAffected).isEqualTo(181)
+        val scan = DroneSystem(input).scanAreaSurroundingEmitter(50)
+        assertThat(scan.getPointsAffectedByBeam()).isEqualTo(181)
+    }
+
+    @Test
+    fun scanAreaGridSizeShouldCreateBeamScanWithEqualWidthAndHeight() {
+        val input = InputReader().readInputAsSingleString(Day.from(19))
+        val scan = DroneSystem(input).scanAreaSurroundingEmitter(50)
+        assertThat(scan.getArea()).isEqualTo(2500)
     }
 }

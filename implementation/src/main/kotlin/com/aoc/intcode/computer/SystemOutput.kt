@@ -10,7 +10,6 @@ class SystemOutput {
      */
     fun add(value: Long) = values.add(value)
 
-
     /**
      * Gets the last value from the [SystemOutput] internal [values] and consumes it.
      */
@@ -18,7 +17,6 @@ class SystemOutput {
         if (values.size > 0) return values.pollLast()
         throw IllegalStateException("System output is empty!")
     }
-
 
     /**
      * Returns the last two values from the [SystemOutput]. The [values] are returned as a [Pair] in the format

@@ -12,6 +12,10 @@ class Memory constructor(private val initialMemorySnapshot: List<Long>) {
 
     fun reset() {
         instructions = initialMemorySnapshot.toMutableList()
+        instructionPointer = 0L
+        relativeBase = 0L
+        input.clear()
+        output.clear()
     }
 
     fun getCurrentInstruction(): Long = getInstructionAtAddress(instructionPointer)

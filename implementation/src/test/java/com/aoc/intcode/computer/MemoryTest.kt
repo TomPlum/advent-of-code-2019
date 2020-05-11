@@ -4,7 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
+import assertk.assertions.isTrue
 import com.aoc.intcode.computer.Memory
+import com.aoc.intcode.computer.instructions.InstructionLength
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -21,11 +23,47 @@ class MemoryTest {
 
     @Test
     @DisplayName("Given valid memory, when updating an address and then resetting, it should set the addresses back to their origin snapshot")
-    fun reset() {
+    fun resetShouldRevertToInitialSnapshot() {
         val memory = Memory(initialMemorySnapshot)
         memory.updateInstructionAtAddress(0, 10)
         memory.reset()
         assertThat(memory.instructions).isEqualTo(listOf<Long>(1,2,3,4,5))
+    }
+
+    @Test
+    @DisplayName("Given valid memory, when incrementing the relative base and then resetting, it should set the base back to zero")
+    fun resetShouldRevertRelativeBase() {
+        val memory = Memory(initialMemorySnapshot)
+        memory.relativeBase = 1456L
+        memory.reset()
+        assertThat(memory.relativeBase).isEqualTo(0L)
+    }
+
+    @Test
+    @DisplayName("Given valid memory, when incrementing the pointer and then resetting, it should set the pointer back to zero")
+    fun resetShouldRevertInstructionPointer() {
+        val memory = Memory(initialMemorySnapshot)
+        memory.incrementInstructionPointer(InstructionLength.THREE_ADDRESS_INSTRUCTION)
+        memory.reset()
+        assertThat(memory.instructionPointer).isEqualTo(0L)
+    }
+
+    @Test
+    @DisplayName("Given valid memory with populated System Input, when resetting, then it should clear the System Input")
+    fun resetShouldRevertSystemInput() {
+        val memory = Memory(initialMemorySnapshot)
+        memory.input.add(24L)
+        memory.reset()
+        assertThat(memory.input.isEmpty()).isTrue()
+    }
+
+    @Test
+    @DisplayName("Given valid memory with populated System Output, when resetting, then it should clear the System Output")
+    fun resetShouldRevertSystemOutput() {
+        val memory = Memory(initialMemorySnapshot)
+        memory.output.add(24L)
+        memory.reset()
+        assertThat(memory.output.isEmpty()).isTrue()
     }
 
     @Test

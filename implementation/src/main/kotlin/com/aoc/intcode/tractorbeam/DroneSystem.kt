@@ -8,6 +8,12 @@ import java.lang.IllegalArgumentException
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
 
+    /**
+     * Deploys drone technology in the vicinity of the Tractor Beam and scans the area to better understand
+     * the effect of the beams pull around the emitter.
+     * @param gridSize A positive (or zero) integer representing the width and height of the area to scan
+     * @return A [TractorBeamScan] detailing the effects of the beam in the scanned area
+     */
     fun scanAreaSurroundingEmitter(gridSize: Long): TractorBeamScan {
         val scan = TractorBeamScan()
 

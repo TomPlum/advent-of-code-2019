@@ -13,7 +13,7 @@ class ArcadeCabinet(gameSoftware: String) {
 
     init {
         playForFree()
-        computer.compute()
+        computer.run()
         updateTiles()
         startingBlocks = getTileQuantity(TileID.BLOCK)
     }
@@ -26,7 +26,7 @@ class ArcadeCabinet(gameSoftware: String) {
         while (!computer.programHalted) {
             frame++
             if (computer.waiting) computer.getProgramMemory().input.add(getJoystickCommand().toLong())
-            computer.compute()
+            computer.run()
             updateTiles()
         }
 

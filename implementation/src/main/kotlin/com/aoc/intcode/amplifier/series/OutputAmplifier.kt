@@ -10,7 +10,7 @@ class OutputAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSetti
     override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().input.add(phaseSetting)
         computer.getProgramMemory().input.add(inputSignal)
-        computer.compute()
+        computer.run()
         outputSignal = computer.getDiagnosticCode()
     }
 

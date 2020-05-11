@@ -32,7 +32,7 @@ class VacuumRobot(val instructions: String) {
      * of the ships exterior scaffolding.
      */
     fun scanShipsExteriorScaffolding(): ScaffoldMap {
-        computer.compute()
+        computer.run()
         val systemOutput = computer.getProgramMemory().output
         return ScaffoldMap(systemOutput.getValues())
     }
@@ -82,7 +82,7 @@ class VacuumRobot(val instructions: String) {
      * This Non-ASCII values represent the quantity of dust collected by the [VacuumRobot].
      */
     private fun getDustCollectionReport(): DustCollectionReport {
-        computer.compute()
+        computer.run()
         val quantity = computer.getProgramMemory().output.getLastValue()
         return DustCollectionReport(quantity)
     }
@@ -102,7 +102,7 @@ class VacuumRobot(val instructions: String) {
      * Runs the [IntCodeComputer], prints the response and clears the [SystemOutput]
      */
     private fun update() {
-        computer.compute()
+        computer.run()
         AdventLogger.debug("Robot: ${computer.getProgramMemory().output.parseStringFromAscii()}")
         computer.getProgramMemory().output.clear()
     }

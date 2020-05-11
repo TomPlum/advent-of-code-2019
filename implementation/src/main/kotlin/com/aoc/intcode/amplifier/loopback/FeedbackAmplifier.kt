@@ -8,7 +8,7 @@ class FeedbackAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSet
 
     override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().input.add(inputSignal)
-        computer.compute()
+        computer.run()
         lastOutputSignal = computer.getDiagnosticCode()
 
         if (!computer.programHalted) nextAmplifier.inputSignal(lastOutputSignal)

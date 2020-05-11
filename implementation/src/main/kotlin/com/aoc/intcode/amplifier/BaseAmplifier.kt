@@ -8,7 +8,7 @@ abstract class BaseAmplifier(private val phaseSetting: Long) : Amplifier {
 
     override fun inputSignal(inputSignal: Long) {
         computer.getProgramMemory().input.add(inputSignal)
-        computer.compute()
+        computer.run()
         nextAmplifier.inputSignal(computer.getDiagnosticCode())
     }
 

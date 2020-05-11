@@ -14,13 +14,13 @@ fun main() {
 private fun partOne(input: String) {
     val computer = IntCodeComputer(input)
     computer.onNextBoot(BootMode.BOOST_TEST)
-    computer.compute()
+    computer.run()
     print("Part 1 Solution: ${computer.getDiagnosticCode()}")
 }
 
 private fun partTwo(input: String) {
     val computer = IntCodeComputer(input)
     computer.onNextBoot(BootMode.SENSOR_BOOST)
-    computer.compute()
+    computer.run()
     print("Part 2 Solution: ${computer.getDiagnosticCode()}")
 }

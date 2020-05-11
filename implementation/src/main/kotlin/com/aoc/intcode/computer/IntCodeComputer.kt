@@ -8,7 +8,7 @@ class IntCodeComputer constructor(programString: String) {
     var waiting = true
     var programHalted = false
 
-    fun compute() {
+    fun run() {
         var memory = program.memory
 
         waiting = false

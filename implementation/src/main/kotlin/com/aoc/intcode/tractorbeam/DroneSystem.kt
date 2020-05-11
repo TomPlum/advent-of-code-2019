@@ -31,7 +31,7 @@ class DroneSystem(input: String) {
     }
 
     private fun getDroneState(): DroneState {
-        computer.compute()
+        computer.run()
         return when(val code = computer.getProgramMemory().output.getLastValue()) {
             0L -> DroneState.STATIONARY
             1L -> DroneState.PROPAGATING

@@ -32,7 +32,7 @@ class RepairDroid(instructions: String) {
             val direction = getNextDirection()
 
             computer.getProgramMemory().input.add(direction.code.toLong())
-            computer.compute()
+            computer.run()
 
             when (DroidResponse.fromCode(computer.getDiagnosticCode().toInt())) {
                 DroidResponse.HIT_WALL_POSITION_NOT_CHANGED -> {

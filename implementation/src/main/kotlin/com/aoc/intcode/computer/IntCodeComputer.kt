@@ -6,6 +6,11 @@ import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.exceptions.SignalInterrupt
 
+/**
+ * This class is the heart of Advent of Code 2019.
+ *
+ * Every other day utilises the [IntCodeComputer]. It is completed by Day 9.
+ */
 class IntCodeComputer constructor(programString: String) {
     private val program = Program(programString)
     var waiting = true

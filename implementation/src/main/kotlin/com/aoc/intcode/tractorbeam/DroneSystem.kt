@@ -3,7 +3,6 @@ package com.aoc.intcode.tractorbeam
 import com.aoc.intcode.computer.IntCodeComputer
 import log.AdventLogger
 import math.Point2D
-import java.lang.IllegalArgumentException
 
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
@@ -30,11 +29,15 @@ class DroneSystem(input: String) {
         return scan
     }
 
+    fun scanAreaForSantasShip(): Long {
+        return 0L
+    }
+
     private fun getDroneState(): DroneState {
         computer.run()
         return when(val code = computer.getProgramMemory().output.getLastValue()) {
-            0L -> DroneState.STATIONARY
-            1L -> DroneState.PROPAGATING
+            0L -> DroneState.stationary()
+            1L -> DroneState.propagating()
             else -> throw IllegalArgumentException("Invalid Drone Response Code ($code)")
         }
     }

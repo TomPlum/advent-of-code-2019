@@ -1,9 +1,8 @@
 package map
 
 import math.Point2D
-import kotlin.collections.Map
 
-abstract class Map<T> {
+abstract class AdventMap<T> {
     private val data = mutableMapOf<Point2D, T>()
 
     fun addTile(position: Point2D, tile: T) = data.put(position, tile)
@@ -23,18 +22,18 @@ abstract class Map<T> {
 
     fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
 
+    fun xMin() = data.keys.minBy { it.x }!!.x
+    fun yMin() = data.keys.minBy { it.y }!!.y
+
+    fun xMax() = data.keys.maxBy { it.x }!!.x
+    fun yMax() = data.keys.maxBy { it.y }!!.y
+
     /**
      * Creates a cartesian graph style visual representation of the [data]
      */
     override fun toString(): String {
-        val xMin = data.keys.minBy { it.x }!!.x
-        val xMax = data.keys.maxBy { it.x }!!.x
-
-        val yMin = data.keys.minBy { it.y }!!.y
-        val yMax = data.keys.maxBy { it.y }!!.y
-
-        return (yMin..yMax).joinToString("\n") { y ->
-            (xMin..xMax).joinToString(" ") { x ->
+        return (yMin()..yMax()).joinToString("\n") { y ->
+            (xMin()..xMax()).joinToString(" ") { x ->
                 data.getOrDefault(Point2D(x, y), " ").toString()
             }
         }.plus("\n")

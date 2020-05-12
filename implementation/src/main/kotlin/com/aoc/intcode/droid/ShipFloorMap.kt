@@ -1,9 +1,9 @@
 package com.aoc.intcode.droid
 
-import map.Map
+import map.AdventMap
 import math.Point2D
 
-class ShipFloorMap : Map<ShipFloorTile>() {
+class ShipFloorMap : AdventMap<ShipFloorTile>() {
 
     init {
         addTile(Point2D(0, 0), ShipFloorTile.DROID)

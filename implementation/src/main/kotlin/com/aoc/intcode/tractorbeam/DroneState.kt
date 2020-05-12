@@ -1,7 +1,17 @@
 package com.aoc.intcode.tractorbeam
 
-enum class DroneState(private val glyph: String) {
-    STATIONARY("."), PROPAGATING("#");
+import map.MapTile
 
-    override fun toString() = glyph
+class DroneState(private val glyph: String) : MapTile<String>(glyph) {
+    companion object {
+        fun stationary() = DroneState(".")
+        fun propagating() = DroneState("#")
+        fun shipArea() = DroneState("O")
+    }
+
+    fun isPropagating() = glyph == "#"
+
+    fun isSantaShipArea() = glyph == "O"
+
+    fun isStationary() = glyph == "."
 }

@@ -56,7 +56,7 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 | 16  	| 77038830 	| 28135104         	| Flawed Frequency Transmission             |
 | 17  	| 7404    	| 929045           	| Set and Forget                            |
 | 18  	| -       	| -             	| Many-Worlds Interpretation                |
-| 19  	| 181      	| -             	| Tractor Beam                              |
+| 19  	| 181      	| 4240964          	| Tractor Beam                              |
 | 20  	| -       	| -             	| Donut Maze                                |
 | 21  	| -       	| -             	| Springdroid Adventure                     |
 | 22  	| -       	| -             	| Slam Shuffle                              |

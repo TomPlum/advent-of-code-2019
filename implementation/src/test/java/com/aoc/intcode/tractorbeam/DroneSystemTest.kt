@@ -29,6 +29,13 @@ class DroneSystemTest {
     }
 
     @Test
+    fun scanForSantasShipWithSize3() {
+        val input = InputReader().readInputAsSingleString(Day.from(19))
+        val result = DroneSystem(input).scanAreaForSantasShip(3)
+        assertThat(result).isEqualTo(100023)
+    }
+
+    @Test
     fun partTwo() {
         val input = InputReader().readInputAsSingleString(Day.from(19))
         val scan = DroneSystem(input).scanAreaForSantasShip(100)

@@ -8,6 +8,7 @@ class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
     private var x = 0
     private var y = 0
+    private val lazyScan = TractorBeamScan()
     private var lastState = DroneState.unknown()
     private var lastBeamStartX = 0
 
@@ -35,19 +36,19 @@ class DroneSystem(input: String) {
 
     fun scanAreaForSantasShip(area: Long): Long {
         while (true) {
-            val scan = scanNextBlock(area + (area / 2))
+            //val scan = scanNextBlock(area + (area / 2))
+            scanNextBlock(area)
             try {
-                val shipBlock = scan.findSquareClosestToEmitter(area)
+                val shipBlock = lazyScan.findSquareClosestToEmitter(area)
                 //TODO: Have findSquareClosest return the pos (and replace tile with O for println) and do calculation here
                 return shipBlock
             } catch (e: ShipNotFound) {
-                AdventLogger.debug("Ship not found within ${y / area + (area / 2)} block scans")
+                AdventLogger.debug("Ship not found within ${y / area} block scans")
             }
         }
     }
 
-    private fun scanNextBlock(area: Long): TractorBeamScan {
-        val scan = TractorBeamScan()
+    private fun scanNextBlock(area: Long) {
         var foundEndOfBeam: Boolean
         (y until y + area).forEach { y ->
             foundEndOfBeam = false
@@ -77,12 +78,12 @@ class DroneSystem(input: String) {
 
                 //Found Beam End
                 if (lastState.isPropagating() && currentState.isStationary()) {
-                    (x .. area).forEach { scan.addTile(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
+                    (x .. area).forEach { lazyScan.addTile(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
                     foundEndOfBeam = true
                     lastState = DroneState.unknown()
                     x = 0
                 } else {
-                    scan.addTile(Point2D(x, y.toInt()), currentState)
+                    lazyScan.addTile(Point2D(x, y.toInt()), currentState)
                     lastState = currentState
                     x++
                 }
@@ -91,8 +92,7 @@ class DroneSystem(input: String) {
             }
         }
         this.y += area.toInt()
-        AdventLogger.debug(scan)
-        return scan
+        AdventLogger.debug(lazyScan)
     }
 
     private fun getDroneState(): DroneState {

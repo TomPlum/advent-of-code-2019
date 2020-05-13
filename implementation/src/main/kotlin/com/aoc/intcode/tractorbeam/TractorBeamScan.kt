@@ -43,16 +43,12 @@ class TractorBeamScan : AdventMap<DroneState>() {
 
     private fun pointHasBeamColumn(topPosition: Point2D, height: Int): Boolean {
         val default = DroneState.stationary()
-        val lastPointIsBeam = getTile(Point2D(topPosition.x, topPosition.y + height - 1), default).isPropagating()
-        val oneAfterIsNot = getTile(Point2D(topPosition.x, topPosition.y + height), default).isStationary()
-        return lastPointIsBeam && oneAfterIsNot
+        return getTile(Point2D(topPosition.x, topPosition.y + height - 1), default).isPropagating()
     }
 
     private fun pointHasBeamRow(topPosition: Point2D, width: Int): Boolean {
         val default = DroneState.stationary()
-        val lastPointIsBeam = getTile(Point2D(topPosition.x + width - 1, topPosition.y), default).isPropagating()
-        val oneAfterIsNot = getTile(Point2D(topPosition.x + width, topPosition.y), default).isStationary()
-        return lastPointIsBeam && oneAfterIsNot
+        return getTile(Point2D(topPosition.x + width - 1, topPosition.y), default).isPropagating()
     }
 
     /**

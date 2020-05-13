@@ -1,8 +1,8 @@
 package com.aoc.intcode.tractorbeam
 
+import log.AdventLogger
 import map.AdventMap
 import math.Point2D
-import java.lang.IllegalArgumentException
 
 class TractorBeamScan : AdventMap<DroneState>() {
 
@@ -19,9 +19,9 @@ class TractorBeamScan : AdventMap<DroneState>() {
     }
 
     fun findSquareClosestToEmitter(squareSize: Long): Long {
-        (0 .. yMax()).forEach { y ->
+        (yMin() .. yMax()).forEach { y ->
             val rowCoordinates = mutableSetOf<Point2D>()
-            (0 .. xMax()).forEach { x ->
+            (xMin() .. xMax()).forEach { x ->
                 rowCoordinates.add(Point2D(x, y))
             }
 
@@ -32,23 +32,26 @@ class TractorBeamScan : AdventMap<DroneState>() {
             if (beamWidth >= squareSize) {
                 row.keys.forEach { pos ->
                     if (pointHasBeamColumn(pos, squareSize.toInt()) && pointHasBeamRow(pos, squareSize.toInt())) {
+                        AdventLogger.debug("Found Ship @ $pos")
                         return ((pos.x * 10000) + pos.y).toLong()
                     }
                 }
             }
         }
-        throw IllegalArgumentException("Could not find beam square of size $squareSize")
+        throw ShipNotFound(squareSize)
     }
 
     private fun pointHasBeamColumn(topPosition: Point2D, height: Int): Boolean {
-        val lastPointIsBeam = getTile(Point2D(topPosition.x, topPosition.y + height - 1)).isPropagating()
-        val oneAfterIsNot = getTile(Point2D(topPosition.x, topPosition.y + height)).isStationary()
+        val default = DroneState.stationary()
+        val lastPointIsBeam = getTile(Point2D(topPosition.x, topPosition.y + height - 1), default).isPropagating()
+        val oneAfterIsNot = getTile(Point2D(topPosition.x, topPosition.y + height), default).isStationary()
         return lastPointIsBeam && oneAfterIsNot
     }
 
     private fun pointHasBeamRow(topPosition: Point2D, width: Int): Boolean {
-        val lastPointIsBeam = getTile(Point2D(topPosition.x + width - 1, topPosition.y)).isPropagating()
-        val oneAfterIsNot = getTile(Point2D(topPosition.x + width, topPosition.y)).isStationary()
+        val default = DroneState.stationary()
+        val lastPointIsBeam = getTile(Point2D(topPosition.x + width - 1, topPosition.y), default).isPropagating()
+        val oneAfterIsNot = getTile(Point2D(topPosition.x + width, topPosition.y), default).isStationary()
         return lastPointIsBeam && oneAfterIsNot
     }
 

@@ -7,7 +7,7 @@ fun main() {
     val system = DroneSystem(input)
     val scan = system.scanAreaSurroundingEmitter(50)
     println("Solution Part 1: ${scan.getPointsAffectedByBeam()}")
+    println("Solution Part 2: ${system.scanAreaForSantasShip()}")
 
-    val shipScan = system.scanAreaSurroundingEmitter(5000)
-    val answer = shipScan.findSquareClosestToEmitter(100)
+    //4441000 is too high!
 }

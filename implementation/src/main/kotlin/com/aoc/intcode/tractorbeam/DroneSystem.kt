@@ -6,10 +6,9 @@ import math.Point2D
 
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
-    private val lazyScan = TractorBeamScan()
     private var x = 0
     private var y = 0
-    private var lastState = DroneState.stationary()
+    private var lastState = DroneState.unknown()
     private var lastBeamStartX = 0
 
     /**
@@ -35,13 +34,21 @@ class DroneSystem(input: String) {
     }
 
     fun scanAreaForSantasShip(): Long {
-        scanNextBlock(10)
-        scanNextBlock(10)
-        return 0L
+        while (true) {
+            val scan = scanNextBlock(100)
+            try {
+                val shipBlock = scan.findSquareClosestToEmitter(100)
+                //TODO: Have findSquareClosest return the pos (and replace tile with O for println) and do calculation here
+                return shipBlock
+            } catch (e: ShipNotFound) {
+                AdventLogger.debug("Ship not found within ${y / 100} block scans")
+            }
+        }
     }
 
-    private fun scanNextBlock(area: Long) {
-        var foundEndOfBeam = false
+    private fun scanNextBlock(area: Long): TractorBeamScan {
+        val scan = TractorBeamScan()
+        var foundEndOfBeam: Boolean
         (y until y + area).forEach { y ->
             foundEndOfBeam = false
             while(!foundEndOfBeam) {
@@ -52,36 +59,40 @@ class DroneSystem(input: String) {
                     deployDrone(x.toLong(), y)
                 }
 
-                val state = getDroneState()
+                val currentState = getDroneState()
 
                 //Empty Row (Happens Near Start)
-                if (x.toLong() > area) {
+                if (lastState.isStationary() && currentState.isStationary()) {
                     x = 0
                     foundEndOfBeam = true
+                    lastState = DroneState.unknown()
                     computer.reset()
                     break
                 }
 
                 //Found Beam Start
-                if (lastState.isStationary() && state.isPropagating()) {
+                if (lastState.isStationary() && currentState.isPropagating()) {
                     lastBeamStartX = x
                 }
 
                 //Found Beam End
-                if (lastState.isPropagating() && state.isStationary()) {
-                    (x .. area).forEach { lazyScan.addTile(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
+                if (lastState.isPropagating() && currentState.isStationary()) {
+                    (x .. area).forEach { scan.addTile(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
                     foundEndOfBeam = true
+                    lastState = DroneState.unknown()
                     x = 0
                 } else {
-                    lazyScan.addTile(Point2D(x, y.toInt()), state)
+                    scan.addTile(Point2D(x, y.toInt()), currentState)
+                    lastState = currentState
                     x++
                 }
+
                 computer.reset()
-                lastState = state
             }
         }
         this.y += area.toInt()
-        AdventLogger.debug(lazyScan)
+        AdventLogger.debug(scan)
+        return scan
     }
 
     private fun getDroneState(): DroneState {

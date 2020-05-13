@@ -4,7 +4,7 @@ import map.AdventMap
 import math.Point2D
 import java.lang.IllegalArgumentException
 
-class TractorBeamScan() : AdventMap<DroneState>() {
+class TractorBeamScan : AdventMap<DroneState>() {
 
     companion object {
         fun fromData(data: List<String>): TractorBeamScan {
@@ -30,7 +30,7 @@ class TractorBeamScan() : AdventMap<DroneState>() {
             val beamWidth = row.count()
 
             if (beamWidth >= squareSize) {
-                row.keys.forEachIndexed { i, pos ->
+                row.keys.forEach { pos ->
                     if (pointHasBeamColumn(pos, squareSize.toInt()) && pointHasBeamRow(pos, squareSize.toInt())) {
                         return ((pos.x * 10000) + pos.y).toLong()
                     }
@@ -40,16 +40,16 @@ class TractorBeamScan() : AdventMap<DroneState>() {
         throw IllegalArgumentException("Could not find beam square of size $squareSize")
     }
 
-    private fun pointHasBeamColumn(topPosition: Point2D, quantity: Int): Boolean {
-        val columnCoordinates = mutableSetOf<Point2D>()
-        (1 until quantity).forEach { y -> columnCoordinates.add(Point2D(topPosition.x, topPosition.y + y)) }
-        return filterPoints(columnCoordinates).values.all { it.isPropagating() }
+    private fun pointHasBeamColumn(topPosition: Point2D, height: Int): Boolean {
+        val lastPointIsBeam = getTile(Point2D(topPosition.x, topPosition.y + height - 1)).isPropagating()
+        val oneAfterIsNot = getTile(Point2D(topPosition.x, topPosition.y + height)).isStationary()
+        return lastPointIsBeam && oneAfterIsNot
     }
 
-    private fun pointHasBeamRow(topPosition: Point2D, quantity: Int): Boolean {
-        val rowCoordinates = mutableSetOf<Point2D>()
-        (1 until quantity).forEach { x -> rowCoordinates.add(Point2D(topPosition.x + x, topPosition.y)) }
-        return filterPoints(rowCoordinates).values.all { it.isPropagating() }
+    private fun pointHasBeamRow(topPosition: Point2D, width: Int): Boolean {
+        val lastPointIsBeam = getTile(Point2D(topPosition.x + width - 1, topPosition.y)).isPropagating()
+        val oneAfterIsNot = getTile(Point2D(topPosition.x + width, topPosition.y)).isStationary()
+        return lastPointIsBeam && oneAfterIsNot
     }
 
     /**

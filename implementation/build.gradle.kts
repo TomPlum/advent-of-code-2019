@@ -11,6 +11,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
+    testImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")

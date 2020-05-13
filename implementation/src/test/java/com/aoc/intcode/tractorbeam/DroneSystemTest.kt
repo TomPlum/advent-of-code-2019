@@ -23,16 +23,15 @@ class DroneSystemTest {
     }
 
     @Test
-    @Disabled
     fun bigScan() {
         val input = InputReader().readInputAsSingleString(Day.from(19))
-        val scan = DroneSystem(input).scanAreaSurroundingEmitter(1000)
+        val scan = DroneSystem(input).scanAreaSurroundingEmitter(150)
     }
 
     @Test
-    fun partTwoExample() {
-        val data = InputReader().readInputAsString("/tractorbeam/example-beam.txt")
-        val scan = TractorBeamScan.fromData(data.values)
+    fun partTwo() {
+        val input = InputReader().readInputAsSingleString(Day.from(19))
+        val scan = DroneSystem(input).scanAreaForSantasShip()
 
     }
 }

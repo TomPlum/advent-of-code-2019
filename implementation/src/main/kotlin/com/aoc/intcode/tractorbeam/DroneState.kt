@@ -7,6 +7,7 @@ class DroneState(private val glyph: String) : MapTile<String>(glyph) {
         fun stationary() = DroneState(".")
         fun propagating() = DroneState("#")
         fun shipArea() = DroneState("O")
+        fun unknown() = DroneState(" ")
     }
 
     fun isPropagating() = glyph == "#"

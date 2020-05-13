@@ -1,12 +1,14 @@
 package map
 
 import math.Point2D
+import java.lang.IllegalArgumentException
 
 abstract class AdventMap<T> {
     private val data = mutableMapOf<Point2D, T>()
 
     fun addTile(position: Point2D, tile: T) = data.put(position, tile)
     fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
+    fun getTile(position: Point2D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 
     fun hasRecorded(position: Point2D): Boolean = data.containsKey(position)
     fun hasTile(value: T): Boolean = data.containsValue(value)

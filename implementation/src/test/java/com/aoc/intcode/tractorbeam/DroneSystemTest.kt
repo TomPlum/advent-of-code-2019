@@ -4,7 +4,6 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import input.Day
 import input.InputReader
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class DroneSystemTest {
@@ -23,15 +22,16 @@ class DroneSystemTest {
     }
 
     @Test
-    fun bigScan() {
+    fun scanForSantasShipWithSize2() {
         val input = InputReader().readInputAsSingleString(Day.from(19))
-        val scan = DroneSystem(input).scanAreaSurroundingEmitter(150)
+        val result = DroneSystem(input).scanAreaForSantasShip(2)
+        assertThat(result).isEqualTo(60013)
     }
 
     @Test
     fun partTwo() {
         val input = InputReader().readInputAsSingleString(Day.from(19))
-        val scan = DroneSystem(input).scanAreaForSantasShip()
+        val scan = DroneSystem(input).scanAreaForSantasShip(100)
 
     }
 }

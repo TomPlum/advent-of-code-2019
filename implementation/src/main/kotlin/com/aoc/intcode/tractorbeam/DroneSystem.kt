@@ -33,15 +33,15 @@ class DroneSystem(input: String) {
         return scan
     }
 
-    fun scanAreaForSantasShip(): Long {
+    fun scanAreaForSantasShip(area: Long): Long {
         while (true) {
-            val scan = scanNextBlock(100)
+            val scan = scanNextBlock(area + (area / 2))
             try {
-                val shipBlock = scan.findSquareClosestToEmitter(100)
+                val shipBlock = scan.findSquareClosestToEmitter(area)
                 //TODO: Have findSquareClosest return the pos (and replace tile with O for println) and do calculation here
                 return shipBlock
             } catch (e: ShipNotFound) {
-                AdventLogger.debug("Ship not found within ${y / 100} block scans")
+                AdventLogger.debug("Ship not found within ${y / area + (area / 2)} block scans")
             }
         }
     }

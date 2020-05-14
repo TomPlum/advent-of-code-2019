@@ -31,7 +31,7 @@ class RepairDroid(instructions: String) {
         while (!path.isEmpty()) {
             val direction = getNextDirection()
 
-            computer.getProgramMemory().input.add(direction.code.toLong())
+            computer.program.memory.input.add(direction.code.toLong())
             computer.run()
 
             when (DroidResponse.fromCode(computer.getDiagnosticCode().toInt())) {

@@ -25,7 +25,7 @@ class ArcadeCabinet(gameSoftware: String) {
     fun startGame(): Long {
         while (!computer.halted) {
             frame++
-            if (computer.waiting) computer.getProgramMemory().input.add(getJoystickCommand().toLong())
+            if (computer.waiting) computer.program.memory.input.add(getJoystickCommand().toLong())
             computer.run()
             updateTiles()
         }
@@ -44,7 +44,7 @@ class ArcadeCabinet(gameSoftware: String) {
      */
     fun getTileQuantity(id: TileID) = tiles.filterValues { it == id}.count()
 
-    private fun playForFree() = computer.getProgramMemory().updateInstructionAtAddress(0, 2)
+    private fun playForFree() = computer.program.memory.updateInstructionAtAddress(0, 2)
 
     private fun getJoystickCommand(): Int {
         val ballCurrentPosition = tiles.filterValues { it == TileID.BALL }.keys.first()
@@ -58,7 +58,7 @@ class ArcadeCabinet(gameSoftware: String) {
     }
 
     private fun updateTiles() {
-        val output = computer.getProgramMemory().output
+        val output = computer.program.memory.output
         while(output.isNotEmpty()) {
             val tileData = output.getFirstThreeValues()
 

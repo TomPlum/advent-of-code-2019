@@ -39,7 +39,7 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 | Day 	| Part 1 	| Part 2 	        | Name                                      |
 |-------|-----------|-------------------|----------------------------------------   |
 | 01   	| 3184233  	| 4773483           | The Tyranny of the Rocket Equation        |
-| 02   	| 10566835 	| 2347              | 1202 Program Alarm                        |                               |
+| 02   	| 10566835 	| 2347              | 1202 Program Alarm                        |
 | 03   	| 529      	| 20386         	| Crossed Wires                             |                    
 | 04   	| 466      	| 292     	        | Secure Container                          |                                 
 | 05   	| 5044655  	| 7408802 	        | Sunny with a Chance of Asteroids          |                                         

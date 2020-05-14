@@ -13,6 +13,6 @@ class InitialAmplifierTest {
         amplifier.outputsTo(OutputAmplifier(0))
         amplifier.loadAmplifierControllerSoftware("1,0,0,3,4,3,99")
         amplifier.start()
-        assertThat(amplifier.computer.getProgramMemory().input.values[0]).isEqualTo(0)
+        assertThat(amplifier.computer.program.memory.input.values[0]).isEqualTo(0)
     }
 }

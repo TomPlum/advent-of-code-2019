@@ -137,4 +137,10 @@ class MemoryTest {
         val input = memory.input.getValue()
         assertThat(input).isNull()
     }
+
+    @Test
+    fun getInstructionAtAddressPerformance() {
+        val memory = Memory((0 until 1000000L).map { it })
+        repeat(10000) { memory.getInstructionAtAddress(999900) }
+    }
 }

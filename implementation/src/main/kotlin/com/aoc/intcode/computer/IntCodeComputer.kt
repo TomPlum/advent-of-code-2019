@@ -8,11 +8,13 @@ import com.aoc.intcode.computer.exceptions.SignalInterrupt
 
 /**
  * This class is the heart of Advent of Code 2019.
- *
  * Every other day utilises the [IntCodeComputer]. It is completed by Day 9.
+ *
+ * The computer can be started with a [BootMode] which will start the next boot with a value
+ * in the [Memory] [SystemInput]. The [BootMode.systemInputCode] will modify the [Program] behaviour.
  */
 class IntCodeComputer constructor(programString: String) {
-    private val program = Program(programString)
+    val program = Program(programString)
     var waiting = true
     var halted = false
 
@@ -45,19 +47,31 @@ class IntCodeComputer constructor(programString: String) {
         }
     }
 
+    /**
+     * Restores the [Program] to the "1202 Program Alarm" state.
+     */
     fun restoreGravityAssistProgram(noun: Long, verb: Long) {
         program.memory.updateInstructionAtAddress(1, noun)
         program.memory.updateInstructionAtAddress(2, verb)
     }
 
+    /**
+     * Starts the computer in an alternate mode so the Thermal Environment Supervision Terminal (TEST)
+     * can run a diagnostic program.
+     */
     fun onNextBoot(mode: BootMode) = program.memory.input.add(mode.systemInputCode)
 
-    fun getProgramMemory(): Memory = program.memory
-
+    /**
+     * When running TEST programs, the [IntCodeComputer] will often output a diagnostic code
+     * if the [Program] malfunctions at runtime.
+     * @return The last value from the [Memory] [SystemOutput]
+     */
     fun getDiagnosticCode(): Long = program.memory.output.getLastValue()
 
-    fun getProgramCurrentState(): String = program.toString()
-
+    /**
+     * Resets the [IntCodeComputer] back to it's original state immediately after instantiation.
+     * @see Memory.reset
+     */
     fun reset() {
         program.memory.reset()
         waiting = true

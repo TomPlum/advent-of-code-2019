@@ -33,7 +33,7 @@ class VacuumRobot(val instructions: String) {
      */
     fun scanShipsExteriorScaffolding(): ScaffoldMap {
         computer.run()
-        val systemOutput = computer.getProgramMemory().output
+        val systemOutput = computer.program.memory.output
         return ScaffoldMap(systemOutput.getValues())
     }
 
@@ -72,7 +72,7 @@ class VacuumRobot(val instructions: String) {
      * Inputs the Main [MovementRoutine] into the [IntCodeComputer]
      */
     private fun inputMainMovementRoutine(routine: MovementRoutine) {
-        routine.getRoutine().forEach { computer.getProgramMemory().input.add(it) }
+        routine.getRoutine().forEach { computer.program.memory.input.add(it) }
         AdventLogger.debug("Inputting: $routine \n")
         update()
     }
@@ -83,7 +83,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun getDustCollectionReport(): DustCollectionReport {
         computer.run()
-        val quantity = computer.getProgramMemory().output.getLastValue()
+        val quantity = computer.program.memory.output.getLastValue()
         return DustCollectionReport(quantity)
     }
 
@@ -92,7 +92,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun inputMovementFunctions(routine: MovementRoutine) {
         routine.getBaseFunctions().forEach { func ->
-            func.getSequence().forEach { computer.getProgramMemory().input.add(it.toLong()) }
+            func.getSequence().forEach { computer.program.memory.input.add(it.toLong()) }
             AdventLogger.debug("Inputting: $func \n")
             update()
         }
@@ -103,8 +103,8 @@ class VacuumRobot(val instructions: String) {
      */
     private fun update() {
         computer.run()
-        AdventLogger.debug("Robot: ${computer.getProgramMemory().output.parseStringFromAscii()}")
-        computer.getProgramMemory().output.clear()
+        AdventLogger.debug("Robot: ${computer.program.memory.output.parseStringFromAscii()}")
+        computer.program.memory.output.clear()
     }
 
     /**
@@ -113,7 +113,7 @@ class VacuumRobot(val instructions: String) {
      */
     private fun forceWakeUp() {
         computer.reset()
-        computer.getProgramMemory().updateInstructionAtAddress(0, 2L)
+        computer.program.memory.updateInstructionAtAddress(0, 2L)
         update()
     }
 
@@ -125,8 +125,8 @@ class VacuumRobot(val instructions: String) {
     private fun toggleContinuousVideoFeed(toggle: Boolean) {
         val input = if (toggle) 'y' else 'n'
         AdventLogger.debug("Inputting: $input \n")
-        computer.getProgramMemory().input.add(input.toLong())
-        computer.getProgramMemory().input.add('\n'.toLong())
+        computer.program.memory.input.add(input.toLong())
+        computer.program.memory.input.add('\n'.toLong())
     }
 
     /**

@@ -97,7 +97,7 @@ class DroneSystem(input: String) {
 
     private fun getDroneState(): DroneState {
         computer.run()
-        return when(val code = computer.getProgramMemory().output.getLastValue()) {
+        return when(val code = computer.program.memory.output.getLastValue()) {
             0L -> DroneState.stationary()
             1L -> DroneState.propagating()
             else -> throw IllegalArgumentException("Invalid Drone Response Code ($code)")
@@ -105,7 +105,7 @@ class DroneSystem(input: String) {
     }
 
     private fun deployDrone(x: Long, y: Long) {
-        val input = computer.getProgramMemory().input
+        val input = computer.program.memory.input
         input.add(x)
         input.add(y)
     }

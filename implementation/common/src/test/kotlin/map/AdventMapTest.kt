@@ -8,7 +8,7 @@ import math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class MapTest {
+class AdventMapTest {
     @Test
     fun addTile() {
         val map = ExampleMap()
@@ -69,12 +69,12 @@ class MapTest {
         val map = ExampleMap()
         map.addTile(Point2D(3, 4), ExampleTile(4))
         map.addTile(Point2D(0, 0), ExampleTile(12))
-        assertThat(map.tileQuantity()).isEqualTo(2)
+        assertThat(map.getTileQuantity()).isEqualTo(2)
     }
 
     @Test
     fun tileQuantityWhenEmpty() {
-        assertThat(ExampleMap().tileQuantity()).isEqualTo(0)
+        assertThat(ExampleMap().getTileQuantity()).isEqualTo(0)
     }
 
     @Test
@@ -103,5 +103,7 @@ class MapTest {
         fun isMyTestValue() = data == 12
     }
 
-    private class ExampleMap : Map<ExampleTile>()
+    private class ExampleMap : AdventMap<ExampleTile>() {
+        fun getTileQuantity() = tileQuantity()
+    }
 }

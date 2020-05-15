@@ -2,7 +2,9 @@ package com.aoc.intcode.computer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.intcode.computer.SystemInput
+import assertk.assertions.isFalse
+import assertk.assertions.isNotEqualTo
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -48,6 +50,48 @@ class SystemInputTest {
     fun getValueWhenSystemInputEmpty() {
         val e = assertThrows<IllegalStateException> { SystemInput().getValue() }
         assertThat(e.message).isEqualTo("System input is empty!")
+    }
+
+    @Test
+    fun clear() {
+        val input = SystemInput()
+        input.add(1L)
+        input.add(245L)
+        input.clear()
+        assertThat(input.isEmpty()).isTrue()
+    }
+
+    @Test
+    fun isEmptyPositive() {
+        assertThat(SystemInput().isEmpty()).isTrue()
+    }
+
+    @Test
+    fun isEmptyNegative() {
+        val input = SystemInput()
+        input.add(56L)
+        assertThat(input.isEmpty()).isFalse()
+    }
+
+
+    @Test
+    @DisplayName("Given two System Input, when they have the same internal values, then they should be equal")
+    fun equalityTestPositive() {
+        val first = SystemInput()
+        first.add(12)
+        val second = SystemInput()
+        second.add(12)
+        assertThat(first).isEqualTo(second)
+    }
+
+    @Test
+    @DisplayName("Given two System Input, when they have different internal values, then they should not be equal")
+    fun equalityTestNegative() {
+        val first = SystemInput()
+        first.add(12)
+        val second = SystemInput()
+        second.add(5)
+        assertThat(first).isNotEqualTo(second)
     }
 
     @Test

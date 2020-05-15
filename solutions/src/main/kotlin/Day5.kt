@@ -15,13 +15,13 @@ fun main() {
 private fun partTwo(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
     computer.onNextBoot(BootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
-    val finalProgramState = computer.compute()
+    val finalProgramState = computer.run()
     println("Final Program State $finalProgramState")
 }
 
 private fun partOne(memoryAddresses: String) {
     val computer = IntCodeComputer(memoryAddresses)
     computer.onNextBoot(BootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
-    val finalProgramState = computer.compute()
+    val finalProgramState = computer.run()
     println("Final Program State $finalProgramState")
 }

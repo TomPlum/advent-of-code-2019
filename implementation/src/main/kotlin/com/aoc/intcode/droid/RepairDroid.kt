@@ -31,8 +31,8 @@ class RepairDroid(instructions: String) {
         while (!path.isEmpty()) {
             val direction = getNextDirection()
 
-            computer.getProgramMemory().input.add(direction.code.toLong())
-            computer.compute()
+            computer.program.memory.input.add(direction.code.toLong())
+            computer.run()
 
             when (DroidResponse.fromCode(computer.getDiagnosticCode().toInt())) {
                 DroidResponse.HIT_WALL_POSITION_NOT_CHANGED -> {

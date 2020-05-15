@@ -11,6 +11,15 @@ Meaning I'm focusing more on design, readability, and ensuring code is test-driv
 This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of
 runtime complexity will be refactored and improved upon in a later pass of the days.
 
+# Contents
+* [The Days](#the-days)
+  * [Favourite Days](#favourite-days)
+    * [Most Challenging](#most-challenging-day-18)
+    * [Most Fun](#most-fun)
+* [What I Learned](#what-i-learned)
+  * [Kotlin](#kotlin--kotlin-gradle-dsl)
+* [Answer Table](#answer-table)
+
 ## The Days
 
 ### Most Challenging (Day 18)
@@ -39,7 +48,7 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 | Day 	| Part 1 	| Part 2 	        | Name                                      |
 |-------|-----------|-------------------|----------------------------------------   |
 | 01   	| 3184233  	| 4773483           | The Tyranny of the Rocket Equation        |
-| 02   	| 10566835 	| 2347              | 1202 Program Alarm                        |                               |
+| 02   	| 10566835 	| 2347              | 1202 Program Alarm                        |
 | 03   	| 529      	| 20386         	| Crossed Wires                             |                    
 | 04   	| 466      	| 292     	        | Secure Container                          |                                 
 | 05   	| 5044655  	| 7408802 	        | Sunny with a Chance of Asteroids          |                                         
@@ -56,7 +65,7 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 | 16  	| 77038830 	| 28135104         	| Flawed Frequency Transmission             |
 | 17  	| 7404    	| 929045           	| Set and Forget                            |
 | 18  	| -       	| -             	| Many-Worlds Interpretation                |
-| 19  	| -       	| -             	| Tractor Beam                              |
+| 19  	| 181      	| 4240964          	| Tractor Beam                              |
 | 20  	| -       	| -             	| Donut Maze                                |
 | 21  	| -       	| -             	| Springdroid Adventure                     |
 | 22  	| -       	| -             	| Slam Shuffle                              |

@@ -9,9 +9,9 @@ import java.util.*
 
 class Halt: InstructionStrategy {
     override fun execute(memorySnapshot: Memory, modes: Stack<ParameterMode>): Memory {
-        AdventLogger.debug("Program Halted!")
-        AdventLogger.debug("System Input: ${memorySnapshot.input}")
-        AdventLogger.debug("System Output: ${memorySnapshot.output}")
+        AdventLogger.trace("Program Halted!")
+        AdventLogger.trace("System Input: ${memorySnapshot.input}")
+        AdventLogger.trace("System Output: ${memorySnapshot.output}")
         throw HaltProgram()
     }
 }

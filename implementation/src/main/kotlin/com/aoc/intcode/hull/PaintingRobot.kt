@@ -12,12 +12,12 @@ class PaintingRobot(instructions: String) {
     private var y = 0
 
     fun start(startingPanelColour: HullPaint) {
-        computer.getProgramMemory().input.add(startingPanelColour.colourCode.toLong())
+        computer.program.memory.input.add(startingPanelColour.colourCode.toLong())
 
-        while (!computer.programHalted) {
-            computer.compute()
+        while (!computer.halted) {
+            computer.run()
 
-            val systemOutput = computer.getProgramMemory().output.getLastTwoValues()
+            val systemOutput = computer.program.memory.output.getLastTwoValues()
 
             paint(systemOutput.first.toInt())
 
@@ -25,7 +25,7 @@ class PaintingRobot(instructions: String) {
 
             moveForward()
 
-            computer.getProgramMemory().input.add(getCurrentPanelColour().colourCode.toLong())
+            computer.program.memory.input.add(getCurrentPanelColour().colourCode.toLong())
         }
 
     }

@@ -11,7 +11,7 @@ Meaning I'm focusing more on design, readability, and ensuring code is test-driv
 This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of
 runtime complexity will be refactored and improved upon in a later pass of the days.
 
-# Contents
+## Contents
 * [The Days](#the-days)
   * [Favourite Days](#favourite-days)
     * [Most Challenging](#most-challenging-day-18)

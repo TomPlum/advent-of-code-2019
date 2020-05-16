@@ -11,13 +11,15 @@ Meaning I'm focusing more on design, readability, and ensuring code is test-driv
 This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of
 runtime complexity will be refactored and improved upon in a later pass of the days.
 
-# Contents
+## Contents
 * [The Days](#the-days)
   * [Favourite Days](#favourite-days)
     * [Most Challenging](#most-challenging-day-18)
     * [Most Fun](#most-fun)
 * [What I Learned](#what-i-learned)
   * [Kotlin](#kotlin--kotlin-gradle-dsl)
+  * [Data Structures & Algorithms](#data-structures--algorithms)
+  * [Performance & Runtime Complexity](#performance)
 * [Answer Table](#answer-table)
 
 ## The Days
@@ -42,6 +44,24 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 ## What I Learned
 
 ### Kotlin & Kotlin Gradle DSL
+
+### Data Structures & Algorithms
+Graphs, trees and mazes were a common theme and meant that path-finding algorithms were common.
+
+* [DFS (Depth First Search)](https://en.wikipedia.org/wiki/Depth-first_search)
+* [BFS (Breadth First Search)](https://en.wikipedia.org/wiki/Breadth-first_search)
+* [Dijkstra Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+* [Flooding Algorithm](https://en.wikipedia.org/wiki/Flooding_algorithm)
+
+Where there are Data Structures & Algorithms, there are always performance considerations...
+
+### Performance
+Implementing the aforementioned data structures and algorithms means that some solutions needed refactoring for 
+performance optimisation due to the vast puzzle input sizes. This meant that careful consideration was needed when 
+choosing data structures and designing the algorithms. It even meant that in some cases, a brute-force approach was 
+impossible due to it taking an eternity to run (Looking at you, Day 12... simulating the repetition of time).
+
+For the most part, only runtime-complexity was a concern. There were few occasions where space-complexity was an issue.
 
 ## Answer Table
 

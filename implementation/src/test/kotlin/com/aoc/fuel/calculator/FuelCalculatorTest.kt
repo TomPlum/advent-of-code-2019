@@ -46,21 +46,21 @@ class FuelCalculatorTest {
     @Test
     @DisplayName("Given a module of mass 14, when calculating additional fuel, then it should only return 2")
     fun additionalFuelExampleOne() {
-        val additionalFuel = calculator.calculateAdditionalFuel(14);
+        val additionalFuel = calculator.calculateAdditionalFuel(14)
         assertThat(additionalFuel).isEqualTo(2)
     }
 
     @Test
     @DisplayName("Given a module of mass 1969, when calculating additional fuel, then it should only return 966")
     fun additionalFuelExampleTwo() {
-        val additionalFuel = calculator.calculateAdditionalFuel(1969);
+        val additionalFuel = calculator.calculateAdditionalFuel(1969)
         assertThat(additionalFuel).isEqualTo(966)
     }
 
     @Test
     @DisplayName("Given a module of mass 100756, when calculating additional fuel, then it should only return 50346")
     fun additionalFuelExampleThree() {
-        val additionalFuel = calculator.calculateAdditionalFuel(100756);
+        val additionalFuel = calculator.calculateAdditionalFuel(100756)
         assertThat(additionalFuel).isEqualTo(50346)
     }
 

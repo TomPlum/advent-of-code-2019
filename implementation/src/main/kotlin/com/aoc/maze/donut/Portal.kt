@@ -1,4 +1,4 @@
 package com.aoc.maze.donut
 
-class Portal(warpCode: String) : DonutTile(warpCode) {
+class Portal(warpCode: Char) : DonutTile(warpCode) {
 }

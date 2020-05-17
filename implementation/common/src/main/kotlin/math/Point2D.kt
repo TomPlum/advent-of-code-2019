@@ -21,9 +21,7 @@ data class Point2D(val x: Int, val y: Int) {
      */
     fun angleBetween(point: Point2D): Double {
         val angle = atan2((y - point.y).toDouble(), (x - point.x).toDouble()) * (180 / Math.PI) - 90.00
-        return if (angle < 0) {
-            angle + 360.00
-        } else angle
+        return if (angle < 0) angle + 360.00 else angle
     }
 
     /**

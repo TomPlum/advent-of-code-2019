@@ -1,4 +1,4 @@
-import com.aoc.tractorbeam.DroneSystem
+import com.aoc.intcode.tractorbeam.DroneSystem
 import input.Day
 import input.InputReader
 

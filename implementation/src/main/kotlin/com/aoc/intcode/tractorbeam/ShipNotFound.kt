@@ -1,4 +1,4 @@
-package com.aoc.tractorbeam
+package com.aoc.intcode.tractorbeam
 
 import java.lang.IllegalArgumentException
 

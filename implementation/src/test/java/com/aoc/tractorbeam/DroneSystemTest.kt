@@ -1,4 +1,4 @@
-package com.aoc.intcode.tractorbeam
+package com.aoc.tractorbeam
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

@@ -1,4 +1,4 @@
-package com.aoc.intcode.tractorbeam
+package com.aoc.tractorbeam
 
 import com.aoc.intcode.computer.IntCodeComputer
 import log.AdventLogger

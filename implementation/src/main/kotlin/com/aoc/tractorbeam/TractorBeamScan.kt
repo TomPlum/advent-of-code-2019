@@ -1,4 +1,4 @@
-package com.aoc.intcode.tractorbeam
+package com.aoc.tractorbeam
 
 import log.AdventLogger
 import map.AdventMap

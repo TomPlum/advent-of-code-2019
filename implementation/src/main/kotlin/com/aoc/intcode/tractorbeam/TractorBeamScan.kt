@@ -22,10 +22,6 @@ class TractorBeamScan : AdventMap<DroneState>() {
         }
     }
 
-    fun findSquareClosesToEmitterFaster(squareSize: Long) {
-
-    }
-
     fun findSquareClosestToEmitter(squareSize: Int): Long {
         val yMin = (lastBlockMaxY ?: squareSize) - squareSize
         val yMax = if (lastBlockMaxY == null) squareSize else lastBlockMaxY!! + squareSize

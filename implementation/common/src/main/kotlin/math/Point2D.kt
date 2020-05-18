@@ -25,7 +25,7 @@ data class Point2D(val x: Int, val y: Int) {
     }
 
     /**
-     * Checks if the one Point is adjacent to another.
+     * Checks if the one point is orthogonally adjacent to another.
      * @return true if adjacent to [that] point, else false.
      */
     fun isAdjacentTo(that: Point2D): Boolean = this != that && abs(x - that.x) <= 1 && abs(y - that.y) <= 1

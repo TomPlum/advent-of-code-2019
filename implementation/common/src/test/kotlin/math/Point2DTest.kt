@@ -2,7 +2,9 @@ package math
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNotEqualTo
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -141,6 +143,54 @@ class Point2DTest {
         @Test
         fun shiftLeft() {
             assertThat(Point2D(0,0).shift(Direction.LEFT)).isEqualTo(Point2D(-1,0))
+        }
+    }
+
+    @Nested
+    inner class AdjacentTo {
+        @Test
+        fun isAdjacentToTargetOnRight() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(6,6))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetOnBottomRight() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(6,5))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetOnBottom() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,5))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetOnBottomLeft() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,5))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetOnLeft() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,6))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetTopLeft() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,7))).isTrue()
+        }
+
+        @Test
+        fun isAdjacentToTargetTop() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,7))).isTrue()
+        }
+
+        @Test
+        fun isNotAdjacent() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,4))).isFalse()
+        }
+
+        @Test
+        fun samePointsAreNotAdjacent() {
+            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,6))).isFalse()
         }
     }
 

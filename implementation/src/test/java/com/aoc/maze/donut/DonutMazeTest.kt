@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import input.Day
 import input.InputReader
+import math.Point2D
 import org.junit.jupiter.api.Test
 
 class DonutMazeTest {
@@ -15,8 +16,22 @@ class DonutMazeTest {
 
     @Test
     fun exampleMazeShouldHaveThreePortalPairs() {
-        val input = InputReader().readInputAsString("maze/donut/example-maze.txt")
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = DonutMaze(input.values)
-        assertThat(maze.getPortals().size).isEqualTo(3)
+        assertThat(maze.portals.size).isEqualTo(3)
+    }
+
+    @Test
+    fun exampleMazeShouldParseEntranceCorrectly() {
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.entrance).isEqualTo(Point2D(9,2))
+    }
+
+    @Test
+    fun exampleMazeShouldParseExitCorrectly() {
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.exit).isEqualTo(Point2D(13,16))
     }
 }

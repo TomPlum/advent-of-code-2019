@@ -83,6 +83,10 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
         AdventLogger.debug("Maze Contains ${portals.size} Portals: $portals")
     }
 
+    /**
+     * Finds the shortest path through the [DonutMaze] using a BFS (Breadth First Search) algorithm.
+     * @return steps taken during the shortest path
+     */
     fun findTheShortestPath(): Int {
         var steps = 0
 
@@ -127,7 +131,11 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
         return steps
     }
 
-    private fun getPortalWithEntrance(pos: Point2D): Portal = portals.find { it.hasEntrance(pos) }
-            ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $pos")
+    /**
+     * Find the [Portal] that warps to or from the given [position].
+     * @throws IllegalArgumentException if the [DonutMaze] does not contain a [Portal] with the given [position]
+     */
+    private fun getPortalWithEntrance(position: Point2D): Portal = portals.find { it.hasEntrance(position) }
+            ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")
 
 }

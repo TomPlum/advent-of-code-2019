@@ -48,11 +48,11 @@ class DonutTileTest {
 
     @Test
     fun isExit() {
-        assertThat(DonutTile('O').isExit()).isTrue()
+        assertThat(DonutTile('x').isExit()).isTrue()
     }
 
     @ParameterizedTest
-    @ValueSource(chars = ['A', 'a', '#', '.', ' ', 'I'])
+    @ValueSource(chars = ['A', 'a', '#', '.', ' ', 'I', 'O', 'E'])
     fun isExitNegative(value: Char) {
         assertThat(DonutTile(value).isExit()).isFalse()
     }

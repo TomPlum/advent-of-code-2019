@@ -55,13 +55,13 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
         //Mark Entrance
         val surroundingEntrance = warpCodes.first { it.isEntrance() }.getPositions().flatMap { it.adjacentPoints() }.toSet()
         val entrance = filterPoints(surroundingEntrance).filter { it.value.isTraversable() }.keys.first()
-        addTile(entrance, DonutTile('I'))
+        addTile(entrance, DonutTile('e'))
         this.entrance = entrance
 
         //Mark Exit
         val surroundingExit = warpCodes.first { it.isExit() }.getPositions().flatMap { it.adjacentPoints() }.toSet()
         val exit = filterPoints(surroundingExit).filter { it.value.isTraversable() }.keys.first()
-        addTile(exit, DonutTile('O'))
+        addTile(exit, DonutTile('x'))
         this.exit = exit
 
         //Create Portals & Update Donut Maze
@@ -88,6 +88,9 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
 
         val unvisited = mutableSetOf(entrance)
         while (unvisited.isNotEmpty()) {
+            //Get Any Portal Entrances
+            val lastPortalEntrances = filterPoints(unvisited).filterValues { it.isPortalEntrance() }
+
             //Get Adjacent Tiles
             val adjacent = adjacentTiles(unvisited)
 
@@ -98,9 +101,12 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
             val traversable = adjacent.filterValues { it.isTraversable() }.keys
             unvisited.addAll(traversable)
 
+            //If At Portal Entrance, Add It Up-Next
+            val portalEntrances = adjacent.filterValues { it.isPortalEntrance() }.keys
+            unvisited.addAll(portalEntrances)
+
             //If Stepped Into Portal, Added Its Exit Up-Next
-            val portals = adjacent.filterValues { it.isPortalEntrance() }
-            val portalExitPositions = portals.map {
+            val portalExitPositions = lastPortalEntrances.map {
                 val entrancePosition = it.key
                 val portal = getPortalWithEntrance(entrancePosition)
                 portal.warp(entrancePosition)
@@ -108,10 +114,12 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
             unvisited.addAll(portalExitPositions)
 
             //Update Visited Traversable Tiles & Used Portal Tiles -> Map
-            (traversable + portalExitPositions).forEach { pos -> addTile(pos, DonutTile('o')) }
+            (traversable + lastPortalEntrances.keys + portalExitPositions).forEach { pos -> addTile(pos, DonutTile('o')) }
 
+            //Increment Steps Taken
             steps++
 
+            AdventLogger.debug("Step $steps")
             AdventLogger.debug(this)
 
             if (adjacent.count { it.value.isExit() } == 1) return steps

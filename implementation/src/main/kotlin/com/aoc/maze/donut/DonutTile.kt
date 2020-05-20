@@ -9,5 +9,5 @@ open class DonutTile(value: Char) : MapTile<Char>(value) {
 
     fun isTraversable() = value == '.'
 
-    fun isExit() = value == 'O'
+    fun isExit() = value == 'x'
 }

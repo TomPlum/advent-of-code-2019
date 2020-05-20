@@ -3,7 +3,16 @@ package com.aoc.maze.donut
 import log.AdventLogger
 import map.AdventMap
 import math.Point2D
+import java.lang.IllegalArgumentException
 
+/**
+ * A map of the surface of Pluto.
+ * The [DonutMaze] is a space-warping maze belonging to a long-list Pluto civilization.
+ *
+ * The entrance to the maze is reached via a [Portal] with the [WarpCode] AA.
+ * The exit to the maze is through the [Portal] with [WarpCode] ZZ.
+ * Every other portal in the maze has another matching one with the same [WarpCode].
+ */
 class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
 
     val portals = mutableSetOf<Portal>()
@@ -73,5 +82,44 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
         AdventLogger.debug("Exit: $exit")
         AdventLogger.debug("Maze Contains ${portals.size} Portals: $portals")
     }
+
+    fun findTheShortestPath(): Int {
+        var steps = 0
+
+        val unvisited = mutableSetOf(entrance)
+        while (unvisited.isNotEmpty()) {
+            //Get Adjacent Tiles
+            val adjacent = adjacentTiles(unvisited)
+
+            //Clear Last
+            unvisited.clear()
+
+            //Add Traversable Tiles Up-Next
+            val traversable = adjacent.filterValues { it.isTraversable() }.keys
+            unvisited.addAll(traversable)
+
+            //If Stepped Into Portal, Added Its Exit Up-Next
+            val portals = adjacent.filterValues { it.isPortalEntrance() }
+            val portalExitPositions = portals.map {
+                val entrancePosition = it.key
+                val portal = getPortalWithEntrance(entrancePosition)
+                portal.warp(entrancePosition)
+            }
+            unvisited.addAll(portalExitPositions)
+
+            //Update Visited Traversable Tiles & Used Portal Tiles -> Map
+            (traversable + portalExitPositions).forEach { pos -> addTile(pos, DonutTile('o')) }
+
+            steps++
+
+            AdventLogger.debug(this)
+
+            if (adjacent.count { it.value.isExit() } == 1) return steps
+        }
+        return steps
+    }
+
+    private fun getPortalWithEntrance(pos: Point2D): Portal = portals.find { it.hasEntrance(pos) }
+            ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $pos")
 
 }

@@ -30,9 +30,30 @@ class DonutTileTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
     @ValueSource(chars = ['A', ' ', '@', ','])
     fun isTraversableNegative(value: Char) {
         assertThat(DonutTile(value).isTraversable()).isFalse()
+    }
+
+    @Test
+    fun isPortalEntrancePositive() {
+        assertThat(DonutTile('@').isPortalEntrance()).isTrue()
+    }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['A', 'a', '#', '.', ' '])
+    fun isPortalEntranceNegative(value: Char) {
+        assertThat(DonutTile(value).isPortalEntrance()).isFalse()
+    }
+
+    @Test
+    fun isExit() {
+        assertThat(DonutTile('O').isExit()).isTrue()
+    }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['A', 'a', '#', '.', ' ', 'I'])
+    fun isExitNegative(value: Char) {
+        assertThat(DonutTile(value).isExit()).isFalse()
     }
 }

@@ -34,4 +34,18 @@ class DonutMazeTest {
         val maze = DonutMaze(input.values)
         assertThat(maze.exit).isEqualTo(Point2D(13,16))
     }
+
+    @Test
+    fun findShortestPathExampleMaze() {
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.findTheShortestPath()).isEqualTo(23)
+    }
+
+    @Test
+    fun findShortestPathLargeExampleMaze() {
+        val input = InputReader().readInputAsString("/maze/donut/large-example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.findTheShortestPath()).isEqualTo(58)
+    }
 }

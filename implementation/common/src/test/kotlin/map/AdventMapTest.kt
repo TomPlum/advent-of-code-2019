@@ -18,6 +18,14 @@ class AdventMapTest {
     }
 
     @Test
+    fun addTileAtExistingPointShouldUpdate() {
+        val map = ExampleMap()
+        map.addTile(Point2D(3, 4), ExampleTile(6))
+        map.addTile(Point2D(3, 4), ExampleTile(23))
+        assertThat(map.getTile(Point2D(3, 4)).value).isEqualTo(23)
+    }
+
+    @Test
     @DisplayName("Given a Map with some tiles, when getting a tile that exists, then it should return that tile")
     fun getTilePositive() {
         val map = ExampleMap()

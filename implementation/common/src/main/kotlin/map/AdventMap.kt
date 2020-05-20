@@ -20,8 +20,8 @@ abstract class AdventMap<T> {
     fun whereIs(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
     fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
 
-    fun adjacentTiles(position: Point2D) = data.filterKeys { it in position.adjacentPoints() }
-
+    fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
+    fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { k -> k in positions.flatMap { it.adjacentPoints() } }
     fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
 
     fun xMin() = data.keys.minBy { it.x }!!.x

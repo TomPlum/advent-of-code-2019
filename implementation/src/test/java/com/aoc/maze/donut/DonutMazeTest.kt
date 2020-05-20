@@ -48,4 +48,11 @@ class DonutMazeTest {
         val maze = DonutMaze(input.values)
         assertThat(maze.findTheShortestPath()).isEqualTo(58)
     }
+
+    @Test
+    fun solutionPartOne() {
+        val input = InputReader().readInputString(Day.from(20))
+        val maze = DonutMaze(input.values)
+        assertThat(maze.findTheShortestPath()).isEqualTo(526)
+    }
 }

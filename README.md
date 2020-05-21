@@ -44,6 +44,11 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 ## What I Learned
 
 ### Kotlin & Kotlin Gradle DSL
+A friend of mine had been raving about Kotlin for months at work, and I finally decided to start learning it when I
+started the Advent of Code. Having written in nothing but Java 10 hours a day for 2 years, I was amazed by how easy it
+was to pick the language up. The first thing I noticed was how succinct the language was syntactically. Most simple
+functions could be one-liners; return types were mostly implicit; and data classes turned huge Java bean classes into
+one line too.
 
 ### Data Structures & Algorithms
 Graphs, trees and mazes were a common theme and meant that path-finding algorithms were common.

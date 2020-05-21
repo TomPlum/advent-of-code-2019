@@ -14,15 +14,15 @@ class AdventMapTest {
     fun addTile() {
         val map = ExampleMap()
         val tile = ExampleTile(6)
-        map.addTile(Point2D(3, 4), tile)
+        map.addExampleTile(Point2D(3, 4), tile)
         assertThat(map.getTile(Point2D(3, 4), ExampleTile(0))).isEqualTo(tile)
     }
 
     @Test
     fun addTileAtExistingPointShouldUpdate() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(6))
-        map.addTile(Point2D(3, 4), ExampleTile(23))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(6))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(23))
         assertThat(map.getTile(Point2D(3, 4)).value).isEqualTo(23)
     }
 
@@ -30,8 +30,8 @@ class AdventMapTest {
     @DisplayName("Given a Map with some tiles, when getting a tile that exists, then it should return that tile")
     fun getTilePositive() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
-        map.addTile(Point2D(2, 12), ExampleTile(1))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(2, 12), ExampleTile(1))
         assertThat(map.getTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("1")
     }
 
@@ -39,7 +39,7 @@ class AdventMapTest {
     @DisplayName("Given a Map with some tiles, when getting a tile that doesn't exist, then it should return the default")
     fun getTileNegative() {
         val map = ExampleMap()
-        map.addTile(Point2D(0, 5), ExampleTile(1))
+        map.addExampleTile(Point2D(0, 5), ExampleTile(1))
         assertThat(map.getTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("0")
     }
 
@@ -47,14 +47,14 @@ class AdventMapTest {
     @Test
     fun hasRecordedPositive() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         assertThat(map.hasRecorded(Point2D(3, 4))).isTrue()
     }
 
     @Test
     fun hasRecordedNegative() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         assertThat(map.hasRecorded(Point2D(5, 8))).isFalse()
     }
 
@@ -62,22 +62,22 @@ class AdventMapTest {
     fun hasTilePositive() {
         val map = ExampleMap()
         val tile = ExampleTile(4)
-        map.addTile(Point2D(3, 4), tile)
+        map.addExampleTile(Point2D(3, 4), tile)
         assertThat(map.hasTile(tile)).isTrue()
     }
 
     @Test
     fun hasTileNegative() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         assertThat(map.hasTile(ExampleTile(1))).isFalse()
     }
 
     @Test
     fun tileQuantityWhenPositive() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
-        map.addTile(Point2D(0, 0), ExampleTile(12))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(0, 0), ExampleTile(12))
         assertThat(map.getTileQuantity()).isEqualTo(2)
     }
 
@@ -89,9 +89,9 @@ class AdventMapTest {
     @Test
     fun filterTiles() {
         val map = ExampleMap()
-        map.addTile(Point2D(3, 4), ExampleTile(4))
+        map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         val targetTile = ExampleTile(12)
-        map.addTile(Point2D(0, 0), targetTile)
+        map.addExampleTile(Point2D(0, 0), targetTile)
         assertThat(map.filterTiles { it.isMyTestValue() }).isEqualTo(mapOf(Pair(Point2D(0, 0), targetTile)))
     }
 
@@ -100,7 +100,7 @@ class AdventMapTest {
         val map = ExampleMap()
         for (y in 0..100) {
             for (x in 0..100) {
-                map.addTile(Point2D(x, y), ExampleTile(y))
+                map.addExampleTile(Point2D(x, y), ExampleTile(y))
             }
         }
         val tiles = map.filterPoints(setOf(Point2D(17, 4), Point2D(56, 86), Point2D(100, 100), Point2D(25, 99)))
@@ -123,5 +123,6 @@ class AdventMapTest {
 
     private class ExampleMap : AdventMap<ExampleTile>() {
         fun getTileQuantity() = tileQuantity()
+        fun addExampleTile(pos: Point2D, default: ExampleTile) = addTile(pos, default)
     }
 }

@@ -11,4 +11,8 @@ class ShipFloorMap : AdventMap<ShipFloorTile>() {
 
     fun tileType(position: Point2D) = getTile(position, ShipFloorTile.UNKNOWN)
 
+    fun oxygenateShipAt(position: Point2D) = addTile(position, ShipFloorTile.OXYGENATED)
+
+    fun addShipTile(position: Point2D, tile: ShipFloorTile) = addTile(position, tile)
+
 }

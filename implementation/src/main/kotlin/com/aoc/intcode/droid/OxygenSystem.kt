@@ -23,7 +23,8 @@ class OxygenSystem(private val map: ShipFloorMap) {
             nextTiles.clear()
             nextTiles.addAll(adjacentTraversable)
             traversableTiles.filterKeys { it in adjacentTraversable }.forEach {
-                map.addTile(it.key, ShipFloorTile.OXYGENATED)
+                val position = it.key
+                map.oxygenateShipAt(position)
             }
             AdventLogger.info(map)
             minutesElapsed++

@@ -6,7 +6,12 @@ import java.lang.IllegalArgumentException
 abstract class AdventMap<T> {
     private val data = mutableMapOf<Point2D, T>()
 
-    fun addTile(position: Point2D, tile: T) = data.put(position, tile)
+    /**
+     * Adds a new [tile] at the given [position].
+     * If a tile already exists at the given position then it returned, otherwise null.
+     */
+    protected fun addTile(position: Point2D, tile: T): T? = data.put(position, tile)
+
     fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
     fun getTile(position: Point2D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 

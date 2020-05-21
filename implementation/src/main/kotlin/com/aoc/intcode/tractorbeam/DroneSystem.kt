@@ -25,7 +25,7 @@ class DroneSystem(input: String) {
             (0 until gridSize).forEach { x ->
                 deployDrone(x, y)
                 val state = getDroneState()
-                scan.addTile(Point2D(x.toInt(), y.toInt()), state)
+                scan.update(Point2D(x.toInt(), y.toInt()), state)
                 computer.reset()
             }
         }
@@ -78,12 +78,12 @@ class DroneSystem(input: String) {
 
                 //Found Beam End
                 if (lastState.isPropagating() && currentState.isStationary()) {
-                    (x .. area).forEach { lazyScan.addTile(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
+                    (x .. area).forEach { lazyScan.update(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
                     foundEndOfBeam = true
                     lastState = DroneState.unknown()
                     x = 0
                 } else {
-                    lazyScan.addTile(Point2D(x, y.toInt()), currentState)
+                    lazyScan.update(Point2D(x, y.toInt()), currentState)
                     lastState = currentState
                     x++
                 }

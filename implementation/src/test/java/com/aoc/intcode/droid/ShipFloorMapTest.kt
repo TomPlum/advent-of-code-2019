@@ -16,15 +16,15 @@ class ShipFloorMapTest {
     @Test
     fun updateUnknownTileShouldAdd() {
         val emptyMap = ShipFloorMap()
-        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
+        emptyMap.addShipTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
         assertThat(emptyMap.getTile(Point2D(0, -1), ShipFloorTile.UNKNOWN)).isEqualTo(ShipFloorTile.TRAVERSABLE)
     }
 
     @Test
     fun updateKnownTileShouldReplace() {
         val emptyMap = ShipFloorMap()
-        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
-        emptyMap.addTile(Point2D(0, -1), ShipFloorTile.OXYGEN_SYSTEM)
+        emptyMap.addShipTile(Point2D(0, -1), ShipFloorTile.TRAVERSABLE)
+        emptyMap.addShipTile(Point2D(0, -1), ShipFloorTile.OXYGEN_SYSTEM)
         assertThat(emptyMap.getTile(Point2D(0, -1), ShipFloorTile.UNKNOWN)).isEqualTo(ShipFloorTile.OXYGEN_SYSTEM)
     }
 

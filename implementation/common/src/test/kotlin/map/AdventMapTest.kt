@@ -7,6 +7,7 @@ import assertk.assertions.isTrue
 import math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.util.*
 
 class AdventMapTest {
     @Test
@@ -109,6 +110,15 @@ class AdventMapTest {
 
     private class ExampleTile(private val data: Int) : MapTile<Int>(data) {
         fun isMyTestValue() = data == 12
+
+        override fun equals(other: Any?): Boolean {
+            if (other !is ExampleTile) return false
+            return data == other.data
+        }
+
+        override fun hashCode(): Int {
+            return Objects.hashCode(data)
+        }
     }
 
     private class ExampleMap : AdventMap<ExampleTile>() {

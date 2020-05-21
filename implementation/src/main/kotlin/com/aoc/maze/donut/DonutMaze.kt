@@ -123,9 +123,10 @@ class DonutMaze(data: List<String>) : AdventMap<DonutTile>() {
             //Increment Steps Taken
             steps++
 
-            AdventLogger.debug("Step $steps")
-            AdventLogger.debug(this)
+            //AdventLogger.debug("Step $steps")
+            //AdventLogger.debug(this)
 
+            //If We're At The Exit, Return Step Count
             if (adjacent.count { it.value.isExit() } == 1) return steps
         }
         return steps

@@ -12,8 +12,17 @@ abstract class AdventMap<T> {
      */
     protected fun addTile(position: Point2D, tile: T): T? = data.put(position, tile)
 
-    fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
-    fun getTile(position: Point2D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
+    /**
+     * Retrieves the tile at the given [position].
+     * If there is no tile present then the [default] is returned.
+     */
+    protected fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
+
+    /**
+     * Retrieves the tile at the given [position].
+     * @throws IllegalArgumentException if the map does not contain a tile at the given [position]
+     */
+    protected fun getTile(position: Point2D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 
     fun hasRecorded(position: Point2D): Boolean = data.containsKey(position)
     fun hasTile(value: T): Boolean = data.containsValue(value)

@@ -7,6 +7,8 @@ import assertk.assertions.isTrue
 import math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalArgumentException
 import java.util.*
 
 class AdventMapTest {
@@ -15,7 +17,7 @@ class AdventMapTest {
         val map = ExampleMap()
         val tile = ExampleTile(6)
         map.addExampleTile(Point2D(3, 4), tile)
-        assertThat(map.getTile(Point2D(3, 4), ExampleTile(0))).isEqualTo(tile)
+        assertThat(map.getExampleTile(Point2D(3, 4), ExampleTile(0))).isEqualTo(tile)
     }
 
     @Test
@@ -23,7 +25,7 @@ class AdventMapTest {
         val map = ExampleMap()
         map.addExampleTile(Point2D(3, 4), ExampleTile(6))
         map.addExampleTile(Point2D(3, 4), ExampleTile(23))
-        assertThat(map.getTile(Point2D(3, 4)).value).isEqualTo(23)
+        assertThat(map.getExampleTile(Point2D(3, 4)).value).isEqualTo(23)
     }
 
     @Test
@@ -32,7 +34,7 @@ class AdventMapTest {
         val map = ExampleMap()
         map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         map.addExampleTile(Point2D(2, 12), ExampleTile(1))
-        assertThat(map.getTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("1")
+        assertThat(map.getExampleTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("1")
     }
 
     @Test
@@ -40,9 +42,14 @@ class AdventMapTest {
     fun getTileNegative() {
         val map = ExampleMap()
         map.addExampleTile(Point2D(0, 5), ExampleTile(1))
-        assertThat(map.getTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("0")
+        assertThat(map.getExampleTile(Point2D(2, 12), ExampleTile(0)).toString()).isEqualTo("0")
     }
 
+    @Test
+    fun getTileThatDoesntExist() {
+        val e = assertThrows<IllegalArgumentException> { ExampleMap().getExampleTile(Point2D(0, 0)) }
+        assertThat(e.message).isEqualTo("Map does not contain tile at (0, 0)")
+    }
 
     @Test
     fun hasRecordedPositive() {
@@ -124,5 +131,7 @@ class AdventMapTest {
     private class ExampleMap : AdventMap<ExampleTile>() {
         fun getTileQuantity() = tileQuantity()
         fun addExampleTile(pos: Point2D, default: ExampleTile) = addTile(pos, default)
+        fun getExampleTile(pos: Point2D) = getTile(pos)
+        fun getExampleTile(pos: Point2D, default: ExampleTile) = getTile(pos, default)
     }
 }

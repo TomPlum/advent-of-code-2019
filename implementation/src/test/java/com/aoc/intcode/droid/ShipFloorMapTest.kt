@@ -49,6 +49,20 @@ class ShipFloorMapTest {
     }
 
     @Test
+    fun isNotCompletelyOxygenatedWhenShipHasTraversableTiles() {
+        val map = ShipFloorMap()
+        map.addShipTile(Point2D(0,0), ShipFloorTile.TRAVERSABLE)
+        assertThat(map.isNotCompletelyOxygenated()).isTrue()
+    }
+
+    @Test
+    fun isNotCompletelyOxygenatedWhenShipHasOnlyOxygenatedTiles() {
+        val map = ShipFloorMap()
+        map.addShipTile(Point2D(0,0), ShipFloorTile.OXYGENATED)
+        assertThat(map.isNotCompletelyOxygenated()).isFalse()
+    }
+
+    @Test
     fun toStringNewMap() {
         assertThat(ShipFloorMap().toString()).isEqualTo("D\n")
     }

@@ -18,7 +18,7 @@ class OxygenSystem(private val map: ShipFloorMap) {
         val oxygenSystem = map.filterTiles { it == ShipFloorTile.OXYGEN_SYSTEM }
         val nextTiles = mutableSetOf(oxygenSystem.keys.first())
         var minutesElapsed = 0
-        while (map.hasTile(ShipFloorTile.TRAVERSABLE)) {
+        while (map.isNotCompletelyOxygenated()) {
             val adjacentTraversable = nextTiles.flatMap { it.adjacentPoints() }.filter { it in traversableTiles.keys }
             nextTiles.clear()
             nextTiles.addAll(adjacentTraversable)

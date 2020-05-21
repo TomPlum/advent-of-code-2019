@@ -15,4 +15,7 @@ class ShipFloorMap : AdventMap<ShipFloorTile>() {
 
     fun addShipTile(position: Point2D, tile: ShipFloorTile) = addTile(position, tile)
 
+    fun isNotCompletelyOxygenated() = hasTile(ShipFloorTile.TRAVERSABLE)
+
+    fun hasRecordedShipTile(position: Point2D) = hasRecorded(position)
 }

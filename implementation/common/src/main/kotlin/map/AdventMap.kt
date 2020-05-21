@@ -24,8 +24,16 @@ abstract class AdventMap<T> {
      */
     protected fun getTile(position: Point2D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 
-    fun hasRecorded(position: Point2D): Boolean = data.containsKey(position)
-    fun hasTile(value: T): Boolean = data.containsValue(value)
+    /**
+     * @return true if the map has recorded a tile at the given [position]
+     */
+    protected fun hasRecorded(position: Point2D): Boolean = data.containsKey(position)
+
+    /**
+     * Checks if the map has a tile of the given type. Equality is left up to the type [T].
+     * @return true if the map has recorded at least one tile with the given [value]
+     */
+    protected fun hasTile(value: T): Boolean = data.containsValue(value)
 
     protected fun tileQuantity(): Int = data.size
 

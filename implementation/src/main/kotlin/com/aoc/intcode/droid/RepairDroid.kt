@@ -55,7 +55,7 @@ class RepairDroid(instructions: String) {
                     move(direction)
 
                     //Updated Visited Tiles (Unless Backtracking)
-                    if (!map.hasRecorded(Point2D(x, y))) {
+                    if (!map.hasRecordedShipTile(Point2D(x, y))) {
                         path.push(Pair(Point2D(x, y), direction))
                     }
 
@@ -96,10 +96,10 @@ class RepairDroid(instructions: String) {
     private fun getNextDirection() = getUnexploredSurroundingCoordinateDirection() ?: path.pop().second.reverse()
 
     private fun getUnexploredSurroundingCoordinateDirection(): Direction? {
-        if (!map.hasRecorded(Point2D(x, y + 1))) return Direction.NORTH
-        if (!map.hasRecorded(Point2D(x + 1, y))) return Direction.EAST
-        if (!map.hasRecorded(Point2D(x, y - 1))) return Direction.SOUTH
-        if (!map.hasRecorded(Point2D(x - 1, y))) return Direction.WEST
+        if (!map.hasRecordedShipTile(Point2D(x, y + 1))) return Direction.NORTH
+        if (!map.hasRecordedShipTile(Point2D(x + 1, y))) return Direction.EAST
+        if (!map.hasRecordedShipTile(Point2D(x, y - 1))) return Direction.SOUTH
+        if (!map.hasRecordedShipTile(Point2D(x - 1, y))) return Direction.WEST
         return null
     }
 }

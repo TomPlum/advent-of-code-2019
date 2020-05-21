@@ -55,14 +55,14 @@ class AdventMapTest {
     fun hasRecordedPositive() {
         val map = ExampleMap()
         map.addExampleTile(Point2D(3, 4), ExampleTile(4))
-        assertThat(map.hasRecorded(Point2D(3, 4))).isTrue()
+        assertThat(map.hasMapped(Point2D(3, 4))).isTrue()
     }
 
     @Test
     fun hasRecordedNegative() {
         val map = ExampleMap()
         map.addExampleTile(Point2D(3, 4), ExampleTile(4))
-        assertThat(map.hasRecorded(Point2D(5, 8))).isFalse()
+        assertThat(map.hasMapped(Point2D(5, 8))).isFalse()
     }
 
     @Test
@@ -70,14 +70,14 @@ class AdventMapTest {
         val map = ExampleMap()
         val tile = ExampleTile(4)
         map.addExampleTile(Point2D(3, 4), tile)
-        assertThat(map.hasTile(tile)).isTrue()
+        assertThat(map.hasExampleTile(tile)).isTrue()
     }
 
     @Test
     fun hasTileNegative() {
         val map = ExampleMap()
         map.addExampleTile(Point2D(3, 4), ExampleTile(4))
-        assertThat(map.hasTile(ExampleTile(1))).isFalse()
+        assertThat(map.hasExampleTile(ExampleTile(1))).isFalse()
     }
 
     @Test
@@ -133,5 +133,7 @@ class AdventMapTest {
         fun addExampleTile(pos: Point2D, default: ExampleTile) = addTile(pos, default)
         fun getExampleTile(pos: Point2D) = getTile(pos)
         fun getExampleTile(pos: Point2D, default: ExampleTile) = getTile(pos, default)
+        fun hasMapped(pos: Point2D) = hasRecorded(pos)
+        fun hasExampleTile(tile: ExampleTile) = hasTile(tile)
     }
 }

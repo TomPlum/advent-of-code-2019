@@ -30,12 +30,12 @@ class ShipFloorMapTest {
 
     @Test
     fun hasRecordedPositive() {
-        assertThat(ShipFloorMap().hasRecorded(Point2D(0, 0))).isTrue()
+        assertThat(ShipFloorMap().hasRecordedShipTile(Point2D(0, 0))).isTrue()
     }
 
     @Test
     fun hasRecordedNegative() {
-        assertThat(ShipFloorMap().hasRecorded(Point2D(12, -15))).isFalse()
+        assertThat(ShipFloorMap().hasRecordedShipTile(Point2D(12, -15))).isFalse()
     }
 
     @Test

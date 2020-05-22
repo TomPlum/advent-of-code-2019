@@ -35,9 +35,19 @@ abstract class AdventMap<T> {
      */
     protected fun hasTile(value: T): Boolean = data.containsValue(value)
 
+    /**
+     * @return The number of tile currently recorded in the [AdventMap].
+     */
     protected fun tileQuantity(): Int = data.size
 
-    fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { it in positions }
+    /**
+     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions],
+     * then it is omitted from the response.
+     * @return a [Map] of the given [positions] and their respective tiles.
+     */
+    protected fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { it in positions }
+
+
     fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
     fun whereIs(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
     fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()

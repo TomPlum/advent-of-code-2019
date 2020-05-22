@@ -18,4 +18,6 @@ class ShipFloorMap : AdventMap<ShipFloorTile>() {
     fun isNotCompletelyOxygenated() = hasTile(ShipFloorTile.TRAVERSABLE)
 
     fun hasRecordedShipTile(position: Point2D) = hasRecorded(position)
+
+    fun filterShipTiles(predicate: (ShipFloorTile) -> Boolean) = filterTiles(predicate)
 }

@@ -1,9 +1,13 @@
 package map
 
 import math.Point2D
-import java.lang.IllegalArgumentException
+import kotlin.contracts.ExperimentalContracts
 
+/**
+ *
+ */
 abstract class AdventMap<T> {
+    /** The internal data representation, mapping the positions to the tiles */
     private val data = mutableMapOf<Point2D, T>()
 
     /**
@@ -47,20 +51,45 @@ abstract class AdventMap<T> {
      */
     protected fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { it in positions }
 
+    /**
+     * Gets all the tiles that equate to true on the given [predicate].
+     * Each implementation of [AdventMap] will have a tile of type [T]. This tile will provide the function
+     * that will be evaluated in this predicate.
+     * @return a [Map] of all tiles that match the given [predicate].
+     */
+    protected fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
 
-    fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
-    fun whereIs(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
-    fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
+    @ExperimentalContracts
+    protected fun whereIs(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
 
-    fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
-    fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { k -> k in positions.flatMap { it.adjacentPoints() } }
-    fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
+    @ExperimentalContracts
+    protected fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
 
-    fun xMin() = data.keys.minBy { it.x }!!.x
-    fun yMin() = data.keys.minBy { it.y }!!.y
+    protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { k -> k in positions.flatMap { it.adjacentPoints() } }
+    private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
 
-    fun xMax() = data.keys.maxBy { it.x }!!.x
-    fun yMax() = data.keys.maxBy { it.y }!!.y
+    @ExperimentalContracts
+    protected fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
+
+    /**
+     * @return The minimum x-ordinate currently recorded in the map.
+     */
+    protected fun xMin() = data.keys.minBy { it.x }!!.x
+
+    /**
+     * @return The minimum y-ordinate currently recorded in the map.
+     */
+    protected fun yMin() = data.keys.minBy { it.y }!!.y
+
+    /**
+     * @return The maximum x-ordinate currently recorded in the map.
+     */
+    protected fun xMax() = data.keys.maxBy { it.x }!!.x
+
+    /**
+     * @return The maximum y-ordinate currently recorded in the map.
+     */
+    protected fun yMax() = data.keys.maxBy { it.y }!!.y
 
     /**
      * Creates a cartesian graph style visual representation of the [data]

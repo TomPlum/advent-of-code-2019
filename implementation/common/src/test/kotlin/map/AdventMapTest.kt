@@ -99,7 +99,7 @@ class AdventMapTest {
         map.addExampleTile(Point2D(3, 4), ExampleTile(4))
         val targetTile = ExampleTile(12)
         map.addExampleTile(Point2D(0, 0), targetTile)
-        assertThat(map.filterTiles { it.isMyTestValue() }).isEqualTo(mapOf(Pair(Point2D(0, 0), targetTile)))
+        assertThat(map.getTiles { it.isMyTestValue() }).isEqualTo(mapOf(Pair(Point2D(0, 0), targetTile)))
     }
 
     @Test
@@ -136,5 +136,6 @@ class AdventMapTest {
         fun hasMapped(pos: Point2D) = hasRecorded(pos)
         fun hasExampleTile(tile: ExampleTile) = hasTile(tile)
         fun getTilesAtPositions(positions: Set<Point2D>) = filterPoints(positions)
+        fun getTiles(predicate: (ExampleTile) -> Boolean) = filterTiles(predicate)
     }
 }

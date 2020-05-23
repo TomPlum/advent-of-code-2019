@@ -4,7 +4,16 @@ import math.Point2D
 import kotlin.contracts.ExperimentalContracts
 
 /**
+ * This class is designed for inheritance.
  *
+ * Lots of the days involve the concept of a 'Map' or a 'Maze' in which the shortest path must be found while
+ * meeting day-specific criteria. A cartesian-style graph is internally maintained that maps tiles to [Point2D]
+ * coordinates.
+ *
+ * //TODO: Restrict the type parameter to a type that extends MapTile? Not sure about enums
+ *
+ * @param T The type of 'tile' that will be mapped.
+ * @see MapTile
  */
 abstract class AdventMap<T> {
     /** The internal data representation, mapping the positions to the tiles */

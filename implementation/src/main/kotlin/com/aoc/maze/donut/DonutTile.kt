@@ -1,6 +1,6 @@
 package com.aoc.maze.donut
 
-import map.MapTile
+import com.aoc.map.MapTile
 
 open class DonutTile(value: Char) : MapTile<Char>(value) {
     fun isPortalEntrance() = value == '@'

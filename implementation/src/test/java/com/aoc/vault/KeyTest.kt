@@ -3,7 +3,7 @@ package com.aoc.vault
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import math.Point2D
+import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

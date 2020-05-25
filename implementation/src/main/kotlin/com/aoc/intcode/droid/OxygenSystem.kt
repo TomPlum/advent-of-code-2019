@@ -1,7 +1,7 @@
 package com.aoc.intcode.droid
 
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 
 class OxygenSystem(private val map: ShipFloorMap) {
 

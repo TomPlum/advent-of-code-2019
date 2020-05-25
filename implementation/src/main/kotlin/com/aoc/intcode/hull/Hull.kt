@@ -1,7 +1,7 @@
 package com.aoc.intcode.hull
 
-import map.AdventMap
-import math.Point2D
+import com.aoc.map.AdventMap
+import com.aoc.math.Point2D
 
 class Hull : AdventMap<HullPaint>() {
 

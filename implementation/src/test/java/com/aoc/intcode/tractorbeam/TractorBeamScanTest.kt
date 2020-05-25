@@ -2,8 +2,8 @@ package com.aoc.intcode.tractorbeam
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import input.InputReader
-import math.Point2D
+import com.aoc.input.InputReader
+import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
 
 class TractorBeamScanTest {

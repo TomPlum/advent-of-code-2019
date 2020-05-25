@@ -1,6 +1,6 @@
 package com.aoc.maze.donut
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 data class WarpCode(val charOne: Char, val posOne: Point2D, val charTwo: Char, val posTwo: Point2D) {
 

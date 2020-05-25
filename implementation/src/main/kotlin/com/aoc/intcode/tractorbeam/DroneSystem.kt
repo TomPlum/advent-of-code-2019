@@ -1,8 +1,8 @@
 package com.aoc.intcode.tractorbeam
 
 import com.aoc.intcode.computer.IntCodeComputer
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)

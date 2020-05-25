@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.panel.Wire
 import com.aoc.panel.WireSegment
-import math.Point2D
+import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

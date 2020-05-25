@@ -1,6 +1,6 @@
 package com.aoc.maze.donut
 
-import math.Point2D
+import com.aoc.math.Point2D
 import java.lang.IllegalArgumentException
 
 //TODO: are 2 warp codes needed? A pair of warp-games IS a portal with one common warp code

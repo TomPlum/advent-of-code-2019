@@ -1,8 +1,8 @@
 package com.aoc.maze.donut
 
-import log.AdventLogger
-import map.AdventMap
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.map.AdventMap
+import com.aoc.math.Point2D
 import java.lang.IllegalArgumentException
 
 /**

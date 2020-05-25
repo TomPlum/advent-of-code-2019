@@ -8,7 +8,7 @@ data class Point2D(val x: Int, val y: Int) {
     /**
      * Returns the four points that are orthogonally adjacent.
      */
-    fun adjacentPoints() = setOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
+    fun adjacentPoints() = listOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
 
     /**
      * Calculates the Manhattan Distance between two [Point2D]

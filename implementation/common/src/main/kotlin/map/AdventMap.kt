@@ -74,6 +74,11 @@ abstract class AdventMap<T> {
     @ExperimentalContracts
     protected fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
 
+    /**
+     * Gets all the tiles that are adjacent to the given [positions].
+     * @see Point2D.adjacentPoints
+     * @return a [Map] of adjacent [Point2D] and their respective tiles, [T].
+     */
     protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { k -> k in positions.flatMap { it.adjacentPoints() } }
     private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
 

@@ -39,20 +39,20 @@ class DonutMazeTest {
     fun findShortestPathExampleMaze() {
         val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = DonutMaze(input.values)
-        assertThat(maze.findTheShortestPath()).isEqualTo(23)
+        assertThat(maze.findShortestPath()).isEqualTo(23)
     }
 
     @Test
     fun findShortestPathLargeExampleMaze() {
         val input = InputReader().readInputAsString("/maze/donut/large-example-maze.txt")
         val maze = DonutMaze(input.values)
-        assertThat(maze.findTheShortestPath()).isEqualTo(58)
+        assertThat(maze.findShortestPath()).isEqualTo(58)
     }
 
     @Test
     fun solutionPartOne() {
         val input = InputReader().readInputString(Day.from(20))
         val maze = DonutMaze(input.values)
-        assertThat(maze.findTheShortestPath()).isEqualTo(526)
+        assertThat(maze.findShortestPath()).isEqualTo(526)
     }
 }

@@ -79,11 +79,13 @@ abstract class AdventMap<T> {
      * @see Point2D.adjacentPoints
      * @return a [Map] of adjacent [Point2D] and their respective tiles, [T].
      */
-    protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> = data.filterKeys { k -> k in positions.flatMap { it.adjacentPoints() } }
-    private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
+    protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> {
+        return positions.flatMap { it.adjacentPoints() }.associateWith(this::getTile)
+    }
 
     @ExperimentalContracts
     protected fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
+    private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
 
     /**
      * @return The minimum x-ordinate currently recorded in the map.

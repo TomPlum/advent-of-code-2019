@@ -1,6 +1,7 @@
 package com.aoc.maze.donut
 
 import com.aoc.math.Point2D
+import com.aoc.maze.donut.portal.Portal
 
 /**
  * A map of the surface of Pluto.

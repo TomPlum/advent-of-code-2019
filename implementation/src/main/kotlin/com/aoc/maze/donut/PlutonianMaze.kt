@@ -3,6 +3,8 @@ package com.aoc.maze.donut
 import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap
 import com.aoc.math.Point2D
+import com.aoc.maze.donut.portal.Portal
+import com.aoc.maze.donut.portal.WarpCode
 
 abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
     val portals = mutableSetOf<Portal>()

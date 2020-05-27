@@ -76,4 +76,11 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
         AdventLogger.debug("Exit: $exit")
         AdventLogger.debug("Maze Contains ${portals.size} Portals: $portals")
     }
+
+    /**
+     * Find the [Portal] that warps to or from the given [position].
+     * @throws IllegalArgumentException if the [DonutMaze] does not contain a [Portal] with the given [position]
+     */
+    protected fun getPortalWithEntrance(position: Point2D): Portal = portals.find { it.hasEntrance(position) }
+            ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")
 }

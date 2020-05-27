@@ -1,7 +1,7 @@
 package com.aoc.maze.donut
 
-import com.aoc.math.Point2D
 import com.aoc.maze.donut.portal.Portal
+import com.aoc.maze.donut.portal.WarpCode
 
 /**
  * A map of the surface of Pluto.
@@ -61,12 +61,4 @@ class DonutMaze(data: List<String>) : PlutonianMaze(data) {
         }
         return steps
     }
-
-    /**
-     * Find the [Portal] that warps to or from the given [position].
-     * @throws IllegalArgumentException if the [DonutMaze] does not contain a [Portal] with the given [position]
-     */
-    private fun getPortalWithEntrance(position: Point2D): Portal = portals.find { it.hasEntrance(position) }
-            ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")
-
 }

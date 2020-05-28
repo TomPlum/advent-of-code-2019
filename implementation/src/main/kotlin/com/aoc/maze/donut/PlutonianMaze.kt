@@ -59,16 +59,16 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
         this.exit = exit
 
         //Create Portals & Update Donut Maze
-        warpCodePairs.forEach { (first, second) ->
-            val surroundingFirst = first.getPositions().flatMap { it.adjacentPoints() }.toSet()
+        warpCodePairs.forEach { (firstWarpCode, secondWarpCode) ->
+            val surroundingFirst = firstWarpCode.getPositions().flatMap { it.adjacentPoints() }.toSet()
             val firstEntrance = filterPoints(surroundingFirst).filter { it.value.isTraversable() }.keys.first()
             addTile(firstEntrance, DonutTile('@'))
 
-            val surroundingSecond = second.getPositions().flatMap { it.adjacentPoints() }.toSet()
+            val surroundingSecond = secondWarpCode.getPositions().flatMap { it.adjacentPoints() }.toSet()
             val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
             addTile(secondEntrance, DonutTile('@'))
 
-            portals.add(Portal(Pair(first, second), Pair(firstEntrance, secondEntrance)))
+            portals.add(Portal(Pair(firstWarpCode, secondWarpCode), Pair(firstEntrance, secondEntrance)))
         }
 
         AdventLogger.debug(this)

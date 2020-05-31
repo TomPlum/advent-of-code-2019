@@ -2,7 +2,30 @@ plugins {
     jacoco
 }
 
+/*sourceSets.main {
+    java.srcDirs("src/jmh/kotlin")
+}*/
+
+val jmh: Configuration by configurations.creating
+val benchmarkingOnly: Configuration by configurations.creating {
+    extendsFrom(configurations["testImplementation"])
+}
+
+sourceSets.create("jmh")
+
+sourceSets {
+    //main.kotlin.srcDirs("src/jmh/kotlin")
+    //java.srcDirs("src/jmh/kotlin")
+}
+
+configure<SourceSetContainer> {
+    named("jmh") {
+        java.srcDir("src/jmh/kotlin")
+    }
+}
+
 dependencies {
+    //Compile 'Common' Sub-Module
     implementation(project(":implementation:common"))
 
     //JUnit & Testing
@@ -11,7 +34,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
-    testImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
+    benchmarkingOnly("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")

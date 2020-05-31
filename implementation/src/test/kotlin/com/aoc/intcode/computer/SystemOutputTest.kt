@@ -160,7 +160,7 @@ class SystemOutputTest {
 
     @Test
     fun parseAsciiToString() {
-        val systemOutput = SystemOutput();
+        val systemOutput = SystemOutput()
         systemOutput.add(77)
         systemOutput.add(97)
         systemOutput.add(105)

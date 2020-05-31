@@ -78,27 +78,27 @@ class KeyTest {
     fun equalityPositive() {
         val e1 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
         val e2 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
-        assertThat(e1).isEqualTo(e2);
+        assertThat(e1).isEqualTo(e2)
     }
 
     @Test
     fun equalityTestNegativeDifferentCollectedKeys() {
         val e1 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
         val e2 = Key('e', Point2D(5, 17), setOf(a,b,c))
-        assertThat(e1).isNotEqualTo(e2);
+        assertThat(e1).isNotEqualTo(e2)
     }
 
     @Test
     fun equalityTestNegativeDifferentCoordinate() {
         val e1 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
         val e2 = Key('e', Point2D(4, 1), setOf(a,b,c,d))
-        assertThat(e1).isNotEqualTo(e2);
+        assertThat(e1).isNotEqualTo(e2)
     }
 
     @Test
     fun equalityTestNegativeDifferentName() {
         val e1 = Key('e', Point2D(5, 17), setOf(a,b,c,d))
         val e2 = Key('E', Point2D(5, 17), setOf(a,b,c,d))
-        assertThat(e1).isNotEqualTo(e2);
+        assertThat(e1).isNotEqualTo(e2)
     }
 }

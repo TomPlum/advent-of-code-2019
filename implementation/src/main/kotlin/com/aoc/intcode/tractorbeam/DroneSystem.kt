@@ -1,8 +1,8 @@
 package com.aoc.intcode.tractorbeam
 
 import com.aoc.intcode.computer.IntCodeComputer
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 
 class DroneSystem(input: String) {
     private val computer = IntCodeComputer(input)
@@ -18,14 +18,14 @@ class DroneSystem(input: String) {
      * @param gridSize A positive (or zero) integer representing the width and height of the area to scan
      * @return A [TractorBeamScan] detailing the effects of the beam in the scanned area
      */
-    fun scanAreaSurroundingEmitter(gridSize: Int): TractorBeamScan {
+    fun scanAreaSurroundingEmitter(gridSize: Long): TractorBeamScan {
         val scan = TractorBeamScan()
 
         (0 until gridSize).forEach { y ->
             (0 until gridSize).forEach { x ->
                 deployDrone(x, y)
                 val state = getDroneState()
-                scan.addTile(Point2D(x, y), state)
+                scan.update(Point2D(x.toInt(), y.toInt()), state)
                 computer.reset()
             }
         }
@@ -34,7 +34,7 @@ class DroneSystem(input: String) {
         return scan
     }
 
-    fun scanAreaForSantasShip(area: Int): Long {
+    fun scanAreaForSantasShip(area: Long): Long {
         while (true) {
             //val scan = scanNextBlock(area + (area / 2))
             scanNextBlock(area)
@@ -48,16 +48,16 @@ class DroneSystem(input: String) {
         }
     }
 
-    private fun scanNextBlock(area: Int) {
+    private fun scanNextBlock(area: Long) {
         var foundEndOfBeam: Boolean
         (y until y + area).forEach { y ->
             foundEndOfBeam = false
             while(!foundEndOfBeam) {
                 if (x < lastBeamStartX) {
-                    deployDrone(lastBeamStartX, y)
+                    deployDrone(lastBeamStartX.toLong(), y)
                     x = lastBeamStartX
                 } else {
-                    deployDrone(x, y)
+                    deployDrone(x.toLong(), y)
                 }
 
                 val currentState = getDroneState()
@@ -78,12 +78,12 @@ class DroneSystem(input: String) {
 
                 //Found Beam End
                 if (lastState.isPropagating() && currentState.isStationary()) {
-                    (x .. area).forEach { lazyScan.addTile(Point2D(it, y), DroneState.stationary()) }
+                    (x .. area).forEach { lazyScan.update(Point2D(it.toInt(), y.toInt()), DroneState.stationary()) }
                     foundEndOfBeam = true
                     lastState = DroneState.unknown()
                     x = 0
                 } else {
-                    lazyScan.addTile(Point2D(x, y), currentState)
+                    lazyScan.update(Point2D(x, y.toInt()), currentState)
                     lastState = currentState
                     x++
                 }
@@ -91,7 +91,7 @@ class DroneSystem(input: String) {
                 computer.reset()
             }
         }
-        this.y += area
+        this.y += area.toInt()
         AdventLogger.debug(lazyScan)
     }
 
@@ -104,9 +104,9 @@ class DroneSystem(input: String) {
         }
     }
 
-    private fun deployDrone(x: Int, y: Int) {
+    private fun deployDrone(x: Long, y: Long) {
         val input = computer.program.memory.input
-        input.add(x.toLong())
-        input.add(y.toLong())
+        input.add(x)
+        input.add(y)
     }
 }

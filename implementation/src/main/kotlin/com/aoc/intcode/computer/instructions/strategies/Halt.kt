@@ -4,7 +4,7 @@ import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.Memory
 import com.aoc.intcode.computer.ParameterMode
 import com.aoc.intcode.computer.instructions.InstructionStrategy
-import log.AdventLogger
+import com.aoc.log.AdventLogger
 import java.util.*
 
 class Halt: InstructionStrategy {

@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import com.aoc.fuel.factory.components.Chemical
 import com.aoc.fuel.factory.components.Fuel
 import com.aoc.fuel.factory.components.Ore
-import input.InputReader
+import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
 
 class NanoFactoryTest {

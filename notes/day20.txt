@@ -1,0 +1,25 @@
+         A
+         A
+  #######.#########
+  #######.........#
+  #######.#######.#
+  #######.#######.#
+  #######.#######.#
+  #####  B    ###.#
+BC...##  C    ###.#
+  ##.##       ###.#
+  ##...DE  F  ###.#
+  #####    G  ###.#
+  #########.#####.#
+DE..#######...###.#
+  #.#########.###.#
+FG..#########.....#
+  ###########.#####
+             Z
+             Z
+
+Part 2:
+
+- The outermost level is 0.
+- On Level 0, only AA and ZZ function as the entrance and exit respectively. All other outer portals are walls
+- On Levels > 0, AA and ZZ are walls and outer portals bring you one level up. Inner portals go deeper

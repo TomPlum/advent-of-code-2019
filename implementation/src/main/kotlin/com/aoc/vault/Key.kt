@@ -1,6 +1,6 @@
 package com.aoc.vault
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
     val linkedKeys = mutableMapOf<Key, Float>()
@@ -16,6 +16,8 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
     fun collectedKeysQuantity(): Int = collectedKeys.size + 1
 
     fun pathString(): String = "[${(collectedKeys + this).joinToString(", ") { it.name.toString() } }]"
+
+    fun hasTransitivelyLinkedKey(key: Key) = getAllChildren().contains(key)
 
     override fun equals(other: Any?): Boolean {
         if (other !is Key) return false

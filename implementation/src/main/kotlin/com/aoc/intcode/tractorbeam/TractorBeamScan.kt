@@ -1,14 +1,10 @@
 package com.aoc.intcode.tractorbeam
 
-import log.AdventLogger
-import map.AdventMap
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.map.AdventMap
+import com.aoc.math.Point2D
 
 class TractorBeamScan : AdventMap<DroneState>() {
-
-    private var lastBlockMaxY: Int? = null
-    private var lastRowBeamStartX: Int = 0
-    private var lastRowBeamEndX: Int? = null
 
     companion object {
         fun fromData(data: List<String>): TractorBeamScan {
@@ -22,34 +18,26 @@ class TractorBeamScan : AdventMap<DroneState>() {
         }
     }
 
-    fun findSquareClosestToEmitter(squareSize: Int): Long {
-        val yMin = (lastBlockMaxY ?: squareSize) - squareSize
-        val yMax = if (lastBlockMaxY == null) squareSize else lastBlockMaxY!! + squareSize
-
-        (yMin .. yMax).forEach { y ->
+    fun findSquareClosestToEmitter(squareSize: Long): Long {
+        (yMin()..yMax()).forEach { y ->
             val rowCoordinates = mutableSetOf<Point2D>()
-
-            val xMax = (lastRowBeamEndX ?: squareSize) + 5
-            (lastRowBeamStartX ..xMax).forEach { x ->
+            (xMin()..xMax()).forEach { x ->
                 rowCoordinates.add(Point2D(x, y))
             }
 
             val row = filterPoints(rowCoordinates).filterValues { it.isPropagating() }
-            lastRowBeamStartX = row.minBy { it.key.x }?.key?.x ?: lastRowBeamStartX
-            lastRowBeamEndX = row.maxBy { it.key.x }?.key?.x ?: lastRowBeamEndX
 
             val beamWidth = row.count()
 
             if (beamWidth >= squareSize) {
                 row.keys.forEach { pos ->
-                    if (pointHasBeamColumn(pos, squareSize) && pointHasBeamRow(pos, squareSize)) {
+                    if (pointHasBeamColumn(pos, squareSize.toInt()) && pointHasBeamRow(pos, squareSize.toInt())) {
                         AdventLogger.debug("Found Ship @ $pos")
                         return ((pos.x * 10000) + pos.y).toLong()
                     }
                 }
             }
         }
-        if (lastBlockMaxY == null) lastBlockMaxY = squareSize else lastBlockMaxY = lastBlockMaxY!! + squareSize
         throw ShipNotFound(squareSize)
     }
 
@@ -72,4 +60,6 @@ class TractorBeamScan : AdventMap<DroneState>() {
      * @return The total area of the scan, including every point scanned by the [DroneSystem]
      */
     fun getArea() = tileQuantity()
+
+    fun update(position: Point2D, droneState: DroneState) = addTile(position, droneState)
 }

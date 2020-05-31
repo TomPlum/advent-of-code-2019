@@ -1,6 +1,6 @@
 package com.aoc.panel
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 class Panel(private val firstWire: Wire, private val secondWire: Wire) {
 

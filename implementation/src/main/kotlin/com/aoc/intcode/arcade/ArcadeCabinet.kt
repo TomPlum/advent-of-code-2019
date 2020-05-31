@@ -1,8 +1,8 @@
 package com.aoc.intcode.arcade
 
 import com.aoc.intcode.computer.IntCodeComputer
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 
 class ArcadeCabinet(gameSoftware: String) {
     private var computer = IntCodeComputer(gameSoftware)

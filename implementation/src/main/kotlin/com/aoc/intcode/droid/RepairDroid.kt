@@ -1,8 +1,8 @@
 package com.aoc.intcode.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 import java.util.*
 
 class RepairDroid(instructions: String) {
@@ -39,39 +39,39 @@ class RepairDroid(instructions: String) {
                     //Record Wall Coordinate
                     val wall = ShipFloorTile.WALL
                     when (direction) {
-                        Direction.NORTH -> map.addTile(Point2D(x, y + 1), wall)
-                        Direction.EAST -> map.addTile(Point2D(x + 1, y), wall)
-                        Direction.SOUTH -> map.addTile(Point2D(x, y - 1), wall)
-                        Direction.WEST -> map.addTile(Point2D(x - 1, y), wall)
+                        Direction.NORTH -> map.addShipTile(Point2D(x, y + 1), wall)
+                        Direction.EAST -> map.addShipTile(Point2D(x + 1, y), wall)
+                        Direction.SOUTH -> map.addShipTile(Point2D(x, y - 1), wall)
+                        Direction.WEST -> map.addShipTile(Point2D(x - 1, y), wall)
                     }
                 }
                 DroidResponse.SUCCESSFULLY_CHANGED_POSITION -> {
                     //Record Current Coordinate As Traversable (Unless Inside Oxygen System)
                     if (map.tileType(Point2D(x, y)) != ShipFloorTile.OXYGEN_SYSTEM) {
-                        map.addTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
+                        map.addShipTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
                     }
 
                     //Increment Relevant Ordinate
                     move(direction)
 
                     //Updated Visited Tiles (Unless Backtracking)
-                    if (!map.hasRecorded(Point2D(x, y))) {
+                    if (!map.hasRecordedShipTile(Point2D(x, y))) {
                         path.push(Pair(Point2D(x, y), direction))
                     }
 
                     //Record New Coordinate As Droid Current Position
-                    map.addTile(Point2D(x, y), ShipFloorTile.DROID)
+                    map.addShipTile(Point2D(x, y), ShipFloorTile.DROID)
                 }
                 DroidResponse.LOCATED_OXYGEN_SYSTEM -> {
                     //Record Current Coordinate As Traversable
-                    map.addTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
+                    map.addShipTile(Point2D(x, y), ShipFloorTile.TRAVERSABLE)
 
                     //Increment Relevant Ordinate
                     move(direction)
 
                     //Log Oxygen System Details
                     oxygenSystemInfo = Pair(Point2D(x, y), path.size)
-                    map.addTile(Point2D(x, y), ShipFloorTile.OXYGEN_SYSTEM)
+                    map.addShipTile(Point2D(x, y), ShipFloorTile.OXYGEN_SYSTEM)
 
                     //Log Oxygen System Visit
                     path.push(Pair(Point2D(x, y), direction))
@@ -96,10 +96,10 @@ class RepairDroid(instructions: String) {
     private fun getNextDirection() = getUnexploredSurroundingCoordinateDirection() ?: path.pop().second.reverse()
 
     private fun getUnexploredSurroundingCoordinateDirection(): Direction? {
-        if (!map.hasRecorded(Point2D(x, y + 1))) return Direction.NORTH
-        if (!map.hasRecorded(Point2D(x + 1, y))) return Direction.EAST
-        if (!map.hasRecorded(Point2D(x, y - 1))) return Direction.SOUTH
-        if (!map.hasRecorded(Point2D(x - 1, y))) return Direction.WEST
+        if (!map.hasRecordedShipTile(Point2D(x, y + 1))) return Direction.NORTH
+        if (!map.hasRecordedShipTile(Point2D(x + 1, y))) return Direction.EAST
+        if (!map.hasRecordedShipTile(Point2D(x, y - 1))) return Direction.SOUTH
+        if (!map.hasRecordedShipTile(Point2D(x - 1, y))) return Direction.WEST
         return null
     }
 }

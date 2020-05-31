@@ -2,8 +2,10 @@ package com.aoc.vault
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNotEqualTo
-import math.Point2D
+import assertk.assertions.isTrue
+import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -40,6 +42,31 @@ class KeyTest {
     fun pathString() {
         val e = Key('e', Point2D(15, 11), setOf(a,b,c,d))
         assertThat(e.pathString()).isEqualTo("[a, b, c, d, e]")
+    }
+
+    @Test
+    fun hasTransitivelyLinkedKeyPositive() {
+        a.linkTo(b, 10F)
+        b.linkTo(c, 5F)
+        c.linkTo(d, 1F)
+        assertThat(a.hasTransitivelyLinkedKey(d)).isTrue();
+    }
+
+    @Test
+    fun hasTransitivelyLinkedKeyNegative() {
+        val unlinkedKey = Key('e', Point2D(0, 1), setOf())
+        a.linkTo(b, 10F)
+        b.linkTo(c, 5F)
+        c.linkTo(d, 1F)
+        assertThat(a.hasTransitivelyLinkedKey(unlinkedKey)).isFalse();
+    }
+
+    @Test
+    fun getAllChildren() {
+        a.linkTo(b, 10F)
+        b.linkTo(c, 5F)
+        c.linkTo(d, 1F)
+        assertThat(a.getAllChildren()).isEqualTo(setOf(b,c,d));
     }
 
     @Test

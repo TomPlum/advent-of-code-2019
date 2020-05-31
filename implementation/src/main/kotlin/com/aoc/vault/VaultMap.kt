@@ -1,8 +1,8 @@
 package com.aoc.vault
 
-import log.AdventLogger
-import map.AdventMap
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.map.AdventMap
+import com.aoc.math.Point2D
 
 class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
 
@@ -40,7 +40,7 @@ class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
      */
     fun collectKeys(): Int {
         //Create Key Graph
-        graphKeyPaths(setOf(root))
+        graphKeyPaths(listOf(root))
 
         val paths = getCompletePaths()
         val shortestPathSteps = paths.map { shortestPath(it.collectedKeys.toList()) }.min()
@@ -57,34 +57,44 @@ class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
     private fun shortestPath(keys: List<Key>): Float {
         var cumulativeWeight = 0F
         keys.forEachIndexed { i, key ->
-            cumulativeWeight += if (key.linkedKeys.size == 1) {
-                key.linkedKeys.values.first()
-            } else {
-                key.getLinkedKeyWeight(keys[i + 1].name)
+            cumulativeWeight += when {
+                key.linkedKeys.size == 1 -> key.linkedKeys.values.first()
+                key.linkedKeys.isEmpty() -> 0F //Last Key in Path
+                else -> key.getLinkedKeyWeight(keys[i + 1].name) //If there's two, grab the right one from the path
             }
         }
         return cumulativeWeight
     }
 
-    private fun graphKeyPaths(foundKeys: Set<Key>) {
+    private fun graphKeyPaths(foundKeys: List<Key>) {
         foundKeys.forEach { sourceKey ->
             if (sourceKey.collectedKeysQuantity() == totalKeyQuantity) {
-                AdventLogger.debug("Found Path: ${sourceKey.pathString()} - ${shortestPath(sourceKey.collectedKeys.toList())} ")
+                //AdventLogger.debug("Found Path: ${sourceKey.pathString()} - ${shortestPath(sourceKey.collectedKeys.toList())} ")
             }
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
                 //If we've already graphed the key, grab it from the graph
-                /*if (root.getAllChildren().contains(sourceKey)) {
+                if (root.hasTransitivelyLinkedKey(sourceKey)) {
                     val existing = root.getAllChildren().filter { it.name == sourceKey.name }
                     val withMostKeys = existing.maxBy { it.linkedKeys.count() }
-                }*/
-                val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
-                accessibleKeys.forEach { entry ->
-                    AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
-                    sourceKey.linkTo(entry.key, entry.value)
+                    if (withMostKeys != null && withMostKeys.linkedKeys.count() > 0 && withMostKeys.collectedKeys == sourceKey.collectedKeys) {
+                        withMostKeys.linkedKeys.forEach { sourceKey.linkTo(it.key, it.value) }
+                    } else {
+                        graphUnchartedKey(sourceKey)
+                    }
+                } else {
+                    graphUnchartedKey(sourceKey)
                 }
-                graphKeyPaths(accessibleKeys.keys)
             }
         }
+    }
+
+    private fun graphUnchartedKey(sourceKey: Key) {
+        val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
+        accessibleKeys.forEach { entry ->
+            AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
+            sourceKey.linkTo(entry.key, entry.value)
+        }
+        graphKeyPaths(accessibleKeys.keys.toList())
     }
 
     private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {

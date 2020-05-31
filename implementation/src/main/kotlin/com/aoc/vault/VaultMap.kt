@@ -40,7 +40,7 @@ class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
      */
     fun collectKeys(): Int {
         //Create Key Graph
-        graphKeyPaths(setOf(root))
+        graphKeyPaths(listOf(root))
 
         val paths = getCompletePaths()
         val shortestPathSteps = paths.map { shortestPath(it.collectedKeys.toList()) }.min()
@@ -66,7 +66,7 @@ class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
         return cumulativeWeight
     }
 
-    private fun graphKeyPaths(foundKeys: Set<Key>) {
+    private fun graphKeyPaths(foundKeys: List<Key>) {
         foundKeys.forEach { sourceKey ->
             if (sourceKey.collectedKeysQuantity() == totalKeyQuantity) {
                 //AdventLogger.debug("Found Path: ${sourceKey.pathString()} - ${shortestPath(sourceKey.collectedKeys.toList())} ")
@@ -94,7 +94,7 @@ class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
             AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
             sourceKey.linkTo(entry.key, entry.value)
         }
-        graphKeyPaths(accessibleKeys.keys)
+        graphKeyPaths(accessibleKeys.keys.toList())
     }
 
     private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {

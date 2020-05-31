@@ -7,5 +7,5 @@ import com.aoc.input.InputReader
 fun main() {
     val input = InputReader().readInputString(Day.from(20))
     val maze = DonutMaze(input.values)
-    println("Part 1 Solution: ${maze.findTheShortestPath()} steps")
+    println("Part 1 Solution: ${maze.findShortestPath()} steps")
 }

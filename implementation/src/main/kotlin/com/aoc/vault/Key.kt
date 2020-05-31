@@ -1,6 +1,6 @@
 package com.aoc.vault
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
     val linkedKeys = mutableMapOf<Key, Float>()

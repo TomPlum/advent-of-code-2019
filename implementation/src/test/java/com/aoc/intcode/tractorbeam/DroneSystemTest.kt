@@ -2,8 +2,8 @@ package com.aoc.intcode.tractorbeam
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import input.Day
-import input.InputReader
+import com.aoc.input.Day
+import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
 
 class DroneSystemTest {

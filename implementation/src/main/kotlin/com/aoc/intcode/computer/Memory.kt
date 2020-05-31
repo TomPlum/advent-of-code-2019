@@ -1,7 +1,7 @@
 package com.aoc.intcode.computer
 
 import com.aoc.intcode.computer.instructions.InstructionLength
-import log.AdventLogger
+import com.aoc.log.AdventLogger
 
 /**
  * The main memory of the [IntCodeComputer].

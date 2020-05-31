@@ -4,8 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNotEqualTo
-import assertk.assertions.isTrue
-import math.Point2D
+import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

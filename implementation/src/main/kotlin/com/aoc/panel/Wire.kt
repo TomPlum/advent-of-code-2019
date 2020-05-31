@@ -1,6 +1,6 @@
 package com.aoc.panel
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 data class Wire(private val input: String) {
     val segments: List<WireSegment> = input.split(",").map { WireSegment(it.substring(0, 1), it.substring(1).toInt()) }

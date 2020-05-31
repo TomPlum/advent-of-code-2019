@@ -2,8 +2,8 @@ package com.aoc.fuel.calculator
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import input.InputReader
-import input.Day
+import com.aoc.input.InputReader
+import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

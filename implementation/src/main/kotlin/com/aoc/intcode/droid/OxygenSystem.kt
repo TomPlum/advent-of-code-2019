@@ -1,7 +1,7 @@
 package com.aoc.intcode.droid
 
-import log.AdventLogger
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.math.Point2D
 
 class OxygenSystem(private val map: ShipFloorMap) {
 
@@ -14,16 +14,17 @@ class OxygenSystem(private val map: ShipFloorMap) {
      */
     fun oxygenateShip(): Int {
         val tileToBeOxygenated = setOf(ShipFloorTile.TRAVERSABLE, ShipFloorTile.DROID, ShipFloorTile.OXYGEN_SYSTEM)
-        val traversableTiles = map.filterTiles{ it in tileToBeOxygenated }.toMutableMap()
-        val oxygenSystem = map.filterTiles { it == ShipFloorTile.OXYGEN_SYSTEM }
+        val traversableTiles = map.filterShipTiles{ it in tileToBeOxygenated }.toMutableMap()
+        val oxygenSystem = map.filterShipTiles { it == ShipFloorTile.OXYGEN_SYSTEM }
         val nextTiles = mutableSetOf(oxygenSystem.keys.first())
         var minutesElapsed = 0
-        while (map.hasTile(ShipFloorTile.TRAVERSABLE)) {
+        while (map.isNotCompletelyOxygenated()) {
             val adjacentTraversable = nextTiles.flatMap { it.adjacentPoints() }.filter { it in traversableTiles.keys }
             nextTiles.clear()
             nextTiles.addAll(adjacentTraversable)
             traversableTiles.filterKeys { it in adjacentTraversable }.forEach {
-                map.addTile(it.key, ShipFloorTile.OXYGENATED)
+                val position = it.key
+                map.oxygenateShipAt(position)
             }
             AdventLogger.info(map)
             minutesElapsed++

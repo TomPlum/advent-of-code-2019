@@ -1,6 +1,6 @@
 package com.aoc.panel
 
-import math.Direction
+import com.aoc.math.Direction
 
 /**
  * @param directionalCode [U, R, D, L] -> [Direction.UP], [Direction.RIGHT], [Direction.DOWN], [Direction.LEFT]

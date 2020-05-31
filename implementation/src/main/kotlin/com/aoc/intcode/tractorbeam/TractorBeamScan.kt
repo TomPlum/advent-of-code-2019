@@ -1,8 +1,8 @@
 package com.aoc.intcode.tractorbeam
 
-import log.AdventLogger
-import map.AdventMap
-import math.Point2D
+import com.aoc.log.AdventLogger
+import com.aoc.map.AdventMap
+import com.aoc.math.Point2D
 
 class TractorBeamScan : AdventMap<DroneState>() {
 
@@ -19,9 +19,9 @@ class TractorBeamScan : AdventMap<DroneState>() {
     }
 
     fun findSquareClosestToEmitter(squareSize: Long): Long {
-        (yMin() .. yMax()).forEach { y ->
+        (yMin()..yMax()).forEach { y ->
             val rowCoordinates = mutableSetOf<Point2D>()
-            (xMin() .. xMax()).forEach { x ->
+            (xMin()..xMax()).forEach { x ->
                 rowCoordinates.add(Point2D(x, y))
             }
 
@@ -60,4 +60,6 @@ class TractorBeamScan : AdventMap<DroneState>() {
      * @return The total area of the scan, including every point scanned by the [DroneSystem]
      */
     fun getArea() = tileQuantity()
+
+    fun update(position: Point2D, droneState: DroneState) = addTile(position, droneState)
 }

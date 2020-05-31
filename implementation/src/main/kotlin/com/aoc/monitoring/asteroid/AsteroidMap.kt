@@ -1,6 +1,6 @@
 package com.aoc.monitoring.asteroid
 
-import math.Point2D
+import com.aoc.math.Point2D
 
 class AsteroidMap(mapData: List<String>) {
     private var asteroids: Set<MapSector>

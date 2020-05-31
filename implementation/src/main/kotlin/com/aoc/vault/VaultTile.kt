@@ -1,6 +1,6 @@
 package com.aoc.vault
 
-import map.MapTile
+import com.aoc.map.MapTile
 
 class VaultTile(private val marker: Char) : MapTile<Char>(marker) {
     fun isEntrance() = marker == '@'

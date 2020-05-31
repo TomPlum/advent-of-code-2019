@@ -1,6 +1,14 @@
 package com.aoc.maze.donut
 
-import map.MapTile
+import com.aoc.map.MapTile
 
-open class DonutTile(value: String) : MapTile<String>(value) {
+//TODO: Can this be an enum?
+class DonutTile(value: Char) : MapTile<Char>(value) {
+    fun isPortalEntrance() = value == '@'
+
+    fun isPortalMarker() = value.isLetter() && value.isUpperCase()
+
+    fun isTraversable() = value == '.'
+
+    fun isExit() = value == 'x'
 }

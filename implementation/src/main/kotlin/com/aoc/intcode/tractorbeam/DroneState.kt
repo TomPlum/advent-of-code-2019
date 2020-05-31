@@ -1,6 +1,6 @@
 package com.aoc.intcode.tractorbeam
 
-import map.MapTile
+import com.aoc.map.MapTile
 
 class DroneState(private val glyph: String) : MapTile<String>(glyph) {
     companion object {

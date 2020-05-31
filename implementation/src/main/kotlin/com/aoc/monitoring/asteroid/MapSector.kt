@@ -1,8 +1,6 @@
 package com.aoc.monitoring.asteroid
 
-import math.Point2D
-import kotlin.math.abs
-import kotlin.math.atan2
+import com.aoc.math.Point2D
 
 data class MapSector(val contents: String, val position: Point2D) { //TODO: Replace with Point2D
 

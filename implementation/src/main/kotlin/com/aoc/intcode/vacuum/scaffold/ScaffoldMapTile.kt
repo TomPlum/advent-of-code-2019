@@ -1,6 +1,6 @@
 package com.aoc.intcode.vacuum.scaffold
 
-import map.MapTile
+import com.aoc.map.MapTile
 
 data class ScaffoldMapTile(override var value: Char) : MapTile<Char>(value) {
 

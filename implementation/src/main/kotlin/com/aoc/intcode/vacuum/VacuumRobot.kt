@@ -12,7 +12,7 @@ import com.aoc.intcode.vacuum.function.MovementRoutine
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMap
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
 import com.aoc.intcode.computer.SystemOutput
-import log.AdventLogger
+import com.aoc.log.AdventLogger
 
 /**
  * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.

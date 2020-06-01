@@ -115,6 +115,18 @@ class AdventMapTest {
                 Pair(Point2D(25,99), ExampleTile(99)), Pair(Point2D(100,100), ExampleTile(100))))
     }
 
+    @Test
+    fun filterPointsShouldIgnoreUnrecordedTiles() {
+        val map = ExampleMap()
+        for (y in 0..10) {
+            for (x in 0..10) {
+                map.addExampleTile(Point2D(x, y), ExampleTile(y))
+            }
+        }
+        val tiles = map.getTilesAtPositions(setOf(Point2D(17, 4), Point2D(1, 2)))
+        assertThat(tiles).isEqualTo(mapOf(Pair(Point2D(1,2), ExampleTile(2))))
+    }
+
     private class ExampleTile(private val data: Int) : MapTile<Int>(data) {
         fun isMyTestValue() = data == 12
 

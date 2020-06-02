@@ -4,6 +4,7 @@ import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap
 import com.aoc.math.Point2D
 import com.aoc.maze.donut.portal.Portal
+import com.aoc.maze.donut.portal.PortalEntrance
 import com.aoc.maze.donut.portal.WarpCode
 
 abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
@@ -68,7 +69,9 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
             val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
             addTile(secondEntrance, DonutTile('@'))
 
-            portals.add(Portal(Pair(firstWarpCode, secondWarpCode), Pair(firstEntrance, secondEntrance)))
+            val firstPortalEntrance = PortalEntrance(firstWarpCode, firstEntrance)
+            val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance)
+            portals.add(Portal(Pair(firstPortalEntrance, secondPortalEntrance)))
         }
 
         AdventLogger.debug(this)

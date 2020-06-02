@@ -41,5 +41,9 @@ data class Point2D(val x: Int, val y: Int) {
         Direction.LEFT -> Point2D(x - 1, y)
     }
 
+    fun distanceFromAxisY(): Int = abs(0 - y)
+
+    fun distanceFromAxisX(): Int = abs(0 - x)
+
     override fun toString() = "($x, $y)"
 }

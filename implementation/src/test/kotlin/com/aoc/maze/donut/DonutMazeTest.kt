@@ -2,6 +2,8 @@ package com.aoc.maze.donut
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isTrue
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.math.Point2D
@@ -12,6 +14,20 @@ class DonutMazeTest {
     fun parsePuzzleInputData() {
         val input = InputReader().readInputString(Day.from(20))
         DonutMaze(input.values)
+    }
+
+    @Test
+    fun isOutsideWithOuterPortal() {
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.portals.find { it.entrances.second.warpCode.charOne == 'B' }!!.entrances.second.isOuter()).isTrue()
+    }
+
+    @Test
+    fun isOutsideWithInnerPortal() {
+        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val maze = DonutMaze(input.values)
+        assertThat(maze.portals.find { it.entrances.first.warpCode.charOne == 'B' }!!.entrances.first.isOuter()).isFalse()
     }
 
     @Test

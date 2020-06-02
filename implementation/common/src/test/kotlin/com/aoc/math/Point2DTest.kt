@@ -194,6 +194,42 @@ class Point2DTest {
         }
     }
 
+    @Nested
+    inner class DistanceFromX {
+        @Test
+        fun pointOnAxisX() {
+            assertThat(Point2D(0, 12).distanceFromAxisX()).isEqualTo(0)
+        }
+
+        @Test
+        fun pointHasPositiveX() {
+            assertThat(Point2D(4, 5).distanceFromAxisX()).isEqualTo(4)
+        }
+
+        @Test
+        fun pointHasNegativeX() {
+            assertThat(Point2D(-12, 3).distanceFromAxisX()).isEqualTo(12)
+        }
+    }
+
+    @Nested
+    inner class DistanceFromY {
+        @Test
+        fun pointOnAxisY() {
+            assertThat(Point2D(0, 12).distanceFromAxisY()).isEqualTo(12)
+        }
+
+        @Test
+        fun pointHasPositiveY() {
+            assertThat(Point2D(4, 5).distanceFromAxisY()).isEqualTo(5)
+        }
+
+        @Test
+        fun pointHasNegativeY() {
+            assertThat(Point2D(12, -3).distanceFromAxisY()).isEqualTo(3)
+        }
+    }
+
     @ParameterizedTest
     @CsvSource(value = ["1,1,1,1", "2,2,2,2", "-1,-1,-1,-1"])
     @DisplayName("Given two Points that have the same cartesian coordinate, when checking their equality, they should be equal")

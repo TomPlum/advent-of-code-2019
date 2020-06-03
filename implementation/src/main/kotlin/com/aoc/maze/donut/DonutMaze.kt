@@ -43,7 +43,7 @@ class DonutMaze(data: List<String>) : PlutonianMaze(data) {
             val portalExitPositions = lastPortalEntrances.map {
                 val entrancePosition = it.key
                 val portal = getPortalWithEntrance(entrancePosition)
-                portal.warp(entrancePosition)
+                portal.warpFrom(entrancePosition)
             }
             unvisited.addAll(portalExitPositions)
 

@@ -23,3 +23,5 @@ Part 2:
 - The outermost level is 0.
 - On Level 0, only AA and ZZ function as the entrance and exit respectively. All other outer portals are walls
 - On Levels > 0, AA and ZZ are walls and outer portals bring you one level up. Inner portals go deeper
+- Would a DFS be better here? That way there is only every one concurrent path, meaning the level can be tracked easily
+- A BFS would requires each of the concurrent paths to be tracked separately a long with their current level

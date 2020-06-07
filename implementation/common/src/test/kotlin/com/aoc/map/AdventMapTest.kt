@@ -127,6 +127,14 @@ class AdventMapTest {
         assertThat(tiles).isEqualTo(mapOf(Pair(Point2D(1,2), ExampleTile(2))))
     }
 
+    @Test
+    fun reset() {
+        val map = ExampleMap()
+        map.addExampleTile(Point2D(12, 14), ExampleTile(1))
+        map.reset()
+        assertThat(map.getTileQuantity()).isEqualTo(0)
+    }
+
     private class ExampleTile(private val data: Int) : MapTile<Int>(data) {
         fun isMyTestValue() = data == 12
 

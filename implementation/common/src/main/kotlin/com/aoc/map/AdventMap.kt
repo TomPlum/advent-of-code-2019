@@ -88,6 +88,11 @@ abstract class AdventMap<T> {
     private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
 
     /**
+     * Resets the map as if it is a new instance of [AdventMap]. All internally stored data is cleared.
+     */
+    fun reset() = data.clear()
+
+    /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
     protected fun xMin() = data.keys.minBy { it.x }!!.x

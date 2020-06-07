@@ -56,4 +56,15 @@ class DonutTileTest {
     fun isExitNegative(value: Char) {
         assertThat(DonutTile(value).isExit()).isFalse()
     }
+
+    @Test
+    fun hasBeenTraversedPositive() {
+        assertThat(DonutTile('o').hasBeenTraversed()).isTrue()
+    }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['O', '.', '#', ' ', 'A', 'a', '@'])
+    fun hasBeenTraversedNegative(value: Char) {
+        assertThat(DonutTile(value).hasBeenTraversed()).isFalse()
+    }
 }

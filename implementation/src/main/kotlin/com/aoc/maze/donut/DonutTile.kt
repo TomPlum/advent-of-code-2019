@@ -11,4 +11,6 @@ class DonutTile(value: Char) : MapTile<Char>(value) {
     fun isTraversable() = value == '.'
 
     fun isExit() = value == 'x'
+
+    fun hasBeenTraversed() = value == 'o'
 }

@@ -25,3 +25,6 @@ Part 2:
 - On Levels > 0, AA and ZZ are walls and outer portals bring you one level up. Inner portals go deeper
 - Would a DFS be better here? That way there is only every one concurrent path, meaning the level can be tracked easily
 - A BFS would requires each of the concurrent paths to be tracked separately a long with their current level
+- The portals cannot maintain their own level. Going down through two separate portals would mean each of them
+would record their own level as 1, but we should be on 2. This doesnt work with BFS as their are concurrent paths.
+- Lets just try and maintain a level inside the maze and see what happens... check the solutions thread

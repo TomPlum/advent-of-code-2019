@@ -69,8 +69,8 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
             val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
             addTile(secondEntrance, DonutTile('@'))
 
-            val firstPortalEntrance = PortalEntrance(firstWarpCode, firstEntrance)
-            val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance)
+            val firstPortalEntrance = PortalEntrance(firstWarpCode, firstEntrance, xMax(), yMax())
+            val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance, xMax(), yMax())
             portals.add(Portal(Pair(firstPortalEntrance, secondPortalEntrance)))
         }
 
@@ -86,4 +86,6 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
      */
     protected fun getPortalWithEntrance(position: Point2D): Portal = portals.find { it.hasEntrance(position) }
             ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")
+
+    protected fun clearTraversedTiles() = filterTiles { it.hasBeenTraversed() }.forEach { addTile(it.key, DonutTile('.')) }
 }

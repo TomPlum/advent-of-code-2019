@@ -1,8 +1,8 @@
 package com.aoc.maze.donut.portal
 
-import com.aoc.math.Point2D
+import com.aoc.math.Point3D
 
-data class WarpCode(val charOne: Char, val posOne: Point2D, val charTwo: Char, val posTwo: Point2D) {
+data class WarpCode(val charOne: Char, val posOne: Point3D, val charTwo: Char, val posTwo: Point3D) {
 
     fun getPositions() = setOf(posOne, posTwo)
 

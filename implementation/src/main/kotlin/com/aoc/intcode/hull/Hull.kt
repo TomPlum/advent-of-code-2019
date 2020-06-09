@@ -1,9 +1,9 @@
 package com.aoc.intcode.hull
 
-import com.aoc.map.AdventMap
+import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 
-class Hull : AdventMap<HullPaint>() {
+class Hull : AdventMap2D<HullPaint>() {
 
     fun paintPanel(x: Int, y: Int, paint: HullPaint) = addTile(Point2D(x, y), paint)
 

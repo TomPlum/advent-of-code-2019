@@ -1,10 +1,10 @@
 package com.aoc.vault
 
 import com.aoc.log.AdventLogger
-import com.aoc.map.AdventMap
+import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 
-class VaultMap(initialData: List<String>) : AdventMap<VaultTile>() {
+class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
     private val root: Key

@@ -14,9 +14,6 @@ class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
         while (unvisited.isNotEmpty()) {
             //Get Any Portal Entrances
             val lastPortalEntrances = filterPoints(unvisited).filterValues { it.isPortalEntrance() }
-            if (lastPortalEntrances.isNotEmpty()) {
-                clearTraversedTiles()
-            }
 
             //Get Adjacent Tiles
             val adjacent = adjacentTiles(unvisited)
@@ -38,7 +35,7 @@ class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
                 val portal = getPortalWithEntrance(entrancePosition)
                 val portalEntrance = portal.getEntrance(entrancePosition)
                 if (portalEntrance.isInner() || level > 0) {
-                    portal.warpFrom(entrancePosition)
+                    portal.warpRecursivelyFrom(entrancePosition)
                 } else {
                     null
                 }
@@ -57,9 +54,7 @@ class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
 
             //If we're at the exit and on the outermost level, return the step count
             if (adjacent.count { it.value.isExit() } == 1) {
-                if (lastPortalEntrances.map { getPortalWithEntrance(it.key) }.map { it.level }.any { it == 0 }) {
-                    return steps
-                }
+                return steps
             }
         }
         return steps

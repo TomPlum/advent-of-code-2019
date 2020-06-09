@@ -15,7 +15,7 @@ import kotlin.contracts.ExperimentalContracts
  * @param T The type of 'tile' that will be mapped.
  * @see MapTile
  */
-abstract class AdventMap<T> {
+abstract class AdventMap2D<T> {
     /** The internal data representation, mapping the positions to the tiles */
     private val data = mutableMapOf<Point2D, T>()
 
@@ -49,7 +49,7 @@ abstract class AdventMap<T> {
     protected fun hasTile(value: T): Boolean = data.containsValue(value)
 
     /**
-     * @return The number of tile currently recorded in the [AdventMap].
+     * @return The number of tile currently recorded in the [AdventMap2D].
      */
     protected fun tileQuantity(): Int = data.size
 
@@ -62,7 +62,7 @@ abstract class AdventMap<T> {
 
     /**
      * Gets all the tiles that equate to true on the given [predicate].
-     * Each implementation of [AdventMap] will have a tile of type [T]. This tile will provide the function
+     * Each implementation of [AdventMap2D] will have a tile of type [T]. This tile will provide the function
      * that will be evaluated in this predicate.
      * @return a [Map] of all tiles that match the given [predicate].
      */
@@ -88,7 +88,7 @@ abstract class AdventMap<T> {
     private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
 
     /**
-     * Resets the map as if it is a new instance of [AdventMap]. All internally stored data is cleared.
+     * Resets the map as if it is a new instance of [AdventMap2D]. All internally stored data is cleared.
      */
     fun reset() = data.clear()
 

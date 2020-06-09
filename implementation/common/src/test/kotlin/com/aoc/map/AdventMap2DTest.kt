@@ -11,7 +11,7 @@ import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException
 import java.util.*
 
-class AdventMapTest {
+class AdventMap2DTest {
     @Test
     fun addTile() {
         val map = ExampleMap()
@@ -148,7 +148,7 @@ class AdventMapTest {
         }
     }
 
-    private class ExampleMap : AdventMap<ExampleTile>() {
+    private class ExampleMap : AdventMap2D<ExampleTile>() {
         fun getTileQuantity() = tileQuantity()
         fun addExampleTile(pos: Point2D, default: ExampleTile) = addTile(pos, default)
         fun getExampleTile(pos: Point2D) = getTile(pos)

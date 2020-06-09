@@ -1,10 +1,10 @@
 package com.aoc.intcode.tractorbeam
 
 import com.aoc.log.AdventLogger
-import com.aoc.map.AdventMap
+import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 
-class TractorBeamScan : AdventMap<DroneState>() {
+class TractorBeamScan : AdventMap2D<DroneState>() {
 
     companion object {
         fun fromData(data: List<String>): TractorBeamScan {

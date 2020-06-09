@@ -1,25 +1,26 @@
 package com.aoc.maze.donut
 
 import com.aoc.log.AdventLogger
-import com.aoc.map.AdventMap
-import com.aoc.math.Point2D
+import com.aoc.map.AdventMap3D
+import com.aoc.math.Point3D
 import com.aoc.maze.donut.portal.Portal
 import com.aoc.maze.donut.portal.PortalEntrance
 import com.aoc.maze.donut.portal.WarpCode
+import javax.sound.sampled.Port
 
-abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
+abstract class PlutonianMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
     val portals = mutableSetOf<Portal>()
-    val entrance: Point2D
-    val exit: Point2D
+    val entrance: Point3D
+    val exit: Point3D
 
     abstract fun findShortestPath(): Int
 
     init {
         var x = 0
         var y = 0
-        data.forEach { row ->
+        mapData.forEach { row ->
             row.forEach { column ->
-                addTile(Point2D(x, y), DonutTile(column))
+                addTile(Point3D(x, y, 0), DonutTile(column))
                 x++
             }
             x = 0
@@ -32,7 +33,7 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
         //Match Portal Markers -> Warp Codes
         val warpCodes = mutableSetOf<WarpCode>()
         portalMarkers.forEach { marker ->
-            val matchingMarker = portalMarkers.filter { it.key.isAdjacentTo(marker.key) }.entries.first()
+            val matchingMarker = portalMarkers.filter { it.key.isPlanarAdjacentTo(marker.key) }.entries.first()
             if (warpCodes.count { it.posOne == matchingMarker.key || it.posTwo == matchingMarker.key } == 0) {
                 warpCodes.add(WarpCode(marker.value.value, marker.key, matchingMarker.value.value, matchingMarker.key))
             }
@@ -48,24 +49,24 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
         }
 
         //Mark Entrance
-        val surroundingEntrance = warpCodes.first { it.isEntrance() }.getPositions().flatMap { it.adjacentPoints() }.toSet()
+        val surroundingEntrance = warpCodes.first { it.isEntrance() }.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
         val entrance = filterPoints(surroundingEntrance).filter { it.value.isTraversable() }.keys.first()
         addTile(entrance, DonutTile('e'))
         this.entrance = entrance
 
         //Mark Exit
-        val surroundingExit = warpCodes.first { it.isExit() }.getPositions().flatMap { it.adjacentPoints() }.toSet()
+        val surroundingExit = warpCodes.first { it.isExit() }.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
         val exit = filterPoints(surroundingExit).filter { it.value.isTraversable() }.keys.first()
         addTile(exit, DonutTile('x'))
         this.exit = exit
 
         //Create Portals & Update Donut Maze
         warpCodePairs.forEach { (firstWarpCode, secondWarpCode) ->
-            val surroundingFirst = firstWarpCode.getPositions().flatMap { it.adjacentPoints() }.toSet()
+            val surroundingFirst = firstWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
             val firstEntrance = filterPoints(surroundingFirst).filter { it.value.isTraversable() }.keys.first()
             addTile(firstEntrance, DonutTile('@'))
 
-            val surroundingSecond = secondWarpCode.getPositions().flatMap { it.adjacentPoints() }.toSet()
+            val surroundingSecond = secondWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
             val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
             addTile(secondEntrance, DonutTile('@'))
 
@@ -73,6 +74,9 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
             val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance, xMax(), yMax())
             portals.add(Portal(Pair(firstPortalEntrance, secondPortalEntrance)))
         }
+
+        //Copy Layers (Z-Dimension)
+        duplicateTopLayer(26)
 
         AdventLogger.debug(this)
         AdventLogger.debug("Entrance: $entrance")
@@ -84,7 +88,7 @@ abstract class PlutonianMaze(data: List<String>) : AdventMap<DonutTile>() {
      * Find the [Portal] that warps to or from the given [position].
      * @throws IllegalArgumentException if the [DonutMaze] does not contain a [Portal] with the given [position]
      */
-    protected fun getPortalWithEntrance(position: Point2D): Portal = portals.find { it.hasEntrance(position) }
+    protected fun getPortalWithEntrance(position: Point3D): Portal = portals.find { it.hasEntrance(position) }
             ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")
 
     protected fun clearTraversedTiles() = filterTiles { it.hasBeenTraversed() }.forEach { addTile(it.key, DonutTile('.')) }

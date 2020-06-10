@@ -60,23 +60,27 @@ abstract class PlutonianMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
         addTile(exit, DonutTile('x'))
         this.exit = exit
 
+        //Copy Layers (Z-Dimension)
+        duplicateTopLayer(warpCodePairs.size)
+
         //Create Portals & Update Donut Maze
         warpCodePairs.forEach { (firstWarpCode, secondWarpCode) ->
-            val surroundingFirst = firstWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
-            val firstEntrance = filterPoints(surroundingFirst).filter { it.value.isTraversable() }.keys.first()
-            addTile(firstEntrance, DonutTile('@'))
+            (0..warpCodePairs.size).forEach { z ->
+                val surroundingFirst = firstWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }
+                        .map { Point3D(it.x, it.y, z) }.toSet()
+                val firstEntrance = filterPoints(surroundingFirst).filter { it.value.isTraversable() }.keys.first()
+                addTile(Point3D(firstEntrance.x, firstEntrance.y, z), DonutTile('@'))
 
-            val surroundingSecond = secondWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }.toSet()
-            val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
-            addTile(secondEntrance, DonutTile('@'))
+                val surroundingSecond = secondWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }
+                        .map { Point3D(it.x, it.y, z) }.toSet()
+                val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
+                addTile(Point3D(secondEntrance.x, secondEntrance.y, z), DonutTile('@'))
 
-            val firstPortalEntrance = PortalEntrance(firstWarpCode, firstEntrance, xMax(), yMax())
-            val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance, xMax(), yMax())
-            portals.add(Portal(Pair(firstPortalEntrance, secondPortalEntrance)))
+                val firstPortalEntrance = PortalEntrance(firstWarpCode, firstEntrance, xMax(), yMax())
+                val secondPortalEntrance = PortalEntrance(secondWarpCode, secondEntrance, xMax(), yMax())
+                portals.add(Portal(Pair(firstPortalEntrance, secondPortalEntrance)))
+            }
         }
-
-        //Copy Layers (Z-Dimension)
-        duplicateTopLayer(26)
 
         AdventLogger.debug(this)
         AdventLogger.debug("Entrance: $entrance")

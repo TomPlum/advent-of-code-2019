@@ -9,6 +9,7 @@ import com.aoc.input.InputReader
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
 
+//TODO: Broken by Part 2, fix (Maybe restore old portals?)
 class DonutMazeTest {
     @Test
     fun parsePuzzleInputData() {

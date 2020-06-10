@@ -1,11 +1,9 @@
 package com.aoc.maze.donut
 
 import com.aoc.log.AdventLogger
-import com.aoc.maze.donut.portal.Portal
-import java.util.*
 
 class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
-    private var level = 0
+    private val portalsPerLevel = portals.filter { it.entrances.first.position.z == 0 }.count()
 
     override fun findShortestPath(): Int {
         var steps = 0
@@ -34,7 +32,8 @@ class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
                 val entrancePosition = it.key
                 val portal = getPortalWithEntrance(entrancePosition)
                 val portalEntrance = portal.getEntrance(entrancePosition)
-                if (portalEntrance.isInner() || level > 0) {
+                val currentLevel = portalEntrance.position.z
+                if ((portalEntrance.isInner() && currentLevel < portalsPerLevel) || (portalEntrance.isOuter() && currentLevel > 0)) {
                     portal.warpRecursivelyFrom(entrancePosition)
                 } else {
                     null
@@ -53,7 +52,8 @@ class RecursiveDonutMaze(data: List<String>) : PlutonianMaze(data) {
             //AdventLogger.debug("Current No. Consecutive Paths: ${unvisited.size}")
 
             //If we're at the exit and on the outermost level, return the step count
-            if (adjacent.count { it.value.isExit() } == 1) {
+            val exit = adjacent.filter { it.value.isExit() }
+            if (exit.isNotEmpty() && exit.filterValues { it.isExit() }.keys.any { it.z == 0 }) {
                 return steps
             }
         }

@@ -11,5 +11,7 @@ data class Point3D(val x: Int, val y: Int, val z: Int) {
 
     fun distanceFromAxisX(): Int = abs(0 - x)
 
+    fun isInSamePlane2D(that: Point3D) = x == that.x && y == that.y
+
     override fun toString() = "($x, $y, $z)"
 }

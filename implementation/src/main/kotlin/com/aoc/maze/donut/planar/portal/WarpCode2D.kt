@@ -1,4 +1,4 @@
-package com.aoc.maze.donut.portal
+package com.aoc.maze.donut.planar.portal
 
 import com.aoc.math.Point2D
 

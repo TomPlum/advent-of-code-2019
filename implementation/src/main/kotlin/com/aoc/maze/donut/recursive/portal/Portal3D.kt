@@ -1,13 +1,15 @@
-package com.aoc.maze.donut.portal
+package com.aoc.maze.donut.recursive.portal
 
 import com.aoc.log.AdventLogger
 import com.aoc.math.Point3D
 import java.lang.IllegalArgumentException
+import com.aoc.maze.donut.recursive.RecursiveDonutMaze
+import com.aoc.maze.donut.DonutTile
 
 /**
- * A space-time folding warp-gate in a [PlutonianMaze].
+ * A space-time folding warp-gate in a [RecursiveDonutMaze].
  *
- * @param entrances The two tiles in the [PlutonianMaze] that the portal teleports between.
+ * @param entrances The two [DonutTile] in the [RecursiveDonutMaze] that the portal teleports between.
  */
 data class Portal3D(val entrances: Pair<PortalEntrance3D, PortalEntrance3D>) {
 
@@ -22,23 +24,6 @@ data class Portal3D(val entrances: Pair<PortalEntrance3D, PortalEntrance3D>) {
      */
     fun getEntrance(position: Point3D) = entrances.toList()
                 .find { it.position == position } ?: throw IllegalArgumentException("$this does not warp to or from $position")
-
-
-    /**
-     * Warps through space-time to the other side of the portal.
-     *
-     * @param entrancePosition The coordinate of the portal entrance
-     * @return The coordinate of the other side of the portal after travelling through it.
-     */
-    fun warpFrom(entrancePosition: Point3D): Point3D {
-        val portalEntrancePositions = entrances.toList().map { it.position }
-        if (portalEntrancePositions.contains(entrancePosition)) {
-            val other = entrances.toList().find { it.position != entrancePosition }!!
-            AdventLogger.debug("Warping from $entrancePosition -> $other through ${other.warpCode}")
-            return other.position
-        }
-        throw IllegalArgumentException("$this does not warp to or from $entrancePosition")
-    }
 
     fun warpRecursivelyFrom(entrancePosition: Point3D): Point3D {
         val entrances = entrances.toList()

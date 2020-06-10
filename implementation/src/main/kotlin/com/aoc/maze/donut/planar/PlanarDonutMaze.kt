@@ -1,21 +1,22 @@
-package com.aoc.maze.donut
+package com.aoc.maze.donut.planar
 
 import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
-import com.aoc.maze.donut.portal.Portal2D
-import com.aoc.maze.donut.portal.PortalEntrance2D
-import com.aoc.maze.donut.portal.WarpCode2D
+import com.aoc.maze.donut.DonutTile
+import com.aoc.maze.donut.planar.portal.Portal2D
+import com.aoc.maze.donut.planar.portal.PortalEntrance2D
+import com.aoc.maze.donut.planar.portal.WarpCode2D
 
 /**
  * A map of the surface of Pluto.
- * The [DonutMaze2D] is a space-warping maze belonging to a long-list Pluto civilization.
+ * The [PlanarDonutMaze] is a space-warping maze belonging to a long-list Pluto civilization.
  *
  * The entrance to the maze is reached via a [Portal2D] with the [WarpCode2D] AA.
  * The exit to the maze is through the [Portal2D] with [WarpCode2D] ZZ.
  * Every other portal in the maze has another matching one with the same [WarpCode2D].
  */
-class DonutMaze2D(data: List<String>) : AdventMap2D<DonutTile>() {
+class PlanarDonutMaze(data: List<String>) : AdventMap2D<DonutTile>() {
     val entrance: Point2D
     val exit: Point2D
     val portals = mutableSetOf<Portal2D>()
@@ -87,7 +88,7 @@ class DonutMaze2D(data: List<String>) : AdventMap2D<DonutTile>() {
     }
 
     /**
-     * Finds the shortest path through the [DonutMaze2D] using a BFS (Breadth First Search) algorithm.
+     * Finds the shortest path through the [PlanarDonutMaze] using a BFS (Breadth First Search) algorithm.
      * @return steps taken during the shortest path
      */
     fun findShortestPath(): Int {
@@ -137,7 +138,7 @@ class DonutMaze2D(data: List<String>) : AdventMap2D<DonutTile>() {
 
     /**
      * Find the [Portal2D] that warps to or from the given [position].
-     * @throws IllegalArgumentException if the [DonutMaze2D] does not contain a [Portal2D] with the given [position]
+     * @throws IllegalArgumentException if the [PlanarDonutMaze] does not contain a [Portal2D] with the given [position]
      */
     private fun getPortalWithEntrance(position: Point2D): Portal2D = portals.find { it.hasEntrance(position) }
             ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")

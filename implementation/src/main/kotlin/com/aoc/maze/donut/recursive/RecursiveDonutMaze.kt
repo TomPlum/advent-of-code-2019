@@ -1,13 +1,14 @@
-package com.aoc.maze.donut
+package com.aoc.maze.donut.recursive
 
 import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap3D
 import com.aoc.math.Point3D
-import com.aoc.maze.donut.portal.Portal3D
-import com.aoc.maze.donut.portal.PortalEntrance3D
-import com.aoc.maze.donut.portal.WarpCode3D
+import com.aoc.maze.donut.DonutTile
+import com.aoc.maze.donut.recursive.portal.Portal3D
+import com.aoc.maze.donut.recursive.portal.PortalEntrance3D
+import com.aoc.maze.donut.recursive.portal.WarpCode3D
 
-class DonutMaze3D(mapData: List<String>) : AdventMap3D<DonutTile>() {
+class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
     private val portals = mutableSetOf<Portal3D>()
     private val entrance: Point3D
     private val exit: Point3D

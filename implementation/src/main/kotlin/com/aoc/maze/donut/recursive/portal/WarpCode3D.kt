@@ -1,4 +1,4 @@
-package com.aoc.maze.donut.portal
+package com.aoc.maze.donut.recursive.portal
 
 import com.aoc.math.Point3D
 

@@ -3,14 +3,13 @@ package com.aoc.maze.donut.portal
 import com.aoc.log.AdventLogger
 import com.aoc.math.Point3D
 import java.lang.IllegalArgumentException
-import com.aoc.maze.donut.PlutonianMaze
 
 /**
  * A space-time folding warp-gate in a [PlutonianMaze].
  *
  * @param entrances The two tiles in the [PlutonianMaze] that the portal teleports between.
  */
-data class Portal(val entrances: Pair<PortalEntrance, PortalEntrance>) {
+data class Portal3D(val entrances: Pair<PortalEntrance3D, PortalEntrance3D>) {
 
     /**
      * @return true if the portal warps either to or from the given [pos].

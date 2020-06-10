@@ -2,7 +2,7 @@ package com.aoc.maze.donut.portal
 
 import com.aoc.math.Point3D
 
-data class WarpCode(val charOne: Char, val posOne: Point3D, val charTwo: Char, val posTwo: Point3D) {
+data class WarpCode3D(val charOne: Char, val posOne: Point3D, val charTwo: Char, val posTwo: Point3D) {
 
     fun getPositions() = setOf(posOne, posTwo)
 
@@ -10,7 +10,7 @@ data class WarpCode(val charOne: Char, val posOne: Point3D, val charTwo: Char, v
 
     fun isExit() = charOne == 'Z' && charTwo == 'Z'
 
-    fun isMatching(other: WarpCode): Boolean {
+    fun isMatching(other: WarpCode3D): Boolean {
         val hasSameCode = (charOne == other.charOne || charOne == other.charTwo) &&
                 (charTwo == other.charOne || charTwo == other.charTwo)
         val hasDifferentPosition = (posOne != other.posOne && posOne != other.posTwo) &&

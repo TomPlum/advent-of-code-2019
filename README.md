@@ -91,7 +91,7 @@ For the most part, only runtime-complexity was a concern. There were few occasio
 | 17  	| 7404    	| 929045           	| Set and Forget                            |
 | 18  	| -       	| -             	| Many-Worlds Interpretation                |
 | 19  	| 181      	| 4240964          	| Tractor Beam                              |
-| 20  	| 526     	| -             	| Donut Maze                                |
+| 20  	| 526     	| 6292             	| Donut Maze                                |
 | 21  	| -       	| -             	| Springdroid Adventure                     |
 | 22  	| -       	| -             	| Slam Shuffle                              |
 | 23  	| -       	| -             	| Category Six                              |

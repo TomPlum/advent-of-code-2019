@@ -17,7 +17,6 @@ class RecursiveDonutMazeTest {
     }
 
     @Test
-    @Disabled
     fun solutionPart2() {
         val input = InputReader().readInputString(Day.from(20))
         val stepsTaken = RecursiveDonutMaze(input.values).findShortestPath()

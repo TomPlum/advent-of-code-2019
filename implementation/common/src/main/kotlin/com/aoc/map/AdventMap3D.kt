@@ -80,7 +80,7 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin() = data.keys.minBy { it.x }!!.x
+    protected fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
@@ -95,7 +95,7 @@ abstract class AdventMap3D<T> {
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax() = data.keys.maxBy { it.x }!!.x
+    protected fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
@@ -106,6 +106,14 @@ abstract class AdventMap3D<T> {
      * @return The maximum y-ordinate currently recorded in the map.
      */
     protected fun zMax() = data.keys.maxBy { it.z }!!.z
+
+    fun toStringTopLevel() {
+        (yMin()..yMax()).joinToString("\n") { y ->
+            (xMin()..xMax()).joinToString(" ") { x ->
+                data.getOrDefault(Point3D(x, y, 0), " ").toString()
+            }
+        }.plus("\n")
+    }
 
     /**
      * Creates a cartesian graph style visual representation of the [data]

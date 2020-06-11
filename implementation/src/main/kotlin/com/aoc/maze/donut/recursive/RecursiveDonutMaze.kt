@@ -65,6 +65,8 @@ class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
         //Copy Layers (Z-Dimension)
         duplicateTopLayer(warpCodePairs.size)
 
+        val xMax = xMax()
+        val yMax = yMax()
         //Create Portals & Update Donut Maze
         warpCodePairs.forEach { (firstWarpCode, secondWarpCode) ->
             (0..warpCodePairs.size).forEach { z ->
@@ -78,15 +80,15 @@ class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
                 val secondEntrance = filterPoints(surroundingSecond).filter { it.value.isTraversable() }.keys.first()
                 addTile(Point3D(secondEntrance.x, secondEntrance.y, z), DonutTile('@'))
 
-                val firstPortalEntrance = PortalEntrance3D(firstWarpCode, firstEntrance, xMax(), yMax())
-                val secondPortalEntrance = PortalEntrance3D(secondWarpCode, secondEntrance, xMax(), yMax())
+                val firstPortalEntrance = PortalEntrance3D(firstWarpCode, firstEntrance, xMax, yMax)
+                val secondPortalEntrance = PortalEntrance3D(secondWarpCode, secondEntrance, xMax, yMax)
                 portals.add(Portal3D(Pair(firstPortalEntrance, secondPortalEntrance)))
             }
         }
 
         portalsPerLevel = portals.filter { it.entrances.first.position.z == 0 }.count() //TODO: Just same as warpcode pairs size?
 
-        AdventLogger.debug(this)
+        AdventLogger.debug(this.toStringTopLevel())
         AdventLogger.debug("Entrance: $entrance")
         AdventLogger.debug("Exit: $exit")
         AdventLogger.debug("Maze Contains ${portals.size} Portals: $portals")
@@ -149,7 +151,7 @@ class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
 
     /**
      * Find the [Portal3D] that warps to or from the given [position].
-     * @throws IllegalArgumentException if the [DonutMaze2D] does not contain a [Portal3D] with the given [position]
+     * @throws IllegalArgumentException if the [RecursiveDonutMaze] does not contain a [Portal3D] with the given [position]
      */
     private fun getPortalWithEntrance(position: Point3D): Portal3D = portals.find { it.hasEntrance(position) }
             ?: throw IllegalArgumentException("Maze does not contain a portal with an entrance at $position")

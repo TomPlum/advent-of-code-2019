@@ -1,7 +1,7 @@
 package com.aoc.map
 
 import com.aoc.math.Point3D
-import kotlin.contracts.ExperimentalContracts
+import com.aoc.math.Point2D
 
 /**
  * This class is designed for inheritance.
@@ -10,10 +10,11 @@ import kotlin.contracts.ExperimentalContracts
  * meeting day-specific criteria. A cartesian-style graph is internally maintained that maps tiles to [Point3D]
  * coordinates.
  *
- * //TODO: Restrict the type parameter to a type that extends MapTile? Not sure about enums
+ * This class is very similar to [AdventMap2D]. The major difference is the internal data structure maps [Point3D]
+ * instead of [Point2D].
  *
  * @param T The type of 'tile' that will be mapped.
- * @see MapTile
+ * @see AdventMap2D
  */
 abstract class AdventMap3D<T> {
     /** The internal data representation, mapping the positions to the tiles */
@@ -27,12 +28,6 @@ abstract class AdventMap3D<T> {
 
     /**
      * Retrieves the tile at the given [position].
-     * If there is no tile present then the [default] is returned.
-     */
-    protected fun getTile(position: Point3D, default: T): T = data.getOrDefault(position, default)
-
-    /**
-     * Retrieves the tile at the given [position].
      * @throws IllegalArgumentException if the map does not contain a tile at the given [position]
      */
     protected fun getTile(position: Point3D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
@@ -41,17 +36,6 @@ abstract class AdventMap3D<T> {
      * @return true if the map has recorded a tile at the given [position]
      */
     protected fun hasRecorded(position: Point3D): Boolean = data.containsKey(position)
-
-    /**
-     * Checks if the map has a tile of the given type. Equality is left up to the type [T].
-     * @return true if the map has recorded at least one tile with the given [value]
-     */
-    protected fun hasTile(value: T): Boolean = data.containsValue(value)
-
-    /**
-     * @return The number of tile currently recorded in the [AdventMap3D].
-     */
-    protected fun tileQuantity(): Int = data.size
 
     /**
      * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions],
@@ -68,12 +52,6 @@ abstract class AdventMap3D<T> {
      */
     protected fun filterTiles(predicate: (T) -> Boolean): Map<Point3D, T> = data.filterValues(predicate)
 
-    @ExperimentalContracts
-    protected fun whereIs(predicate: (T) -> Boolean): Point3D? = data.filterValues(predicate).keys.firstOrNull()
-
-    @ExperimentalContracts
-    protected fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
-
     /**
      * Gets all the tiles that are adjacent to the given [positions].
      * @see Point3D.planarAdjacentPoints
@@ -82,10 +60,6 @@ abstract class AdventMap3D<T> {
     protected fun adjacentTiles(positions: Set<Point3D>): Map<Point3D, T> {
         return positions.flatMap { it.planarAdjacentPoints() }.associateWith(this::getTile)
     }
-
-    @ExperimentalContracts
-    protected fun adjacentTiles(position: Point3D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
-    private fun adjacentTiles(position: Point3D): Map<Point3D, T> = data.filterKeys { it in position.planarAdjacentPoints() }
 
     protected fun duplicateTopLayer(n: Int) {
         val topLayer = data.entries
@@ -102,11 +76,6 @@ abstract class AdventMap3D<T> {
         }
         data.putAll(toAdd)
     }
-
-    /**
-     * Resets the map as if it is a new instance of [AdventMap3D]. All internally stored data is cleared.
-     */
-    fun reset() = data.clear()
 
     /**
      * @return The minimum x-ordinate currently recorded in the map.

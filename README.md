@@ -39,7 +39,31 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 
 #### Technically
 
-#### Most Fun
+#### Most Fun (Day 8)
+This day was most fun because I didn't understand what was actually going on until I'd successfully implemented a
+solution. It was only shortly after re-reading the documentation that I understand what was happening. The output
+below was the result flattening a three-dimensional array of integers that represented pixel colours. After traversing
+the array vertically and exposing the upper-most opaque pixels, it produced a bitmap that represented an image of
+the spaceships' registration number.
+
+    1 0 0 1 0 0 1 1 0 0 1 1 1 0 0 0 1 1 0 0 1 1 1 1 0
+    1 0 0 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 0 0
+    1 1 1 1 0 1 0 0 0 0 1 1 1 0 0 1 0 0 0 0 1 1 1 0 0
+    1 0 0 1 0 1 0 1 1 0 1 0 0 1 0 1 0 0 0 0 1 0 0 0 0
+    1 0 0 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 0 0
+    1 0 0 1 0 0 1 1 1 0 1 1 1 0 0 0 1 1 0 0 1 0 0 0 0
+    
+After I realised what my output was, I parsed the black pixels as octothorps and the transparent as spaces and got the
+below output. This was interesting to me as it meant you couldn't programmatically test your solution and therefore
+required human interpretation. I suppose you could use an OCR (Optical Character Recognition) software.
+
+
+    #     #     # #     # # #       # #     # # # #  
+    #     #   #     #   #     #   #     #   #        
+    # # # #   #         # # #     #         # # #    
+    #     #   #   # #   #     #   #         #        
+    #     #   #     #   #     #   #     #   #        
+    #     #     # # #   # # #       # #     #        
 
 ## What I Learned
 

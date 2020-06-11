@@ -4,10 +4,29 @@ import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap3D
 import com.aoc.math.Point3D
 import com.aoc.maze.donut.DonutTile
+import com.aoc.maze.donut.planar.PlanarDonutMaze
 import com.aoc.maze.donut.recursive.portal.Portal3D
 import com.aoc.maze.donut.recursive.portal.PortalEntrance3D
 import com.aoc.maze.donut.recursive.portal.WarpCode3D
 
+/**
+ * A map of the surface of Pluto.
+ *
+ * The [RecursiveDonutMaze] is a space-warping maze belonging to a long-list Pluto civilization.
+ * Unlike the original [PlanarDonutMaze] theory, it turns out the marked connections in the maze aren't portals;
+ * they physically connect to a larger or smaller copy of the maze.
+ *
+ * The entrance to the maze is reached via a [Portal3D] with the [WarpCode3D] AA on the outermost level.
+ * The exit to the maze is through the [Portal3D] with [WarpCode3D] ZZ on the outermost level.
+ * Every portal in the maze has another matching one with the same [WarpCode3D].
+ *
+ * Warping recursively through an inner portal at level n will send you to the portals' other side at level n + 1.
+ * Warping through an outer portal will send you to the exit at level n - 1.
+ * Only inner portals function on the outer-most level, where the entrance and exit portal reside.
+ * Vice-versa, only the outer portals function on the bottom-most level.
+ *
+ * The maximum depth of the maze is determined by the number of unique portal pairs in one level of the maze.
+ */
 class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
     private val portals = mutableSetOf<Portal3D>()
     private val entrance: Point3D

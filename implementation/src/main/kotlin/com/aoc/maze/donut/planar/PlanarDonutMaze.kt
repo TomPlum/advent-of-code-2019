@@ -14,7 +14,7 @@ import com.aoc.maze.donut.planar.portal.WarpCode2D
  *
  * The entrance to the maze is reached via a [Portal2D] with the [WarpCode2D] AA.
  * The exit to the maze is through the [Portal2D] with [WarpCode2D] ZZ.
- * Every other portal in the maze has another matching one with the same [WarpCode2D].
+ * Every portal in the maze has another matching one with the same [WarpCode2D].
  */
 class PlanarDonutMaze(data: List<String>) : AdventMap2D<DonutTile>() {
     val entrance: Point2D

@@ -3,6 +3,9 @@ package com.aoc.math
 import kotlin.math.abs
 import kotlin.math.atan2
 
+/**
+ * A Two-Dimensional Point
+ */
 data class Point2D(val x: Int, val y: Int) {
 
     /**
@@ -41,9 +44,15 @@ data class Point2D(val x: Int, val y: Int) {
         Direction.LEFT -> Point2D(x - 1, y)
     }
 
-    fun distanceFromAxisY(): Int = abs(0 - y)
-
+    /**
+     * @return The number of points away from the x-axis
+     */
     fun distanceFromAxisX(): Int = abs(0 - x)
+
+    /**
+     * @return The number of points away from the y-axis
+     */
+    fun distanceFromAxisY(): Int = abs(0 - y)
 
     override fun toString() = "($x, $y)"
 }

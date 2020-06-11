@@ -1,15 +1,33 @@
 package com.aoc.math
 
-import kotlin.math.abs
-
+/**
+ * A Three-Dimensional Point
+ */
 data class Point3D(val x: Int, val y: Int, val z: Int) {
-    fun planarAdjacentPoints(): List<Point3D> = listOf(Point3D(x, y + 1, z), Point3D(x + 1, y, z), Point3D(x, y - 1, z), Point3D(x - 1, y, z))
 
-    fun isPlanarAdjacentTo(that: Point3D): Boolean = this != that && abs(x - that.x) <= 1 && abs(y - that.y) <= 1 && z == that.z
+    /**
+     * Returns the 4 points that are orthogonally adjacent with the current two-dimensional plane.
+     * @see Point2D.adjacentPoints
+     */
+    fun planarAdjacentPoints(): List<Point3D> = getSecondDimension().adjacentPoints().map { Point3D(it.x, it.y, z) }
 
-    fun distanceFromAxisY(): Int = abs(0 - y)
+    /**
+     * @return true if [that] is orthogonally adjacent within the current two-dimensional plane.
+     * @see Point2D.isAdjacentTo
+     */
+    fun isPlanarAdjacentTo(that: Point3D): Boolean = getSecondDimension().isAdjacentTo(Point2D(that.x, that.y)) && z == that.z
 
-    fun distanceFromAxisX(): Int = abs(0 - x)
+    /**
+     * @see Point2D.distanceFromAxisX
+     */
+    fun distanceFromAxisX() = getSecondDimension().distanceFromAxisX()
+
+    /**
+     * @see Point2D.distanceFromAxisY
+     */
+    fun distanceFromAxisY() = getSecondDimension().distanceFromAxisY()
+
+    private fun getSecondDimension() = Point2D(x, y)
 
     override fun toString() = "($x, $y, $z)"
 }

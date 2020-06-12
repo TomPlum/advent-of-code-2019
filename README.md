@@ -14,8 +14,9 @@ runtime complexity will be refactored and improved upon in a later pass of the d
 ## Contents
 * [The Days](#the-days)
   * [Favourite Days](#favourite-days)
+    * [Technically](#technically)
     * [Most Challenging](#most-challenging-day-18)
-    * [Most Fun](#most-fun)
+    * [Most Fun](#most-fun-day-8)
 * [What I Learned](#what-i-learned)
   * [Kotlin](#kotlin--kotlin-gradle-dsl)
   * [Data Structures & Algorithms](#data-structures--algorithms)

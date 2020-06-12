@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid
+package com.aoc.intcode.droid.repair
 
 enum class Direction(val code: Int) {
     NORTH(1),

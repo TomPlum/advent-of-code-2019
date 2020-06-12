@@ -1,9 +1,9 @@
 package com.aoc.solutions
 
-import com.aoc.intcode.droid.OxygenSystem
-import com.aoc.intcode.droid.RepairDroid
 import com.aoc.input.Day
 import com.aoc.input.InputReader
+import com.aoc.intcode.droid.repair.OxygenSystem
+import com.aoc.intcode.droid.repair.RepairDroid
 
 fun main() {
     val input = InputReader().readInputAsSingleString(Day.from(15))

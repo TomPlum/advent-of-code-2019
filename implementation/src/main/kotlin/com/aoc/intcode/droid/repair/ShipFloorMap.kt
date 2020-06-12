@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid
+package com.aoc.intcode.droid.repair
 
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D

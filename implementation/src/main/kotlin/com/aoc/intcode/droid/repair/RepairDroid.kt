@@ -1,6 +1,7 @@
-package com.aoc.intcode.droid
+package com.aoc.intcode.droid.repair
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.droid.repair.Direction
 import com.aoc.log.AdventLogger
 import com.aoc.math.Point2D
 import java.util.*

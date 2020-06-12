@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid
+package com.aoc.intcode.droid.repair
 
 enum class ShipFloorTile(private val icon: String) {
     TRAVERSABLE("."), //\u2592

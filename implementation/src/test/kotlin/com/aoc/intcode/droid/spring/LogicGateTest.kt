@@ -2,6 +2,7 @@ package com.aoc.intcode.droid.spring
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEqualTo
 import org.junit.jupiter.api.Test
 
 class LogicGateTest {
@@ -23,6 +24,16 @@ class LogicGateTest {
     @Test
     fun encodeAND() {
         assertThat(LogicGate.AND.encode()).isEqualTo(listOf<Long>(65, 78, 68))
+    }
+
+    @Test
+    fun equalityPositive() {
+        assertThat(LogicGate.NOT).isEqualTo(LogicGate.NOT)
+    }
+
+    @Test
+    fun equalityNegative() {
+        assertThat(LogicGate.NOT).isNotEqualTo(LogicGate.AND)
     }
 
 }

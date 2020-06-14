@@ -15,4 +15,9 @@ class TemporaryValueRegisterTest {
         assertThat(TemporaryValueRegister().encode()).isEqualTo(listOf<Long>(84))
     }
 
+    @Test
+    fun equalityPositive() {
+        assertThat(TemporaryValueRegister()).isEqualTo(TemporaryValueRegister())
+    }
+
 }

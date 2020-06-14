@@ -7,5 +7,4 @@ class TemporaryValueRegister : WriteableRegister() {
     override fun encode(): List<Long> = listOf('T'.toLong())
 
     override fun toString(): String = "T"
-
 }

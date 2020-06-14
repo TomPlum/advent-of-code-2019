@@ -6,9 +6,19 @@ import com.aoc.intcode.droid.spring.register.write.JumpRegister
 import com.aoc.intcode.droid.spring.register.write.TemporaryValueRegister
 import java.lang.IllegalArgumentException
 
+/**
+ * Parses literal string representations of [SpringScriptInstruction].
+ * Makes it easier to quickly modify a manually written [SpringScriptProgram].
+ */
 class SpringScriptParser {
+
+    /**
+     * Parses the given input [instruction] string as a [SpringScriptInstruction]
+     * @throws IllegalArgumentException if the instruction string is malformed
+     * @see SpringScriptInstruction
+     */
     fun parseInstruction(instruction: String): SpringScriptInstruction {
-        val args = instruction.split(" ")
+        val args = instruction.split(" ").map { it.trim() }
         if (args.size != 3) {
             throw IllegalArgumentException("Invalid Instruction String ($instruction). Requires 3 arguments but received ${args.size}")
         }

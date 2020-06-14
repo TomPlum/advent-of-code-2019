@@ -18,12 +18,8 @@ class SpringDroid(instructions: String) {
 
     private fun getManualProgram(): SpringScriptProgram {
         val program = SpringScriptProgram()
-        program.addInstruction(SpringScriptInstruction(LogicGate.NOT, GroundSensorRegister(DistanceCode.A), JumpRegister()))
-        program.addInstruction(SpringScriptInstruction(LogicGate.NOT, GroundSensorRegister(DistanceCode.B), TemporaryValueRegister()))
-        program.addInstruction(SpringScriptInstruction(LogicGate.AND, TemporaryValueRegister(), JumpRegister()))
-        program.addInstruction(SpringScriptInstruction(LogicGate.NOT, GroundSensorRegister(DistanceCode.C), TemporaryValueRegister()))
-        program.addInstruction(SpringScriptInstruction(LogicGate.AND, TemporaryValueRegister(), JumpRegister()))
-        program.addInstruction(SpringScriptInstruction(LogicGate.AND, GroundSensorRegister(DistanceCode.D), JumpRegister()))
+        val parser = SpringScriptParser()
+        program.addInstruction(parser.parseInstruction("NOT A J"))
         return program
     }
 

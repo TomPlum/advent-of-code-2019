@@ -32,7 +32,7 @@ runtime complexity will be refactored and improved upon in a later pass of the d
 The package structure was something that changed almost every day. My goal was "package-by-feature". For the first few
 days it seemed like I'd just end up having 25 different packages whose names are relevant keywords from that day.
 However, towards the latter half of the days, there were consistencies in the naming that started to make the language
-a more ubiquitous. This allowed me to start grouping packages together and start abstracting out common code.
+a little more ubiquitous. This allowed me to start grouping packages together and start abstracting out common code.
 
 ### Design
 -Design Patterns

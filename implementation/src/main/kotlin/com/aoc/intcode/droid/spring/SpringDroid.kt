@@ -10,8 +10,8 @@ class SpringDroid(instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
     fun surveyHull() : HullDamageReport {
-        computer.run()
-        AdventLogger.info(getOutput())
+        boot()
+        inputProgram(getManualProgram())
         return HullDamageReport(0)
     }
 
@@ -20,6 +20,20 @@ class SpringDroid(instructions: String) {
         program.addInstruction(SpringScriptInstruction(LogicGate.NOT, GroundSensorRegister(DistanceCode.A), JumpRegister()))
         return program
     }
+
+    private fun inputProgram(program: SpringScriptProgram) {
+        AdventLogger.info("Inputting Program:\n$program")
+        program.encode().forEach { computer.program.memory.input.add(it) }
+        computer.run()
+        logOutput()
+    }
+
+    private fun boot() {
+        computer.run()
+        logOutput()
+    }
+
+    private fun logOutput() = AdventLogger.info(getOutput())
 
     private fun getOutput() = computer.program.memory.output.parseStringFromAscii()
 

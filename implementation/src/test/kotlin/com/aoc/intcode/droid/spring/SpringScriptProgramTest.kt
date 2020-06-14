@@ -24,7 +24,7 @@ class SpringScriptProgramTest {
         val program = SpringScriptProgram()
         program.addInstruction(SpringScriptInstruction(LogicGate.NOT, TemporaryValueRegister(), JumpRegister()))
         program.addInstruction(SpringScriptInstruction(LogicGate.AND, GroundSensorRegister(DistanceCode.B), TemporaryValueRegister()))
-        assertThat(program.encode()).isEqualTo(listOf<Long>(78,79,84,84,74,10,65,78,68,66,84,10,87,65,76,75))
+        assertThat(program.encode()).isEqualTo(listOf<Long>(78,79,84,32,84,32,74,10,65,78,68,32,66,32,84,10,87,65,76,75,10))
     }
 
     @Test

@@ -17,6 +17,6 @@ class SpringScriptInstructionTest {
     @Test
     fun encode() {
         val instruction = SpringScriptInstruction(LogicGate.NOT, GroundSensorRegister(DistanceCode.A), JumpRegister())
-        assertThat(instruction.encode()).isEqualTo(listOf<Long>(78,79,84,65,74))
+        assertThat(instruction.encode()).isEqualTo(listOf<Long>(78,79,84,32,65,32,74))
     }
 }

@@ -11,13 +11,20 @@ class SpringDroid(instructions: String) {
     fun surveyHull() : HullDamageReport {
         boot()
         inputProgram(getManualProgram())
-        return HullDamageReport(0)
+        return HullDamageReport(getOutput().getLastValue())
     }
 
     private fun getManualProgram(): SpringScriptProgram {
         val program = SpringScriptProgram()
         val parser = SpringScriptParser()
-        program.addInstruction(parser.parseInstruction("NOT A J"))
+        program.addInstruction(parser.parseInstruction("NOT A J")) //If the tile 1 ahead is empty, set jump to true
+        program.addInstruction(parser.parseInstruction("NOT B T")) //If the tile 2 ahead is empty, set temp true
+        program.addInstruction(parser.parseInstruction("AND D T"))
+        program.addInstruction(parser.parseInstruction("OR T J")) //If temp or jump registers are true, set jump to true
+        program.addInstruction(parser.parseInstruction("NOT C T")) //If the tile 3 ahead is empty, set temp to true
+        program.addInstruction(parser.parseInstruction("OR T J")) //If temp or jump registers are true, set jump to true
+        //If the tile 4 ahead is ground and we've not previously set jump to false, set (keep) jump to true
+        program.addInstruction(parser.parseInstruction("AND D J"))
         return program
     }
 
@@ -33,8 +40,8 @@ class SpringDroid(instructions: String) {
         logOutput()
     }
 
-    private fun logOutput() = AdventLogger.info(getOutput())
+    private fun logOutput() = AdventLogger.info(getOutput().parseStringFromAscii())
 
-    private fun getOutput() = computer.program.memory.output.parseStringFromAscii()
+    private fun getOutput() = computer.program.memory.output
 
 }

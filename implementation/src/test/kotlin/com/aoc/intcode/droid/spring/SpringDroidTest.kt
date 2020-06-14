@@ -11,6 +11,6 @@ class SpringDroidTest {
     fun solutionPartOne() {
         val input = InputReader().readInputAsSingleString(Day.from(21))
         val droid = SpringDroid(input)
-        assertThat(droid.surveyHull().value).isEqualTo(12)
+        assertThat(droid.surveyHull().value).isEqualTo(19350258)
     }
 }

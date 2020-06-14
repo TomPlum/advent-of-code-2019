@@ -1,10 +1,8 @@
 package com.aoc.intcode.droid.spring
 
 import com.aoc.intcode.computer.IntCodeComputer
-import com.aoc.intcode.droid.spring.register.read.DistanceCode
-import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
-import com.aoc.intcode.droid.spring.register.write.JumpRegister
-import com.aoc.intcode.droid.spring.register.write.TemporaryValueRegister
+import com.aoc.intcode.droid.spring.script.SpringScriptParser
+import com.aoc.intcode.droid.spring.script.SpringScriptProgram
 import com.aoc.log.AdventLogger
 
 class SpringDroid(instructions: String) {

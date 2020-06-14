@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.spring
+package com.aoc.intcode.droid.spring.script
 
 import com.aoc.intcode.droid.spring.register.Encodable
 

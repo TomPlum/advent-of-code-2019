@@ -1,15 +1,17 @@
-package com.aoc.intcode.droid.spring
+package com.aoc.intcode.droid.spring.register.script
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.droid.spring.register.read.DistanceCode
 import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
 import com.aoc.intcode.droid.spring.register.write.JumpRegister
+import com.aoc.intcode.droid.spring.script.LogicGate
+import com.aoc.intcode.droid.spring.script.SpringScriptInstruction
+import com.aoc.intcode.droid.spring.script.SpringScriptParser
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EmptySource
-import org.junit.jupiter.params.provider.NullAndEmptySource
 import org.junit.jupiter.params.provider.ValueSource
 import java.lang.IllegalArgumentException
 

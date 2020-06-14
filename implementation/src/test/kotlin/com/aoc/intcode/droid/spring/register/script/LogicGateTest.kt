@@ -1,8 +1,9 @@
-package com.aoc.intcode.droid.spring
+package com.aoc.intcode.droid.spring.register.script
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.aoc.intcode.droid.spring.script.LogicGate
 import org.junit.jupiter.api.Test
 
 class LogicGateTest {

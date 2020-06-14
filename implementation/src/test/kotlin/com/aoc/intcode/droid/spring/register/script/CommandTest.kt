@@ -1,7 +1,8 @@
-package com.aoc.intcode.droid.spring
+package com.aoc.intcode.droid.spring.register.script
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.droid.spring.script.Command
 import org.junit.jupiter.api.Test
 
 class CommandTest {

@@ -12,7 +12,12 @@ class CommandTest {
     }
 
     @Test
-    fun encode() {
+    fun encodeWalk() {
         assertThat(Command.WALK.encode()).isEqualTo(listOf<Long>(87,65,76,75,10))
+    }
+
+    @Test
+    fun encodeRun() {
+        assertThat(Command.RUN.encode()).isEqualTo(listOf<Long>(82,85,78,10))
     }
 }

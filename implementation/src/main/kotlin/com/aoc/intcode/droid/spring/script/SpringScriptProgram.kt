@@ -19,7 +19,7 @@ import com.aoc.intcode.computer.Program
  * These are the [JumpRegister] and the [TemporaryValueRegister].
  * If the [JumpRegister] is TRUE at the end of the [SpringScriptProgram] the then [SpringDroid] will jump.
  */
-class SpringScriptProgram : Encodable {
+class SpringScriptProgram(private val command: Command) : Encodable {
     val instructions = LinkedList<SpringScriptInstruction>()
 
     fun addInstruction(instruction: SpringScriptInstruction) {
@@ -30,8 +30,10 @@ class SpringScriptProgram : Encodable {
         }
     }
 
-    override fun encode(): List<Long> = instructions.map { it.encode() + listOf('\n'.toLong()) }.flatten().toMutableList() + Command.WALK.encode()
+    override fun encode(): List<Long> = instructions.map {
+        it.encode() + listOf('\n'.toLong())
+    }.flatten().toMutableList() + command.encode()
 
-    override fun toString() = "${instructions.joinToString(separator = "\n")}\n${Command.WALK}"
+    override fun toString() = "${instructions.joinToString(separator = "\n")}\n${command}"
 
 }

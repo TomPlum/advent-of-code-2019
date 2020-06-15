@@ -1,10 +1,12 @@
 package com.aoc.intcode.droid.spring
 
 import com.aoc.intcode.computer.IntCodeComputer
-import com.aoc.intcode.droid.spring.script.SpringScriptParser
-import com.aoc.intcode.droid.spring.script.SpringScriptProgram
-import com.aoc.log.AdventLogger
 import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
+import com.aoc.intcode.droid.spring.script.SpringScriptProgram
+import com.aoc.intcode.droid.spring.script.Command
+import com.aoc.intcode.droid.spring.survey.SurveyingStrategy
+import com.aoc.log.AdventLogger
+import java.lang.IllegalStateException
 
 /**
  * The [SpringDroid] is deployed on the ships hull in order to survey it for damage. This droids ability to jump
@@ -15,47 +17,32 @@ import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
  * a hole into empty space.
  *
  * The droid is also equipped with sensors that can detect whether there is ground at various distances in the direction
- * that it is facing; these values are stored in a [GroundSensorRegister].
+ * that it is facing; these values are stored in a [GroundSensorRegister]. When the droid is running a
+ * [SpringScriptProgram] that is executed with [Command.WALK], it's ground sensors can detect up-to 4 tiles away and
+ * therefore only jump 4 tiles too. If it is executed with [Command.RUN], then this range is extended to 9 tiles.
  */
 class SpringDroid(instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
-    fun surveyHull() : HullDamageReport {
+    fun surveyHull(strategy: SurveyingStrategy) : HullDamageReport {
         boot()
-        inputProgram(getManualProgram())
-        return HullDamageReport(getOutput().getLastValue())
+        inputAndExecuteProgram(strategy.getProgram())
+        return getHullDamageReport()
     }
 
-    private fun getManualProgram(): SpringScriptProgram {
-        val program = SpringScriptProgram()
-        val parser = SpringScriptParser()
-
-        //If the tile 1 ahead is empty, set jump to true
-        program.addInstruction(parser.parseInstruction("NOT A J"))
-
-        //If the tile 2 ahead is empty, set temp true
-        program.addInstruction(parser.parseInstruction("NOT B T"))
-
-        //If temp or jump registers are true, set jump to true
-        program.addInstruction(parser.parseInstruction("OR T J"))
-
-        //If the tile 3 ahead is empty, set temp to true
-        program.addInstruction(parser.parseInstruction("NOT C T"))
-
-        //If temp or jump registers are true, set jump to true
-        program.addInstruction(parser.parseInstruction("OR T J"))
-
-        //If the tile 4 ahead is ground and we've not previously set jump to false, set (keep) jump to true
-        program.addInstruction(parser.parseInstruction("AND D J"))
-
-        return program
-    }
-
-    private fun inputProgram(program: SpringScriptProgram) {
+    private fun inputAndExecuteProgram(program: SpringScriptProgram) {
         AdventLogger.info("Inputting Program:\n$program")
         program.encode().forEach { computer.program.memory.input.add(it) }
         computer.run()
         logOutput()
+    }
+
+    private fun getHullDamageReport(): HullDamageReport {
+        val lastOutput = getOutput().getLastValue()
+        if (lastOutput <= 127) {
+            throw IllegalStateException("The droid fell down a hole into outer space!")
+        }
+        return HullDamageReport(lastOutput)
     }
 
     private fun boot() {

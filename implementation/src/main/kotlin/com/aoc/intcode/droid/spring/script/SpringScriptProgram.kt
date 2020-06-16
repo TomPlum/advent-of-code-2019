@@ -22,6 +22,10 @@ import com.aoc.intcode.computer.Program
 class SpringScriptProgram(private val command: Command) : Encodable {
     val instructions = LinkedList<SpringScriptInstruction>()
 
+    /**
+     * Adds a single [SpringScriptInstruction] to the program.
+     * @throws IllegalStateException if more than 15 instructions attempt to be added to the program.
+     */
     fun addInstruction(instruction: SpringScriptInstruction) {
         if (instructions.size < 15) {
             instructions.add(instruction)

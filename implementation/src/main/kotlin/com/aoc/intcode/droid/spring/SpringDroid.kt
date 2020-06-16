@@ -24,6 +24,10 @@ import java.lang.IllegalStateException
 class SpringDroid(instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
+    /**
+     * Surveys the ship hull for damage.
+     * @param strategy the [SurveyingStrategy] dictates how the robot will move along the hull
+     */
     fun surveyHull(strategy: SurveyingStrategy) : HullDamageReport {
         inputAndExecuteProgram(strategy.getProgram())
         return getHullDamageReport()

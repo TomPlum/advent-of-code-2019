@@ -25,7 +25,6 @@ class SpringDroid(instructions: String) {
     private val computer = IntCodeComputer(instructions)
 
     fun surveyHull(strategy: SurveyingStrategy) : HullDamageReport {
-        boot()
         inputAndExecuteProgram(strategy.getProgram())
         return getHullDamageReport()
     }
@@ -34,23 +33,17 @@ class SpringDroid(instructions: String) {
         AdventLogger.info("Inputting Program:\n$program")
         program.encode().forEach { computer.program.memory.input.add(it) }
         computer.run()
-        logOutput()
     }
 
     private fun getHullDamageReport(): HullDamageReport {
         val lastOutput = getOutput().getLastValue()
         if (lastOutput <= 127) {
+            AdventLogger.info(getOutput().parseStringFromAscii())
             throw IllegalStateException("The droid fell down a hole into outer space!")
         }
+        AdventLogger.info("Total Hull Damage: $lastOutput")
         return HullDamageReport(lastOutput)
     }
-
-    private fun boot() {
-        computer.run()
-        logOutput()
-    }
-
-    private fun logOutput() = AdventLogger.info(getOutput().parseStringFromAscii())
 
     private fun getOutput() = computer.program.memory.output
 

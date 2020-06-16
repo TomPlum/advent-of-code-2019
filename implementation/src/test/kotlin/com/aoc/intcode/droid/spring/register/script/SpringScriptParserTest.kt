@@ -37,7 +37,7 @@ class SpringScriptParserTest {
 
     @ParameterizedTest
     @EmptySource
-    @ValueSource(strings = ["G", "AB", "AND", "NOT", "OR"])
+    @ValueSource(strings = ["K", "AB", "AND", "NOT", "OR"])
     fun parseInstructionInvalidFirstArgument(arg: String) {
         val e = assertThrows<IllegalArgumentException> { SpringScriptParser().parseInstruction("AND $arg J") }
         assertThat(e.message).isEqualTo("Invalid 1st Argument ($arg)")
@@ -45,7 +45,7 @@ class SpringScriptParserTest {
 
     @ParameterizedTest
     @EmptySource
-    @ValueSource(strings = ["A", "B", "C", "D", "G", "AND", "NOT", "OR"])
+    @ValueSource(strings = ["A", "B", "C", "D", "K", "AND", "NOT", "OR"])
     fun parseInstructionInvalidSecondArgument(arg: String) {
         val e = assertThrows<IllegalArgumentException> { SpringScriptParser().parseInstruction("AND A $arg") }
         assertThat(e.message).isEqualTo("Invalid 2nd (Writable) Argument ($arg)")

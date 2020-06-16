@@ -25,6 +25,18 @@ class RunningStrategy : SurveyingStrategy() {
         //If the tile 4 ahead is ground and we've not previously set jump to false, set (keep) jump to true
         program.addInstruction(parser.parseInstruction("AND D J"))
 
+        //If the tile 5 ahead is empty, set temporary register to true
+        program.addInstruction(parser.parseInstruction("NOT E T"))
+
+        //Invert Temporary Register if false
+        program.addInstruction(parser.parseInstruction("NOT T T"))
+
+        //Sets Temporary Register to true if the tile 8 away is ground
+        program.addInstruction(parser.parseInstruction("OR H T"))
+
+        //If Temporary & Jump Register are true, jump
+        program.addInstruction(parser.parseInstruction("AND T J"))
+
         return program
     }
 }

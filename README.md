@@ -137,7 +137,7 @@ For the most part, only runtime-complexity was a concern. There were few occasio
 | 18  	| -       	| -             	| Many-Worlds Interpretation                | [Link](docs/DAY18.MD)  |
 | 19  	| 181      	| 4240964          	| Tractor Beam                              | [Link](docs/DAY19.MD)  |
 | 20  	| 526     	| 6292             	| Donut Maze                                | [Link](docs/DAY20.MD)  |
-| 21  	| 19350258 	| -             	| Springdroid Adventure                     | [Link](docs/DAY21.MD)  |
+| 21  	| 19350258 	| 1142627861       	| Springdroid Adventure                     | [Link](docs/DAY21.MD)  |
 | 22  	| -       	| -             	| Slam Shuffle                              | [Link](docs/DAY22.MD)  |
 | 23  	| -       	| -             	| Category Six                              | [Link](docs/DAY23.MD)  |
 | 24  	| -       	| -             	| Planet of Discord                         | [Link](docs/DAY24.MD)  |

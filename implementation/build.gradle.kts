@@ -1,26 +1,36 @@
 plugins {
     jacoco
+    kotlin("jvm")
+    idea
 }
 
-/*sourceSets.main {
-    java.srcDirs("src/jmh/kotlin")
-}*/
-
-val jmh: Configuration by configurations.creating
-val benchmarkingOnly: Configuration by configurations.creating {
-    extendsFrom(configurations["testImplementation"])
+val benchmarkingImplementation: Configuration by configurations.creating {
+    extendsFrom(configurations.testImplementation.get())
 }
 
-sourceSets.create("jmh")
+val benchmarkingRuntimeOnly: Configuration by configurations.creating {
+    extendsFrom(configurations.testRuntimeOnly.get())
+}
 
 sourceSets {
-    //main.kotlin.srcDirs("src/jmh/kotlin")
-    //java.srcDirs("src/jmh/kotlin")
+    val benchmark by creating {
+        java.srcDir("src/benchmark/kotlin")
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+        runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
+
+        dependencies {
+            benchmarkingImplementation(project(":implementation:common"))
+            benchmarkingImplementation(kotlin("stdlib-jdk8"))
+        }
+    }
 }
 
-configure<SourceSetContainer> {
-    named("jmh") {
-        java.srcDir("src/jmh/kotlin")
+idea {
+    module {
+        val testSources = testSourceDirs
+        testSources.addAll(project.sourceSets.getByName("benchmark").java.srcDirs)
+        testSources.addAll(project.sourceSets.getByName("benchmark").resources.srcDirs)
+        testSourceDirs = testSources
     }
 }
 
@@ -34,7 +44,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
-    benchmarkingOnly("org.openjdk.jmh:jmh-generator-annprocess:1.23")
+    benchmarkingImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")
@@ -44,6 +54,7 @@ dependencies {
 
 subprojects {
     apply(plugin = "jacoco")
+    apply(plugin = "kotlin")
 }
 
 val test by tasks.getting(Test::class) {

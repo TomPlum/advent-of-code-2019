@@ -13,14 +13,12 @@ val benchmarkingRuntimeOnly: Configuration by configurations.creating {
 }
 
 sourceSets {
-    val benchmark by creating {
-        java.srcDir("src/benchmark/kotlin")
-        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
-        runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
-
-        dependencies {
-            benchmarkingImplementation(project(":implementation:common"))
-            benchmarkingImplementation(kotlin("stdlib-jdk8"))
+    create("benchmark") {
+        withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+            kotlin.srcDir("src/benchmark/kotlin")
+            resources.srcDir("src/benchmark/resources")
+            compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+            runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
         }
     }
 }
@@ -28,7 +26,7 @@ sourceSets {
 idea {
     module {
         val testSources = testSourceDirs
-        testSources.addAll(project.sourceSets.getByName("benchmark").java.srcDirs)
+        testSources.addAll(project.sourceSets.getByName("benchmark").allSource.srcDirs)
         testSources.addAll(project.sourceSets.getByName("benchmark").resources.srcDirs)
         testSourceDirs = testSources
     }
@@ -44,6 +42,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
+    benchmarkingImplementation("org.openjdk.jmh:jmh-core:1.23")
     benchmarkingImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging

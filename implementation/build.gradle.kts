@@ -1,14 +1,13 @@
 plugins {
     jacoco
-    kotlin("jvm")
     idea
 }
 
-val benchmarkingImplementation: Configuration by configurations.creating {
+val benchmarkImplementation: Configuration by configurations.creating {
     extendsFrom(configurations.testImplementation.get())
 }
 
-val benchmarkingRuntimeOnly: Configuration by configurations.creating {
+val benchmarkRuntimeOnly: Configuration by configurations.creating {
     extendsFrom(configurations.testRuntimeOnly.get())
 }
 
@@ -42,8 +41,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
-    benchmarkingImplementation("org.openjdk.jmh:jmh-core:1.23")
-    benchmarkingImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
+    benchmarkImplementation("org.openjdk.jmh:jmh-core:1.23")
+    benchmarkImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")
@@ -53,7 +52,6 @@ dependencies {
 
 subprojects {
     apply(plugin = "jacoco")
-    apply(plugin = "kotlin")
 }
 
 val test by tasks.getting(Test::class) {

@@ -1,0 +1,9 @@
+Useful Links:
+
+Source Sets:
+https://stackoverflow.com/questions/52904603/integration-tests-with-gradle-kotlin-dsl
+https://stackoverflow.com/questions/60946384/kotlin-not-configured-when-i-add-a-new-source-set-in-gradle-intellij
+https://stackoverflow.com/questions/55170974/how-do-i-create-an-additional-kotlin-sourceset-using-gradle-with-kotlin-dsl
+https://stackoverflow.com/questions/52074532/adding-integration-tests-to-kotlin-project-using-the-kotlin-gradle-dsl?rq=1
+https://stackoverflow.com/questions/54810182/custom-test-source-set-with-gradle-kotlin-dsl-and-intellij
+https://stackoverflow.com/questions/11581419/how-do-i-add-a-new-sourceset-to-gradle

@@ -12,6 +12,7 @@ This doesn't mean, however, that I'm not considering performance. Any solutions 
 runtime complexity will be refactored and improved upon in a later pass of the days.
 
 ## Contents
+* [Getting Started](#getting-started)
 * [The Codebase](#the-codebase)
   * [Package Structure](#package-structure)
   * [Design](#design)
@@ -27,12 +28,22 @@ runtime complexity will be refactored and improved upon in a later pass of the d
   * [Performance & Runtime Complexity](#performance)
 * [Answer Table & Puzzle Documentation](#answer-table)
 
+## Getting Started
+If you wanted to clone the repository and run the solutions, you need only clone/download, import it as a Gradle project
+in your IDE, and run the respective solution file.
+
+Annotation Processing must be enabled in your IDE for the JMH tests to run.
+In IntelliJ; `Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
+
 ## The Codebase
 ### Package Structure
 The package structure was something that changed almost every day. My goal was "package-by-feature". For the first few
-days it seemed like I'd just end up having 25 different packages whose names are relevant keywords from that day.
+days it seemed like I'd just end up having 25 different packages whose names were relevant keywords from that day.
 However, towards the latter half of the days, there were consistencies in the naming that started to make the language
 a little more ubiquitous. This allowed me to start grouping packages together and start abstracting out common code.
+
+I created two Gradle root projects, `implementation` and `solutions`. With the former having a sub-project, `common`, for
+behaviour that is commonly used across multiple days.
 
     -implementation
         -common
@@ -45,15 +56,16 @@ a little more ubiquitous. This allowed me to start grouping packages together an
 -Junit5 / AssertK
 -JMH?
 -TDD
+-VisualVM Sampling/Profiling
 
 ## The Days
 ### Most Challenging (Day 18)
-This day was add one. Usually, the implementation is the 'easy' bit, and figuring out the theory behind the
+This day was an odd one. Usually the implementation is the 'easy' bit, and figuring out the theory behind the
 solution is the harder bit that can take a while. However, Day 18s theory was simple. It was a maze
 filled with doors with corresponding keys, and you had the find the shortest path to collect all keys. So it was just
 a case of using an exhaustive [DFS (Depth First Search)](https://en.wikipedia.org/wiki/Depth-first_search) Algorithm
 that would graph all the keys and their respective weights to any other accessible ones. Then running
-[Dijkstra Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) on the weighted graph to find the shortest path. 
+[Dijkstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) on the weighted graph to find the shortest path. 
 I just couldn't figure out how to implement it. I spent so many hours trying different things until I eventually managed 
 to get 4 of the 5 examples working. Example 5, however, just ran indefinitely and so did my puzzle input. I needed to 
 improve the performance of my graphing algorithm, so my solution input didn't take a literal eternity to run.
@@ -63,7 +75,7 @@ improve the performance of my graphing algorithm, so my solution input didn't ta
 #### Technically
 
 #### Most Fun (Day 8)
-This day was most fun because I didn't understand what was actually going on until I'd successfully implemented a
+This day was the most fun because I didn't understand what was actually going on until I'd successfully implemented a
 solution. It was only shortly after re-reading the documentation that I understand what was happening. The output
 below is the result of flattening a three-dimensional array of integers that represented pixel colours. After traversing
 the array vertically and exposing the upper-most opaque pixels, it produced a bitmap that represented an image of
@@ -96,8 +108,8 @@ time I'd seen such a niche puzzle in Advent of Code.
 A friend of mine had been raving about Kotlin for months at work, and I finally decided to start learning it when I
 started the Advent of Code. Having written in nothing but Java 10 hours a day for 2 years, I was amazed by how easy it
 was to pick the language up. The first thing I noticed was how succinct the language was syntactically. Most simple
-functions could be one-liners; return types were mostly implicit; and data classes turned huge Java bean classes into
-one line too.
+functions could be one-liners; return types were mostly implicit; and features such as data classes removed a lot of the
+boilerplate code that is prevalent in enterprise Java code.
 
 ### Data Structures & Algorithms
 Graphs, trees and mazes were a common theme and meant that path-finding algorithms were common.

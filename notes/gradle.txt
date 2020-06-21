@@ -7,3 +7,6 @@ https://stackoverflow.com/questions/55170974/how-do-i-create-an-additional-kotli
 https://stackoverflow.com/questions/52074532/adding-integration-tests-to-kotlin-project-using-the-kotlin-gradle-dsl?rq=1
 https://stackoverflow.com/questions/54810182/custom-test-source-set-with-gradle-kotlin-dsl-and-intellij
 https://stackoverflow.com/questions/11581419/how-do-i-add-a-new-sourceset-to-gradle
+
+JaCoCo:
+https://medium.com/@arunvelsriram/jacoco-configuration-using-gradles-kotlin-dsl-67a8870b1c68

@@ -15,7 +15,7 @@ plugins {
     kotlin("jvm") version "1.3.72"
 }
 
-subprojects {
+allprojects {
     group = "com.advent-of-code"
     version = "0.0.1-SNAPSHOT"
 

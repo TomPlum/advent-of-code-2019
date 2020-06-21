@@ -33,7 +33,8 @@ If you wanted to clone the repository and run the solutions, you need only clone
 in your IDE, and run the respective solution file.
 
 Annotation Processing must be enabled in your IDE for the JMH tests to run.
-In IntelliJ; `Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
+In IntelliJ; \
+`Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
 
 ## The Codebase
 ### Package Structure
@@ -53,13 +54,14 @@ behaviour that is commonly used across multiple days.
 -Design Patterns
 
 ### Testing
--Junit5 / AssertK
--JMH?
--TDD
+-Junit5 / AssertK \
+-JMH? \
+-TDD \
 -VisualVM Sampling/Profiling
 
 ## The Days
-### Most Challenging (Day 18)
+### Favourite Days
+#### Most Challenging (Day 18)
 This day was an odd one. Usually the implementation is the 'easy' bit, and figuring out the theory behind the
 solution is the harder bit that can take a while. However, Day 18s theory was simple. It was a maze
 filled with doors with corresponding keys, and you had the find the shortest path to collect all keys. So it was just
@@ -69,8 +71,6 @@ that would graph all the keys and their respective weights to any other accessib
 I just couldn't figure out how to implement it. I spent so many hours trying different things until I eventually managed 
 to get 4 of the 5 examples working. Example 5, however, just ran indefinitely and so did my puzzle input. I needed to 
 improve the performance of my graphing algorithm, so my solution input didn't take a literal eternity to run.
-
-### Favourite Days
 
 #### Technically
 

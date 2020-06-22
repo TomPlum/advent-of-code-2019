@@ -4,8 +4,8 @@ package com.aoc.orbit
  * A node in the tree of an [OrbitalMap]
  */
 data class Body(val name: String) {
-    var parent: Body? = null
-    var orbitingBodies: MutableList<Body> = mutableListOf()
+    private var parent: Body? = null
+    private var orbitingBodies: MutableList<Body> = mutableListOf(); get
 
     fun setOrbitingBody(body: Body) {
         orbitingBodies.add(body)
@@ -22,8 +22,6 @@ data class Body(val name: String) {
      */
     fun getOrbitCount(): Int = getAncestralBodyCount() + orbitingBodies.map { it.getOrbitCount() }.sum()
 
-    fun orbitalPathToCenter(): Set<Body> = setOf(this).also { parent?.orbitalPathToCenter() }
-
     /**
      * Return a Set of all the parent [Body] objects from the given body up to the Center of Mass (COM)
      */
@@ -34,5 +32,9 @@ data class Body(val name: String) {
     fun isYou() = name == "YOU"
 
     fun isSanta() = name == "SAN"
+
+    fun getOrbitingBodies() = orbitingBodies
+
+    fun getParent() = parent
 
 }

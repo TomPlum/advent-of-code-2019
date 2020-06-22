@@ -17,7 +17,7 @@ class BodyTest {
     fun orbitedBy() {
         val barycenter = Body("A")
         barycenter.setOrbitingBody(Body("B"))
-        assertThat(barycenter.orbitingBodies.size).isEqualTo(1)
+        assertThat(barycenter.getOrbitingBodies().size).isEqualTo(1)
     }
 
     @Test
@@ -25,7 +25,7 @@ class BodyTest {
     fun orbitedBySetsCorrectBody() {
         val barycenter = Body("A")
         barycenter.setOrbitingBody(Body("B"))
-        assertThat(barycenter.orbitingBodies[0].name).isEqualTo("B")
+        assertThat(barycenter.getOrbitingBodies()[0].name).isEqualTo("B")
     }
 
     @Test
@@ -34,8 +34,8 @@ class BodyTest {
         val barycenter = Body("A")
         val orbitingBody = Body("B")
         barycenter.setOrbitingBody(orbitingBody)
-        assertThat(barycenter.parent).isNull()
-        assertThat(orbitingBody.parent).isEqualTo(barycenter)
+        assertThat(barycenter.getParent()).isNull()
+        assertThat(orbitingBody.getParent()).isEqualTo(barycenter)
     }
 
     @Test
@@ -49,10 +49,10 @@ class BodyTest {
         val d = Body("D")
         barycenter.setOrbitingBody(d)
 
-        assertThat(barycenter.parent).isNull()
-        assertThat(b.parent).isEqualTo(barycenter)
-        assertThat(c.parent).isEqualTo(barycenter)
-        assertThat(d.parent).isEqualTo(barycenter)
+        assertThat(barycenter.getParent()).isNull()
+        assertThat(b.getParent()).isEqualTo(barycenter)
+        assertThat(c.getParent()).isEqualTo(barycenter)
+        assertThat(d.getParent()).isEqualTo(barycenter)
     }
 
     @Test

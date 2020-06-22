@@ -6,6 +6,8 @@ import com.aoc.input.InputReader
 import com.aoc.input.Day
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalStateException
 
 class PanelTest {
     private val wireStrings = InputReader().readInputString(Day.from(3)).values
@@ -76,5 +78,14 @@ class PanelTest {
         val panel = Panel(Wire(wireStrings[0]), Wire(wireStrings[1]))
         val distance = panel.findShortestCombinedIntersectionPaths()
         assertThat(distance).isEqualTo(20386)
+    }
+
+    @Test
+    @DisplayName("Given two wires with no intersections, when finding the shortest combined intersection paths, then" +
+    "it should throw an exception")
+    fun noIntersectionsShouldThrowException() {
+        val panel = Panel(Wire("D1"), Wire("U5"))
+        val e = assertThrows<IllegalStateException> { panel.findShortestCombinedIntersectionPaths() }
+        assertThat(e.message).isEqualTo("No Intersections Found")
     }
 }

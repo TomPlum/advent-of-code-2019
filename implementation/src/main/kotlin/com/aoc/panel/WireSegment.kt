@@ -12,7 +12,7 @@ data class WireSegment(private val directionalCode: String, val length: Int) {
         "R" -> Direction.RIGHT
         "D" -> Direction.DOWN
         "L" -> Direction.LEFT
-        else -> throw IllegalArgumentException("Invalid Directional Code ($directionalCode)")
+        else -> throw IllegalArgumentException("Invalid Directional Code: $directionalCode")
     }
 
 }

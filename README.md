@@ -36,6 +36,12 @@ Annotation Processing must be enabled in your IDE for the JMH tests to run.
 In IntelliJ; \
 `Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
 
+### Gradle Tasks
+| Task               | Description                                                |
+|--------------------|------------------------------------------------------------|
+| `test`             | Runs the unit tests for the `implementation` project.      |
+| `testCoverage`     | Runs the unit tests, calculates coverage and verifies it   |
+
 ## The Codebase
 ### Package Structure
 The package structure was something that changed almost every day. My goal was "package-by-feature". For the first few

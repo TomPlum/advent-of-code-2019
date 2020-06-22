@@ -1,6 +1,6 @@
 package com.aoc.orbit
 
-class OrbitalMap(val input: List<String>) {
+class OrbitalMap(input: List<String>) {
     private val map: Set<Body>
 
     init {

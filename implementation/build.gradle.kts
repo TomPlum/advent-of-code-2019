@@ -11,6 +11,10 @@ val benchmarkRuntimeOnly: Configuration by configurations.creating {
     extendsFrom(configurations.testRuntimeOnly.get())
 }
 
+val benchmarkAnnotationProcessor: Configuration by configurations.creating {
+    extendsFrom(configurations.testAnnotationProcessor.get())
+}
+
 sourceSets {
     create("benchmark") {
         withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
@@ -35,14 +39,17 @@ dependencies {
     //Compile 'Common' Sub-Module
     implementation(project(":implementation:common"))
 
-    //JUnit & Testing
+    //JUnit 5 & Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
+
+    //JMH
     benchmarkImplementation("org.openjdk.jmh:jmh-core:1.23")
-    benchmarkImplementation("org.openjdk.jmh:jmh-generator-annprocess:1.23")
+    benchmarkRuntimeOnly("org.codehaus.mojo:exec-maven-plugin:3.0.0")
+    benchmarkAnnotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")
@@ -66,6 +73,14 @@ val testCoverage by tasks.registering {
     val jacocoTestReport = tasks.findByName("jacocoTestReport")
     jacocoTestReport?.mustRunAfter(tasks.findByName("test"))
     tasks.findByName("jacocoTestCoverageVerification")?.mustRunAfter(jacocoTestReport)
+}
+
+val benchmark by tasks.registering(type = JavaExec::class) {
+    dependsOn("benchmarkClasses")
+    group = "benchmarking"
+    description = "Runs the JMH benchmark tests."
+    main = "org.openjdk.jmh.Main"
+    classpath = sourceSets["benchmark"].runtimeClasspath
 }
 
 jacoco {

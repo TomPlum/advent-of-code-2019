@@ -13,6 +13,7 @@ runtime complexity will be refactored and improved upon in a later pass of the d
 
 ## Contents
 * [Getting Started](#getting-started)
+  * [Gradle Tasks](#gradle-tasks)
 * [The Codebase](#the-codebase)
   * [Package Structure](#package-structure)
   * [Design](#design)
@@ -37,10 +38,11 @@ In IntelliJ; \
 `Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
 
 ### Gradle Tasks
-| Task               | Description                                                |
-|--------------------|------------------------------------------------------------|
-| `test`             | Runs the unit tests for the `implementation` project.      |
-| `testCoverage`     | Runs the unit tests, calculates coverage and verifies it   |
+| Task               | Description                                                               |
+|--------------------|---------------------------------------------------------------------------|
+| `test`             | Runs the unit tests for the `implementation` project.                     |
+| `testCoverage`     | Runs the unit tests, calculates the coverage and verifies that its > 90%. |       
+| `benchmark`        | Runs the JMH tests for the `implementation` project.                      |
 
 ## The Codebase
 ### Package Structure

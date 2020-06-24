@@ -2,7 +2,9 @@ package com.aoc.cards
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNotEqualTo
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException
@@ -45,6 +47,16 @@ class SpaceCardDeckTest {
     @Test
     fun exampleTwoDeckSizeTenCutNegativeFour() {
         assertThat(SpaceCardDeckFactory.withCardQuantity(10).cut(-4)).isEqualTo(deckWithCards(6,7,8,9,0,1,2,3,4,5))
+    }
+
+    @Test
+    fun isNotEmptyPositive() {
+        assertThat(SpaceCardDeckFactory.withCardQuantity(10).isNotEmpty()).isTrue()
+    }
+
+    @Test
+    fun isNotEmptyNegative() {
+        assertThat(SpaceCardDeck(LinkedList()).isNotEmpty()).isFalse()
     }
 
     @Test

@@ -29,7 +29,11 @@ data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
         }
     }
 
+    fun takeFromTop(): SpaceCard = cards.pop()
+
     fun size() = cards.size
+
+    fun isNotEmpty() = cards.size > 0
 
     override fun toString() = cards.toString()
 }

@@ -15,4 +15,9 @@ class SpaceCardTest {
     fun equalityTestNegative() {
         assertThat(SpaceCard(12)).isNotEqualTo(SpaceCard(15))
     }
+
+    @Test
+    fun toStringTest() {
+        assertThat(SpaceCard(57).toString()).isEqualTo("57")
+    }
 }

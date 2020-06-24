@@ -5,6 +5,7 @@ import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.math.abs
 
+//TODO: Remove cut(), dealWithNewStack() as they're in strategies. Move relevant tests too.
 data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
 
     fun dealIntoNewStack(): SpaceCardDeck {

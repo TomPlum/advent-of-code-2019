@@ -12,7 +12,7 @@ class ShuffleInstructionParser {
             when {
                 instruction.matches(Regex("deal with increment \\d")) -> IncrementStrategy(last.toInt())
                 instruction.matches(Regex("deal into new stack")) -> NewStackStrategy()
-                instruction.matches(Regex("cut \\d")) -> CuttingStrategy(last.toInt())
+                instruction.matches(Regex("cut -?\\d")) -> CuttingStrategy(last.toInt())
                 else -> throw IllegalArgumentException("Invalid instruction: $instruction")
             }
         }

@@ -2,6 +2,7 @@ package com.aoc.cards
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
 import com.aoc.cards.strategy.CuttingStrategy
 import com.aoc.cards.strategy.IncrementStrategy
 import com.aoc.cards.strategy.NewStackStrategy
@@ -23,7 +24,7 @@ class ShuffleInstructionParserTest {
     fun newStack() {
         val instructions = listOf("deal into new stack")
         val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(NewStackStrategy())
+        assertThat(strategies.first()).isInstanceOf(NewStackStrategy::class)
     }
 
     @Test
@@ -31,6 +32,13 @@ class ShuffleInstructionParserTest {
         val instructions = listOf("cut 6")
         val strategies = ShuffleInstructionParser.parse(instructions)
         assertThat(strategies.first()).isEqualTo(CuttingStrategy(6))
+    }
+
+    @Test
+    fun cutNegativeQuantity() {
+        val instructions = listOf("cut -2")
+        val strategies = ShuffleInstructionParser.parse(instructions)
+        assertThat(strategies.first()).isEqualTo(CuttingStrategy(-2))
     }
 
     @ParameterizedTest

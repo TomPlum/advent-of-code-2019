@@ -10,3 +10,7 @@ https://stackoverflow.com/questions/11581419/how-do-i-add-a-new-sourceset-to-gra
 
 JaCoCo:
 https://medium.com/@arunvelsriram/jacoco-configuration-using-gradles-kotlin-dsl-67a8870b1c68
+
+JMH:
+https://arbitrary-but-fixed.net/java/algorithms/2019/09/29/jmh-gradle-config.html
+https://dev.to/o_a_e/jmh-with-gradle--from-easy-to-simple-52ec

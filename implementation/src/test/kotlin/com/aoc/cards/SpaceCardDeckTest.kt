@@ -43,6 +43,11 @@ class SpaceCardDeckTest {
     }
 
     @Test
+    fun exampleTwoDeckSizeTenCutNegativeFour() {
+        assertThat(SpaceCardDeckFactory.withCardQuantity(10).cut(-4)).isEqualTo(deckWithCards(6,7,8,9,0,1,2,3,4,5))
+    }
+
+    @Test
     fun toStringTest() {
         assertThat(SpaceCardDeckFactory.withCardQuantity(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
     }

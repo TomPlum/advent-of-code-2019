@@ -3,6 +3,7 @@ package com.aoc.cards
 import java.lang.IllegalArgumentException
 import java.lang.IndexOutOfBoundsException
 import java.util.*
+import kotlin.math.abs
 
 data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
 
@@ -12,7 +13,11 @@ data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
     }
 
     fun cut(quantity: Int): SpaceCardDeck {
-        (0 until quantity).map { cards.pop() }.forEach { cards.addLast(it) }
+        if (quantity > 0) {
+            (0 until quantity).map { cards.removeFirst() }.forEach { cards.addLast(it) }
+        } else {
+            (0 until abs(quantity)).map { cards.removeLast() }.forEach { cards.addFirst(it) }
+        }
         return this
     }
 

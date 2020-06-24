@@ -60,6 +60,11 @@ class SpaceCardDeckTest {
     }
 
     @Test
+    fun getCardWithValue() {
+        assertThat(deckWithCards(3,4,5,6,7,8,9,0,1,2).getCardWithValue(4)).isEqualTo(1)
+    }
+
+    @Test
     fun toStringTest() {
         assertThat(SpaceCardDeckFactory.withCardQuantity(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
     }

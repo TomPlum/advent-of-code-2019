@@ -21,6 +21,13 @@ class ShuffleInstructionParserTest {
     }
 
     @Test
+    fun dealWithIncrementMultipleDigits() {
+        val instructions = listOf("deal with increment 17")
+        val strategies = ShuffleInstructionParser.parse(instructions)
+        assertThat(strategies.first()).isEqualTo(IncrementStrategy(17))
+    }
+
+    @Test
     fun newStack() {
         val instructions = listOf("deal into new stack")
         val strategies = ShuffleInstructionParser.parse(instructions)
@@ -32,6 +39,13 @@ class ShuffleInstructionParserTest {
         val instructions = listOf("cut 6")
         val strategies = ShuffleInstructionParser.parse(instructions)
         assertThat(strategies.first()).isEqualTo(CuttingStrategy(6))
+    }
+
+    @Test
+    fun cutWhenQuantityMultipleDigits() {
+        val instructions = listOf("cut 9002")
+        val strategies = ShuffleInstructionParser.parse(instructions)
+        assertThat(strategies.first()).isEqualTo(CuttingStrategy(9002))
     }
 
     @Test

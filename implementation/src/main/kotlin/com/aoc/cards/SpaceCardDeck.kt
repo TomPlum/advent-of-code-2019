@@ -29,11 +29,19 @@ data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
         }
     }
 
-    fun takeFromTop(): SpaceCard = cards.pop()
+    fun addOnTop(card: SpaceCard) = cards.addFirst(card)
+
+    fun addToBottom(card: SpaceCard) = cards.addLast(card)
+
+    fun takeFromTop(): SpaceCard = cards.removeFirst()
+
+    fun takeFromBottom(): SpaceCard = cards.removeLast()
 
     fun size() = cards.size
 
     fun isNotEmpty() = cards.size > 0
+
+    fun reverseCards() = cards.reverse()
 
     override fun toString() = cards.toString()
 }

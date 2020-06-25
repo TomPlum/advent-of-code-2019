@@ -2,6 +2,9 @@ package com.aoc.cards
 
 import java.util.*
 
+/**
+ * A deck of [SpaceCard]
+ */
 data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
 
     fun getCard(position: Int): SpaceCard {

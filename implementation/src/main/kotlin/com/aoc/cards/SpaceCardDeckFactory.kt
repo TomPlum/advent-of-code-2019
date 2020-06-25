@@ -2,6 +2,9 @@ package com.aoc.cards
 
 import java.util.*
 
+/**
+ * Produces [SpaceCardDeck]
+ */
 class SpaceCardDeckFactory {
 
     companion object {

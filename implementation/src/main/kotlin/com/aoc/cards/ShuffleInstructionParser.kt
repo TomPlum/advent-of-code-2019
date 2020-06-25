@@ -5,6 +5,9 @@ import com.aoc.cards.strategy.IncrementStrategy
 import com.aoc.cards.strategy.NewStackStrategy
 import com.aoc.cards.strategy.ShufflingStrategy
 
+/**
+ * Parses literal string representations of [ShufflingStrategy].
+ */
 class ShuffleInstructionParser {
     companion object {
         fun parse(instructions: List<String>): List<ShufflingStrategy> = instructions.map { instruction ->

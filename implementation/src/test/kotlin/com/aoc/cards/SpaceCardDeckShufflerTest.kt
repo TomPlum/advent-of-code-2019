@@ -2,6 +2,7 @@ package com.aoc.cards
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.cards.TestSpaceDeckFactory.Companion.deckWithCards
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
@@ -47,11 +48,5 @@ class SpaceCardDeckShufflerTest {
         val deck = SpaceCardDeckFactory.factoryOrder()
         val shuffler = SpaceCardDeckShuffler(deck)
         assertThat(shuffler.shuffle(instructions).getCardWithValue(2019)).isEqualTo(2604)
-    }
-
-    private fun deckWithCards(vararg values: Int): SpaceCardDeck {
-        val deck = LinkedList<SpaceCard>()
-        deck.addAll(values.map(::SpaceCard).toList())
-        return SpaceCardDeck(deck)
     }
 }

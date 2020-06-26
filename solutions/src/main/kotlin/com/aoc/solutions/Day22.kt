@@ -12,4 +12,8 @@ fun main() {
     val deck = SpaceCardDeckFactory.default()
     val shuffler = SpaceCardDeckShuffler(deck)
     println("Part 1 Solution: ${shuffler.shuffle(instructions).getCardWithValue(2019)}")
+
+    val giantDeck = SpaceCardDeckFactory.factoryOrder(119315717514047)
+    val giantShuffler = SpaceCardDeckShuffler(giantDeck)
+    println("Part 2 Solution: ${giantShuffler.shuffle(instructions, 101741582076661).getCard(2020).value}")
 }

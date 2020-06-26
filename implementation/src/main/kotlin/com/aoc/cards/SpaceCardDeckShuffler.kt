@@ -10,4 +10,9 @@ class SpaceCardDeckShuffler(private var deck: SpaceCardDeck) {
         instructions.forEach{ deck = it.shuffle(deck) }
         return deck
     }
+
+    fun shuffle(instructions: List<ShufflingStrategy>, times: Long): SpaceCardDeck {
+        (0..times).forEach { _ -> shuffle(instructions) }
+        return deck
+    }
 }

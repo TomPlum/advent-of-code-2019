@@ -8,8 +8,8 @@ import java.util.*
 class SpaceCardDeckFactory {
 
     companion object {
-        fun factoryOrder() = SpaceCardDeck((0..10006).map(::SpaceCard).toCollection(LinkedList()))
-        fun withCardQuantity(quantity: Int) = SpaceCardDeck((0 until quantity).map(::SpaceCard).toCollection(LinkedList()))
+        fun default() = factoryOrder(10007)
+        fun factoryOrder(quantity: Int) = SpaceCardDeck((0 until quantity).map(::SpaceCard).toCollection(LinkedList()))
     }
 
 }

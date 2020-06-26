@@ -14,28 +14,28 @@ import java.util.*
 class SpaceCardDeckTest {
     @Test
     fun getCard() {
-        assertThat(SpaceCardDeckFactory.factoryOrder().getCard(5782)).isEqualTo(SpaceCard(5782))
+        assertThat(SpaceCardDeckFactory.default().getCard(5782)).isEqualTo(SpaceCard(5782))
     }
 
     @Test
     fun getCardInvalidIndex() {
-        val e = assertThrows<IllegalArgumentException> { (SpaceCardDeckFactory.factoryOrder().getCard(83423412)) }
+        val e = assertThrows<IllegalArgumentException> { (SpaceCardDeckFactory.default().getCard(83423412)) }
         assertThat(e.message).isEqualTo("The deck does not contain a card at position 83423412")
     }
 
     @Test
     fun equalityTestPositive() {
-        assertThat(SpaceCardDeckFactory.withCardQuantity(15)).isEqualTo(SpaceCardDeckFactory.withCardQuantity(15))
+        assertThat(SpaceCardDeckFactory.factoryOrder(15)).isEqualTo(SpaceCardDeckFactory.factoryOrder(15))
     }
 
     @Test
     fun equalityTestNegative() {
-        assertThat(SpaceCardDeckFactory.withCardQuantity(56)).isNotEqualTo(SpaceCardDeckFactory.withCardQuantity(15))
+        assertThat(SpaceCardDeckFactory.factoryOrder(56)).isNotEqualTo(SpaceCardDeckFactory.factoryOrder(15))
     }
 
     @Test
     fun isNotEmptyPositive() {
-        assertThat(SpaceCardDeckFactory.withCardQuantity(10).isNotEmpty()).isTrue()
+        assertThat(SpaceCardDeckFactory.factoryOrder(10).isNotEmpty()).isTrue()
     }
 
     @Test
@@ -50,6 +50,6 @@ class SpaceCardDeckTest {
 
     @Test
     fun toStringTest() {
-        assertThat(SpaceCardDeckFactory.withCardQuantity(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
+        assertThat(SpaceCardDeckFactory.factoryOrder(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
     }
 }

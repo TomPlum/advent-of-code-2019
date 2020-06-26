@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test
 
 class SpaceCardDeckFactoryTest {
     @Nested
-    inner class FactoryOrder {
-        private val deck = SpaceCardDeckFactory.factoryOrder()
+    inner class Default {
+        private val deck = SpaceCardDeckFactory.default()
 
         @Test
         fun factoryOrderShouldStartAt0() {
@@ -28,7 +28,7 @@ class SpaceCardDeckFactoryTest {
 
     @Nested
     inner class CustomStackSize {
-        private val deck = SpaceCardDeckFactory.withCardQuantity(10)
+        private val deck = SpaceCardDeckFactory.factoryOrder(10)
 
         @Test
         fun tenCardDeckSize() {

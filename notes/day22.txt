@@ -3,3 +3,4 @@ Part 2:
 - Double check the deck size / shuffle quantity. Is it 64 or 128 bit?
 - We're only after the value of the card at index 2020 in part 2.
 - Might be worth working out the mathematical equations for each of the three shuffles and then expressing them as functions.
+- Research 'Modular Arithmetic' (More specifically, the inverse modulus function)

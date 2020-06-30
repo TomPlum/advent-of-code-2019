@@ -4,3 +4,8 @@ Part 2:
 - We're only after the value of the card at index 2020 in part 2.
 - Might be worth working out the mathematical equations for each of the three shuffles and then expressing them as functions.
 - Research 'Modular Arithmetic' (More specifically, the inverse modulus function)
+- We can't just find the inverse linear functional representations of the shuffles as we have to shuffle
+hundreds of millions of times. Even with an efficient function, it would take years to run.
+
+Mathematical Explanation:
+https://codeforces.com/blog/entry/72593

@@ -20,3 +20,16 @@ Transformation Functions -> Linear Congruential Function [f(x) = ax + b mod(m)]
 - Cut N:            f(x) = x - n mod(m)    a=1, b=-n
 - Deal Increment N: f(x) = n.x mod(m)      a=n, b=0
 
+
+
+
+Fermat's Little Theorem
+https://en.wikipedia.org/wiki/Fermat%27s_little_theorem
+
+Fermat's little theorem states that if p is a prime number,
+then for any integer a, the number a^p − a is an integer multiple of p.
+
+a^p = a(mod p)
+
+Because the deck size is a prime number, the theorem when expressed in the notation of modular arithmetic,
+is applicable.

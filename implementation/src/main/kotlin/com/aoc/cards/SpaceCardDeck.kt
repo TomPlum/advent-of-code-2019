@@ -15,7 +15,7 @@ data class SpaceCardDeck(private val cards: LinkedList<SpaceCard>) {
         }
     }
 
-    fun getCardWithValue(value: Int) = cards.indexOf(SpaceCard(value))
+    fun getCardWithValue(value: Long) = cards.indexOf(SpaceCard(value))
 
     fun addOnTop(card: SpaceCard) = cards.addFirst(card)
 

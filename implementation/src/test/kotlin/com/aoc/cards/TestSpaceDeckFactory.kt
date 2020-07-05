@@ -4,7 +4,7 @@ import java.util.*
 
 class TestSpaceDeckFactory {
     companion object {
-        public fun deckWithCards(vararg values: Int): SpaceCardDeck {
+        fun deckWithCards(vararg values: Long): SpaceCardDeck {
             val deck = LinkedList<SpaceCard>()
             deck.addAll(values.map(::SpaceCard).toList())
             return SpaceCardDeck(deck)

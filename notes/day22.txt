@@ -1,0 +1,35 @@
+Part 2:
+- It's impossible to actually create the deck, it's simply too big to fit in memory.
+- Double check the deck size / shuffle quantity. Is it 64 or 128 bit?
+- We're only after the value of the card at index 2020 in part 2.
+- Might be worth working out the mathematical equations for each of the three shuffles and then expressing them as functions.
+- Research 'Modular Arithmetic' (More specifically, the inverse modulus function)
+- We can't just find the inverse linear functional representations of the shuffles as we have to shuffle
+hundreds of millions of times. Even with an efficient function, it would take years to run.
+
+Mathematical Explanation:
+https://codeforces.com/blog/entry/72593
+
+Shuffling Strategies -> Transformation Functions
+- Deal New Stack:   f(x) = m - x - 1
+- Cut N:            f(x) = x - n mod(m)
+- Deal Increment N: f(x) = n.x mod(m)
+
+Transformation Functions -> Linear Congruential Function [f(x) = ax + b mod(m)]
+- Deal New Stack:   f(x) = -x - 1 mod(m)   a=-1, b=-1
+- Cut N:            f(x) = x - n mod(m)    a=1, b=-n
+- Deal Increment N: f(x) = n.x mod(m)      a=n, b=0
+
+
+
+
+Fermat's Little Theorem
+https://en.wikipedia.org/wiki/Fermat%27s_little_theorem
+
+Fermat's little theorem states that if p is a prime number,
+then for any integer a, the number a^p − a is an integer multiple of p.
+
+a^p = a(mod p)
+
+Because the deck size is a prime number, the theorem when expressed in the notation of modular arithmetic,
+is applicable.

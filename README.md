@@ -19,10 +19,9 @@ runtime complexity will be refactored and improved upon in a later pass of the d
   * [Design](#design)
   * [Testing](#testing)
 * [The Days](#the-days)
-  * [Favourite Days](#favourite-days)
-    * [Technically](#technically)
-    * [Most Challenging](#most-challenging-day-18)
-    * [Most Fun](#most-fun-day-8)
+  * [Most Challenging](#most-challenging-day-18)
+  * [Mathematically Challenging](#mathematically-challenging-day-22)
+  * [Most Fun](#most-fun-day-8)
 * [What I Learned](#what-i-learned)
   * [Kotlin](#kotlin--kotlin-gradle-dsl)
   * [Data Structures & Algorithms](#data-structures--algorithms)
@@ -68,8 +67,7 @@ behaviour that is commonly used across multiple days.
 -VisualVM Sampling/Profiling
 
 ## The Days
-### Favourite Days
-#### Most Challenging (Day 18)
+### Most Challenging (Day 18)
 This day was an odd one. Usually the implementation is the 'easy' bit, and figuring out the theory behind the
 solution is the harder bit that can take a while. However, Day 18s theory was simple. It was a maze
 filled with doors with corresponding keys, and you had the find the shortest path to collect all keys. So it was just
@@ -80,9 +78,9 @@ I just couldn't figure out how to implement it. I spent so many hours trying dif
 to get 4 of the 5 examples working. Example 5, however, just ran indefinitely and so did my puzzle input. I needed to 
 improve the performance of my graphing algorithm, so my solution input didn't take a literal eternity to run.
 
-#### Technically
+### Mathematically Challenging (Day 22)
 
-#### Most Fun (Day 8)
+### Most Fun (Day 8)
 This day was the most fun because I didn't understand what was actually going on until I'd successfully implemented a
 solution. It was only shortly after re-reading the documentation that I understand what was happening. The output
 below is the result of flattening a three-dimensional array of integers that represented pixel colours. After traversing

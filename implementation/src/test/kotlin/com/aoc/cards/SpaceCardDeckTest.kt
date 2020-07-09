@@ -49,6 +49,16 @@ class SpaceCardDeckTest {
     }
 
     @Test
+    fun equalityPositive() {
+        assertThat(deckWithCards(1,2,3,4,5)).isEqualTo(deckWithCards(1,2,3,4,5))
+    }
+
+    @Test
+    fun equalityNegative() {
+        assertThat(deckWithCards(1,2,3,4,5)).isNotEqualTo(deckWithCards(1,2,3,4,5,6,7))
+    }
+
+    @Test
     fun toStringTest() {
         assertThat(SpaceCardDeckFactory.factoryOrder(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
     }

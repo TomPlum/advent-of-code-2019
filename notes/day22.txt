@@ -10,6 +10,10 @@ hundreds of millions of times. Even with an efficient function, it would take ye
 Mathematical Explanation:
 https://codeforces.com/blog/entry/72593
 
+Definitions:
+Length of the Deck (m)
+Modulo (mod)
+
 Shuffling Strategies -> Transformation Functions
 - Deal New Stack:   f(x) = m - x - 1
 - Cut N:            f(x) = x - n mod(m)

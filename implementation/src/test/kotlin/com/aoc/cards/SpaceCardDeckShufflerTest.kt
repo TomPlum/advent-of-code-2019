@@ -48,4 +48,9 @@ class SpaceCardDeckShufflerTest {
         val shuffler = SpaceCardDeckShuffler(instructions)
         assertThat(shuffler.shuffle(deck).getCardWithValue(2019)).isEqualTo(2604)
     }
+
+    @Test
+    fun shuffleLargeDeckButWithPartOneInput() {
+        val m = 10007
+    }
 }

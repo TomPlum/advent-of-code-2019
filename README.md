@@ -4,6 +4,14 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=brightgreen)
 ![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2019?color=informational)
 
+## What is Advent of Code?
+
+_Excerpt from the Advent of Code [website](https://adventofcode.com/2019/about);_
+
+    "Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that
+    can be solved in any programming language you like. People use them as a speed contest, interview prep,
+    company training, university coursework, practice problems, or to challenge each other."
+
 ## About
 Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
 I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.

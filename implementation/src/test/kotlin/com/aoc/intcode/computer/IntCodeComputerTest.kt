@@ -337,6 +337,10 @@ class IntCodeComputerTest {
         }
     }
 
+    @Nested
+    inner class DayTwentyThree {
+
+    }
 
     @Test
     @DisplayName("Given the output has at least one code, when getting the diagnostic code, then it should return the final code from the output")

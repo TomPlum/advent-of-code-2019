@@ -6,6 +6,8 @@ import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import com.aoc.input.InputReader
 import com.aoc.input.Day
+import com.aoc.intcode.computer.boot.TestBootMode
+import com.aoc.intcode.network.NetworkAddress
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -86,6 +88,16 @@ class IntCodeComputerTest {
 
     @Nested
     inner class DayFive {
+        @Test
+        @DisplayName("Given a Input OpCode (3) and NO system input, when running, then it should suspend execution and" +
+        "wait for further input. The instruction pointer should remain where it is")
+        fun inputShouldSetComputerToWaitingWhenNoSystemInput() {
+            val computer = IntCodeComputer("1,0,0,0,3,0,99")
+            computer.run()
+            assertThat(computer.waiting).isTrue()
+            assertThat(computer.program.memory.instructionPointer).isEqualTo(4)
+        }
+
         @Test
         @DisplayName("Given a JUMP_IF_TRUE OpCode(5) in IMMEDIATE_MODE, when the first parameter is non-zero, then it should set the instruction pointer to the value from the second parameter")
         fun jumpIfTrue() {
@@ -274,7 +286,7 @@ class IntCodeComputerTest {
         fun dayFivePartTwoSolution() {
             val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
             val computer = IntCodeComputer(puzzleInput)
-            computer.onNextBoot(BootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
+            computer.onNextBoot(TestBootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
             computer.run()
             assertThat(computer.getDiagnosticCode()).isEqualTo(7408802)
         }
@@ -284,7 +296,7 @@ class IntCodeComputerTest {
         fun dayFivePartOneSolution() {
             val puzzleInput = InputReader().readInputAsSingleString(Day.from(5))
             val computer = IntCodeComputer(puzzleInput)
-            computer.onNextBoot(BootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
+            computer.onNextBoot(TestBootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
             computer.run()
             assertThat(computer.getDiagnosticCode()).isEqualTo(5044655)
         }
@@ -321,7 +333,7 @@ class IntCodeComputerTest {
         fun dayNinePartOneSolution() {
             val puzzleInput = InputReader().readInputAsSingleString(Day.from(9))
             val computer = IntCodeComputer(puzzleInput)
-            computer.onNextBoot(BootMode.BOOST_TEST)
+            computer.onNextBoot(TestBootMode.BOOST_TEST)
             computer.run()
             assertThat(computer.getDiagnosticCode()).isEqualTo(3100786347L)
         }
@@ -331,7 +343,7 @@ class IntCodeComputerTest {
         fun dayNinePartTwoSolution() {
             val puzzleInput = InputReader().readInputAsSingleString(Day.from(9))
             val computer = IntCodeComputer(puzzleInput)
-            computer.onNextBoot(BootMode.SENSOR_BOOST)
+            computer.onNextBoot(TestBootMode.SENSOR_BOOST)
             computer.run()
             assertThat(computer.getDiagnosticCode()).isEqualTo(87023)
         }
@@ -342,20 +354,48 @@ class IntCodeComputerTest {
 
     }
 
-    @Test
-    @DisplayName("Given the output has at least one code, when getting the diagnostic code, then it should return the final code from the output")
-    fun getDiagnosticCode() {
-        val computer = IntCodeComputer("4,3,99,250")
-        computer.run()
-        assertThat(computer.getDiagnosticCode()).isEqualTo(250)
+    @Nested
+    inner class DiagnosticCode {
+        @Test
+        @DisplayName("Given the output has at least one code, when getting the diagnostic code, then it should return the final code from the output")
+        fun getDiagnosticCode() {
+            val computer = IntCodeComputer("4,3,99,250")
+            computer.run()
+            assertThat(computer.getDiagnosticCode()).isEqualTo(250)
+        }
+
+        @Test
+        @DisplayName("Given the output is empty, when getting the diagnostic code, then it should throw an exception")
+        fun getDiagnosticCodeWhenEmptyOutput() {
+            val computer = IntCodeComputer("1,0,0,0,99")
+            computer.run()
+            assertThrows<IllegalStateException> { computer.getDiagnosticCode() }
+        }
     }
 
-    @Test
-    @DisplayName("Given the output is empty, when getting the diagnostic code, then it should throw an exception")
-    fun getDiagnosticCodeWhenEmptyOutput() {
-        val computer = IntCodeComputer("1,0,0,0,99")
-        computer.run()
-        assertThrows<IllegalStateException> { computer.getDiagnosticCode() }
+    @Nested
+    inner class OnNextBoot {
+        @ParameterizedTest
+        @EnumSource(value = TestBootMode::class)
+        @DisplayName("Given a custom boot mode for the IntCodeComputer, when setting the mode for the next boot," +
+        "then it should set the associated code in the computers' system input")
+        fun onNextBootTEST(bootMode: TestBootMode) {
+            val computer = IntCodeComputer("99")
+            computer.onNextBoot(bootMode)
+            assertThat(getFirstSystemInputValue(computer)).isEqualTo(bootMode.getCode())
+        }
+
+        @Test
+        @DisplayName("Given a Network Address, when booting, then it should add the address value in the System Input")
+        fun onNextBootNetworkAddress() {
+            val computer = IntCodeComputer("99")
+            computer.onNextBoot(NetworkAddress(45))
+            assertThat(getFirstSystemInputValue(computer)).isEqualTo(45)
+        }
+
+        private fun getFirstSystemInputValue(computer: IntCodeComputer): Long {
+            return computer.program.memory.input.values[0]
+        }
     }
 
     @Test
@@ -364,26 +404,6 @@ class IntCodeComputerTest {
         val computer = IntCodeComputer("1220")
         val e = assertThrows<IllegalArgumentException> { computer.run() }
         assertThat(e.message).isEqualTo("Operation unknown for instruction 1220")
-    }
-
-    @Test
-    @DisplayName("Given a Input OpCode (3) and NO system input, when running, then it should suspend execution and" +
-    "wait for further input. The instruction pointer should remain where it is")
-    fun inputShouldSetComputerToWaitingWhenNoSystemInput() {
-        val computer = IntCodeComputer("1,0,0,0,3,0,99")
-        computer.run()
-        assertThat(computer.waiting).isTrue()
-        assertThat(computer.program.memory.instructionPointer).isEqualTo(4)
-    }
-
-    @ParameterizedTest
-    @EnumSource(value = BootMode::class)
-    @DisplayName("Given a custom boot mode for the IntCodeComputer, when setting the mode for the next boot, then it should" +
-    "set the associated code in the computers' system input")
-    fun onNextBoot(bootMode: BootMode) {
-        val computer = IntCodeComputer("99")
-        computer.onNextBoot(bootMode)
-        assertThat(computer.program.memory.input.values[0]).isEqualTo(bootMode.systemInputCode)
     }
 
     @Test

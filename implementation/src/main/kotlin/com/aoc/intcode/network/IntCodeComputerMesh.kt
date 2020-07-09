@@ -10,7 +10,9 @@ class IntCodeComputerMesh(private val software: String) {
         repeat(50) { computers[NetworkAddress(it.toLong())] = IntCodeComputer(software) }
 
         computers.forEach { (address, computer) ->
-            computer.program.memory.input.add(address.value)
+            computer.onNextBoot(address)
         }
+
     }
+
 }

@@ -3,10 +3,10 @@ package com.aoc.intcode.network
 class IntCodeComputerNetwork(private val software: String) {
 
     private val computers = mutableMapOf<NetworkAddress, NetworkComputer>()
-    private val packetAnalyser = PacketAnalyser(NetworkAddress(255))
+    private var packetAnalyser = PacketAnalyser(NetworkAddress(255))
 
     init {
-        repeat(50) { computers[NetworkAddress(it.toLong())] = NetworkComputer(software) }
+        (0..49L).forEach { computers[NetworkAddress(it)] = NetworkComputer(software) }
 
         computers.forEach { (address, computer) ->
             computer.assignAddress(address)
@@ -15,18 +15,25 @@ class IntCodeComputerNetwork(private val software: String) {
 
     }
 
-    fun boot() {
+    fun boot(): Packet {
         while(true) {
             computers.forEach { (address, computer) ->
                 val outgoingPackets = computer.communicate()
                 if (outgoingPackets.isNotEmpty()) {
                     outgoingPackets.forEach { packet ->
-                        packetAnalyser.listen(packet)
+                        val echo = packetAnalyser.listen(packet)
+                        if (echo != null) {
+                            return echo
+                        }
                         computers[packet.address]?.listen(packet)
                     }
                 }
             }
         }
+    }
+
+    fun setPacketAnalyserTargetAddress(address: NetworkAddress) {
+        packetAnalyser = PacketAnalyser(address)
     }
 
 }

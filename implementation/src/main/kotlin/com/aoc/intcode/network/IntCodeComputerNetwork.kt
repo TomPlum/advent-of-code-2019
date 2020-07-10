@@ -1,5 +1,8 @@
 package com.aoc.intcode.network
 
+import com.aoc.intcode.network.packet.Packet
+import com.aoc.intcode.network.packet.PacketAnalyser
+
 class IntCodeComputerNetwork(private val software: String) {
 
     private val computers = mutableMapOf<NetworkAddress, NetworkComputer>()
@@ -32,7 +35,7 @@ class IntCodeComputerNetwork(private val software: String) {
         }
     }
 
-    fun setPacketAnalyserTargetAddress(address: NetworkAddress) {
+    fun attachPacketAnalyserAtTargetAddress(address: NetworkAddress) {
         packetAnalyser = PacketAnalyser(address)
     }
 

@@ -1,6 +1,8 @@
 package com.aoc.intcode.network
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.network.packet.Packet
+import com.aoc.intcode.network.packet.PacketData
 import com.aoc.log.AdventLogger
 
 class NetworkComputer(software: String) {
@@ -17,6 +19,21 @@ class NetworkComputer(software: String) {
     }
 
     fun communicate(): List<Packet> {
+        handleIncomingPackets()
+        return handleOutgoingPackets()
+    }
+
+    private fun handleOutgoingPackets(): MutableList<Packet> {
+        val output = cpu.program.memory.output
+        val outgoingPackets = mutableListOf<Packet>()
+        while (output.isNotEmpty()) {
+            val (addr, x, y) = output.getFirstThreeValues()
+            outgoingPackets.add(Packet(NetworkAddress(addr), PacketData(x, y)))
+        }
+        return outgoingPackets
+    }
+
+    private fun handleIncomingPackets() {
         if (nic.hasEmptyIncomingPacketQueue()) {
             sendInputInstruction(-1L)
             cpu.run()
@@ -26,14 +43,6 @@ class NetworkComputer(software: String) {
             sendInputInstruction(y)
             cpu.run()
         }
-
-        val output = cpu.program.memory.output
-        val outgoingPackets = mutableListOf<Packet>()
-        while (output.isNotEmpty()) {
-            val (addr, x, y) = output.getFirstThreeValues()
-            outgoingPackets.add(Packet(NetworkAddress(addr), PacketData(x, y)))
-        }
-        return outgoingPackets
     }
 
     private fun sendInputInstruction(value: Long) {

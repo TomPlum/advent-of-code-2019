@@ -1,5 +1,6 @@
-package com.aoc.intcode.network
+package com.aoc.intcode.network.packet
 
+import com.aoc.intcode.network.NetworkAddress
 import com.aoc.log.AdventLogger
 
 class PacketAnalyser(private val targetAddress: NetworkAddress) {

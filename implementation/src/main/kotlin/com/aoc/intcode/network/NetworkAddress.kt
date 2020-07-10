@@ -4,4 +4,6 @@ import com.aoc.intcode.computer.boot.BootMode
 
 data class NetworkAddress(val value: Long) : BootMode {
     override fun getCode() = value
+
+    override fun toString(): String = value.toString()
 }

@@ -48,9 +48,9 @@ In IntelliJ; \
 ### Gradle Tasks
 | Task               | Description                                                               |
 |--------------------|---------------------------------------------------------------------------|
-| `test`             | Runs the unit tests for the `implementation` project.                     |
+| `test`             | Runs the unit tests for the `implementation` sub-project.                 |
 | `testCoverage`     | Runs the unit tests, calculates the coverage and verifies that its > 90%. |       
-| `benchmark`        | Runs the JMH tests for the `implementation` project.                      |
+| `benchmark`        | Runs the JMH tests for the `implementation` sub-project.                  |
 
 ## The Codebase
 ### Package Structure

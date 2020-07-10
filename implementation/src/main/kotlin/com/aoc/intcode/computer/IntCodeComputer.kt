@@ -6,6 +6,7 @@ import com.aoc.intcode.computer.exceptions.SignalInterrupt
 import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.instructions.strategies.Halt
 import com.aoc.intcode.computer.instructions.strategies.Input
+import com.aoc.intcode.network.NetworkInterfaceController
 
 /**
  * This class is the heart of Advent of Code 2019.
@@ -16,6 +17,7 @@ import com.aoc.intcode.computer.instructions.strategies.Input
  */
 class IntCodeComputer constructor(instructions: String) {
     val program = Program(instructions)
+    val nic = NetworkInterfaceController()
     var waiting = true
     var halted = false
 

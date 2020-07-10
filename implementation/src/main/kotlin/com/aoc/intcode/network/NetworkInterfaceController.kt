@@ -2,10 +2,12 @@ package com.aoc.intcode.network
 
 import java.util.*
 
-class NetworkInterfaceController(private val software: String) {
-    private val packetQueue = PriorityQueue<Packet>()
+class NetworkInterfaceController {
+    private val incomingPacketQueue = LinkedList<PacketData>()
 
-    fun transmit(address: NetworkAddress): Packet = Packet(0,0)
+    fun receive(datum: PacketData) = incomingPacketQueue.add(datum)
 
-    fun receive() = 0
+    fun transmit() = incomingPacketQueue.poll()
+
+    fun hasEmptyIncomingPacketQueue() = incomingPacketQueue.isEmpty()
 }

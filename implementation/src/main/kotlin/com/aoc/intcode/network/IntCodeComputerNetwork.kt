@@ -3,6 +3,13 @@ package com.aoc.intcode.network
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketAnalyser
 
+/**
+ * Repair droids have reported a Category 6 disaster, destroying the ships stockpile of CAT6 network cables.
+ *
+ * Rebuilds the network of [NetworkComputer]s by assigning them each a unique [NetworkAddress] and booting them up.
+ *
+ * @param software [NetworkInterfaceController] software.
+ */
 class IntCodeComputerNetwork(private val software: String) {
 
     private val computers = mutableMapOf<NetworkAddress, NetworkComputer>()
@@ -17,6 +24,9 @@ class IntCodeComputerNetwork(private val software: String) {
         }
     }
 
+    /**
+     * Orchestrates the transmission of [Packet]s between [NetworkComputer]s on the network.
+     */
     fun boot(): Packet {
         while(true) {
             computers.forEach { (_, computer) ->
@@ -34,6 +44,10 @@ class IntCodeComputerNetwork(private val software: String) {
         }
     }
 
+    /**
+     * Attaches a [PacketAnalyser] to the [IntCodeComputerNetwork] that listens to all transmitted packets
+     * and reports any that are transmitted to the target [address].
+     */
     fun attachPacketAnalyserAtTargetAddress(address: NetworkAddress) {
         packetAnalyser = PacketAnalyser(address)
     }

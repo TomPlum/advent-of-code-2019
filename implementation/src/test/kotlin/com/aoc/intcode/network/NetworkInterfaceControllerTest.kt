@@ -10,16 +10,16 @@ import org.junit.jupiter.api.assertThrows
 
 class NetworkInterfaceControllerTest {
     @Test
-    fun transmitShouldSendFirstPacketDatum() {
+    fun consumeShouldSendFirstPacketDatum() {
         val controller = NetworkInterfaceController()
         controller.receive(PacketData(0,1))
         controller.receive(PacketData(0,2))
-        assertThat(controller.transmit()).isEqualTo(PacketData(0,1))
+        assertThat(controller.consume()).isEqualTo(PacketData(0,1))
     }
 
     @Test
-    fun transmitWhenPacketQueueEmpty() {
-        val e = assertThrows<IllegalStateException> { NetworkInterfaceController().transmit() }
+    fun consumeWhenPacketQueueEmpty() {
+        val e = assertThrows<IllegalStateException> { NetworkInterfaceController().consume() }
         assertThat(e.message).isEqualTo("Empty Incoming Packet Queue")
     }
 

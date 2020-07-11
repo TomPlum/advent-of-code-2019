@@ -2,6 +2,7 @@ package com.aoc.intcode.network
 
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketAnalyser
+import com.aoc.log.AdventLogger
 
 /**
  * Repair droids have reported a Category 6 disaster, destroying the ships stockpile of CAT6 network cables.
@@ -14,6 +15,7 @@ class IntCodeComputerNetwork(private val software: String) {
 
     private val computers = mutableMapOf<NetworkAddress, NetworkComputer>()
     private var packetAnalyser = PacketAnalyser(NetworkAddress(255))
+    private val nat = NATInterceptor()
 
     init {
         (0..49L).forEach { computers[NetworkAddress(it)] = NetworkComputer(software) }
@@ -35,10 +37,17 @@ class IntCodeComputerNetwork(private val software: String) {
                     outgoingPackets.forEach { packet ->
                         val echo = packetAnalyser.listen(packet)
                         if (echo != null) {
-                            return echo
+                            nat.receive(echo.data)
+                            //return echo
                         }
-                        computers[packet.address]!!.listen(packet)
+                        computers[packet.address]?.listen(packet)
                     }
+                }
+
+                if (nat.checkNetworkStatus(computers.values.toList()) == NetworkStatus.IDLE) {
+                    AdventLogger.info("[NAT] IntCode Network is IDLE")
+                    val recipientAddress = NetworkAddress(0)
+                    computers[recipientAddress]!!.listen(Packet(recipientAddress, nat.transmit()))
                 }
             }
         }

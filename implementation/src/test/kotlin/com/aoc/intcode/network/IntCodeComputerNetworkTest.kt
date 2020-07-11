@@ -17,4 +17,11 @@ class IntCodeComputerNetworkTest {
         val packet = network.boot()
         assertThat(packet.data.y).isEqualTo(23815)
     }
+
+    @Test
+    fun solutionPartTwo() {
+        val network = IntCodeComputerNetwork(software)
+        network.attachPacketAnalyserAtTargetAddress(NetworkAddress(255))
+        val packet = network.boot()
+    }
 }

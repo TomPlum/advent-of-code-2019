@@ -47,6 +47,13 @@ class NetworkComputer(software: String) {
         return handleOutgoingPackets()
     }
 
+    /**
+     * Checks if the [NetworkComputer] is idle.
+     * A computer is deemed idle of it has no incoming or outgoing packets.
+     * @return true if idle, else false.
+     */
+    fun isIdle(): Boolean = nic.hasEmptyIncomingPacketQueue() && cpu.program.memory.output.isEmpty()
+
     private fun handleOutgoingPackets(): MutableList<Packet> {
         val output = cpu.program.memory.output
         val outgoingPackets = mutableListOf<Packet>()

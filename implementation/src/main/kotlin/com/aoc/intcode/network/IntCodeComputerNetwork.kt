@@ -15,12 +15,11 @@ class IntCodeComputerNetwork(private val software: String) {
             computer.assignAddress(address)
             computer.boot()
         }
-
     }
 
     fun boot(): Packet {
         while(true) {
-            computers.forEach { (address, computer) ->
+            computers.forEach { (_, computer) ->
                 val outgoingPackets = computer.communicate()
                 if (outgoingPackets.isNotEmpty()) {
                     outgoingPackets.forEach { packet ->
@@ -28,7 +27,7 @@ class IntCodeComputerNetwork(private val software: String) {
                         if (echo != null) {
                             return echo
                         }
-                        computers[packet.address]?.listen(packet)
+                        computers[packet.address]!!.listen(packet)
                     }
                 }
             }

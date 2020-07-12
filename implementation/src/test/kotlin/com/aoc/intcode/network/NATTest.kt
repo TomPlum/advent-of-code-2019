@@ -8,38 +8,38 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
 
-class NATInterceptorTest {
+class NATTest {
     @Test
     fun receiveAndTransmit() {
-        val nat = NATInterceptor()
-        nat.receive(PacketData(123, 456))
+        val nat = NAT()
+        nat.receive(Packet(NetworkAddress(255), PacketData(123, 456)))
         assertThat(nat.transmit()).isEqualTo(PacketData(123, 456))
     }
 
     @Test
     fun receiveShouldOverwriteMemory() {
-        val nat = NATInterceptor()
-        nat.receive(PacketData(123, 456))
-        nat.receive(PacketData(9813, 12))
+        val nat = NAT()
+        nat.receive(Packet(NetworkAddress(255), PacketData(123, 456)))
+        nat.receive(Packet(NetworkAddress(255), PacketData(9813, 12)))
         assertThat(nat.transmit()).isEqualTo(PacketData(9813, 12))
     }
 
     @Test
     fun transmitWithoutHavingReceivedAnyPacketData() {
-        val e = assertThrows<IllegalStateException> { NATInterceptor().transmit() }
+        val e = assertThrows<IllegalStateException> { NAT().transmit() }
         assertThat(e.message).isEqualTo("NAT has not received any packets")
     }
 
     @Test
     fun checkNetworkStatusWhenIdle() {
         val computer = getIdleComputer()
-        val nat = NATInterceptor()
+        val nat = NAT()
         assertThat(nat.checkNetworkStatus(listOf(computer, computer, computer))).isEqualTo(NetworkStatus.IDLE)
     }
 
     @Test
     fun checkNetworkStatusWhenActive() {
-        val nat = NATInterceptor()
+        val nat = NAT()
         val network = listOf(getIdleComputer(), getIdleComputer(), getActiveComputer(), getIdleComputer())
         assertThat(nat.checkNetworkStatus(network)).isEqualTo(NetworkStatus.ACTIVE)
     }

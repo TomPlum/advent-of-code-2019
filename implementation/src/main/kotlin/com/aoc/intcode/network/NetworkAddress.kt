@@ -10,6 +10,8 @@ import com.aoc.intcode.computer.IntCodeComputer
  * @see IntCodeComputer.onNextBoot
  */
 data class NetworkAddress(val value: Long) : BootMode {
+    fun format32bit(): String = "192.168.1.$value"
+
     override fun getCode() = value
 
     override fun toString(): String = value.toString()

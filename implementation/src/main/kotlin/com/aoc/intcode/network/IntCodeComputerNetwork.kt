@@ -14,8 +14,8 @@ import com.aoc.log.AdventLogger
 class IntCodeComputerNetwork(private val software: String) {
 
     private val computers = mutableMapOf<NetworkAddress, NetworkComputer>()
-    private var packetAnalyser = PacketAnalyser(NetworkAddress(255))
-    private val nat = NATInterceptor()
+    private var interceptor: PacketInterceptor = NetworkMonitor()
+    private val nat = NAT()
 
     init {
         (0..49L).forEach { computers[NetworkAddress(it)] = NetworkComputer(software) }
@@ -33,21 +33,23 @@ class IntCodeComputerNetwork(private val software: String) {
         while(true) {
             computers.forEach { (_, computer) ->
                 val outgoingPackets = computer.communicate()
-                if (outgoingPackets.isNotEmpty()) {
-                    outgoingPackets.forEach { packet ->
-                        val echo = packetAnalyser.listen(packet)
-                        if (echo != null) {
-                            nat.receive(echo.data)
-                            //return echo
-                        }
-                        computers[packet.address]?.listen(packet)
+                if (outgoingPackets.isNotEmpty()) outgoingPackets.forEach { packet ->
+                    val echo = interceptor.listen(packet)
+                    if (echo != null) {
+                        return echo
                     }
+
+                    nat.receive(packet)
+                    computers[packet.address]?.listen(packet)
                 }
 
-                if (nat.checkNetworkStatus(computers.values.toList()) == NetworkStatus.IDLE) {
-                    AdventLogger.info("[NAT] IntCode Network is IDLE")
-                    val recipientAddress = NetworkAddress(0)
-                    computers[recipientAddress]!!.listen(Packet(recipientAddress, nat.transmit()))
+                val status = nat.checkNetworkStatus(computers.values.toList())
+                if (status == NetworkStatus.IDLE) {
+                    val packet = nat.transmit()
+                    computers[packet.address]!!.listen(packet)
+                }
+                if (status == NetworkStatus.HALTED) {
+                    return nat.transmit()
                 }
             }
         }
@@ -58,7 +60,7 @@ class IntCodeComputerNetwork(private val software: String) {
      * and reports any that are transmitted to the target [address].
      */
     fun attachPacketAnalyserAtTargetAddress(address: NetworkAddress) {
-        packetAnalyser = PacketAnalyser(address)
+        interceptor = PacketAnalyser(address)
     }
 
 }

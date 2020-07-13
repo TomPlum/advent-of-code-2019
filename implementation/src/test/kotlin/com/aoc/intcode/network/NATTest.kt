@@ -4,16 +4,18 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketData
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
 
 class NATTest {
     @Test
+    @DisplayName("Given a Packet w/destination address 255, when transmitting, it should send it to address 0")
     fun receiveAndTransmit() {
         val nat = NAT()
         nat.receive(Packet(NetworkAddress(255), PacketData(123, 456)))
-        assertThat(nat.transmit()).isEqualTo(PacketData(123, 456))
+        assertThat(nat.transmit()).isEqualTo(Packet(NetworkAddress(0), PacketData(123, 456)))
     }
 
     @Test
@@ -21,7 +23,7 @@ class NATTest {
         val nat = NAT()
         nat.receive(Packet(NetworkAddress(255), PacketData(123, 456)))
         nat.receive(Packet(NetworkAddress(255), PacketData(9813, 12)))
-        assertThat(nat.transmit()).isEqualTo(PacketData(9813, 12))
+        assertThat(nat.transmit()).isEqualTo(Packet(NetworkAddress(0), PacketData(9813, 12)))
     }
 
     @Test

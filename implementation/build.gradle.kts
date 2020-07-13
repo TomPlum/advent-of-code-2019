@@ -69,7 +69,8 @@ val testCoverage by tasks.registering {
     group = "verification"
     description = "Runs the unit tests with coverage."
 
-    dependsOn(":implementation:test", ":implementation:jacocoTestReport", ":implementation::jacocoTestCoverageVerification")
+    dependsOn(":implementation:test", ":implementation:jacocoTestReport", ":implementation:common:jacocoTestReport",
+            ":implementation:jacocoTestCoverageVerification", ":implementation:common:jacocoTestCoverageVerification")
     val jacocoTestReport = tasks.findByName("jacocoTestReport")
     jacocoTestReport?.mustRunAfter(tasks.findByName("test"))
     tasks.findByName("jacocoTestCoverageVerification")?.mustRunAfter(jacocoTestReport)

@@ -77,7 +77,7 @@ val testCoverage by tasks.registering {
 }
 
 val benchmark by tasks.registering(type = JavaExec::class) {
-    dependsOn("benchmarkClasses")
+    dependsOn("benchmarkClasses", "compileKotlin")
     group = "benchmarking"
     description = "Runs the JMH benchmark tests."
     main = "org.openjdk.jmh.Main"

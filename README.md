@@ -74,7 +74,7 @@ behaviour that is commonly used across multiple days.
 #### JMH (Java Micro-Benchmarking Harness)
 Due to the nature of the puzzle inputs, lots of the second parts scaled the input size significantly.
 The shear size of these inputs made the solutions impossible to brute-force or to even wait for with a runtime
-complexity of O(1). I used [VisualVM](#visualvm-sampling--profiling) to manually investigate crippling performance
+complexity of `O(n)`. I used [VisualVM](#visualvm-sampling--profiling) to manually investigate crippling performance
 issues, but I wanted an automated solution to run across the whole codebase.
 
 From the [OpenJDK](https://openjdk.java.net/projects/code-tools/jmh/) website;

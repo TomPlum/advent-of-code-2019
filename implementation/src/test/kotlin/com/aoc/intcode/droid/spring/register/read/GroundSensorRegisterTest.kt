@@ -3,7 +3,6 @@ package com.aoc.intcode.droid.spring.register.read
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import assertk.assertions.isNotIn
 import org.junit.jupiter.api.Test
 
 class GroundSensorRegisterTest {

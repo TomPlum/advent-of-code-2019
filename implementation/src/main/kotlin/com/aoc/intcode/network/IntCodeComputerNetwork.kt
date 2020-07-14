@@ -2,7 +2,6 @@ package com.aoc.intcode.network
 
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketAnalyser
-import com.aoc.log.AdventLogger
 
 /**
  * Repair droids have reported a Category 6 disaster, destroying the ships stockpile of CAT6 network cables.

@@ -1,12 +1,10 @@
 package com.aoc.monitoring.eris
 
-import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
-import kotlin.math.exp
 import kotlin.math.pow
 
-class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
+data class ErisPlanetLayout(private val scanData: List<String>) : AdventMap2D<ErisScanTile>() {
     init {
         var x = 0
         var y = 0
@@ -51,4 +49,6 @@ class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
      */
     fun getBioDiversityRating(): Long = filterTiles { it.isBug() }.keys
             .sumBy { 2.0.pow( ( (xMax() + 1) * it.y) + it.x).toInt() }.toLong()
+
+    override fun toString(): String = super.toString()
 }

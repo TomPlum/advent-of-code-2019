@@ -2,6 +2,7 @@ package com.aoc.monitoring.eris
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEqualTo
 import com.aoc.input.InputReader
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
@@ -29,6 +30,23 @@ class ErisPlanetLayoutTest {
         val scanData = InputReader().readInputAsString("/eris/biodiversity-example.txt")
         val scan = ErisPlanetLayout(scanData.values)
         assertThat(scan.getBioDiversityRating()).isEqualTo(2129920)
+    }
+
+    @Test
+    fun equalityTestPositive() {
+        val scanData = InputReader().readInputAsString("/eris/example-scan.txt").values
+        assertThat(ErisPlanetLayout(scanData)).isEqualTo(ErisPlanetLayout(scanData))
+    }
+
+    @Test
+    fun equalityTestNegative() {
+        val firstScanData = InputReader().readInputAsString("/eris/example-scan.txt").values
+        val firstScan = ErisPlanetLayout(firstScanData)
+
+        val secondScanData = InputReader().readInputAsString("/eris/biodiversity-example.txt").values
+        val secondScan = ErisPlanetLayout(secondScanData)
+
+        assertThat(firstScan).isNotEqualTo(secondScan)
     }
 
 }

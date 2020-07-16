@@ -51,4 +51,7 @@ data class ErisPlanetLayout(private val scanData: List<String>) : AdventMap2D<Er
             .sumBy { 2.0.pow( ( (xMax() + 1) * it.y) + it.x).toInt() }.toLong()
 
     override fun toString(): String = super.toString()
+    override fun equals(other: Any?): Boolean = super.equals(other)
+    override fun hashCode(): Int = scanData.hashCode()
+
 }

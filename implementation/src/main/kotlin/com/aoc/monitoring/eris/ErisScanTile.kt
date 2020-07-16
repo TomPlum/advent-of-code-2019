@@ -13,4 +13,5 @@ class ErisScanTile(private val glyph: Char) : MapTile<Char>(glyph) {
     fun isBug() = glyph == '#'
 
     fun isEmpty() = glyph == '.'
+
 }

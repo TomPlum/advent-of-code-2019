@@ -4,7 +4,7 @@ import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 import kotlin.math.pow
 
-data class ErisPlanetLayout(private val scanData: List<String>) : AdventMap2D<ErisScanTile>() {
+class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
     init {
         var x = 0
         var y = 0
@@ -41,6 +41,13 @@ data class ErisPlanetLayout(private val scanData: List<String>) : AdventMap2D<Er
 
     fun infest(emptyPositions: List<Point2D>) = emptyPositions.forEach { space -> addTile(space, ErisScanTile.bug()) }
 
+    fun snapshot(): ErisPlanetLayout {
+        val layout = ErisPlanetLayout(listOf())
+        filterTiles { it.isBug() }.forEach { layout.addTile(it.key, ErisScanTile.bug()) }
+        filterTiles { it.isEmpty() }.forEach { layout.addTile(it.key, ErisScanTile.empty()) }
+        return layout
+    }
+
     /**
      * To calculate the biodiversity rating for a layout, consider each tile left-to-right in the top row,
      * then left-to-right in the second row, and so on. Each of these tiles is worth biodiversity points equal to
@@ -49,9 +56,5 @@ data class ErisPlanetLayout(private val scanData: List<String>) : AdventMap2D<Er
      */
     fun getBioDiversityRating(): Long = filterTiles { it.isBug() }.keys
             .sumBy { 2.0.pow( ( (xMax() + 1) * it.y) + it.x).toInt() }.toLong()
-
-    override fun toString(): String = super.toString()
-    override fun equals(other: Any?): Boolean = super.equals(other)
-    override fun hashCode(): Int = scanData.hashCode()
 
 }

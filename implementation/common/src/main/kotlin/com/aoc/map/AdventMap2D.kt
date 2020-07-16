@@ -1,6 +1,7 @@
 package com.aoc.map
 
 import com.aoc.math.Point2D
+import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
 /**
@@ -111,6 +112,18 @@ abstract class AdventMap2D<T> {
      * @return The maximum y-ordinate currently recorded in the map.
      */
     protected fun yMax() = data.keys.maxBy { it.y }!!.y
+
+    /**
+     * Two [AdventMap2D]s are equal to one another if they have the same [data].
+     */
+    override fun equals(other: Any?): Boolean {
+        if (other !is AdventMap2D<*>) return false
+        return this.data == other.data
+    }
+
+    override fun hashCode(): Int {
+        return data.hashCode()
+    }
 
     /**
      * Creates a cartesian graph style visual representation of the [data]

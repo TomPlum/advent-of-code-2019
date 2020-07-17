@@ -4,6 +4,9 @@ import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 import kotlin.math.pow
 
+/**
+ * A scan of the surface of the Plutonian planet 'Eris'.
+ */
 class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
     init {
         var x = 0
@@ -37,10 +40,19 @@ class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
         return@filter adjacentBugs == 1 || adjacentBugs == 2
     }
 
+    /**
+     * Replaces the given dying [bugPositions] with [ErisScanTile.empty] tiles.
+     */
     fun kill(bugPositions: List<Point2D>) = bugPositions.forEach { bug -> addTile(bug, ErisScanTile.empty()) }
 
+    /**
+     * Replaces the given [emptyPositions] with [ErisScanTile.bug] tiles.
+     */
     fun infest(emptyPositions: List<Point2D>) = emptyPositions.forEach { space -> addTile(space, ErisScanTile.bug()) }
 
+    /**
+     * Creates a snapshot of the current layout and returns it as a new instance of [ErisPlanetLayout].
+     */
     fun snapshot(): ErisPlanetLayout {
         val layout = ErisPlanetLayout(listOf())
         filterTiles { it.isBug() }.forEach { layout.addTile(it.key, ErisScanTile.bug()) }
@@ -52,9 +64,12 @@ class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
      * To calculate the biodiversity rating for a layout, consider each tile left-to-right in the top row,
      * then left-to-right in the second row, and so on. Each of these tiles is worth biodiversity points equal to
      * increasing powers of two: 1, 2, 4, 8, 16, 32, and so on.
-     * @return The cumulative biodiversity rating for all the bugs in the layout.
+     *
+     * The formula used to calculate the rating of a given [Point2D] is 2 ^ ( (xMax + 1) * y ) + x
+     * This means the origin (0, 0) will always result is 2^0 = 1 and increase exponentially from there.
+     *
+     * @return The cumulative biodiversity rating for all the bugs in the current layout state.
      */
-    fun getBioDiversityRating(): Long = filterTiles { it.isBug() }.keys
-            .sumBy { 2.0.pow( ( (xMax() + 1) * it.y) + it.x).toInt() }.toLong()
+    fun getBioDiversityRating() = filterTiles { it.isBug() }.keys.sumByDouble { 2.0.pow(((xMax() + 1) * it.y) + it.x) }
 
 }

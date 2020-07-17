@@ -2,7 +2,7 @@ package com.aoc.monitoring.eris
 
 import com.aoc.log.AdventLogger
 
-class ErisLayoutMonitor(layout: ErisPlanetLayout) {
+class ErisLayoutMonitor(layout: PlanarErisPlanetLayout) {
 
     private var minutesElapsed = 0
     private val history = mutableListOf(layout)
@@ -13,7 +13,7 @@ class ErisLayoutMonitor(layout: ErisPlanetLayout) {
         AdventLogger.info(layout)
     }
 
-    fun watchForRepeatingLayout(): ErisPlanetLayout {
+    fun watchForRepeatingLayout(): PlanarErisPlanetLayout {
         while (!history.contains(layout)) {
             incrementTime()
         }
@@ -21,7 +21,7 @@ class ErisLayoutMonitor(layout: ErisPlanetLayout) {
         return layout
     }
 
-    private fun getNextLayout(): ErisPlanetLayout {
+    private fun getNextLayout(): PlanarErisPlanetLayout {
         val layout = history.last().snapshot()
         val dyingBugs = layout.getDyingBugs()
         val infestedTiles = layout.getInfestedTiles()

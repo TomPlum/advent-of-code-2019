@@ -7,7 +7,7 @@ import kotlin.math.pow
 /**
  * A scan of the surface of the Plutonian planet 'Eris'.
  */
-class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
+class PlanarErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
     init {
         var x = 0
         var y = 0
@@ -51,10 +51,10 @@ class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
     fun infest(emptyPositions: List<Point2D>) = emptyPositions.forEach { space -> addTile(space, ErisScanTile.bug()) }
 
     /**
-     * Creates a snapshot of the current layout and returns it as a new instance of [ErisPlanetLayout].
+     * Creates a snapshot of the current layout and returns it as a new instance of [PlanarErisPlanetLayout].
      */
-    fun snapshot(): ErisPlanetLayout {
-        val layout = ErisPlanetLayout(listOf())
+    fun snapshot(): PlanarErisPlanetLayout {
+        val layout = PlanarErisPlanetLayout(listOf())
         filterTiles { it.isBug() }.forEach { layout.addTile(it.key, ErisScanTile.bug()) }
         filterTiles { it.isEmpty() }.forEach { layout.addTile(it.key, ErisScanTile.empty()) }
         return layout

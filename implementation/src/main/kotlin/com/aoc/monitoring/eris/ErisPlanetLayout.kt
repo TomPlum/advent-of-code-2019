@@ -70,6 +70,6 @@ class ErisPlanetLayout(scanData: List<String>) : AdventMap2D<ErisScanTile>() {
      *
      * @return The cumulative biodiversity rating for all the bugs in the current layout state.
      */
-    fun getBioDiversityRating() = filterTiles { it.isBug() }.keys.sumByDouble { 2.0.pow(((xMax() + 1) * it.y) + it.x) }
+    fun getBioDiversityRating() = filterTiles { it.isBug() }.keys.sumByDouble { 2.0.pow(((xMax() + 1) * it.y) + it.x) }.toInt()
 
 }

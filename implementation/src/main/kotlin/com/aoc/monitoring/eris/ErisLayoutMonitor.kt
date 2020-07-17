@@ -9,14 +9,15 @@ class ErisLayoutMonitor(layout: ErisPlanetLayout) {
     private var layout = getNextLayout()
 
     init {
-        AdventLogger.debug("Initial State:")
-        AdventLogger.debug(layout)
+        AdventLogger.info("Initial State:")
+        AdventLogger.info(layout)
     }
 
-    fun watchForMatchingLayout(): ErisPlanetLayout {
+    fun watchForRepeatingLayout(): ErisPlanetLayout {
         while (!history.contains(layout)) {
             incrementTime()
         }
+        AdventLogger.info("Found Repeating Layout After $minutesElapsed Minutes")
         return layout
     }
 
@@ -31,8 +32,8 @@ class ErisLayoutMonitor(layout: ErisPlanetLayout) {
 
     private fun incrementTime() {
         minutesElapsed++
-        AdventLogger.debug("After $minutesElapsed Minute(s):")
-        AdventLogger.debug(layout)
+        AdventLogger.info("After $minutesElapsed Minute(s):")
+        AdventLogger.info(layout)
         history.add(layout)
         layout = getNextLayout()
     }

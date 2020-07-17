@@ -8,5 +8,5 @@ import com.aoc.monitoring.eris.ErisPlanetLayout
 fun main() {
     val scanData = InputReader().readInputString(Day.from(24))
     val monitor = ErisLayoutMonitor(ErisPlanetLayout(scanData.values))
-    println("Solution Part 1: ${monitor.watchForMatchingLayout().getBioDiversityRating()}")
+    println("Solution Part 1: ${monitor.watchForRepeatingLayout().getBioDiversityRating()}")
 }

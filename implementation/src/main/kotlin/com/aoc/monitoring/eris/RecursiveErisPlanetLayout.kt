@@ -18,8 +18,7 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
             y++
         }
 
-
-        (1..200).forEach { z ->
+        (1..150).forEach { z ->
             (0..4).forEach { y ->
                 (0..4).forEach {x ->
                     addTile(Point3D(x, y, -z), ErisScanTile.empty())
@@ -41,18 +40,20 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
 
     fun getDyingBugs(): List<Point3D> = filterTiles { it.isBug() }.keys.filter { bug ->
         val adjacent = getAdjacentPositions(bug).toSet()
-        return@filter filterPoints(adjacent, ErisScanTile.empty()).values.count { it.isBug() } != 1
+        return@filter filterPoints(adjacent).values.count { it.isBug() } != 1
     }
 
     fun getInfestedTiles(): List<Point3D> = filterTiles { it.isEmpty() }.keys.filter { space ->
         val adjacent = getAdjacentPositions(space).toSet()
-        val adjacentBugs = filterPoints(adjacent, ErisScanTile.empty()).values.count { it.isBug() }
+        val adjacentBugs = filterPoints(adjacent).values.count { it.isBug() }
         return@filter adjacentBugs == 1 || adjacentBugs == 2
     }
 
     fun kill(bugPositions: List<Point3D>) = bugPositions.forEach { bug -> addTile(bug, ErisScanTile.empty()) }
 
-    fun infest(emptyPositions: List<Point3D>) = emptyPositions.filter { !it.isCentreTile() }.forEach { space -> addTile(space, ErisScanTile.bug()) }
+    fun infest(emptyPositions: List<Point3D>) = emptyPositions.filter {
+        !it.isCentreTile()
+    }.forEach { space -> addTile(space, ErisScanTile.bug()) }
 
     fun getBugQuantity() = filterTiles { it.isBug() }.count()
 

@@ -5,8 +5,8 @@ import com.aoc.log.AdventLogger
 class RecursiveErisLayoutMonitor(private val layout: RecursiveErisPlanetLayout) {
 
     init {
-        AdventLogger.info("Initial State:")
-        AdventLogger.info(layout)
+        AdventLogger.debug("Initial State:")
+        AdventLogger.debug(layout)
     }
 
     fun watch(minutes: Int): Int {
@@ -21,7 +21,7 @@ class RecursiveErisLayoutMonitor(private val layout: RecursiveErisPlanetLayout) 
         val infestedTiles = layout.getInfestedTiles()
         layout.kill(dyingBugs)
         layout.infest(infestedTiles)
-        AdventLogger.info("After ${minute + 1} Minute(s):")
-        AdventLogger.info(layout)
+        AdventLogger.debug("After ${minute + 1} Minute(s):")
+        AdventLogger.debug(layout)
     }
 }

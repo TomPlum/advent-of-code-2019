@@ -7,6 +7,7 @@ import com.aoc.math.Point3D
 class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTile>() {
 
     init {
+        //Populate the the data for level 0
         var x = 0
         var y = 0
         scanData.forEach { row ->
@@ -18,6 +19,7 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
             y++
         }
 
+        //Populate outer and inner recursive grids with empty tiles
         (1..150).forEach { z ->
             (0..4).forEach { y ->
                 (0..4).forEach {x ->

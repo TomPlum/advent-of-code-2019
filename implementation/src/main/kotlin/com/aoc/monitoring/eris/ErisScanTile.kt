@@ -14,4 +14,6 @@ class ErisScanTile(private val glyph: Char) : MapTile<Char>(glyph) {
 
     fun isEmpty() = glyph == '.'
 
+    fun isRecursiveGridEntrance() = glyph == '?'
+
 }

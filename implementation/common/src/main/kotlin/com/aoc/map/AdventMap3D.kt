@@ -80,12 +80,12 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
+    protected open fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin() = data.keys.minBy { it.y }!!.y
+    protected open fun yMin() = data.keys.minBy { it.y }!!.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
@@ -95,12 +95,12 @@ abstract class AdventMap3D<T> {
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
+    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax() = data.keys.maxBy { it.y }!!.y
+    protected open fun yMax() = data.keys.maxBy { it.y }!!.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.

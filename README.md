@@ -59,11 +59,12 @@ days it seemed like I'd just end up having 25 different packages whose names wer
 However, towards the latter half of the days, there were consistencies in the naming that started to make the language
 a little more ubiquitous. This allowed me to start grouping packages together and start abstracting out common code.
 
-I created two Gradle root projects, `implementation` and `solutions`. With the former having a sub-project, `common`, for
-behaviour that is commonly used across multiple days.
+I created two Gradle root projects, `implementation` and `solutions`. With the former having sub-projects, `common`, for
+behaviour that is commonly used across multiple days and `test-support` for unit test utility classes.
 
     -implementation
         -common
+        -test-support
     -solutions
 
 ### Design

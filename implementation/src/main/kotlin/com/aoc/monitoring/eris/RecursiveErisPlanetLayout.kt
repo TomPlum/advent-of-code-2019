@@ -3,9 +3,31 @@ package com.aoc.monitoring.eris
 import com.aoc.map.AdventMap3D
 import com.aoc.math.Point2D
 import com.aoc.math.Point3D
-import java.lang.IllegalStateException
 
 class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTile>() {
+
+    init {
+        var x = 0
+        var y = 0
+        scanData.forEach { row ->
+            row.forEach { tile ->
+                addTile(Point3D(x, y, 0), ErisScanTile(tile))
+                x++
+            }
+            x = 0
+            y++
+        }
+
+
+        (1..200).forEach { z ->
+            (0..4).forEach { y ->
+                (0..4).forEach {x ->
+                    addTile(Point3D(x, y, -z), ErisScanTile.empty())
+                    addTile(Point3D(x, y, z), ErisScanTile.empty())
+                }
+            }
+        }
+    }
 
     fun getAdjacentPositions(sourcePos: Point3D): List<Point3D> {
        return sourcePos.planarAdjacentPoints().flatMap { pos ->
@@ -17,11 +39,28 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
         }
     }
 
+    fun getDyingBugs(): List<Point3D> = filterTiles { it.isBug() }.keys.filter { bug ->
+        val adjacent = getAdjacentPositions(bug).toSet()
+        return@filter filterPoints(adjacent, ErisScanTile.empty()).values.count { it.isBug() } != 1
+    }
+
+    fun getInfestedTiles(): List<Point3D> = filterTiles { it.isEmpty() }.keys.filter { space ->
+        val adjacent = getAdjacentPositions(space).toSet()
+        val adjacentBugs = filterPoints(adjacent, ErisScanTile.empty()).values.count { it.isBug() }
+        return@filter adjacentBugs == 1 || adjacentBugs == 2
+    }
+
+    fun kill(bugPositions: List<Point3D>) = bugPositions.forEach { bug -> addTile(bug, ErisScanTile.empty()) }
+
+    fun infest(emptyPositions: List<Point3D>) = emptyPositions.filter { !it.isCentreTile() }.forEach { space -> addTile(space, ErisScanTile.bug()) }
+
+    fun getBugQuantity() = filterTiles { it.isBug() }.count()
+
+    private fun centre() = Point2D(2,2)
+
     private fun Point3D.isCentreTile() = this.x == 2 && this.y == 2
 
     private fun Point3D.isOutsideGrid() = this.x < xMin() || this.x > xMax() || this.y < yMin() || this.y > yMax()
-
-    private fun Point3D.isEdgeTile() = this.x == xMin() || this.x == xMax() || this.y == yMin() || this.y == yMax()
 
     private fun Point3D.toList() = listOf(this)
 
@@ -44,8 +83,6 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
             else -> throw IllegalStateException("A Point3D that was deemed in the centre grid is invalid. Source: $this")
         }
     }
-
-    private fun centre() = Point2D(2,2)
 
     override fun xMin(): Int = 0
     override fun yMin(): Int = 0

@@ -1,7 +1,7 @@
 package com.aoc.map
 
-import com.aoc.math.Point3D
 import com.aoc.math.Point2D
+import com.aoc.math.Point3D
 
 /**
  * This class is designed for inheritance.
@@ -33,16 +33,29 @@ abstract class AdventMap3D<T> {
     protected fun getTile(position: Point3D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 
     /**
+     * Retrieves the tile at the given [position].
+     * If there is no tile present then the [default] is returned.
+     */
+    protected fun getTile(position: Point3D, default: T): T = data.getOrDefault(position, default)
+
+    /**
      * @return true if the map has recorded a tile at the given [position]
      */
     protected fun hasRecorded(position: Point3D): Boolean = data.containsKey(position)
 
     /**
-     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions],
+     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions]
      * then it is omitted from the response.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
     protected fun filterPoints(positions: Set<Point3D>): Map<Point3D, T> = positions.filter(this::hasRecorded).associateWith(this::getTile)
+
+    /**
+     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions]
+     * then the [default] is put in its place.
+     * @return a [Map] of the given [positions] and their respective tiles.
+     */
+    protected fun filterPoints(positions: Set<Point3D>, default: T) = positions.filter(this::hasRecorded).associateWith { this.getTile(it, default) }
 
     /**
      * Gets all the tiles that equate to true on the given [predicate].

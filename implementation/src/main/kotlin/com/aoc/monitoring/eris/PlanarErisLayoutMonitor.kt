@@ -2,7 +2,7 @@ package com.aoc.monitoring.eris
 
 import com.aoc.log.AdventLogger
 
-class ErisLayoutMonitor(layout: PlanarErisPlanetLayout) {
+class PlanarErisLayoutMonitor(layout: PlanarErisPlanetLayout) {
 
     private var minutesElapsed = 0
     private val history = mutableListOf(layout)

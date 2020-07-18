@@ -11,3 +11,7 @@ dependencies {
     runtimeOnly("org.apache.logging.log4j:log4j-core:2.13.0")
     testRuntimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.13.0")
 }
+
+val test by tasks.getting(Test::class) {
+    useJUnitPlatform { }
+}

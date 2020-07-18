@@ -69,14 +69,15 @@ val testCoverage by tasks.registering {
     group = "verification"
     description = "Runs the unit tests with coverage."
 
-    dependsOn(":test", ":jacocoTestReport", ":jacocoTestCoverageVerification")
+    dependsOn(":implementation:test", ":implementation:jacocoTestReport", ":implementation:common:jacocoTestReport",
+            ":implementation:jacocoTestCoverageVerification", ":implementation:common:jacocoTestCoverageVerification")
     val jacocoTestReport = tasks.findByName("jacocoTestReport")
     jacocoTestReport?.mustRunAfter(tasks.findByName("test"))
     tasks.findByName("jacocoTestCoverageVerification")?.mustRunAfter(jacocoTestReport)
 }
 
 val benchmark by tasks.registering(type = JavaExec::class) {
-    dependsOn("benchmarkClasses")
+    dependsOn("benchmarkClasses", "compileKotlin")
     group = "benchmarking"
     description = "Runs the JMH benchmark tests."
     main = "org.openjdk.jmh.Main"

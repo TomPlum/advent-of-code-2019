@@ -4,6 +4,15 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=brightgreen)
 ![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2019?color=informational)
 
+## What is Advent of Code?
+
+_Excerpt from the Advent of Code [website](https://adventofcode.com/2019/about);_
+
+    "Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets
+    and skill levels that can be solved in any programming language you like. People use them as a
+    speed contest, interview prep, company training, university coursework, practice problems, or
+    to challenge each other."
+
 ## About
 Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
 I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.
@@ -39,9 +48,9 @@ In IntelliJ; \
 ### Gradle Tasks
 | Task               | Description                                                               |
 |--------------------|---------------------------------------------------------------------------|
-| `test`             | Runs the unit tests for the `implementation` project.                     |
+| `test`             | Runs the unit tests for the `implementation` and `common` sub-projects.   |
 | `testCoverage`     | Runs the unit tests, calculates the coverage and verifies that its > 90%. |       
-| `benchmark`        | Runs the JMH tests for the `implementation` project.                      |
+| `benchmark`        | Runs the JMH tests for the `implementation` sub-project.                  |
 
 ## The Codebase
 ### Package Structure
@@ -61,10 +70,21 @@ behaviour that is commonly used across multiple days.
 -Design Patterns
 
 ### Testing
--Junit5 / AssertK \
--JMH? \
--TDD \
--VisualVM Sampling/Profiling
+
+#### JMH (Java Micro-Benchmarking Harness)
+Due to the nature of the puzzle inputs, lots of the second parts scaled the input size significantly.
+The shear size of these inputs made the solutions impossible to brute-force or to even wait for with a runtime
+complexity of `O(n)`. I used [VisualVM](#visualvm-sampling--profiling) to manually investigate crippling performance
+issues, but I wanted an automated solution to run across the whole codebase.
+
+From the [OpenJDK](https://openjdk.java.net/projects/code-tools/jmh/) website;
+
+    JMH is a Java harness for building, running, and analysing nano/micro/milli/macro benchmarks
+    written in Java and other languages targeting the JVM.
+
+#### Junit5 & AssertK
+#### Test-Driven Development
+#### VisualVM Sampling & Profiling
 
 ## The Days
 ### Most Challenging (Day 18)
@@ -161,6 +181,6 @@ For the most part, only runtime-complexity was a concern. There were few occasio
 | 20  	| 526     	| 6292             	| Donut Maze                                | [Link](docs/DAY20.MD)  |
 | 21  	| 19350258 	| 1142627861       	| Springdroid Adventure                     | [Link](docs/DAY21.MD)  |
 | 22  	| 2604    	| -             	| Slam Shuffle                              | [Link](docs/DAY22.MD)  |
-| 23  	| -       	| -             	| Category Six                              | [Link](docs/DAY23.MD)  |
-| 24  	| -       	| -             	| Planet of Discord                         | [Link](docs/DAY24.MD)  |
+| 23  	| 23815    	| 16666           	| Category Six                              | [Link](docs/DAY23.MD)  |
+| 24  	| 32506764 	| 1963             	| Planet of Discord                         | [Link](docs/DAY24.MD)  |
 | 25  	| -       	| -             	| Cryostasis                                | [Link](docs/DAY25.MD)  |

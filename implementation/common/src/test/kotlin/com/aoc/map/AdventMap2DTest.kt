@@ -1,9 +1,7 @@
 package com.aoc.map
 
 import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isTrue
+import assertk.assertions.*
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -133,6 +131,29 @@ class AdventMap2DTest {
         map.addExampleTile(Point2D(12, 14), ExampleTile(1))
         map.reset()
         assertThat(map.getTileQuantity()).isEqualTo(0)
+    }
+
+    @Test
+    fun equalityTestWhenEmpty() {
+        assertThat(ExampleMap()).isEqualTo(ExampleMap())
+    }
+
+    @Test
+    fun equalityTestWithDataPositive() {
+        val first = ExampleMap()
+        first.addExampleTile(Point2D(4,6), ExampleTile(3))
+        val second = ExampleMap()
+        second.addExampleTile(Point2D(4,6), ExampleTile(3))
+        assertThat(first).isEqualTo(second)
+    }
+
+    @Test
+    fun equalityTestNegative() {
+        val first = ExampleMap()
+        first.addExampleTile(Point2D(3,6), ExampleTile(7))
+        val second = ExampleMap()
+        second.addExampleTile(Point2D(4,6), ExampleTile(3))
+        assertThat(first).isNotEqualTo(second)
     }
 
     private class ExampleTile(private val data: Int) : MapTile<Int>(data) {

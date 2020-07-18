@@ -1,7 +1,7 @@
 package com.aoc.map
 
-import com.aoc.math.Point3D
 import com.aoc.math.Point2D
+import com.aoc.math.Point3D
 
 /**
  * This class is designed for inheritance.
@@ -38,7 +38,7 @@ abstract class AdventMap3D<T> {
     protected fun hasRecorded(position: Point3D): Boolean = data.containsKey(position)
 
     /**
-     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions],
+     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions]
      * then it is omitted from the response.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
@@ -80,12 +80,12 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
+    protected open fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin() = data.keys.minBy { it.y }!!.y
+    protected open fun yMin() = data.keys.minBy { it.y }!!.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
@@ -95,12 +95,12 @@ abstract class AdventMap3D<T> {
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
+    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax() = data.keys.maxBy { it.y }!!.y
+    protected open fun yMax() = data.keys.maxBy { it.y }!!.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.

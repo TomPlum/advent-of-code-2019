@@ -2,7 +2,6 @@ package com.aoc.intcode.droid.repair
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.intcode.droid.repair.Direction
 import org.junit.jupiter.api.Test
 
 class DirectionTest {

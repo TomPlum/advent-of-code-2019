@@ -9,8 +9,7 @@ import com.aoc.input.Day
 import com.aoc.input.InputReader
 
 fun main() {
-    val inputReader = InputReader()
-    val imageData = inputReader.readInputAsSingleString(Day.from(8))
+    val imageData = InputReader.read<String>(Day(8)).asSingleString()
     val dimensions = SpaceImageDimensions(25, 6)
     val encodedSpaceImage = ImageDataAssembler().assemble(imageData, dimensions)
     val solution = SpaceImageVerifier(encodedSpaceImage).verify(Pixel.BLACK, Pixel.WHITE, Pixel.TRANSPARENT)

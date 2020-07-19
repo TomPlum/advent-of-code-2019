@@ -1,15 +1,16 @@
 package com.aoc.intcode.network;
 
 import com.aoc.AdventBenchmarkingSuite;
+import com.aoc.BenchmarkInputReader;
+import com.aoc.TestInputReader;
 import com.aoc.input.Day;
-import com.aoc.input.InputReader;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Warmup;
 
 @AdventBenchmarkingSuite
 public class IntCodeComputerNetworkTest {
 
-    private static final String software = new InputReader().readInputAsSingleString(Day.Companion.from(23));
+    private static final String software = BenchmarkInputReader.read(Day.Companion.from(23)).asSingleString();
 
     @Benchmark
     @Warmup(iterations = 1)

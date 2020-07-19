@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 class PasswordUtilityTest {
-    private val puzzleInput = InputReader().readInputAsSingleString(Day.from(4))
+    private val puzzleInput = InputReader.read<String>(Day(4)).asSingleString()
     private val utility = PasswordUtility()
 
     @Test

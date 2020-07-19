@@ -2,8 +2,8 @@ package com.aoc.fuel.calculator
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.input.InputReader
 import com.aoc.input.Day
+import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class FuelCalculatorTest {
     private val calculator: FuelCalculator = FuelCalculator()
-    private val puzzleInput = InputReader().readInputInteger(Day.from(1))
+    private val puzzleInput = InputReader.read<Int>(Day(1)).value
 
     @ParameterizedTest
     @ValueSource(ints = [12, 14])
@@ -39,7 +39,7 @@ class FuelCalculatorTest {
     @Test
     @DisplayName("Given Day 1 - Part 1 puzzle input, when calculating the total fuel for the module, then it should return 3184233")
     fun partOneSolution() {
-        val solution = calculator.calculateTotalFuelForModule(puzzleInput.values)
+        val solution = calculator.calculateTotalFuelForModule(puzzleInput)
         assertThat(solution).isEqualTo(3184233)
     }
 
@@ -67,7 +67,7 @@ class FuelCalculatorTest {
     @Test
     @DisplayName("Given Day 1 - Part 1 puzzle input, when calculating to the total additional fuel required, then it should return 4773483")
     fun partTwoSolution() {
-        val solution = calculator.calculateTotalAdditionFuelForModule(puzzleInput.values)
+        val solution = calculator.calculateTotalAdditionFuelForModule(puzzleInput)
         assertThat(solution).isEqualTo(4773483)
     }
 }

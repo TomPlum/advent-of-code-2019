@@ -1,3 +1,5 @@
 package com.aoc.input
 
-data class Input<T>(var values: List<T>)
+abstract class Input<T>(val value: List<T>) {
+    fun asSingleString() = value.joinToString(separator = "")
+}

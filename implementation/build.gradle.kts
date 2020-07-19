@@ -36,8 +36,9 @@ idea {
 }
 
 dependencies {
-    //Compile 'Common' Sub-Module
+    //Gradle Sub-Project Dependencies
     implementation(project(":implementation:common"))
+    testImplementation(project(":implementation:test-support"))
 
     //JUnit 5 & Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")

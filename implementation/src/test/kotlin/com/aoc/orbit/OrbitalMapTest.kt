@@ -19,16 +19,16 @@ class OrbitalMapTest {
     @Test
     @DisplayName("Given Day 6 Input, when calculating the combined number of orbits, then it should be 314702")
     fun solutionPartOne() {
-        val input = InputReader().readInputString(Day.from(6))
-        val map = OrbitalMap(input.values)
+        val input = InputReader.read<String>(Day(6))
+        val map = OrbitalMap(input.value)
         assertThat(map.readOrbits()).isEqualTo(314702)
     }
 
     @Test
     @DisplayName("Given Day 6 Input, when calculating the number of orbital transfers required to reach Santa, then it should return 439")
     fun solutionPartTwo() {
-        val input = InputReader().readInputString(Day.from(6))
-        val map = OrbitalMap(input.values)
+        val input = InputReader.read<String>(Day(6))
+        val map = OrbitalMap(input.value)
         assertThat(map.orbitalTransfersRequiredToReachSanta()).isEqualTo(439)
     }
 

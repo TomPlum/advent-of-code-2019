@@ -6,8 +6,7 @@ import com.aoc.intcode.computer.boot.TestBootMode
 import com.aoc.intcode.computer.IntCodeComputer
 
 fun main() {
-    val inputReader = InputReader()
-    val memoryAddresses = inputReader.readInputAsSingleString(Day.from(5))
+    val memoryAddresses = InputReader.read<String>(Day(5)).asSingleString()
     partOne(memoryAddresses)
     partTwo(memoryAddresses)
 }

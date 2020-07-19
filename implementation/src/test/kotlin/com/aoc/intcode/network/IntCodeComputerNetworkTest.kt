@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 class IntCodeComputerNetworkTest {
 
-    private val software = InputReader().readInputAsSingleString(Day.from(23))
+    private val software = InputReader.read<String>(Day(23)).asSingleString()
 
     @Test
     fun solutionPartOne() {

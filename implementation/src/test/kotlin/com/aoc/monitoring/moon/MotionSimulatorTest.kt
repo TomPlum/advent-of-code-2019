@@ -2,6 +2,7 @@ package com.aoc.monitoring.moon
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.TestInputReader
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.log.AdventLogger
@@ -12,7 +13,7 @@ class MotionSimulatorTest {
     @Test
     @DisplayName("Given Day 12 Example 1 Input Data, when calculating the systems total energy after 10 time steps, then it should return 179")
     fun totalEnergyExampleOne() {
-        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-1.txt").values
+        val exampleInput = TestInputReader().readInputAsString("/moon/example-moon-positions-1.txt").value
         val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
         val motionSimulator = MotionSimulator(moonPositions)
         motionSimulator.simulate(10)
@@ -23,7 +24,7 @@ class MotionSimulatorTest {
     @Test
     @DisplayName("Given Day 12 Example 2 Input Data, when calculating the systems total energy after 100 time steps, then it should return 1940")
     fun totalEnergyExampleTwo() {
-        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-2.txt").values
+        val exampleInput = TestInputReader().readInputAsString("/moon/example-moon-positions-2.txt").value
         val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
         val motionSimulator = MotionSimulator(moonPositions)
         motionSimulator.simulate(100)
@@ -37,7 +38,7 @@ class MotionSimulatorTest {
     @DisplayName("Given Day 12 Example 1 Input Data, when determining the number of time steps until history repeats" +
     "itself, then it should return 2772 time steps.")
     fun determineWhenHistoryRepeatsItselfExampleOne() {
-        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-1.txt").values
+        val exampleInput = TestInputReader().readInputAsString("/moon/example-moon-positions-1.txt").value
         val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
         val motionSimulator = MotionSimulator(moonPositions)
         val timeSteps = motionSimulator.determineTimeStepsUntilHistoryRepeats()
@@ -48,7 +49,7 @@ class MotionSimulatorTest {
     @DisplayName("Given Day 12 Example 2 Input Data, when determining the number of time steps until history repeats" +
     "itself, then it should return 4686774924 time steps.")
     fun determineWhenHistoryRepeatsItselfExampleTwo() {
-        val exampleInput = InputReader().readInputAsString("/moon/example-moon-positions-2.txt").values
+        val exampleInput = TestInputReader().readInputAsString("/moon/example-moon-positions-2.txt").value
         val moonPositions = ScanningModule().scanLocalSectorForMoons(exampleInput)
         val motionSimulator = MotionSimulator(moonPositions)
         val timeSteps = motionSimulator.determineTimeStepsUntilHistoryRepeats()
@@ -57,7 +58,7 @@ class MotionSimulatorTest {
 
     @Test
     fun partOneSolution() {
-        val input = InputReader().readInputString(Day.from(12)).values
+        val input = InputReader.read<String>(Day(12)).value
         val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
         motionSimulator.simulate(1000)
         assertThat(motionSimulator.calculateTotalSystemEnergy()).isEqualTo(7722)
@@ -65,7 +66,7 @@ class MotionSimulatorTest {
 
     @Test
     fun partTwoSolution() {
-        val input = InputReader().readInputString(Day.from(12)).values
+        val input = InputReader.read<String>(Day(12)).value
         val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
         assertThat(motionSimulator.determineTimeStepsUntilHistoryRepeats()).isEqualTo(292653556339368L)
     }

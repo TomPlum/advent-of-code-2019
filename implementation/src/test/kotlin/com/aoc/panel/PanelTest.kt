@@ -2,15 +2,15 @@ package com.aoc.panel
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.input.InputReader
 import com.aoc.input.Day
+import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
 
 class PanelTest {
-    private val wireStrings = InputReader().readInputString(Day.from(3)).values
+    private val wireStrings = InputReader.read<String>(Day(3)).value
 
     @Test
     @DisplayName("Given the wires from the basic example, when calculating the closest intersection point, then it should return 6")

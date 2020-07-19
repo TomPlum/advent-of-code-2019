@@ -5,11 +5,10 @@ import com.aoc.input.InputReader
 import com.aoc.intcode.computer.IntCodeComputer
 
 fun main() {
-    val inputReader = InputReader()
-    val memoryAddresses = inputReader.readInputAsSingleString(Day.from(2))
+    val instructions = InputReader.read<String>(Day(2)).asSingleString()
 
-    partOne(memoryAddresses)
-    partTwo(memoryAddresses)
+    partOne(instructions)
+    partTwo(instructions)
 }
 
 private fun partOne(memoryAddresses: String) {

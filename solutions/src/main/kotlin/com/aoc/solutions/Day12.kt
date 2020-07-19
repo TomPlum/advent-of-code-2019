@@ -6,7 +6,7 @@ import com.aoc.monitoring.moon.MotionSimulator
 import com.aoc.monitoring.moon.ScanningModule
 
 fun main() {
-    val input = InputReader().readInputString(Day.from(12)).values
+    val input = InputReader.read<String>(Day(12)).value
 
     partOne(input)
     partTwo(input)

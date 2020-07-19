@@ -14,7 +14,7 @@ class SpringDroidTest {
     @Fork(warmups = 5, value = 1)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     fun walkingSurveyingStrategy() {
-        SpringDroid(InputReader().readInputAsSingleString(Day.from(21))).surveyHull(WalkingStrategy())
+        SpringDroid(InputReader.read<String>(Day(21)).asSingleString()).surveyHull(WalkingStrategy())
     }
 
 }

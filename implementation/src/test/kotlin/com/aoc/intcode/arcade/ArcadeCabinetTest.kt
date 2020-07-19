@@ -11,7 +11,7 @@ class ArcadeCabinetTest {
     @Test
     @DisplayName("Given Day 13 Puzzle Input, when getting the quantity of BLOCK tiles, it should return 247")
     fun solutionPartOne() {
-        val input = InputReader().readInputAsSingleString(Day.from(13))
+        val input = InputReader.read<String>(Day.from(13)).asSingleString()
         val blockQuantity = ArcadeCabinet(input).getTileQuantity(TileID.BLOCK)
         assertThat(blockQuantity).isEqualTo(247)
     }
@@ -19,7 +19,7 @@ class ArcadeCabinetTest {
     @Test
     @DisplayName("Given Day 13 Puzzle Input, when beating the game, then it should return a final score of 12954")
     fun solutionPartTwo() {
-        val input = InputReader().readInputAsSingleString(Day.from(13))
+        val input = InputReader.read<String>(Day.from(13)).asSingleString()
         val score = ArcadeCabinet(input).startGame()
         assertThat(score).isEqualTo(12954)
     }

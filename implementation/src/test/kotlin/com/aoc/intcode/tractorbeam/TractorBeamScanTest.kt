@@ -3,7 +3,6 @@ package com.aoc.intcode.tractorbeam
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.TestInputReader
-import com.aoc.input.InputReader
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
 
@@ -11,7 +10,7 @@ class TractorBeamScanTest {
     @Test
     fun fromExistingScanData() {
         val data = TestInputReader().readInputAsString("/tractorbeam/example-beam.txt")
-        val scan = TractorBeamScan.fromData(data.values)
+        val scan = TractorBeamScan.fromData(data.value)
         print(scan)
         assertThat(scan.getArea()).isEqualTo(1400)
     }
@@ -39,7 +38,7 @@ class TractorBeamScanTest {
     @Test
     fun partTwoExample() {
         val data = TestInputReader().readInputAsString("/tractorbeam/example-beam.txt")
-        val scan = TractorBeamScan.fromData(data.values)
+        val scan = TractorBeamScan.fromData(data.value)
         assertThat(scan.findSquareClosestToEmitter(10)).isEqualTo(250020L)
     }
 }

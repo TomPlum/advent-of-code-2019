@@ -6,7 +6,7 @@ import com.aoc.input.Day
 import com.aoc.input.InputReader
 
 fun main() {
-    val input = InputReader().readInputAsSingleString(Day.from(11))
+    val input = InputReader.read<String>(Day.from(11)).asSingleString()
     val controller = SpaceshipController()
     val paintedHullStartingBlack = controller.deployEmergencyHullPaintingRobot(input, HullPaint.BLACK)
     println("Solution Part 1: ${paintedHullStartingBlack.getTimesPanelsPainted()}")

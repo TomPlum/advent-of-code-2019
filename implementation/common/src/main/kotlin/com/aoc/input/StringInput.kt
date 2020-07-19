@@ -1,4 +1,3 @@
 package com.aoc.input
 
-class StringInput {
-}
+class StringInput(values: List<String>) : Input<String>(values)

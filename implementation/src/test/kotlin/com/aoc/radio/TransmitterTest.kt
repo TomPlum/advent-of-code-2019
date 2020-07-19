@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class TransmitterTest {
     @Test
     fun exampleOne() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-1.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-1.txt").asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(4)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("01029498")
@@ -19,7 +19,7 @@ class TransmitterTest {
 
     @Test
     fun exampleTwo() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-2.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-2.txt").asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("24176176")
@@ -27,7 +27,7 @@ class TransmitterTest {
 
     @Test
     fun exampleThree() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-3.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-3.txt").asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("73745418")
@@ -35,7 +35,7 @@ class TransmitterTest {
 
     @Test
     fun exampleFour() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-4.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-4.txt").asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("52432133")
@@ -45,7 +45,7 @@ class TransmitterTest {
     @DisplayName("Solution Part 1 - Given Day 16 Puzzle Input, after 100 phases of FFT, then the first eight digits of" +
             " the output signal should be 77038830")
     fun solutionPartOne() {
-        val data = InputReader().readInputAsSingleString(Day.from(16))
+        val data = InputReader.read<String>(Day.from(16)).asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("77038830")
@@ -53,7 +53,7 @@ class TransmitterTest {
 
     @Test
     fun partTwoExampleOne() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-5.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-5.txt").asSingleString()
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
@@ -62,7 +62,7 @@ class TransmitterTest {
 
     @Test
     fun partTwoExampleTwo() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-6.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-6.txt").asSingleString()
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
@@ -71,7 +71,7 @@ class TransmitterTest {
 
     @Test
     fun partTwoExampleThree() {
-        val data = TestInputReader().readInputAsSingleString("/radio/example-input-7.txt")
+        val data = TestInputReader().readInputAsString("/radio/example-input-7.txt").asSingleString()
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val transmitter = Transmitter(inputSignal)
         val decodedSignalMessage = transmitter.decodeRealSignalMessage()
@@ -82,7 +82,7 @@ class TransmitterTest {
     @DisplayName("Solution Part 2 - Given Day 16 Puzzle Input, after converting to the real signal and 100 phases of " +
             "FFT, then the message at he offset should be 28135104")
     fun solutionPartTwo() {
-        val data = InputReader().readInputAsSingleString(Day.from(16))
+        val data = InputReader.read<String>(Day.from(16)).asSingleString()
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val outputSignal = Transmitter(inputSignal).decodeRealSignalMessage()
         assertThat(outputSignal.toString()).isEqualTo("28135104")

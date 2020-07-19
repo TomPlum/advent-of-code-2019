@@ -11,70 +11,70 @@ class LaboratoryTest {
 
     @Test
     fun exampleZero() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-0.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-0.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(31)
     }
 
     @Test
     fun exampleOne() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-1.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-1.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(165)
     }
 
     @Test
     fun exampleTwo() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-2.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-2.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(13312)
     }
 
     @Test
     fun exampleThree() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-3.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-3.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(180697)
     }
 
     @Test
     fun exampleFour() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-4.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-4.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(2210736)
     }
 
     @Test
     fun solutionPartOne() {
-        val reactionData = InputReader().readInputString(Day.from(14)).values
+        val reactionData = InputReader.read<String>(Day.from(14)).value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(1037742)
     }
 
     @Test
     fun partTwoExampleTwo() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-2.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-2.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(82_892_753)
     }
 
     @Test
     fun partTwoExampleThree() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-3.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-3.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(5_586_022)
     }
 
     @Test
     fun partTwoExampleFour() {
-        val reactionData = TestInputReader().readInputAsString("/reactions/example-4.txt").values
+        val reactionData = TestInputReader().readInputAsString("/reactions/example-4.txt").value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(460_664)
     }
 
     @Test
     fun solutionPartTwo() {
-        val reactionData = InputReader().readInputString(Day.from(14)).values
+        val reactionData = InputReader.read<String>(Day.from(14)).value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(1572358)
     }

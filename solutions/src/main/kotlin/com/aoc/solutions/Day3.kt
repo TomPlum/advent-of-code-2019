@@ -6,7 +6,7 @@ import com.aoc.panel.Panel
 import com.aoc.panel.Wire
 
 fun main() {
-    val wires = InputReader().readInputString(Day.from(3)).values
+    val wires = InputReader.read<String>(Day.from(3)).value
     val panel = Panel(Wire(wires[0]), Wire(wires[1]))
 
     val p1 = panel.findIntersectionPointClosestToCentralPort()

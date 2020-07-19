@@ -12,7 +12,7 @@ class SpaceCardDeckShufflerTest {
     @Test
     fun exampleOne() {
         val input = TestInputReader().readInputAsString("/cards/example-instructions-1.txt")
-        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.values))
+        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.value))
         val shuffledDeck = shuffler.shuffle(SpaceCardDeckFactory.factoryOrder(10))
         assertThat(shuffledDeck).isEqualTo(deckWithCards(0,3,6,9,2,5,8,1,4,7))
     }
@@ -20,7 +20,7 @@ class SpaceCardDeckShufflerTest {
     @Test
     fun exampleTwo() {
         val input = TestInputReader().readInputAsString("/cards/example-instructions-2.txt")
-        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.values))
+        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.value))
         val shuffledDeck = shuffler.shuffle(SpaceCardDeckFactory.factoryOrder(10))
         assertThat(shuffledDeck).isEqualTo(deckWithCards(3,0,7,4,1,8,5,2,9,6))
     }
@@ -28,7 +28,7 @@ class SpaceCardDeckShufflerTest {
     @Test
     fun exampleThree() {
         val input = TestInputReader().readInputAsString("/cards/example-instructions-3.txt")
-        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.values))
+        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.value))
         val shuffledDeck = shuffler.shuffle(SpaceCardDeckFactory.factoryOrder(10))
         assertThat(shuffledDeck).isEqualTo(deckWithCards(6,3,0,7,4,1,8,5,2,9))
     }
@@ -36,15 +36,15 @@ class SpaceCardDeckShufflerTest {
     @Test
     fun exampleFour() {
         val input = TestInputReader().readInputAsString("/cards/example-instructions-4.txt")
-        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.values))
+        val shuffler = SpaceCardDeckShuffler(ShuffleInstructionParser.parse(input.value))
         val shuffledDeck = shuffler.shuffle(SpaceCardDeckFactory.factoryOrder(10))
         assertThat(shuffledDeck).isEqualTo(deckWithCards(9,2,5,8,1,4,7,0,3,6))
     }
 
     @Test
     fun partOneSolution() {
-        val input = InputReader().readInputString(Day.from(22))
-        val instructions = ShuffleInstructionParser.parse(input.values)
+        val input = InputReader.read<String>(Day.from(22))
+        val instructions = ShuffleInstructionParser.parse(input.value)
         val deck = SpaceCardDeckFactory.default()
         val shuffler = SpaceCardDeckShuffler(instructions)
         assertThat(shuffler.shuffle(deck).getCardWithValue(2019)).isEqualTo(2604)

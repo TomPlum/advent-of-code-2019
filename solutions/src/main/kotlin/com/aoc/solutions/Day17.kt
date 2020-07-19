@@ -5,7 +5,7 @@ import com.aoc.input.Day
 import com.aoc.input.InputReader
 
 fun main() {
-    val instruction = InputReader().readInputAsSingleString(Day.from(17))
+    val instruction = InputReader.read<String>(Day.from(17)).asSingleString()
     val scaffoldMap = VacuumRobot(instruction).scanShipsExteriorScaffolding()
     println("Solution Part 1: ${scaffoldMap.calculateAlignmentParameterSum()}")
     println(scaffoldMap)

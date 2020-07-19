@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 class NetworkComputerTest {
 
-    private val software = InputReader().readInputAsSingleString(Day.from(23))
+    private val software = InputReader.read<String>(Day.from(23)).asSingleString()
 
     @Test
     fun listen() {

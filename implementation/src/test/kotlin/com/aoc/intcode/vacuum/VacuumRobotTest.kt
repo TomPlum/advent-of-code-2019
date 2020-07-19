@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test
 class VacuumRobotTest {
     @Test
     fun solutionPartOne() {
-        val instructions = InputReader().readInputAsSingleString(Day.from(17))
+        val instructions = InputReader.read<String>(Day.from(17)).asSingleString()
         val robot = VacuumRobot(instructions)
         assertThat(robot.scanShipsExteriorScaffolding().calculateAlignmentParameterSum()).isEqualTo(7404)
     }
 
     @Test
     fun solutionPartTwo() {
-        val instructions = InputReader().readInputAsSingleString(Day.from(17))
+        val instructions = InputReader.read<String>(Day.from(17)).asSingleString()
         val robot = VacuumRobot(instructions)
         assertThat(robot.notifyRobotsAboutSolarFlare().quantity).isEqualTo(929045L)
     }

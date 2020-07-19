@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class OxygenSystemTest {
     @Test
     fun partTwoSolution() {
-        val input = InputReader().readInputAsSingleString(Day.from(15))
+        val input = InputReader.read<String>(Day.from(15)).asSingleString()
         val droid = RepairDroid(input)
         droid.locateShipsOxygenSystem()
         val shipsBlueprints = droid.downloadShipMappingData()
@@ -20,7 +20,7 @@ class OxygenSystemTest {
 
     @Test
     fun example() {
-        val input = TestInputReader().readInputAsSingleString("/droid/example-droid-input.txt")
+        val input = TestInputReader().readInputAsString("/droid/example-droid-input.txt").asSingleString()
         val droid = RepairDroid(input)
         droid.locateShipsOxygenSystem()
         val shipsBlueprints = droid.downloadShipMappingData()

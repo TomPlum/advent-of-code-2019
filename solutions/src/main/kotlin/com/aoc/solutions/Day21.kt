@@ -7,7 +7,7 @@ import com.aoc.intcode.droid.spring.survey.RunningStrategy
 import com.aoc.intcode.droid.spring.survey.WalkingStrategy
 
 fun main() {
-    val input = InputReader().readInputAsSingleString(Day.from(21))
+    val input = InputReader.read<String>(Day.from(21)).asSingleString()
 
     val walkingDroid = SpringDroid(input)
     println("Part 1 Solution: ${walkingDroid.surveyHull(WalkingStrategy())} Damage")

@@ -5,10 +5,9 @@ import com.aoc.input.InputReader
 import com.aoc.orbit.OrbitalMap
 
 fun main() {
-    val inputReader = InputReader()
-    val bodies = inputReader.readInputString(Day.from(6))
+    val bodies = InputReader.read<String>(Day.from(6)).value
 
-    val orbitalMap = OrbitalMap(bodies.values)
+    val orbitalMap = OrbitalMap(bodies)
     println("Solution - Part 1: ${orbitalMap.readOrbits()}")
     println("Solution - Part 2: ${orbitalMap.orbitalTransfersRequiredToReachSanta()}")
 }

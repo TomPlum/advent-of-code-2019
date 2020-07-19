@@ -2,7 +2,7 @@ package com.aoc.monitoring.asteroid
 
 import com.aoc.math.Point2D
 
-data class MapSector(val contents: String, val position: Point2D) { //TODO: Replace with Point2D
+data class MapSector(val contents: String, val position: Point2D) {
 
     /**
      * Calculates the positive clockwise angle between two [MapSector] in degrees.
@@ -14,11 +14,14 @@ data class MapSector(val contents: String, val position: Point2D) { //TODO: Repl
      */
     fun distanceBetween(sector: MapSector): Int = sector.position.distanceBetween(this.position)
 
+    /**
+     * Checks if the [MapSector] has an asteroid or not.
+     * @return true if has asteroid, else false.
+     */
     fun hasAsteroid(): Boolean = when (contents) {
         "#" -> true
         "." -> false
         else -> throw IllegalArgumentException("Invalid Map Sector Contents '$contents'. Asteroid (#), Empty (.)")
     }
-
 
 }

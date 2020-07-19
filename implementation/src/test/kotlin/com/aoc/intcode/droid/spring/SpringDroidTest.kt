@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test
 class SpringDroidTest {
     @Test
     fun solutionPartOne() {
-        val input = InputReader().readInputAsSingleString(Day.from(21))
+        val input = InputReader.read<String>(Day.from(21)).asSingleString()
         val droid = SpringDroid(input)
         assertThat(droid.surveyHull(WalkingStrategy()).damage).isEqualTo(19350258)
     }
 
     @Test
     fun solutionPartTwo() {
-        val input = InputReader().readInputAsSingleString(Day.from(21))
+        val input = InputReader.read<String>(Day.from(21)).asSingleString()
         val droid = SpringDroid(input)
         assertThat(droid.surveyHull(RunningStrategy()).damage).isEqualTo(1142627861)
     }

@@ -3,7 +3,6 @@ package com.aoc.monitoring.moon
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.TestInputReader
-import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -12,7 +11,7 @@ class ScanningModuleTest {
     @DisplayName("Given the valid example input data, when scanning for moons, it should parse the data into 3D Points" +
             "and the velocity should be set to the default of (0, 0, 0)")
     fun scanMoonsExampleData() {
-        val data = TestInputReader().readInputAsString("/moon/example-moon-positions-1.txt").values
+        val data = TestInputReader().readInputAsString("/moon/example-moon-positions-1.txt").value
         val moonPositions = ScanningModule().scanLocalSectorForMoons(data)
         assertThat(moonPositions).isEqualTo(setOf(
                 Moon("Io", Point3D(-1,0,2), Velocity3D(0,0,0)),

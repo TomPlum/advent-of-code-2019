@@ -6,21 +6,20 @@ import com.aoc.TestInputReader
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.maze.donut.recursive.RecursiveDonutMaze
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class RecursiveDonutMazeTest {
     @Test
     fun example() {
         val input = TestInputReader().readInputAsString("/maze/recursive/example.txt")
-        val stepsTaken = RecursiveDonutMaze(input.values).findShortestPath()
+        val stepsTaken = RecursiveDonutMaze(input.value).findShortestPath()
         assertThat(stepsTaken).isEqualTo(396)
     }
 
     @Test
     fun solutionPart2() {
-        val input = InputReader().readInputString(Day.from(20))
-        val stepsTaken = RecursiveDonutMaze(input.values).findShortestPath()
+        val input = InputReader.read<String>(Day.from(20)).value
+        val stepsTaken = RecursiveDonutMaze(input).findShortestPath()
         assertThat(stepsTaken).isEqualTo(6292)
     }
 }

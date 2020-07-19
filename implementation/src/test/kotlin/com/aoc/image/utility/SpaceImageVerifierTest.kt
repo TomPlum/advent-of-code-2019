@@ -15,7 +15,7 @@ class SpaceImageVerifierTest {
     @DisplayName("Given the SpaceImage generated from Day 8's Puzzle Input, when verifying the image is not corrupt," +
     "then it should return 2904")
     fun partOneSolution() {
-        val imageData = InputReader().readInputAsSingleString(Day.from(8))
+        val imageData = InputReader.read<String>(Day.from(8)).asSingleString()
         val dimensions = SpaceImageDimensions(25, 6)
         val image = ImageDataAssembler().assemble(imageData, dimensions)
         val solution = SpaceImageVerifier(image).verify(Pixel.BLACK, Pixel.WHITE, Pixel.TRANSPARENT)

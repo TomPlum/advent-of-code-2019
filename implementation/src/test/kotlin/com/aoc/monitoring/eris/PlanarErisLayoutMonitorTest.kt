@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test
 class PlanarErisLayoutMonitorTest {
     @Test
     fun example() {
-        val scanData = TestInputReader().readInputAsString("/eris/example-scan-1.txt").values
+        val scanData = TestInputReader().readInputAsString("/eris/example-scan-1.txt").value
         val monitor = PlanarErisLayoutMonitor(PlanarErisPlanetLayout(scanData))
         assertThat(monitor.watchForRepeatingLayout().getBioDiversityRating()).isEqualTo(2129920)
     }
 
     @Test
     fun solutionPartOne() {
-        val scanData = InputReader().readInputString(Day.from(24)).values
+        val scanData = InputReader.read<String>(Day.from(24)).value
         val monitor = PlanarErisLayoutMonitor(PlanarErisPlanetLayout(scanData))
         assertThat(monitor.watchForRepeatingLayout().getBioDiversityRating()).isEqualTo(32506764)
     }

@@ -1,7 +1,6 @@
 package com.aoc.map
 
 import com.aoc.math.Point2D
-import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
 /**

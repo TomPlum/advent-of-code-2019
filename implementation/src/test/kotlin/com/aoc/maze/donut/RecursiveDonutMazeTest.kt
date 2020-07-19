@@ -2,8 +2,8 @@ package com.aoc.maze.donut
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.TestInputReader
 import com.aoc.Day
+import com.aoc.TestInputReader
 import com.aoc.input.InputReader
 import com.aoc.maze.donut.recursive.RecursiveDonutMaze
 import org.junit.jupiter.api.Test

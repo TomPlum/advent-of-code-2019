@@ -7,7 +7,6 @@ import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalStateException
 
 class PanelTest {
     private val wireStrings = InputReader.read<String>(Day(3)).value

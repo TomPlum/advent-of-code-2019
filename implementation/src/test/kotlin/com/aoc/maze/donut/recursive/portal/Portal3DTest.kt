@@ -6,8 +6,6 @@ import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import com.aoc.math.Point3D
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 
 class Portal3DTest {
     @Test

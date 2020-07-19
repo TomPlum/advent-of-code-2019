@@ -8,7 +8,6 @@ import assertk.assertions.isTrue
 import com.aoc.cards.TestSpaceDeckFactory.Companion.deckWithCards
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 import java.util.*
 
 class SpaceCardDeckTest {

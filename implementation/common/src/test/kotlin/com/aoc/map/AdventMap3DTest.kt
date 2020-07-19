@@ -8,7 +8,6 @@ import com.aoc.math.Point3D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 import java.util.*
 
 class AdventMap3DTest {

@@ -1,7 +1,7 @@
 package com.aoc.solutions
 
-import com.aoc.fuel.calculator.FuelCalculator
 import com.aoc.Day
+import com.aoc.fuel.calculator.FuelCalculator
 import com.aoc.input.InputReader
 
 fun main() {

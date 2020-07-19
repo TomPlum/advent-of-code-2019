@@ -1,7 +1,7 @@
 package com.aoc.intcode.amplifier.loopback
 
-import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.amplifier.BaseAmplifier
+import com.aoc.intcode.computer.IntCodeComputer
 
 class LoopInitialAmplifier(private val phaseSetting: Long) : BaseAmplifier(phaseSetting) {
     fun start() {

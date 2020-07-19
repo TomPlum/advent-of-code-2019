@@ -2,9 +2,8 @@ package com.aoc.maze.donut.recursive.portal
 
 import com.aoc.log.AdventLogger
 import com.aoc.math.Point3D
-import java.lang.IllegalArgumentException
-import com.aoc.maze.donut.recursive.RecursiveDonutMaze
 import com.aoc.maze.donut.DonutTile
+import com.aoc.maze.donut.recursive.RecursiveDonutMaze
 
 /**
  * A space-time folding warp-gate in a [RecursiveDonutMaze].

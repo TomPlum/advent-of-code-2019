@@ -3,7 +3,6 @@ package com.aoc.intcode.network
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketData
 import com.aoc.log.AdventLogger
-import java.lang.IllegalStateException
 
 class NAT {
     private var memory: PacketData? = null

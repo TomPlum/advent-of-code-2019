@@ -1,7 +1,5 @@
 package com.aoc.intcode.droid.repair
 
-import java.lang.IllegalArgumentException
-
 enum class DroidResponse {
     HIT_WALL_POSITION_NOT_CHANGED,
     SUCCESSFULLY_CHANGED_POSITION,

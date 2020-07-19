@@ -1,7 +1,7 @@
 package com.aoc.intcode.network.packet
 
-import com.aoc.intcode.network.NetworkAddress
 import com.aoc.intcode.network.IntCodeComputerNetwork
+import com.aoc.intcode.network.NetworkAddress
 import com.aoc.intcode.network.NetworkComputer
 
 /**

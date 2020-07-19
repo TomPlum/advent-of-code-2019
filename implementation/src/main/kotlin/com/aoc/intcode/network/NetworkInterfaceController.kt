@@ -1,7 +1,6 @@
 package com.aoc.intcode.network
 
 import com.aoc.intcode.network.packet.PacketData
-import java.lang.IllegalStateException
 import java.util.*
 
 /**

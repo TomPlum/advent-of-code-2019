@@ -1,7 +1,7 @@
 package com.aoc.intcode.vacuum.scaffold
 
-import com.aoc.math.Point2D
 import com.aoc.map.AdventMap2D
+import com.aoc.math.Point2D
 
 class ScaffoldMap(initialData: List<Long>) : AdventMap2D<ScaffoldMapTile>() {
 

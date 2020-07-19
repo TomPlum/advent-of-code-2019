@@ -1,6 +1,8 @@
 package com.aoc.intcode.circuit
 
-import com.aoc.intcode.amplifier.*
+import com.aoc.intcode.amplifier.Amplifier
+import com.aoc.intcode.amplifier.PhaseSettings
+import com.aoc.intcode.amplifier.ThrustAmplifier
 import com.aoc.intcode.amplifier.loopback.FeedbackAmplifier
 import com.aoc.intcode.amplifier.loopback.LoopInitialAmplifier
 

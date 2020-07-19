@@ -2,7 +2,6 @@ package com.aoc.intcode.computer
 
 import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.instructions.strategies.*
-import java.lang.IllegalStateException
 import java.util.*
 
 data class OpCode(val instructionValue: String) {

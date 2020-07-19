@@ -6,7 +6,6 @@ import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
 import com.aoc.intcode.droid.spring.register.write.JumpRegister
 import com.aoc.intcode.droid.spring.register.write.TemporaryValueRegister
 import com.aoc.intcode.droid.spring.register.write.WriteableRegister
-import java.lang.IllegalArgumentException
 
 /**
  * Parses literal string representations of [SpringScriptInstruction].

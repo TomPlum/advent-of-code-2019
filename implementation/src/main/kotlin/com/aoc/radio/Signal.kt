@@ -1,7 +1,5 @@
 package com.aoc.radio
 
-import java.lang.IllegalArgumentException
-
 data class Signal(val sequence: List<Int>) {
     private val basePattern = listOf(0, 1, 0, -1)
 

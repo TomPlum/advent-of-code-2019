@@ -2,7 +2,6 @@ package com.aoc.password
 
 import assertk.assertThat
 import assertk.assertions.isFalse
-import assertk.assertions.isTrue
 import com.aoc.password.strategy.RevisedValidation
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest

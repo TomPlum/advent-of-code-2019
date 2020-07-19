@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 
 class IntCodeComputerTest {
     private val largeExampleProgram = "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31," +

@@ -1,6 +1,8 @@
 package com.aoc.password
 
-import com.aoc.password.strategy.*
+import com.aoc.password.strategy.InitialValidation
+import com.aoc.password.strategy.PasswordValidationStrategy
+import com.aoc.password.strategy.RevisedValidation
 
 class PasswordUtility {
     /**

@@ -12,7 +12,6 @@ import com.aoc.intcode.droid.spring.script.SpringScriptInstruction
 import com.aoc.intcode.droid.spring.script.SpringScriptProgram
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalStateException
 
 class SpringScriptProgramTest {
     @Test

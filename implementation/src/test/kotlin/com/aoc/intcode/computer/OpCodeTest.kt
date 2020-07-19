@@ -3,8 +3,6 @@ package com.aoc.intcode.computer
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import com.aoc.intcode.computer.OpCode
-import com.aoc.intcode.computer.ParameterMode
 import com.aoc.intcode.computer.instructions.strategies.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,9 +1,9 @@
 package com.aoc.solutions
 
-import com.aoc.radio.Receiver
-import com.aoc.radio.Transmitter
 import com.aoc.Day
 import com.aoc.input.InputReader
+import com.aoc.radio.Receiver
+import com.aoc.radio.Transmitter
 
 fun main() {
     val data = InputReader.read<String>(Day(16)).asSingleString()

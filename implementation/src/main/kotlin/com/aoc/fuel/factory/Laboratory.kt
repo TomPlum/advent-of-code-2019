@@ -1,8 +1,11 @@
 package com.aoc.fuel.factory
 
+import com.aoc.fuel.factory.components.Chemical
+import com.aoc.fuel.factory.components.Fuel
+import com.aoc.fuel.factory.components.Ore
+import com.aoc.fuel.factory.components.ReactionComponent
 import kotlin.math.ceil
 import kotlin.math.max
-import com.aoc.fuel.factory.components.*
 
 class Laboratory(private val reactions: List<Reaction>) {
     private val surplusComponents = mutableMapOf<String, Int>()

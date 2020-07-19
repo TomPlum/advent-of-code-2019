@@ -1,7 +1,7 @@
 package com.aoc.intcode.network
 
-import com.aoc.intcode.computer.boot.BootMode
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.boot.BootMode
 
 /**
  * Uniquely identifies a [NetworkComputer] on an [IntCodeComputerNetwork]

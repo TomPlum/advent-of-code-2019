@@ -1,7 +1,7 @@
 package com.aoc
 
-import com.aoc.input.types.Input
 import com.aoc.input.InputReader
+import com.aoc.input.types.Input
 import com.aoc.input.types.StringInput
 import java.io.File
 

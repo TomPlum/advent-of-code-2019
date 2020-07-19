@@ -1,8 +1,8 @@
 package com.aoc.intcode.computer.strategy
 
-import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.Memory
 import com.aoc.intcode.computer.OpCode
+import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.instructions.strategies.Halt
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

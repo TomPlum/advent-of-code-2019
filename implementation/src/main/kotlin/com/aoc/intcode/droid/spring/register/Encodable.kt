@@ -1,9 +1,9 @@
 package com.aoc.intcode.droid.spring.register
 
-import com.aoc.intcode.droid.spring.script.SpringScriptProgram
-import com.aoc.intcode.droid.spring.SpringDroid
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.SystemInput
+import com.aoc.intcode.droid.spring.SpringDroid
+import com.aoc.intcode.droid.spring.script.SpringScriptProgram
 
 /**
  * In the context of a [SpringScriptProgram], and [Encodable] component or argument has an ASCII representation.

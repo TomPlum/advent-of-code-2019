@@ -3,7 +3,7 @@ package com.aoc.monitoring.eris
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import com.aoc.TestInputReader
+import com.aoc.input.TestInputReader
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
 

@@ -2,7 +2,7 @@ package com.aoc.intcode.tractorbeam
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.TestInputReader
+import com.aoc.input.TestInputReader
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Test
 

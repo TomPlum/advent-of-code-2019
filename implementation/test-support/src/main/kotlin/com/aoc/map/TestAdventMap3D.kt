@@ -1,6 +1,5 @@
-package com.aoc
+package com.aoc.map
 
-import com.aoc.map.AdventMap3D
 import com.aoc.math.Point3D
 
 class TestAdventMap3D : AdventMap3D<TestMapTile>() {

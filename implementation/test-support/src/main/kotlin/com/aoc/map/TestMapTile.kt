@@ -1,6 +1,5 @@
-package com.aoc
+package com.aoc.map
 
-import com.aoc.map.MapTile
 import java.util.*
 
 class TestMapTile(private val data: Int) : MapTile<Int>(data) {

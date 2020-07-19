@@ -1,6 +1,5 @@
-package com.aoc
+package com.aoc.map
 
-import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 
 class TestAdventMap2D : AdventMap2D<TestMapTile>() {

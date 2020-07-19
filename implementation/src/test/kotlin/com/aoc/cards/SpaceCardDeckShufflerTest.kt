@@ -3,7 +3,7 @@ package com.aoc.cards
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.Day
-import com.aoc.TestInputReader
+import com.aoc.input.TestInputReader
 import com.aoc.cards.TestSpaceDeckFactory.Companion.deckWithCards
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test

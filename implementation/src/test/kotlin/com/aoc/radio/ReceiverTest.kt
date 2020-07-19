@@ -2,7 +2,7 @@ package com.aoc.radio
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.TestInputReader
+import com.aoc.input.TestInputReader
 import org.junit.jupiter.api.Test
 
 class ReceiverTest {

@@ -4,8 +4,6 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
-import com.aoc.TestAdventMap3D
-import com.aoc.TestMapTile
 import com.aoc.math.Point3D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

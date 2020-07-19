@@ -2,7 +2,7 @@ package com.aoc.vault
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.TestInputReader
+import com.aoc.input.TestInputReader
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 

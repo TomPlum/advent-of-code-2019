@@ -2,6 +2,7 @@ package com.aoc.intcode.droid.repair
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.TestInputReader
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
@@ -19,7 +20,7 @@ class OxygenSystemTest {
 
     @Test
     fun example() {
-        val input = InputReader().readInputAsSingleString("/droid/example-droid-input.txt")
+        val input = TestInputReader().readInputAsSingleString("/droid/example-droid-input.txt")
         val droid = RepairDroid(input)
         droid.locateShipsOxygenSystem()
         val shipsBlueprints = droid.downloadShipMappingData()

@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
+import com.aoc.TestInputReader
 import com.aoc.input.Day
 import com.aoc.input.InputReader
 import com.aoc.math.Point2D
@@ -18,35 +19,35 @@ class PlanarDonutMazeTest {
 
     @Test
     fun exampleMazeShouldHaveThreePortalPairs() {
-        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val input = TestInputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = PlanarDonutMaze(input.values)
         assertThat(maze.portals.size).isEqualTo(3)
     }
 
     @Test
     fun exampleMazeShouldParseEntranceCorrectly() {
-        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val input = TestInputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = PlanarDonutMaze(input.values)
         assertThat(maze.entrance).isEqualTo(Point2D(9,2))
     }
 
     @Test
     fun exampleMazeShouldParseExitCorrectly() {
-        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val input = TestInputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = PlanarDonutMaze(input.values)
         assertThat(maze.exit).isEqualTo(Point2D(13,16))
     }
 
     @Test
     fun findShortestPathExampleMaze() {
-        val input = InputReader().readInputAsString("/maze/donut/example-maze.txt")
+        val input = TestInputReader().readInputAsString("/maze/donut/example-maze.txt")
         val maze = PlanarDonutMaze(input.values)
         assertThat(maze.findShortestPath()).isEqualTo(23)
     }
 
     @Test
     fun findShortestPathLargeExampleMaze() {
-        val input = InputReader().readInputAsString("/maze/donut/large-example-maze.txt")
+        val input = TestInputReader().readInputAsString("/maze/donut/large-example-maze.txt")
         val maze = PlanarDonutMaze(input.values)
         assertThat(maze.findShortestPath()).isEqualTo(58)
     }

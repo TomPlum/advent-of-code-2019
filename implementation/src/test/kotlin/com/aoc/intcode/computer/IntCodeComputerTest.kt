@@ -68,7 +68,7 @@ class IntCodeComputerTest {
         @Test
         @DisplayName("Given Day 2 - Part 1 puzzle input, when restoring the gravity assist program, then after running the first memory address value should be 10566835")
         fun dayTwoPartOneSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(2)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.restoreGravityAssistProgram(12, 2)
             computer.run()
@@ -78,7 +78,7 @@ class IntCodeComputerTest {
         @Test
         @DisplayName("Given a noun of 23 and a verb of 47, when restoring the gravity assist program, then the output should be 19690720")
         fun dayTwoPartTwoSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(2)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.restoreGravityAssistProgram(23, 47)
             computer.run()
@@ -284,7 +284,7 @@ class IntCodeComputerTest {
 
         @Test
         fun dayFivePartTwoSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(5)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(5)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.onNextBoot(TestBootMode.THERMAL_RADIATOR_CONTROLLER_DIAGNOSTIC_TEST)
             computer.run()
@@ -294,7 +294,7 @@ class IntCodeComputerTest {
         @Test
         @DisplayName("Given Day 5 - Part 1 puzzle input, when inputting the air condition code, then it should output 5044655 as the final non-zero diagnostic code")
         fun dayFivePartOneSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(5)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(5)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.onNextBoot(TestBootMode.AIR_CONDITIONER_DIAGNOSTIC_TEST)
             computer.run()
@@ -331,7 +331,7 @@ class IntCodeComputerTest {
         @Test
         @DisplayName("Given Day 9 - Part 1 puzzle input, when inputting the BOOST test code, then it should output 3100786347")
         fun dayNinePartOneSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(9)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(9)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.onNextBoot(TestBootMode.BOOST_TEST)
             computer.run()
@@ -341,7 +341,7 @@ class IntCodeComputerTest {
         @Test
         @DisplayName("Given Day 9 - Part 2 puzzle input, when inputting the sensor boost code, then it should output 87023")
         fun dayNinePartTwoSolution() {
-            val puzzleInput = InputReader.read<String>(Day.from(9)).asSingleString()
+            val puzzleInput = InputReader.read<String>(Day(9)).asSingleString()
             val computer = IntCodeComputer(puzzleInput)
             computer.onNextBoot(TestBootMode.SENSOR_BOOST)
             computer.run()

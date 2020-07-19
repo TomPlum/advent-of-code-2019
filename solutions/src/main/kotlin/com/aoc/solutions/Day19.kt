@@ -5,7 +5,7 @@ import com.aoc.input.InputReader
 import com.aoc.intcode.tractorbeam.DroneSystem
 
 fun main() {
-    val input = InputReader.read<String>(Day.from(19)).asSingleString()
+    val input = InputReader.read<String>(Day(19)).asSingleString()
     val system = DroneSystem(input)
     val scan = system.scanAreaSurroundingEmitter(50)
     println("Solution Part 1: ${scan.getPointsAffectedByBeam()} points affected by the beam.")

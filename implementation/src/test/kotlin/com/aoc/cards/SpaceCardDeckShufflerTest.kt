@@ -43,7 +43,7 @@ class SpaceCardDeckShufflerTest {
 
     @Test
     fun partOneSolution() {
-        val input = InputReader.read<String>(Day.from(22))
+        val input = InputReader.read<String>(Day(22))
         val instructions = ShuffleInstructionParser.parse(input.value)
         val deck = SpaceCardDeckFactory.default()
         val shuffler = SpaceCardDeckShuffler(instructions)

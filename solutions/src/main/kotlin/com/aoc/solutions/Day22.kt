@@ -7,7 +7,7 @@ import com.aoc.input.Day
 import com.aoc.input.InputReader
 
 fun main() {
-    val input = InputReader.read<String>(Day.from(22)).value
+    val input = InputReader.read<String>(Day(22)).value
     val instructions = ShuffleInstructionParser.parse(input)
     val deck = SpaceCardDeckFactory.default()
     val shuffler = SpaceCardDeckShuffler(instructions)

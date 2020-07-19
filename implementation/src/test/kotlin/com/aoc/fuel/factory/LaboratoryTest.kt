@@ -46,7 +46,7 @@ class LaboratoryTest {
 
     @Test
     fun solutionPartOne() {
-        val reactionData = InputReader.read<String>(Day.from(14)).value
+        val reactionData = InputReader.read<String>(Day(14)).value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.minimumOreToProduceOneFuel()).isEqualTo(1037742)
     }
@@ -74,7 +74,7 @@ class LaboratoryTest {
 
     @Test
     fun solutionPartTwo() {
-        val reactionData = InputReader.read<String>(Day.from(14)).value
+        val reactionData = InputReader.read<String>(Day(14)).value
         val laboratory = Laboratory(NanoFactory(reactionData).produceReactionList())
         assertThat(laboratory.maximumFuelProducedFromOneTrillionOre()).isEqualTo(1572358)
     }

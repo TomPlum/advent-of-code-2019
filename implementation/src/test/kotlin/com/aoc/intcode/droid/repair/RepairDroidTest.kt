@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class RepairDroidTest {
     @Test
     fun partOneSolution() {
-        val instructions = InputReader.read<String>(Day.from(15)).asSingleString()
+        val instructions = InputReader.read<String>(Day(15)).asSingleString()
         val distance = RepairDroid(instructions).locateShipsOxygenSystem()
         assertThat(distance).isEqualTo(Pair(Point2D(-12, 12), 212))
     }

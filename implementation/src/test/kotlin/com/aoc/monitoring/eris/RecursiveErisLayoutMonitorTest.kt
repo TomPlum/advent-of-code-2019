@@ -17,7 +17,7 @@ class RecursiveErisLayoutMonitorTest {
 
     @Test
     fun solutionPartTwo() {
-        val scanData = InputReader.read<String>(Day.from(24)).value
+        val scanData = InputReader.read<String>(Day(24)).value
         val monitor = RecursiveErisLayoutMonitor(RecursiveErisPlanetLayout(scanData))
         assertThat(monitor.watch(200)).isEqualTo(1963)
     }

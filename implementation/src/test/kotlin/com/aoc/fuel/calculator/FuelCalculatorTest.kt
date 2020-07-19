@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class FuelCalculatorTest {
     private val calculator: FuelCalculator = FuelCalculator()
-    private val puzzleInput = InputReader.read<Int>(Day.from(1)).value
+    private val puzzleInput = InputReader.read<Int>(Day(1)).value
 
     @ParameterizedTest
     @ValueSource(ints = [12, 14])

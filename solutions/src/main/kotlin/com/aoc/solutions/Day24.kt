@@ -8,7 +8,7 @@ import com.aoc.monitoring.eris.RecursiveErisLayoutMonitor
 import com.aoc.monitoring.eris.RecursiveErisPlanetLayout
 
 fun main() {
-    val scanData = InputReader.read<String>(Day.from(24)).value
+    val scanData = InputReader.read<String>(Day(24)).value
 
     val planarMonitor = PlanarErisLayoutMonitor(PlanarErisPlanetLayout(scanData))
     println("Solution Part 1: ${planarMonitor.watchForRepeatingLayout().getBioDiversityRating()}")

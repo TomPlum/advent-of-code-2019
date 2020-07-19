@@ -58,7 +58,7 @@ class MotionSimulatorTest {
 
     @Test
     fun partOneSolution() {
-        val input = InputReader.read<String>(Day.from(12)).value
+        val input = InputReader.read<String>(Day(12)).value
         val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
         motionSimulator.simulate(1000)
         assertThat(motionSimulator.calculateTotalSystemEnergy()).isEqualTo(7722)
@@ -66,7 +66,7 @@ class MotionSimulatorTest {
 
     @Test
     fun partTwoSolution() {
-        val input = InputReader.read<String>(Day.from(12)).value
+        val input = InputReader.read<String>(Day(12)).value
         val motionSimulator = MotionSimulator(ScanningModule().scanLocalSectorForMoons(input))
         assertThat(motionSimulator.determineTimeStepsUntilHistoryRepeats()).isEqualTo(292653556339368L)
     }

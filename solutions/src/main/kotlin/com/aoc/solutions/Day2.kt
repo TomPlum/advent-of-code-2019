@@ -5,7 +5,7 @@ import com.aoc.input.InputReader
 import com.aoc.intcode.computer.IntCodeComputer
 
 fun main() {
-    val instructions = InputReader.read<String>(Day.from(2)).asSingleString()
+    val instructions = InputReader.read<String>(Day(2)).asSingleString()
 
     partOne(instructions)
     partTwo(instructions)

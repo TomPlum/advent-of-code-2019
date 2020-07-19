@@ -50,7 +50,7 @@ class AsteroidMapTest {
     @DisplayName("Given Day 10 Part 1 puzzle input, when calculating the number of asteroids in the direct line of sight" +
     "of a monitoring station placed in the optimal position, then it should return 263 at (23, 29)")
     fun solutionPartOne() {
-        val map = AsteroidMap(InputReader.read<String>(Day.from(10)).value)
+        val map = AsteroidMap(InputReader.read<String>(Day(10)).value)
         val optimalSector = map.getOptimalAsteroidMappingStationSector()
         assertThat(optimalSector).isEqualTo(Pair(MapSector("#", Point2D(23, 29)), 263))
     }
@@ -158,7 +158,7 @@ class AsteroidMapTest {
     @DisplayName("Given Day 10 Puzzle Input, when finding the 200th vaporised asteroid and adding the factor of its x-ordinate" +
     "by 10 to the y-ordinate, then it should return 1110")
     fun dayTenPartTwoSolution() {
-        val map = AsteroidMap(InputReader.read<String>(Day.from(10)).value)
+        val map = AsteroidMap(InputReader.read<String>(Day(10)).value)
         val answer = map.winBetWithElves()
         assertThat(answer).isEqualTo(1110)
     }

@@ -6,7 +6,7 @@ import com.aoc.intcode.network.IntCodeComputerNetwork
 import com.aoc.intcode.network.NetworkAddress
 
 fun main() {
-    val software = InputReader.read<String>(Day.from(23)).asSingleString()
+    val software = InputReader.read<String>(Day(23)).asSingleString()
     part1(software)
     part2(software)
 }

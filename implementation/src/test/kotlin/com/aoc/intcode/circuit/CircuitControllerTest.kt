@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class CircuitControllerTest {
-    private val input = InputReader.read<String>(Day.from(7)).asSingleString()
+    private val input = InputReader.read<String>(Day(7)).asSingleString()
 
     @Test
     @DisplayName("Given Day 7 Part 1 Puzzle Input, when calculating the maximum thruster signal, then it should return 21860")

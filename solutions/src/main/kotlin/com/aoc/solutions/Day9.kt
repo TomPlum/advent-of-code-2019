@@ -6,7 +6,7 @@ import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.boot.TestBootMode
 
 fun main() {
-    val input = InputReader.read<String>(Day.from(9)).asSingleString()
+    val input = InputReader.read<String>(Day(9)).asSingleString()
     partOne(input)
     partTwo(input)
 }

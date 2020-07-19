@@ -17,7 +17,7 @@ class PlanarErisLayoutMonitorTest {
 
     @Test
     fun solutionPartOne() {
-        val scanData = InputReader.read<String>(Day.from(24)).value
+        val scanData = InputReader.read<String>(Day(24)).value
         val monitor = PlanarErisLayoutMonitor(PlanarErisPlanetLayout(scanData))
         assertThat(monitor.watchForRepeatingLayout().getBioDiversityRating()).isEqualTo(32506764)
     }

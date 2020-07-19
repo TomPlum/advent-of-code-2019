@@ -10,7 +10,7 @@ import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
 
 class PanelTest {
-    private val wireStrings = InputReader.read<String>(Day.from(3)).value
+    private val wireStrings = InputReader.read<String>(Day(3)).value
 
     @Test
     @DisplayName("Given the wires from the basic example, when calculating the closest intersection point, then it should return 6")

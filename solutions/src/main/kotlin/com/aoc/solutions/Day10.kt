@@ -5,7 +5,7 @@ import com.aoc.input.InputReader
 import com.aoc.monitoring.asteroid.AsteroidMap
 
 fun main() {
-    val input = InputReader.read<String>(Day.from(10)).value
+    val input = InputReader.read<String>(Day(10)).value
 
     val asteroidMap = AsteroidMap(input)
     println("Solution Part 1: ${asteroidMap.getOptimalAsteroidMappingStationSector().second} asteroids")

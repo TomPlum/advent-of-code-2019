@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class PlanarDonutMazeTest {
     @Test
     fun parsePuzzleInputData() {
-        val input = InputReader.read<String>(Day.from(20))
+        val input = InputReader.read<String>(Day(20))
         PlanarDonutMaze(input.value)
     }
 
@@ -52,7 +52,7 @@ class PlanarDonutMazeTest {
 
     @Test
     fun solutionPartOne() {
-        val input = InputReader.read<String>(Day.from(20))
+        val input = InputReader.read<String>(Day(20))
         val maze = PlanarDonutMaze(input.value)
         assertThat(maze.findShortestPath()).isEqualTo(526)
     }

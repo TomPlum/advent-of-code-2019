@@ -45,7 +45,7 @@ class TransmitterTest {
     @DisplayName("Solution Part 1 - Given Day 16 Puzzle Input, after 100 phases of FFT, then the first eight digits of" +
             " the output signal should be 77038830")
     fun solutionPartOne() {
-        val data = InputReader.read<String>(Day.from(16)).asSingleString()
+        val data = InputReader.read<String>(Day(16)).asSingleString()
         val inputSignal = Receiver().listen(data)
         val outputSignal = Transmitter(inputSignal).flawedFrequencyTransmission(100)
         assertThat(outputSignal.getFirstNValues(8).toString()).isEqualTo("77038830")
@@ -82,7 +82,7 @@ class TransmitterTest {
     @DisplayName("Solution Part 2 - Given Day 16 Puzzle Input, after converting to the real signal and 100 phases of " +
             "FFT, then the message at he offset should be 28135104")
     fun solutionPartTwo() {
-        val data = InputReader.read<String>(Day.from(16)).asSingleString()
+        val data = InputReader.read<String>(Day(16)).asSingleString()
         val inputSignal = Receiver().listen(data).convertToRealSignal()
         val outputSignal = Transmitter(inputSignal).decodeRealSignalMessage()
         assertThat(outputSignal.toString()).isEqualTo("28135104")

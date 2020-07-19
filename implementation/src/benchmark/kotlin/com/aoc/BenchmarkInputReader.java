@@ -1,8 +1,7 @@
 package com.aoc;
 
-import com.aoc.input.Day;
-import com.aoc.input.Input;
-import com.aoc.input.StringInput;
+import com.aoc.input.types.Input;
+import com.aoc.input.types.StringInput;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,6 +1,6 @@
 package com.aoc.solutions
 
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.computer.boot.TestBootMode
 import com.aoc.intcode.computer.IntCodeComputer

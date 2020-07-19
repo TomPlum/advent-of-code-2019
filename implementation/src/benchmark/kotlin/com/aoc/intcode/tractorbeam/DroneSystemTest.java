@@ -2,8 +2,7 @@ package com.aoc.intcode.tractorbeam;
 
 import com.aoc.AdventBenchmarkingSuite;
 import com.aoc.BenchmarkInputReader;
-import com.aoc.input.Day;
-import com.aoc.input.InputReader;
+import com.aoc.Day;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Warmup;

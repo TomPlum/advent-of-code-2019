@@ -2,6 +2,8 @@ package com.aoc.input
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.Day
+import com.aoc.input.types.StringInput
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 

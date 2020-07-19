@@ -2,6 +2,7 @@ package com.aoc.input
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.input.types.IntegerInput
 import org.junit.jupiter.api.Test
 
 class InputTest {

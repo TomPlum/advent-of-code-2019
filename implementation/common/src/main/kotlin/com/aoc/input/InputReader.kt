@@ -1,5 +1,9 @@
 package com.aoc.input
 
+import com.aoc.Day
+import com.aoc.input.types.Input
+import com.aoc.input.types.IntegerInput
+import com.aoc.input.types.StringInput
 import java.io.File
 
 open class InputReader {

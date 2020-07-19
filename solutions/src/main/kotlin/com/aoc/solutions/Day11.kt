@@ -2,7 +2,7 @@ package com.aoc.solutions
 
 import com.aoc.intcode.hull.HullPaint
 import com.aoc.intcode.hull.SpaceshipController
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 
 fun main() {

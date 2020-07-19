@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.computer.boot.TestBootMode
 import com.aoc.intcode.network.NetworkAddress

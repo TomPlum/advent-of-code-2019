@@ -3,7 +3,7 @@ package com.aoc.intcode.network
 import assertk.assertThat
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketData

@@ -2,7 +2,7 @@ package com.aoc.intcode.network
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.Test
 

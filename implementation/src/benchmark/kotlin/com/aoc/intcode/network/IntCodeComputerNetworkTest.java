@@ -2,8 +2,7 @@ package com.aoc.intcode.network;
 
 import com.aoc.AdventBenchmarkingSuite;
 import com.aoc.BenchmarkInputReader;
-import com.aoc.TestInputReader;
-import com.aoc.input.Day;
+import com.aoc.Day;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Warmup;
 

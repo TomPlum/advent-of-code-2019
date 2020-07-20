@@ -7,6 +7,8 @@ import kotlin.math.floor
  *
  * At the first Go / No Go poll, every Elf is Go until the Fuel Counter-Upper.
  * They haven't determined the amount of fuel required yet.
+ *
+ * //TODO: Split Part 1 & 2 into strategies. A Naive and a Refined.
  */
 class FuelCalculator {
     /**

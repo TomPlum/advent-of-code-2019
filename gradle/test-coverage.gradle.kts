@@ -1,7 +1,3 @@
-plugins {
-    jacoco
-}
-
 val testCoverage by tasks.registering {
     group = "verification"
     description = "Runs the unit tests with coverage."
@@ -13,27 +9,29 @@ val testCoverage by tasks.registering {
     tasks.findByName("jacocoTestCoverageVerification")?.mustRunAfter(jacocoTestReport)
 }
 
-jacoco {
+configure<JacocoPluginExtension> {
     toolVersion = "0.8.5"
     reportsDir = file("$buildDir/reports")
 }
 
-tasks.jacocoTestReport {
+tasks.getByName("jacocoTestReport") {
     group = "Reporting"
     description = "Generate Jacoco test coverage report"
 
-    reports {
+    configure<JacocoReportsContainer> {
         xml.isEnabled = true
         html.isEnabled = true
         csv.isEnabled = false
     }
 }
 
-tasks.jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.9".toBigDecimal()
+tasks.getByName("jacocoTestCoverageVerification") {
+    configure<JacocoCoverageVerification> {
+        configure<JacocoViolationRulesContainer> {
+            configure<JacocoViolationRule> {
+                configure<JacocoLimit> {
+                    minimum = "0.9".toBigDecimal()
+                }
             }
         }
     }

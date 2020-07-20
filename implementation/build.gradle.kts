@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+
 apply(from = "$rootDir/gradle/testing-dependencies.gradle.kts")
 
 plugins {
@@ -19,7 +21,7 @@ val benchmarkAnnotationProcessor: Configuration by configurations.creating {
 
 sourceSets {
     create("benchmark") {
-        withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+        withConvention(KotlinSourceSet::class) {
             kotlin.srcDir("src/benchmark/kotlin")
             resources.srcDir("src/benchmark/resources")
             compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
@@ -56,47 +58,10 @@ val test by tasks.getting(Test::class) {
     useJUnitPlatform { }
 }
 
-val testCoverage by tasks.registering {
-    group = "verification"
-    description = "Runs the unit tests with coverage."
-
-    dependsOn(":implementation:test", ":implementation:jacocoTestReport", ":implementation:common:jacocoTestReport",
-            ":implementation:jacocoTestCoverageVerification", ":implementation:common:jacocoTestCoverageVerification")
-    val jacocoTestReport = tasks.findByName("jacocoTestReport")
-    jacocoTestReport?.mustRunAfter(tasks.findByName("test"))
-    tasks.findByName("jacocoTestCoverageVerification")?.mustRunAfter(jacocoTestReport)
-}
-
 val benchmark by tasks.registering(type = JavaExec::class) {
     dependsOn("benchmarkClasses", "compileKotlin")
     group = "benchmarking"
     description = "Runs the JMH benchmark tests."
     main = "org.openjdk.jmh.Main"
     classpath = sourceSets["benchmark"].runtimeClasspath
-}
-
-jacoco {
-    toolVersion = "0.8.5"
-    reportsDir = file("$buildDir/reports")
-}
-
-tasks.jacocoTestReport {
-    group = "Reporting"
-    description = "Generate Jacoco test coverage report"
-
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-        csv.isEnabled = false
-    }
-}
-
-tasks.jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.9".toBigDecimal()
-            }
-        }
-    }
 }

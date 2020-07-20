@@ -7,7 +7,7 @@ class FuelCalculator {
 
     fun calculateTotalFuelForModule(fuel: List<Int>) : Int = fuel.map { e -> calculateModuleFuel(e) }.sum()
 
-    fun calculateTotalAdditionFuelForModule(fuel: List<Int>) : Int = fuel.map {e -> calculateAdditionalFuel(e) }.sum()
+    fun calculateTotalAdditionalFuelForModule(fuel: List<Int>) : Int = fuel.map { e -> calculateAdditionalFuel(e) }.sum()
 
     fun calculateAdditionalFuel(mass: Int) : Int {
         var currentMass = mass

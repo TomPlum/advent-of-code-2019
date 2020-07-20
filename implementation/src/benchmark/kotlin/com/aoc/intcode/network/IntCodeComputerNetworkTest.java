@@ -9,7 +9,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @AdventBenchmarkingSuite
 public class IntCodeComputerNetworkTest {
 
-    private static final String software = BenchmarkInputReader.read(Day.Companion.from(23)).asSingleString();
+    private static final String software = BenchmarkInputReader.read(new Day(23)).asSingleString();
 
     @Benchmark
     @Warmup(iterations = 1)

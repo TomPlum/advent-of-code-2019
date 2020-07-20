@@ -10,6 +10,7 @@ class TestInputReaderTest {
     fun readAsString() {
         assertThat(TestInputReader().readInputAsString("/inputs/input.txt").value).isEqualTo(listOf("1", "2", "3", "4", "5"))
     }
+
     @Test
     fun readAsSingleStringFromFilePath() {
         assertThat(TestInputReader().readInputAsString("/inputs/input.txt").asSingleString()).isEqualTo("12345")

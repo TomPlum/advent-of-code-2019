@@ -13,7 +13,7 @@ public class DroneSystemTest {
     @Warmup(iterations = 1)
     @Fork(value = 1, warmups = 1)
     public void solutionPartTwo() {
-        final String input = BenchmarkInputReader.read(Day.Companion.from(19)).asSingleString();
+        final String input = BenchmarkInputReader.read(new Day(19)).asSingleString();
         new DroneSystem(input).scanAreaForSantasShip(100);
     }
 }

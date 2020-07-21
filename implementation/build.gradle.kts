@@ -54,10 +54,6 @@ subprojects {
     apply(plugin = "jacoco")
 }
 
-val test by tasks.getting(Test::class) {
-    useJUnitPlatform { }
-}
-
 val benchmark by tasks.registering(type = JavaExec::class) {
     dependsOn("benchmarkClasses", "compileKotlin")
     group = "benchmarking"

@@ -5,3 +5,7 @@ dependencies {
     "testImplementation"("org.junit.platform:junit-platform-launcher:1.3.1")
     "testImplementation"("com.willowtreeapps.assertk:assertk-jvm:0.20")
 }
+
+tasks.withType<Test> {
+    useJUnitPlatform { }
+}

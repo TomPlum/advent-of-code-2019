@@ -1,5 +1,6 @@
 package com.aoc.cards.giant
 
+import com.aoc.math.LinearFunction
 import java.math.BigInteger
 
 /**
@@ -8,13 +9,13 @@ import java.math.BigInteger
  *
  * f(x) = i - n % d
  */
-class GiantCuttingStrategy(private val deckSize: Long, private val n: Int) : GiantShufflingStrategy() {
-    override fun shuffle(currentValue: Long): BigInteger {
-        return (targetIndex - n % deckSize).toBigInteger()
+class GiantCuttingStrategy(private val deckSize: BigInteger, private val n: BigInteger) : GiantShufflingStrategy() {
+    override fun create(): LinearFunction {
+        return LinearFunction(getA(), n.mod(deckSize))
     }
 
-    override fun getA(): Int = 1
+    override fun getA(): BigInteger = BigInteger.ONE
 
-    override fun getB(): Int = -n
+    override fun getB(): BigInteger = -n
 
 }

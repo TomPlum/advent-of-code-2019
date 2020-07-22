@@ -4,6 +4,7 @@ import com.aoc.cards.strategy.CuttingStrategy
 import com.aoc.cards.strategy.IncrementStrategy
 import com.aoc.cards.strategy.NewStackStrategy
 import com.aoc.cards.strategy.ShufflingStrategy
+import com.aoc.math.LinearFunction
 
 /**
  * Parses literal string representations of [ShufflingStrategy].

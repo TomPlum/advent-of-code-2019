@@ -1,13 +1,10 @@
 package com.aoc.cards.giant
 
+import com.aoc.math.LinearFunction
 import java.math.BigInteger
 
 abstract class GiantShufflingStrategy {
-    protected val targetIndex = 2020
-
-    abstract fun shuffle(currentValue: Long): BigInteger
-
-    abstract fun getA(): Int
-
-    abstract fun getB(): Int
+    abstract fun create(): LinearFunction
+    abstract fun getA(): BigInteger
+    abstract fun getB(): BigInteger
 }

@@ -1,6 +1,7 @@
 package com.aoc.cards.giant
 
 import com.aoc.math.LinearCongruentialFunction
+import com.aoc.math.LinearFunction
 import java.math.BigInteger
 
 /**
@@ -11,11 +12,11 @@ import java.math.BigInteger
  *
  */
 class GiantNewStackStrategy(private val deckSize: BigInteger) : GiantShufflingStrategy() {
-    override fun shuffle(currentValue: Long): BigInteger {
-        return LinearCongruentialFunction(-1, -1, deckSize, 1.toBigInteger()).apply()
+    override fun create(): LinearFunction {
+        return LinearFunction(getA(), getB().minus(deckSize))
     }
 
-    override fun getA(): Int = -1
+    override fun getA(): BigInteger = BigInteger.ONE.negate()
 
-    override fun getB(): Int = -1
+    override fun getB(): BigInteger = BigInteger.ONE.negate()
 }

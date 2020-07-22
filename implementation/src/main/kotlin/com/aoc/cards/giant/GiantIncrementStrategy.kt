@@ -1,14 +1,15 @@
 package com.aoc.cards.giant
 
+import com.aoc.math.LinearFunction
 import java.math.BigInteger
 
 
-class GiantIncrementStrategy(private val deckSize: Long, private val n: Int) : GiantShufflingStrategy() {
-    override fun shuffle(currentValue: Long): BigInteger {
-        return 0.toBigInteger()
+class GiantIncrementStrategy(private val deckSize: BigInteger, private val n: BigInteger) : GiantShufflingStrategy() {
+    override fun create(): LinearFunction {
+        return LinearFunction(BigInteger.ONE.multiply(getA().modInverse(deckSize)).mod(deckSize), getB())
     }
 
-    override fun getA(): Int = n
+    override fun getA(): BigInteger = n
 
-    override fun getB(): Int = 0
+    override fun getB(): BigInteger = BigInteger.ZERO
 }

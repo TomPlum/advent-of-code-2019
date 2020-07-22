@@ -1,4 +1,6 @@
-package com.aoc.fuel.calculator
+package com.aoc.fuel.calculator.strategy
+
+import com.aoc.fuel.calculator.strategy.FuelCalculationStrategy
 
 /**
  * The [NaiveFuelCalculationStrategy] is the first iteration of the [FuelCalculationStrategy] that was tested before

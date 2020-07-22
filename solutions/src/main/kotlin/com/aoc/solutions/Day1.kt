@@ -2,8 +2,8 @@ package com.aoc.solutions
 
 import com.aoc.Day
 import com.aoc.fuel.calculator.FuelCalculator
-import com.aoc.fuel.calculator.NaiveFuelCalculationStrategy
-import com.aoc.fuel.calculator.RefinedFuelCalculationStrategy
+import com.aoc.fuel.calculator.strategy.NaiveFuelCalculationStrategy
+import com.aoc.fuel.calculator.strategy.RefinedFuelCalculationStrategy
 import com.aoc.input.InputReader
 
 fun main() {

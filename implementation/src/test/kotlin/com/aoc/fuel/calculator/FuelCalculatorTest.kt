@@ -3,6 +3,8 @@ package com.aoc.fuel.calculator
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.aoc.Day
+import com.aoc.fuel.calculator.strategy.NaiveFuelCalculationStrategy
+import com.aoc.fuel.calculator.strategy.RefinedFuelCalculationStrategy
 import com.aoc.input.InputReader
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

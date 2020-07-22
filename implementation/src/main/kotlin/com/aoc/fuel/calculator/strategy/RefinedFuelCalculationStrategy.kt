@@ -1,4 +1,6 @@
-package com.aoc.fuel.calculator
+package com.aoc.fuel.calculator.strategy
+
+import com.aoc.fuel.calculator.strategy.FuelCalculationStrategy
 
 /**
  * During the second Go / No Go poll, the Elf in charge of the Rocket Equation Double-Checker stops the launch sequence.

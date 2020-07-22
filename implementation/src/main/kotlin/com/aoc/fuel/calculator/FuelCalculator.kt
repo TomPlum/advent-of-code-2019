@@ -1,5 +1,7 @@
 package com.aoc.fuel.calculator
 
+import com.aoc.fuel.calculator.strategy.FuelCalculationStrategy
+
 /**
  * Part of the launch preparations to save Santa requires the ship to be fueled.
  *

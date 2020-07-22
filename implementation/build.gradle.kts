@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 apply(from = "$rootDir/gradle/testing-dependencies.gradle.kts")
+apply(from = "$rootDir/gradle/logging-dependencies.gradle.kts")
 
 plugins {
     jacoco

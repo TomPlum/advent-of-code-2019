@@ -6,13 +6,14 @@ import com.aoc.intcode.computer.exceptions.SignalInterrupt
 import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.instructions.strategies.Halt
 import com.aoc.intcode.computer.instructions.strategies.Input
+import com.aoc.intcode.computer.boot.TestBootMode
 
 /**
  * This class is the heart of Advent of Code 2019.
  * Every other day utilises the [IntCodeComputer]. It is completed by Day 9.
  *
  * The computer can be started with a [TestBootMode] which will start the next boot with a value
- * in the [Memory] [SystemInput]. The [TestBootMode.systemInputCode] will modify the [Program] behaviour.
+ * in the [Memory] [SystemInput] and will modify the [Program] behaviour.
  */
 class IntCodeComputer constructor(instructions: String) {
     val program = Program(instructions)
@@ -50,10 +51,13 @@ class IntCodeComputer constructor(instructions: String) {
 
     /**
      * Restores the [Program] to the "1202 Program Alarm" state.
+     * @return The instruction value at the first address after restoring the gravity assist program.
      */
-    fun restoreGravityAssistProgram(noun: Long, verb: Long) {
+    fun restoreGravityAssistProgram(noun: Long, verb: Long): Long {
         program.memory.updateInstructionAtAddress(1, noun)
         program.memory.updateInstructionAtAddress(2, verb)
+        run()
+        return program.memory.getInstructionAtAddress(0)
     }
 
     /**

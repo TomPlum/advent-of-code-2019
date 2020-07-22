@@ -59,7 +59,6 @@ class IntCodeComputerTest {
         fun restoreGravityAssistProgram() {
             val computer = IntCodeComputer("1,2,3,3,99")
             computer.restoreGravityAssistProgram(1, 2)
-            computer.run()
             assertThat(computer.program.toString()).isEqualTo("1,1,2,3,99")
         }
 
@@ -67,20 +66,16 @@ class IntCodeComputerTest {
         @DisplayName("Given Day 2 - Part 1 puzzle input, when restoring the gravity assist program, then after running the first memory address value should be 10566835")
         fun dayTwoPartOneSolution() {
             val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
-            val computer = IntCodeComputer(puzzleInput)
-            computer.restoreGravityAssistProgram(12, 2)
-            computer.run()
-            assertThat(computer.program.memory.getInstructionAtAddress(0)).isEqualTo(10566835)
+            val output = IntCodeComputer(puzzleInput).restoreGravityAssistProgram(12, 2)
+            assertThat(output).isEqualTo(10566835)
         }
 
         @Test
         @DisplayName("Given a noun of 23 and a verb of 47, when restoring the gravity assist program, then the output should be 19690720")
         fun dayTwoPartTwoSolution() {
             val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
-            val computer = IntCodeComputer(puzzleInput)
-            computer.restoreGravityAssistProgram(23, 47)
-            computer.run()
-            assertThat(computer.program.memory.getInstructionAtAddress(0)).isEqualTo(19690720)
+            val output = IntCodeComputer(puzzleInput).restoreGravityAssistProgram(23, 47)
+            assertThat(output).isEqualTo(19690720)
         }
     }
 

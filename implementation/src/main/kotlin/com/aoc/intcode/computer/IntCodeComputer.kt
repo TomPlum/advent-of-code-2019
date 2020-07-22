@@ -2,7 +2,7 @@ package com.aoc.intcode.computer
 
 import com.aoc.intcode.computer.State.*
 import com.aoc.intcode.computer.boot.BootMode
-import com.aoc.intcode.computer.exceptions.HaltProgram
+import com.aoc.intcode.computer.exceptions.SignalTerminate
 import com.aoc.intcode.computer.exceptions.SignalInterrupt
 import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.instructions.strategies.Halt
@@ -21,29 +21,27 @@ class IntCodeComputer constructor(instructions: String) {
     var state = WAITING
 
     /**
-     * Runs the [program] in it's current state until the [IntCodeComputer] is either [WAITING], or [HALTED].
+     * Runs the [program] in it's current state until the [IntCodeComputer] is either [WAITING], or [TERMINATED].
      *
      * The [IntCodeComputer] will only enter [WAITING] state when an [Input] [OpCode] is executed
      * and a [SignalInterrupt] is thrown. The [SystemInput] must be provided a value for the [Program] to proceed.
      *
-     * Furthermore, it will only become [HALTED] when a [Halt] [OpCode] is executed. The only way to recover from
+     * Furthermore, it will only become [TERMINATED] when a [Halt] [OpCode] is executed. The only way to recover from
      * this scenario is to create a new instance of the [IntCodeComputer] or [reset].
      *
      * The main design pattern in this implementation is the 'Strategy' Pattern, abstracted by [InstructionStrategy].
      */
     fun run() {
-        var memory = program.memory
-
         state = RUNNING
 
         while (state == RUNNING) {
-            val opCode = OpCode(memory.getCurrentInstruction().toString())
+            val operation = OpCode(program.memory.getCurrentInstruction().toString())
             try {
-                memory = opCode.getInstructionStrategy().execute(memory, opCode.parameterModes)
+                program.memory = operation.getInstructionStrategy().execute(program.memory, operation.parameterModes)
             } catch (e: SignalInterrupt) {
                 state = WAITING
-            } catch (e: HaltProgram) {
-                state = HALTED
+            } catch (e: SignalTerminate) {
+                state = TERMINATED
                 break
             }
         }

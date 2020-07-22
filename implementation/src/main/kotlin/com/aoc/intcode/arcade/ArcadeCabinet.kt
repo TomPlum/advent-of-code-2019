@@ -24,7 +24,7 @@ class ArcadeCabinet(gameSoftware: String) {
      * @return Final scores once all the blocks have been broken by the ball.
      */
     fun startGame(): Long {
-        while (computer.state != State.HALTED) {
+        while (computer.state != State.TERMINATED) {
             frame++
             if (computer.state == State.WAITING) {
                 computer.program.memory.input.add(getJoystickCommand().toLong())

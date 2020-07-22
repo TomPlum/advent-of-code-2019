@@ -1,5 +1,5 @@
 package com.aoc.intcode.computer
 
 enum class State {
-    WAITING, RUNNING, HALTED
+    WAITING, RUNNING, TERMINATED
 }

@@ -1,5 +1,10 @@
 package com.aoc.fuel.calculator
 
+/**
+ * During the second Go / No Go poll, the Elf in charge of the Rocket Equation Double-Checker stops the launch sequence.
+ * Apparently, you forgot to include additional fuel for the fuel you just added.
+ * The [RefinedFuelCalculationStrategy] accounts for the weight of the fuel itself.
+ */
 class RefinedFuelCalculationStrategy : FuelCalculationStrategy() {
     /**
      * Fuel itself requires fuel just like a module - take its [mass], divide by three, round down, and subtract 2.

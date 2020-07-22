@@ -3,6 +3,11 @@ package com.aoc.fuel.calculator
 import kotlin.math.floor
 
 abstract class FuelCalculationStrategy {
+    /**
+     * The strategy contract.
+     * @param mass The mass of the module whose fuel requirements are being calculated.
+     * @return The quantity of fuel required for the given module [mass].
+     */
     abstract fun calculateRequirements(mass: Int): Int
 
     /**

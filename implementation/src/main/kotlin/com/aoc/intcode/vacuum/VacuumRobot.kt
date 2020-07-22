@@ -1,17 +1,13 @@
 package com.aoc.intcode.vacuum
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.SystemOutput
+import com.aoc.intcode.vacuum.function.*
 import com.aoc.intcode.vacuum.function.FunctionID.*
 import com.aoc.intcode.vacuum.function.FunctionParameter.LEFT
 import com.aoc.intcode.vacuum.function.FunctionParameter.RIGHT
-import com.aoc.intcode.vacuum.function.MovementFunction
-import com.aoc.intcode.vacuum.function.MovementFunctionA
-import com.aoc.intcode.vacuum.function.MovementFunctionB
-import com.aoc.intcode.vacuum.function.MovementFunctionC
-import com.aoc.intcode.vacuum.function.MovementRoutine
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMap
 import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
-import com.aoc.intcode.computer.SystemOutput
 import com.aoc.log.AdventLogger
 
 /**

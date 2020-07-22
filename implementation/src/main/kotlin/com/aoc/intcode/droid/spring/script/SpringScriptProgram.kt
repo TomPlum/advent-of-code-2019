@@ -1,13 +1,12 @@
 package com.aoc.intcode.droid.spring.script
 
-import com.aoc.intcode.droid.spring.register.Encodable
-import java.lang.IllegalStateException
-import java.util.*
-import com.aoc.intcode.droid.spring.SpringDroid
-import com.aoc.intcode.droid.spring.register.Register
-import com.aoc.intcode.droid.spring.register.write.TemporaryValueRegister
-import com.aoc.intcode.droid.spring.register.write.JumpRegister
 import com.aoc.intcode.computer.Program
+import com.aoc.intcode.droid.spring.SpringDroid
+import com.aoc.intcode.droid.spring.register.Encodable
+import com.aoc.intcode.droid.spring.register.Register
+import com.aoc.intcode.droid.spring.register.write.JumpRegister
+import com.aoc.intcode.droid.spring.register.write.TemporaryValueRegister
+import java.util.*
 
 /**
  * A program written in 'Spring Script'. A simplified assembly language designed to run on a [SpringDroid].

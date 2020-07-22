@@ -1,8 +1,8 @@
 package com.aoc.solutions
 
-import com.aoc.intcode.vacuum.VacuumRobot
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
+import com.aoc.intcode.vacuum.VacuumRobot
 
 fun main() {
     val instruction = InputReader.read<String>(Day(17)).asSingleString()

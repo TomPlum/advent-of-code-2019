@@ -2,9 +2,7 @@ package com.aoc.intcode.computer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isTrue
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.computer.boot.TestBootMode
 import com.aoc.intcode.network.NetworkAddress
@@ -14,8 +12,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 
 class IntCodeComputerTest {
     private val largeExampleProgram = "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31," +
@@ -61,7 +57,6 @@ class IntCodeComputerTest {
         fun restoreGravityAssistProgram() {
             val computer = IntCodeComputer("1,2,3,3,99")
             computer.restoreGravityAssistProgram(1, 2)
-            computer.run()
             assertThat(computer.program.toString()).isEqualTo("1,1,2,3,99")
         }
 
@@ -69,20 +64,16 @@ class IntCodeComputerTest {
         @DisplayName("Given Day 2 - Part 1 puzzle input, when restoring the gravity assist program, then after running the first memory address value should be 10566835")
         fun dayTwoPartOneSolution() {
             val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
-            val computer = IntCodeComputer(puzzleInput)
-            computer.restoreGravityAssistProgram(12, 2)
-            computer.run()
-            assertThat(computer.program.memory.getInstructionAtAddress(0)).isEqualTo(10566835)
+            val output = IntCodeComputer(puzzleInput).restoreGravityAssistProgram(12, 2)
+            assertThat(output).isEqualTo(10566835)
         }
 
         @Test
         @DisplayName("Given a noun of 23 and a verb of 47, when restoring the gravity assist program, then the output should be 19690720")
         fun dayTwoPartTwoSolution() {
             val puzzleInput = InputReader.read<String>(Day(2)).asSingleString()
-            val computer = IntCodeComputer(puzzleInput)
-            computer.restoreGravityAssistProgram(23, 47)
-            computer.run()
-            assertThat(computer.program.memory.getInstructionAtAddress(0)).isEqualTo(19690720)
+            val output = IntCodeComputer(puzzleInput).restoreGravityAssistProgram(23, 47)
+            assertThat(output).isEqualTo(19690720)
         }
     }
 
@@ -94,7 +85,7 @@ class IntCodeComputerTest {
         fun inputShouldSetComputerToWaitingWhenNoSystemInput() {
             val computer = IntCodeComputer("1,0,0,0,3,0,99")
             computer.run()
-            assertThat(computer.waiting).isTrue()
+            assertThat(computer.state).isEqualTo(State.WAITING)
             assertThat(computer.program.memory.instructionPointer).isEqualTo(4)
         }
 
@@ -412,15 +403,13 @@ class IntCodeComputerTest {
         computer.run()
 
         //Before
-        assertThat(computer.halted).isTrue()
-        assertThat(computer.waiting).isFalse()
+        assertThat(computer.state).isEqualTo(State.TERMINATED)
         assertThat(computer.program.toString()).isEqualTo("1,1,2,0,99")
 
         computer.reset()
 
         //After
-        assertThat(computer.halted).isFalse()
-        assertThat(computer.waiting).isTrue()
+        assertThat(computer.state).isEqualTo(State.WAITING)
         assertThat(computer.program.toString()).isEqualTo("7,1,2,0,99")
     }
 }

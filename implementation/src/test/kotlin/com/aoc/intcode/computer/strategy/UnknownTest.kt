@@ -8,7 +8,6 @@ import com.aoc.intcode.computer.instructions.strategies.Unknown
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 
 class UnknownTest {
     private val strategy = Unknown()

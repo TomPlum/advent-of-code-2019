@@ -1,10 +1,10 @@
 package com.aoc.intcode.network.packet
 
-import com.aoc.intcode.network.NetworkAddress
-import com.aoc.log.AdventLogger
 import com.aoc.intcode.network.IntCodeComputerNetwork
+import com.aoc.intcode.network.NetworkAddress
 import com.aoc.intcode.network.NetworkComputer
 import com.aoc.intcode.network.PacketInterceptor
+import com.aoc.log.AdventLogger
 
 /**
  * Can be attached to an [IntCodeComputerNetwork] in order to intercept [Packet] transmission.

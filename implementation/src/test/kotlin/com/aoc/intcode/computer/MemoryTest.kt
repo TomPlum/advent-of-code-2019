@@ -5,7 +5,6 @@ import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import com.aoc.intcode.computer.Memory
 import com.aoc.intcode.computer.instructions.InstructionLength
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

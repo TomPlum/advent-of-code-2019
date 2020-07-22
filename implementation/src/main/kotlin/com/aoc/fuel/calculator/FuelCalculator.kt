@@ -1,24 +1,22 @@
 package com.aoc.fuel.calculator
 
-import kotlin.math.floor
+import com.aoc.fuel.calculator.strategy.FuelCalculationStrategy
 
-class FuelCalculator {
-    fun calculateModuleFuel(mass: Int) : Int = (floor(mass.toDouble() / 3) - 2).toInt()
+/**
+ * Part of the launch preparations to save Santa requires the ship to be fueled.
+ *
+ * At the first Go / No Go poll, every Elf is Go until the Fuel Counter-Upper.
+ * They haven't determined the amount of fuel required yet.
+ *
+ * @param strategy The strategy used to calculate the sum of the fuel requirements.
+ */
+class FuelCalculator(private val strategy: FuelCalculationStrategy) {
 
-    fun calculateTotalFuelForModule(fuel: List<Int>) : Int = fuel.map { e -> calculateModuleFuel(e) }.sum()
-
-    fun calculateTotalAdditionFuelForModule(fuel: List<Int>) : Int = fuel.map {e -> calculateAdditionalFuel(e) }.sum()
-
-    fun calculateAdditionalFuel(mass: Int) : Int {
-        var currentMass = mass
-        var additionalFuel = 0
-
-        while (calculateModuleFuel(currentMass) > 0) {
-            val moduleFuel = calculateModuleFuel(currentMass)
-            additionalFuel += moduleFuel
-            currentMass = moduleFuel
-        }
-
-        return additionalFuel
+    /**
+     * Calculates the sum of the fuel requirements for all of the [moduleMasses] on the spacecraft.
+     */
+    fun calculateFuelRequirementsSum(moduleMasses: List<Int>) = moduleMasses.sumBy { mass ->
+        strategy.calculateRequirements(mass)
     }
+
 }

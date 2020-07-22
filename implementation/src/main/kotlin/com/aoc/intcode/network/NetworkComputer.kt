@@ -1,10 +1,10 @@
 package com.aoc.intcode.network
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.SystemOutput
 import com.aoc.intcode.network.packet.Packet
 import com.aoc.intcode.network.packet.PacketData
 import com.aoc.log.AdventLogger
-import com.aoc.intcode.computer.SystemOutput
 
 /**
  * An [IntCodeComputer] with networking enabled.

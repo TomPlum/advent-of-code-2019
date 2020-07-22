@@ -2,11 +2,10 @@ package com.aoc.intcode.droid.spring
 
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.droid.spring.register.read.GroundSensorRegister
-import com.aoc.intcode.droid.spring.script.SpringScriptProgram
 import com.aoc.intcode.droid.spring.script.Command
+import com.aoc.intcode.droid.spring.script.SpringScriptProgram
 import com.aoc.intcode.droid.spring.survey.SurveyingStrategy
 import com.aoc.log.AdventLogger
-import java.lang.IllegalStateException
 
 /**
  * The [SpringDroid] is deployed on the ships hull in order to survey it for damage. This droids ability to jump

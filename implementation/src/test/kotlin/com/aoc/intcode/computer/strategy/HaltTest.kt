@@ -1,8 +1,8 @@
 package com.aoc.intcode.computer.strategy
 
-import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.Memory
 import com.aoc.intcode.computer.OpCode
+import com.aoc.intcode.computer.exceptions.SignalTerminate
 import com.aoc.intcode.computer.instructions.strategies.Halt
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -16,6 +16,6 @@ class HaltTest {
     fun shouldThrowException() {
         val opCode = OpCode("99")
         val memorySnapshot = Memory(listOf(99))
-        assertThrows<HaltProgram> { strategy.execute(memorySnapshot, opCode.parameterModes) }
+        assertThrows<SignalTerminate> { strategy.execute(memorySnapshot, opCode.parameterModes) }
     }
 }

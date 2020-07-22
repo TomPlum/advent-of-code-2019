@@ -1,48 +1,47 @@
 package com.aoc.intcode.computer
 
+import com.aoc.intcode.computer.State.*
 import com.aoc.intcode.computer.boot.BootMode
-import com.aoc.intcode.computer.exceptions.HaltProgram
+import com.aoc.intcode.computer.exceptions.SignalTerminate
 import com.aoc.intcode.computer.exceptions.SignalInterrupt
 import com.aoc.intcode.computer.instructions.InstructionStrategy
 import com.aoc.intcode.computer.instructions.strategies.Halt
 import com.aoc.intcode.computer.instructions.strategies.Input
+import com.aoc.intcode.computer.boot.TestBootMode
 
 /**
  * This class is the heart of Advent of Code 2019.
  * Every other day utilises the [IntCodeComputer]. It is completed by Day 9.
  *
  * The computer can be started with a [TestBootMode] which will start the next boot with a value
- * in the [Memory] [SystemInput]. The [TestBootMode.systemInputCode] will modify the [Program] behaviour.
+ * in the [Memory] [SystemInput] and will modify the [Program] behaviour.
  */
 class IntCodeComputer constructor(instructions: String) {
     val program = Program(instructions)
-    var waiting = true
-    var halted = false
+    var state = WAITING
 
     /**
-     * Runs the [program] in it's current state until the [IntCodeComputer] is either [waiting], or [halted].
+     * Runs the [program] in it's current state until the [IntCodeComputer] is either [WAITING], or [TERMINATED].
      *
-     * The [IntCodeComputer] will only enter [waiting] state when an [Input] [OpCode] is executed
+     * The [IntCodeComputer] will only enter [WAITING] state when an [Input] [OpCode] is executed
      * and a [SignalInterrupt] is thrown. The [SystemInput] must be provided a value for the [Program] to proceed.
      *
-     * Furthermore, it will only become [halted] when a [Halt] [OpCode] is executed. The only way to recover from
+     * Furthermore, it will only become [TERMINATED] when a [Halt] [OpCode] is executed. The only way to recover from
      * this scenario is to create a new instance of the [IntCodeComputer] or [reset].
      *
      * The main design pattern in this implementation is the 'Strategy' Pattern, abstracted by [InstructionStrategy].
      */
     fun run() {
-        var memory = program.memory
+        state = RUNNING
 
-        waiting = false
-
-        while (!waiting) {
-            val opCode = OpCode(memory.getCurrentInstruction().toString())
+        while (state == RUNNING) {
+            val operation = OpCode(program.memory.getCurrentInstruction().toString())
             try {
-                memory = opCode.getInstructionStrategy().execute(memory, opCode.parameterModes)
+                program.memory = operation.getInstructionStrategy().execute(program.memory, operation.parameterModes)
             } catch (e: SignalInterrupt) {
-                waiting = true
-            } catch (e: HaltProgram) {
-                halted = true
+                state = WAITING
+            } catch (e: SignalTerminate) {
+                state = TERMINATED
                 break
             }
         }
@@ -50,10 +49,13 @@ class IntCodeComputer constructor(instructions: String) {
 
     /**
      * Restores the [Program] to the "1202 Program Alarm" state.
+     * @return The instruction value at the first address after restoring the gravity assist program.
      */
-    fun restoreGravityAssistProgram(noun: Long, verb: Long) {
+    fun restoreGravityAssistProgram(noun: Long, verb: Long): Long {
         program.memory.updateInstructionAtAddress(1, noun)
         program.memory.updateInstructionAtAddress(2, verb)
+        run()
+        return program.memory.getInstructionAtAddress(0)
     }
 
     /**
@@ -75,8 +77,7 @@ class IntCodeComputer constructor(instructions: String) {
      */
     fun reset() {
         program.memory.reset()
-        waiting = true
-        halted = false
+        state = WAITING
     }
 
 }

@@ -6,7 +6,6 @@ import com.aoc.intcode.amplifier.ThrustAmplifier
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.UnsupportedOperationException
 
 class OutputAmplifierTest {
     @Test

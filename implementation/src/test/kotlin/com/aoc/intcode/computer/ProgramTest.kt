@@ -2,7 +2,6 @@ package com.aoc.intcode.computer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.intcode.computer.Program
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

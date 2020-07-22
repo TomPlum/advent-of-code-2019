@@ -1,7 +1,7 @@
 package com.aoc.intcode.droid.spring.script
 
-import com.aoc.intcode.droid.spring.register.Encodable
 import com.aoc.intcode.droid.spring.SpringDroid
+import com.aoc.intcode.droid.spring.register.Encodable
 import com.aoc.intcode.droid.spring.register.read.DistanceCode
 
 /**

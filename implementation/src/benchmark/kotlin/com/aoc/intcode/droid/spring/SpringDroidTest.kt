@@ -1,6 +1,6 @@
 package com.aoc.intcode.droid.spring
 
-import com.aoc.input.Day
+import com.aoc.Day
 import com.aoc.input.InputReader
 import com.aoc.intcode.droid.spring.survey.WalkingStrategy
 import org.openjdk.jmh.annotations.*

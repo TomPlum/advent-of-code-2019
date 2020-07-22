@@ -2,7 +2,6 @@ package com.aoc.intcode.computer.instructions
 
 import com.aoc.intcode.computer.Memory
 import com.aoc.intcode.computer.ParameterMode
-import java.lang.IllegalStateException
 import java.util.*
 
 interface InstructionStrategy {

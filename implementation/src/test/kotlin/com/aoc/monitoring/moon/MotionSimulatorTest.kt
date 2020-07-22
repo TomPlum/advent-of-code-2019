@@ -2,8 +2,8 @@ package com.aoc.monitoring.moon
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.TestInputReader
-import com.aoc.input.Day
+import com.aoc.Day
+import com.aoc.input.TestInputReader
 import com.aoc.input.InputReader
 import com.aoc.log.AdventLogger
 import org.junit.jupiter.api.DisplayName

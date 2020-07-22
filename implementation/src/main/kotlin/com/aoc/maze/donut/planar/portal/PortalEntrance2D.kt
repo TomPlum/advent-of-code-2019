@@ -1,7 +1,7 @@
 package com.aoc.maze.donut.planar.portal
 
-import com.aoc.maze.donut.planar.PlanarDonutMaze
 import com.aoc.math.Point2D
+import com.aoc.maze.donut.planar.PlanarDonutMaze
 
 /**
  * The entrance to a [Portal2D] in a [PlanarDonutMaze].

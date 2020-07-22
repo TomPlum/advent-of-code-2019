@@ -2,7 +2,8 @@ package com.aoc.intcode.vacuum.function
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.intcode.vacuum.function.FunctionParameter.*
+import com.aoc.intcode.vacuum.function.FunctionParameter.LEFT
+import com.aoc.intcode.vacuum.function.FunctionParameter.RIGHT
 import org.junit.jupiter.api.Test
 
 class MovementFunctionTest {

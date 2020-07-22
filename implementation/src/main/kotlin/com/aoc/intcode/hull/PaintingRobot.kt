@@ -1,6 +1,7 @@
 package com.aoc.intcode.hull
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.State
 import com.aoc.math.Direction
 
 class PaintingRobot(instructions: String) {
@@ -13,7 +14,7 @@ class PaintingRobot(instructions: String) {
     fun start(startingPanelColour: HullPaint) {
         computer.program.memory.input.add(startingPanelColour.colourCode.toLong())
 
-        while (!computer.halted) {
+        while (computer.state != State.HALTED) {
             computer.run()
 
             val systemOutput = computer.program.memory.output.getLastTwoValues()

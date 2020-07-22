@@ -1,3 +1,3 @@
 package com.aoc.intcode.computer.exceptions
 
-class HaltProgram: Exception()
+class HaltProgram: Exception("SIGTERM")

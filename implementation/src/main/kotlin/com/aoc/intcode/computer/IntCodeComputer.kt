@@ -1,5 +1,6 @@
 package com.aoc.intcode.computer
 
+import com.aoc.intcode.computer.State.*
 import com.aoc.intcode.computer.boot.BootMode
 import com.aoc.intcode.computer.exceptions.HaltProgram
 import com.aoc.intcode.computer.exceptions.SignalInterrupt
@@ -17,16 +18,15 @@ import com.aoc.intcode.computer.boot.TestBootMode
  */
 class IntCodeComputer constructor(instructions: String) {
     val program = Program(instructions)
-    var waiting = true
-    var halted = false
+    var state = WAITING
 
     /**
-     * Runs the [program] in it's current state until the [IntCodeComputer] is either [waiting], or [halted].
+     * Runs the [program] in it's current state until the [IntCodeComputer] is either [WAITING], or [HALTED].
      *
-     * The [IntCodeComputer] will only enter [waiting] state when an [Input] [OpCode] is executed
+     * The [IntCodeComputer] will only enter [WAITING] state when an [Input] [OpCode] is executed
      * and a [SignalInterrupt] is thrown. The [SystemInput] must be provided a value for the [Program] to proceed.
      *
-     * Furthermore, it will only become [halted] when a [Halt] [OpCode] is executed. The only way to recover from
+     * Furthermore, it will only become [HALTED] when a [Halt] [OpCode] is executed. The only way to recover from
      * this scenario is to create a new instance of the [IntCodeComputer] or [reset].
      *
      * The main design pattern in this implementation is the 'Strategy' Pattern, abstracted by [InstructionStrategy].
@@ -34,16 +34,16 @@ class IntCodeComputer constructor(instructions: String) {
     fun run() {
         var memory = program.memory
 
-        waiting = false
+        state = RUNNING
 
-        while (!waiting) {
+        while (state == RUNNING) {
             val opCode = OpCode(memory.getCurrentInstruction().toString())
             try {
                 memory = opCode.getInstructionStrategy().execute(memory, opCode.parameterModes)
             } catch (e: SignalInterrupt) {
-                waiting = true
+                state = WAITING
             } catch (e: HaltProgram) {
-                halted = true
+                state = HALTED
                 break
             }
         }
@@ -79,8 +79,7 @@ class IntCodeComputer constructor(instructions: String) {
      */
     fun reset() {
         program.memory.reset()
-        waiting = true
-        halted = false
+        state = WAITING
     }
 
 }

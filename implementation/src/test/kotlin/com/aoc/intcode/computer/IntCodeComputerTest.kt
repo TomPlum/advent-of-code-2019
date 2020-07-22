@@ -87,7 +87,7 @@ class IntCodeComputerTest {
         fun inputShouldSetComputerToWaitingWhenNoSystemInput() {
             val computer = IntCodeComputer("1,0,0,0,3,0,99")
             computer.run()
-            assertThat(computer.waiting).isTrue()
+            assertThat(computer.state).isEqualTo(State.WAITING)
             assertThat(computer.program.memory.instructionPointer).isEqualTo(4)
         }
 
@@ -405,15 +405,13 @@ class IntCodeComputerTest {
         computer.run()
 
         //Before
-        assertThat(computer.halted).isTrue()
-        assertThat(computer.waiting).isFalse()
+        assertThat(computer.state).isEqualTo(State.HALTED)
         assertThat(computer.program.toString()).isEqualTo("1,1,2,0,99")
 
         computer.reset()
 
         //After
-        assertThat(computer.halted).isFalse()
-        assertThat(computer.waiting).isTrue()
+        assertThat(computer.state).isEqualTo(State.WAITING)
         assertThat(computer.program.toString()).isEqualTo("7,1,2,0,99")
     }
 }

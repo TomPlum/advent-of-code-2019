@@ -1,6 +1,7 @@
 package com.aoc.intcode.arcade
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.State
 import com.aoc.log.AdventLogger
 import com.aoc.math.Point2D
 
@@ -23,9 +24,11 @@ class ArcadeCabinet(gameSoftware: String) {
      * @return Final scores once all the blocks have been broken by the ball.
      */
     fun startGame(): Long {
-        while (!computer.halted) {
+        while (computer.state != State.HALTED) {
             frame++
-            if (computer.waiting) computer.program.memory.input.add(getJoystickCommand().toLong())
+            if (computer.state == State.WAITING) {
+                computer.program.memory.input.add(getJoystickCommand().toLong())
+            }
             computer.run()
             updateTiles()
         }

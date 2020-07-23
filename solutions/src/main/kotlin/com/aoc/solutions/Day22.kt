@@ -23,5 +23,4 @@ private fun part2(input: List<String>) {
     val position = 2020.toBigInteger()
     val shuffler = GiantSpaceCardDeckShuffler(deckSize, input)
     println("Part 2 Solution: ${shuffler.shuffle(times).getCard(position)}")
-    //Too High: 113253064822378
 }

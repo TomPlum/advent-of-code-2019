@@ -1,5 +1,7 @@
 package com.aoc.cards
 
+import com.aoc.cards.giant.GiantIncrementStrategy
+import com.aoc.cards.giant.GiantShufflingStrategy
 import com.aoc.cards.strategy.CuttingStrategy
 import com.aoc.cards.strategy.IncrementStrategy
 import com.aoc.cards.strategy.NewStackStrategy
@@ -21,5 +23,4 @@ class ShuffleInstructionParser {
             }
         }
     }
-
 }

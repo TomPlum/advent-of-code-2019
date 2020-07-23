@@ -11,7 +11,7 @@ import java.math.BigInteger
  */
 class GiantCuttingStrategy(private val deckSize: BigInteger, private val n: BigInteger) : GiantShufflingStrategy() {
     override fun create(): LinearFunction {
-        return LinearFunction(getA(), n.mod(deckSize))
+        return LinearFunction(getA(), getB().mod(deckSize))
     }
 
     override fun getA(): BigInteger = BigInteger.ONE

@@ -1,6 +1,5 @@
 package com.aoc.cards.giant
 
-import com.aoc.math.LinearCongruentialFunction
 import com.aoc.math.LinearFunction
 import java.math.BigInteger
 

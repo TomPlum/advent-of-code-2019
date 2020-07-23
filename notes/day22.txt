@@ -7,6 +7,9 @@ Part 2:
 - We can't just find the inverse linear functional representations of the shuffles as we have to shuffle
 hundreds of millions of times. Even with an efficient function, it would take years to run.
 
+Java Implementation:
+https://github.com/saidaspen/aoc2019/blob/master/java/src/main/java/se/saidaspen/aoc2019/day22/Day22.java
+
 Mathematical Explanation:
 https://codeforces.com/blog/entry/72593
 

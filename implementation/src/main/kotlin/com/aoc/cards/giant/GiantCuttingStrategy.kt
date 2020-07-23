@@ -16,6 +16,6 @@ class GiantCuttingStrategy(private val deckSize: BigInteger, private val n: BigI
 
     override fun getA(): BigInteger = BigInteger.ONE
 
-    override fun getB(): BigInteger = -n
+    override fun getB(): BigInteger = n
 
 }

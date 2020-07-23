@@ -5,8 +5,8 @@ import java.math.BigInteger
 /**
  * f(x) = ax + b
  */
-class LinearFunction(val a: BigInteger, val b: BigInteger) {
-    fun apply(x: BigInteger): BigInteger = a.multiply(x).add(b)
+class LinearFunction(val k: BigInteger, val m: BigInteger) {
+    fun apply(x: BigInteger): BigInteger = x.multiply(k).add(m)
 
-    fun compose(f: LinearFunction) = LinearFunction(a.times(f.a), a.times(f.b).plus(b))
+    fun compose(f: LinearFunction) = LinearFunction(k.times(f.k), k.times(f.m).plus(m))
 }

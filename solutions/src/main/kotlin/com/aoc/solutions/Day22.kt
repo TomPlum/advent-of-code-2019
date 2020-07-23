@@ -19,7 +19,9 @@ private fun part1(input: List<String>) {
 
 private fun part2(input: List<String>) {
     val deckSize = 119315717514047.toBigInteger()
-    val instructions = GiantShuffleInstructionParser(deckSize).parse(input)
-    val shuffler = GiantSpaceCardDeckShuffler(instructions)
-    println("Part 2 Solution: ${shuffler.shuffle(101741582076661.toBigInteger())}")
+    val times = 101741582076661.toBigInteger()
+    val position = 2020.toBigInteger()
+    val shuffler = GiantSpaceCardDeckShuffler(deckSize, input)
+    println("Part 2 Solution: ${shuffler.shuffle(times).getCard(position)}")
+    //Too High: 113253064822378
 }

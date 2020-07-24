@@ -1,8 +1,11 @@
 package com.aoc.solutions
 
 import com.aoc.Day
-import com.aoc.cards.*
 import com.aoc.input.InputReader
+import com.aoc.shuffle.deck.SpaceCardDeckFactory
+import com.aoc.shuffle.parser.ShuffleInstructionParser
+import com.aoc.shuffle.shuffler.GiantSpaceCardDeckShuffler
+import com.aoc.shuffle.shuffler.SpaceCardDeckShuffler
 
 fun main() {
     val input = InputReader.read<String>(Day(22)).value

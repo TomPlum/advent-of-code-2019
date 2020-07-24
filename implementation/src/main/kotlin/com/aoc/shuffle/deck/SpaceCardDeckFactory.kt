@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Produces [SpaceCardDeck]
  */
-class SpaceCardDeckFactory {
+open class SpaceCardDeckFactory {
 
     companion object {
         fun default() = factoryOrder(10007)

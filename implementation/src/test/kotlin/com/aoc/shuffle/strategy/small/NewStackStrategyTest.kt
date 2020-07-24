@@ -2,8 +2,8 @@ package com.aoc.shuffle.strategy.small
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.shuffle.deck.SpaceCardDeckFactory
 import com.aoc.shuffle.TestSpaceDeckFactory
+import com.aoc.shuffle.deck.SpaceCardDeckFactory
 import org.junit.jupiter.api.Test
 
 class NewStackStrategyTest {

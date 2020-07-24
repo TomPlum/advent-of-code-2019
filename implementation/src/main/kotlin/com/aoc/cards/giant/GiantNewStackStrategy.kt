@@ -2,6 +2,7 @@ package com.aoc.cards.giant
 
 import com.aoc.math.LinearFunction
 import java.math.BigInteger
+import java.math.BigInteger.ONE
 
 /**
  * Given a deck of size n, a target index of i, and a current value at the target index v, then
@@ -10,12 +11,9 @@ import java.math.BigInteger
  * f(x) = -x - 1 mod(m)   a=-1, b=-1
  *
  */
-class GiantNewStackStrategy(private val deckSize: BigInteger) : GiantShufflingStrategy() {
-    override fun create(): LinearFunction {
-        return LinearFunction(getA(), getB().minus(deckSize))
-    }
+class GiantNewStackStrategy(private val deckSize: BigInteger) : GiantShufflingStrategy {
+    override val a: BigInteger = ONE.negate()
+    override val b: BigInteger = ONE.negate()
 
-    override fun getA(): BigInteger = BigInteger.ONE.negate()
-
-    override fun getB(): BigInteger = BigInteger.ONE.negate()
+    override fun create() = LinearFunction(a, b.minus(deckSize))
 }

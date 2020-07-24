@@ -9,13 +9,9 @@ import java.math.BigInteger
  *
  * f(x) = i - n % d
  */
-class GiantCuttingStrategy(private val deckSize: BigInteger, private val n: BigInteger) : GiantShufflingStrategy() {
-    override fun create(): LinearFunction {
-        return LinearFunction(getA(), getB().mod(deckSize))
-    }
+class GiantCuttingStrategy(private val deckSize: BigInteger, n: BigInteger) : GiantShufflingStrategy {
+    override val a: BigInteger = BigInteger.ONE
+    override val b: BigInteger = n
 
-    override fun getA(): BigInteger = BigInteger.ONE
-
-    override fun getB(): BigInteger = n
-
+    override fun create() = LinearFunction(a, b.mod(deckSize))
 }

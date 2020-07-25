@@ -8,6 +8,11 @@ import org.junit.jupiter.api.Test
 
 class SpaceCardTest {
     @Test
+    fun getValue() {
+        assertThat(SpaceCard(12).value).isEqualTo(12)
+    }
+
+    @Test
     fun equalityTestPositive() {
         assertThat(SpaceCard(12)).isEqualTo(SpaceCard(12))
     }

@@ -5,37 +5,40 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNotEqualTo
 import assertk.assertions.isTrue
-import com.aoc.shuffle.TestSpaceDeckFactory.Companion.deckWithCards
+import com.aoc.shuffle.TestSpaceDeckFactory
 import com.aoc.shuffle.card.SpaceCard
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.util.*
 
 class SpaceCardDeckTest {
+    private val factory = TestSpaceDeckFactory()
+
     @Test
     fun getCard() {
-        assertThat(SpaceCardDeckFactory.default().getCard(5782)).isEqualTo(SpaceCard(5782))
+        assertThat(SpaceCardDeckFactory().factoryOrder().getCard(5782)).isEqualTo(SpaceCard(5782))
     }
 
     @Test
     fun getCardInvalidIndex() {
-        val e = assertThrows<IllegalArgumentException> { (SpaceCardDeckFactory.default().getCard(83423412)) }
+        val e = assertThrows<IllegalArgumentException> { (SpaceCardDeckFactory().factoryOrder().getCard(83423412)) }
         assertThat(e.message).isEqualTo("The deck does not contain a card at position 83423412")
     }
 
+
     @Test
     fun equalityTestPositive() {
-        assertThat(SpaceCardDeckFactory.factoryOrder(15)).isEqualTo(SpaceCardDeckFactory.factoryOrder(15))
+        assertThat(factory.with(15)).isEqualTo(factory.with(15))
     }
 
     @Test
     fun equalityTestNegative() {
-        assertThat(SpaceCardDeckFactory.factoryOrder(56)).isNotEqualTo(SpaceCardDeckFactory.factoryOrder(15))
+        assertThat(factory.with(56)).isNotEqualTo(factory.with(15))
     }
 
     @Test
     fun isNotEmptyPositive() {
-        assertThat(SpaceCardDeckFactory.factoryOrder(10).isNotEmpty()).isTrue()
+        assertThat(factory.with(10).isNotEmpty()).isTrue()
     }
 
     @Test
@@ -45,21 +48,21 @@ class SpaceCardDeckTest {
 
     @Test
     fun getCardWithValue() {
-        assertThat(deckWithCards(3,4,5,6,7,8,9,0,1,2).getCardWithValue(4)).isEqualTo(1)
+        assertThat(factory.deckWithCards(3,4,5,6,7,8,9,0,1,2).getCardWithValue(4)).isEqualTo(1)
     }
 
     @Test
     fun equalityPositive() {
-        assertThat(deckWithCards(1,2,3,4,5)).isEqualTo(deckWithCards(1,2,3,4,5))
+        assertThat(factory.deckWithCards(1,2,3,4,5)).isEqualTo(factory.deckWithCards(1,2,3,4,5))
     }
 
     @Test
     fun equalityNegative() {
-        assertThat(deckWithCards(1,2,3,4,5)).isNotEqualTo(deckWithCards(1,2,3,4,5,6,7))
+        assertThat(factory.deckWithCards(1,2,3,4,5)).isNotEqualTo(factory.deckWithCards(1,2,3,4,5,6,7))
     }
 
     @Test
     fun toStringTest() {
-        assertThat(SpaceCardDeckFactory.factoryOrder(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
+        assertThat(factory.with(5).toString()).isEqualTo("[0, 1, 2, 3, 4]")
     }
 }

@@ -6,11 +6,11 @@ import com.aoc.shuffle.deck.SpaceCardDeckFactory
 import java.util.*
 
 class TestSpaceDeckFactory : SpaceCardDeckFactory() {
-    companion object {
-        fun deckWithCards(vararg values: Long): SpaceCardDeck {
-            val deck = LinkedList<SpaceCard>()
-            deck.addAll(values.map(::SpaceCard).toList())
-            return SpaceCardDeck(deck)
-        }
+    fun deckWithCards(vararg values: Long): SpaceCardDeck {
+        val deck = LinkedList<SpaceCard>()
+        deck.addAll(values.map(::SpaceCard).toList())
+        return SpaceCardDeck(deck)
     }
+
+    fun with(quantity: Long) = SpaceCardDeck((0 until quantity).map(::SpaceCard).toCollection(LinkedList()))
 }

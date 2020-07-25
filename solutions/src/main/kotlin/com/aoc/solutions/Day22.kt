@@ -15,7 +15,7 @@ fun main() {
 
 private fun part1(input: List<String>) {
     val instructions = ShuffleInstructionParser.parse(input)
-    val deck = SpaceCardDeckFactory.default()
+    val deck = SpaceCardDeckFactory().factoryOrder()
     val shuffler = SpaceCardDeckShuffler(instructions)
     println("Part 1 Solution: ${shuffler.shuffle(deck).getCardWithValue(2019)}")
 }

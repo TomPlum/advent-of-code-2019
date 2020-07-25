@@ -10,7 +10,7 @@ import java.util.*
 class TestSpaceDeckFactoryTest {
     @Test
     fun deckWith() {
-        assertThat(TestSpaceDeckFactory.deckWithCards(1, 2, 3)).isEqualTo(getExpectedSpaceCardDeck())
+        assertThat(TestSpaceDeckFactory().deckWithCards(1, 2, 3)).isEqualTo(getExpectedSpaceCardDeck())
     }
 
     private fun getExpectedSpaceCardDeck(): SpaceCardDeck {

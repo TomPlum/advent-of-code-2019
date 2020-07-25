@@ -55,9 +55,9 @@ class ShuffleInstructionParserTest {
         assertThat(strategies.first()).isEqualTo(CuttingStrategy(-2))
     }
 
-    @ParameterizedTest
     @EmptySource
-    @ValueSource(strings = ["CUT 5", "deal with imcremement 3", "cut a"])
+    @ParameterizedTest
+    @ValueSource(strings = ["CUT 5", "DEAL with increment 3", "cut a"])
     fun invalidInstruction(instruction: String) {
         val e = assertThrows<IllegalArgumentException> { ShuffleInstructionParser.parse(listOf(instruction)) }
         assertThat(e.message).isEqualTo("Invalid instruction: $instruction")

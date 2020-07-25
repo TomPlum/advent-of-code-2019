@@ -80,8 +80,8 @@ issues, but I wanted an automated solution to run across the whole codebase.
 
 From the [OpenJDK](https://openjdk.java.net/projects/code-tools/jmh/) website;
 
-    JMH is a Java harness for building, running, and analysing nano/micro/milli/macro benchmarks
-    written in Java and other languages targeting the JVM.
+    "JMH is a Java harness for building, running, and analysing nano/micro/milli/macro benchmarks
+    written in Java and other languages targeting the JVM."
 
 #### Junit5 & AssertK
 #### Test-Driven Development
@@ -100,6 +100,14 @@ to get 4 of the 5 examples working. Example 5, however, just ran indefinitely an
 improve the performance of my graphing algorithm, so my solution input didn't take a literal eternity to run.
 
 ### Mathematically Challenging (Day 22)
+Day 22, Slam Shuffle, started off in part 1 as nice and easy puzzle with some interesting card shuffling strategies
+that work nicely with behavioural design patterns. However, part 2 threw a spanner in the works with what some have
+called 'Advent of Math'. The second part increased the deck size from `1x10^5` -> `1x10^14` and the number of shuffles
+from 1 to an order of magnitude similar to that of the deck size. The solution in short was to;
+
+1. Represent the shuffling algorithms as linear functions in the form `f(x) = ax + b`.
+2. Create a single aggregate function by composing all the converted linear functions together.
+3. Use exponentiation by squaring with modular arithmetic in order to reduce the number of shuffles required.
 
 ### Most Fun (Day 8)
 This day was the most fun because I didn't understand what was actually going on until I'd successfully implemented a

@@ -2,64 +2,37 @@ package com.aoc.shuffle.parser
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isInstanceOf
-import com.aoc.shuffle.strategy.small.CuttingStrategy
-import com.aoc.shuffle.strategy.small.IncrementStrategy
-import com.aoc.shuffle.strategy.small.NewStackStrategy
+import assertk.assertions.isTrue
+import com.aoc.shuffle.TestShuffleInstructionParser
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.EmptySource
-import org.junit.jupiter.params.provider.ValueSource
 
 class ShuffleInstructionParserTest {
+    private val parser = TestShuffleInstructionParser()
+
     @Test
-    fun dealWithIncrement() {
-        val instructions = listOf("deal with increment 7")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(IncrementStrategy(7))
+    fun isDealWithIncrement() {
+        assertThat(parser.isIncrement("deal with increment 5")).isTrue()
     }
 
     @Test
-    fun dealWithIncrementMultipleDigits() {
-        val instructions = listOf("deal with increment 17")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(IncrementStrategy(17))
+    fun isCut() {
+        assertThat(parser.isCut("cut 5")).isTrue()
     }
 
     @Test
-    fun newStack() {
-        val instructions = listOf("deal into new stack")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isInstanceOf(NewStackStrategy::class)
+    fun isNewStack() {
+        assertThat(parser.isNewStack("deal into new stack")).isTrue()
     }
 
     @Test
-    fun cut() {
-        val instructions = listOf("cut 6")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(CuttingStrategy(6))
+    fun getParameter() {
+        assertThat(parser.getParam("cut 26")).isEqualTo("26")
     }
 
     @Test
-    fun cutWhenQuantityMultipleDigits() {
-        val instructions = listOf("cut 9002")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(CuttingStrategy(9002))
-    }
-
-    @Test
-    fun cutNegativeQuantity() {
-        val instructions = listOf("cut -2")
-        val strategies = ShuffleInstructionParser.parse(instructions)
-        assertThat(strategies.first()).isEqualTo(CuttingStrategy(-2))
-    }
-
-    @EmptySource
-    @ParameterizedTest
-    @ValueSource(strings = ["CUT 5", "DEAL with increment 3", "cut a"])
-    fun invalidInstruction(instruction: String) {
-        val e = assertThrows<IllegalArgumentException> { ShuffleInstructionParser.parse(listOf(instruction)) }
-        assertThat(e.message).isEqualTo("Invalid instruction: $instruction")
+    fun handleInvalidInstruction() {
+        val e = assertThrows<IllegalArgumentException> { parser.handleInvalidInstruction("blah 5") }
+        assertThat(e.message).isEqualTo("Invalid instruction: blah 5")
     }
 }

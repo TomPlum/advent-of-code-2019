@@ -6,14 +6,14 @@ import com.aoc.shuffle.strategy.giant.GiantNewStackStrategy
 import com.aoc.shuffle.strategy.giant.GiantShufflingStrategy
 import java.math.BigInteger
 
-class GiantShuffleInstructionParser(private val deckSize: BigInteger) {
+class GiantShuffleInstructionParser(private val deckSize: BigInteger) : ShuffleInstructionParser() {
     fun parse(instructions: List<String>): List<GiantShufflingStrategy> = instructions.map { instruction ->
-        val n = instruction.split(" ").last()
+        val parameter = instruction.getParameter()
         when {
-            instruction.matches(Regex("deal with increment \\d+")) -> GiantIncrementStrategy(deckSize, n.toBigInteger())
-            instruction.matches(Regex("deal into new stack")) -> GiantNewStackStrategy(deckSize)
-            instruction.matches(Regex("cut -?\\d+")) -> GiantCuttingStrategy(deckSize, n.toBigInteger())
-            else -> throw IllegalArgumentException("Invalid instruction: $instruction")
+            instruction.isCutTheDeck() -> GiantCuttingStrategy(deckSize, parameter.toBigInteger())
+            instruction.isDealIntoNewStack() -> GiantNewStackStrategy(deckSize)
+            instruction.isDealWithIncrement() -> GiantIncrementStrategy(deckSize, parameter.toBigInteger())
+            else -> throwInvalidInstruction(instruction)
         }
     }.reversed()
 }

@@ -1,23 +1,13 @@
 package com.aoc.shuffle.parser
 
-import com.aoc.shuffle.strategy.small.CuttingStrategy
-import com.aoc.shuffle.strategy.small.IncrementStrategy
-import com.aoc.shuffle.strategy.small.NewStackStrategy
-import com.aoc.shuffle.strategy.small.ShufflingStrategy
+abstract class ShuffleInstructionParser {
+    protected open fun String.isDealWithIncrement() = this.matches(Regex("deal with increment \\d+"))
+    protected open fun String.isDealIntoNewStack() = this.matches(Regex("deal into new stack"))
+    protected open fun String.isCutTheDeck() = this.matches(Regex("cut -?\\d+"))
 
-/**
- * Parses literal string representations of [ShufflingStrategy].
- */
-class ShuffleInstructionParser {
-    companion object {
-        fun parse(instructions: List<String>): List<ShufflingStrategy> = instructions.map { instruction ->
-            val last = instruction.split(" ").last()
-            when {
-                instruction.matches(Regex("deal with increment \\d+")) -> IncrementStrategy(last.toInt())
-                instruction.matches(Regex("deal into new stack")) -> NewStackStrategy()
-                instruction.matches(Regex("cut -?\\d+")) -> CuttingStrategy(last.toInt())
-                else -> throw IllegalArgumentException("Invalid instruction: $instruction")
-            }
-        }
+    protected open fun String.getParameter() = this.split(" ").last()
+
+    protected open fun throwInvalidInstruction(instruction: String): Nothing {
+        throw IllegalArgumentException("Invalid instruction: $instruction")
     }
 }

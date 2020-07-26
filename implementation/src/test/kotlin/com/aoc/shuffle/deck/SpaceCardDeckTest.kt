@@ -25,7 +25,6 @@ class SpaceCardDeckTest {
         assertThat(e.message).isEqualTo("The deck does not contain a card at position 83423412")
     }
 
-
     @Test
     fun equalityTestPositive() {
         assertThat(factory.with(15)).isEqualTo(factory.with(15))

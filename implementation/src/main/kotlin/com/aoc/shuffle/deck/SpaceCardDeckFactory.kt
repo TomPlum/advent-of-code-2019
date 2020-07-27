@@ -4,7 +4,7 @@ import com.aoc.shuffle.card.SpaceCard
 import java.util.*
 
 /**
- * Produces [SpaceCardDeck]
+ * Produces a [SpaceCardDeck]
  */
 open class SpaceCardDeckFactory {
     fun factoryOrder() = SpaceCardDeck((0 until 10007L).map(::SpaceCard).toCollection(LinkedList()))

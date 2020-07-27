@@ -2,16 +2,22 @@ package com.aoc.shuffle.strategy.giant
 
 import com.aoc.math.LinearFunction
 import java.math.BigInteger
+import com.aoc.shuffle.deck.GiantSpaceCardDeck
+import com.aoc.shuffle.strategy.small.CuttingStrategy
 
 /**
- * Given a deck of size d, a target index of i, and the number of cards to cut by, n , then
- * the output value, x, can be calculated with the following linear equation;
+ * The giant variant of the deck 'cutting' shuffling technique, applied to a [GiantSpaceCardDeck] instead.
+ * @see CuttingStrategy
  *
- * f(x) = i - n % d
+ * @param deckSize The hypothetical number of cards in the [GiantSpaceCardDeck].
+ * @param n The parameter of the shuffle technique; the number of cards to take off the top of the deck.
  */
 class GiantCuttingStrategy(private val deckSize: BigInteger, n: BigInteger) : GiantShufflingStrategy {
     override val a: BigInteger = BigInteger.ONE
     override val b: BigInteger = n
 
+    /**
+     * Creates a [LinearFunction] whose variables represent a single shuffle for this technique.
+     */
     override fun create() = LinearFunction(a, b.mod(deckSize))
 }

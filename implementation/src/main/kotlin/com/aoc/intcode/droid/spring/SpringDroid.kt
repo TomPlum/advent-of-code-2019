@@ -34,7 +34,7 @@ class SpringDroid(instructions: String) {
 
     private fun inputAndExecuteProgram(program: SpringScriptProgram) {
         AdventLogger.info("Inputting Program:\n$program")
-        program.encode().forEach { computer.program.memory.input.add(it) }
+        computer.program.memory.input.add(program.encode())
         computer.run()
     }
 

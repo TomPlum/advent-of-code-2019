@@ -105,9 +105,15 @@ that work nicely with behavioural design patterns. However, part 2 threw a spann
 called 'Advent of Math'. The second part increased the deck size from `1x10^5` -> `1x10^14` and the number of shuffles
 from 1 to an order of magnitude similar to that of the deck size. The solution in short was to;
 
-1. Represent the shuffling algorithms as linear functions in the form `f(x) = ax + b`.
+1. Represent the shuffling algorithms as linear functions in the form `f(x) = ax + b` (See table below).
 2. Create a single aggregate function by composing all the converted linear functions together.
 3. Use exponentiation by squaring with modular arithmetic in order to reduce the number of shuffles required.
+
+| Shuffling Technique | Linear Transformation Function |
+|---------------------|--------------------------------|
+| Deal Into New Stack | `f(x) = m - x - 1`             |
+| Cut N               | `f(x) = x - n mod(m)`          |
+| Deal Increment N    | `f(x) = n.x mod(m)`            |
 
 ### Most Fun (Day 8)
 This day was the most fun because I didn't understand what was actually going on until I'd successfully implemented a

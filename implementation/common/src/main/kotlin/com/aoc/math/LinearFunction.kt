@@ -5,8 +5,14 @@ import java.math.BigInteger
 /**
  * Represents a linear function in the form; f(x) = ax + b
  */
-data class LinearFunction(val k: BigInteger, val m: BigInteger) {
-    fun apply(x: BigInteger): BigInteger = k.multiply(x).add(m)
+data class LinearFunction(val a: BigInteger, val b: BigInteger) {
+    /**
+     * Applies the given value [x] to the function and returns the output value for f(x).
+     */
+    fun apply(x: BigInteger): BigInteger = a.multiply(x).add(b)
 
-    fun compose(f: LinearFunction) = LinearFunction(k.times(f.k), k.times(f.m).plus(m))
+    /**
+     * Composes the given function g(x) with f(x) to find the product of the two f(g(x))
+     */
+    fun compose(f: LinearFunction) = LinearFunction(a.times(f.a), a.times(f.b).plus(b))
 }

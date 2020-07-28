@@ -28,11 +28,11 @@ class GiantSpaceCardDeckShuffler(private val s: BigInteger, input: List<String>)
     private fun doShuffle(f: LinearFunction, n: BigInteger): LinearFunction = when {
         n == ZERO -> identity
         n.mod(TWO) == ZERO -> {
-            doShuffle(LinearFunction(f.k.multiply(f.k).mod(s), f.k.multiply(f.m).add(f.m).mod(s)), n.divide(TWO))
+            doShuffle(LinearFunction(f.a.multiply(f.a).mod(s), f.a.multiply(f.b).add(f.b).mod(s)), n.divide(TWO))
         }
         else -> {
-            val cd = doShuffle(LinearFunction(f.k, f.m), n.subtract(ONE))
-            LinearFunction(f.k.multiply(cd.k).mod(s), f.k.multiply(cd.m).add(f.m).mod(s))
+            val cd = doShuffle(LinearFunction(f.a, f.b), n.subtract(ONE))
+            LinearFunction(f.a.multiply(cd.a).mod(s), f.a.multiply(cd.b).add(f.b).mod(s))
         }
     }
 }

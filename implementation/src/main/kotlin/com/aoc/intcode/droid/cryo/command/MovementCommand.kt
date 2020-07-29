@@ -1,3 +1,13 @@
 package com.aoc.intcode.droid.cryo.command
 
-class MovementCommand(private val direction: String) : Command(direction)
+import com.aoc.math.Direction
+
+class MovementCommand(private val direction: String) : Command(direction) {
+    fun getDirection(): Direction = when(direction) {
+        "north" -> Direction.UP
+        "east" -> Direction.RIGHT
+        "south" -> Direction.DOWN
+        "west" -> Direction.LEFT
+        else -> throw IllegalArgumentException("Invalid Direction: $direction")
+    }
+}

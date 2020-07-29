@@ -13,16 +13,16 @@ class ItemTest {
 
     @Test
     fun toStringTest() {
-        assertThat(Item("wreath").toString()).isEqualTo("wreath")
+        assertThat(Item("wreath").toString()).isEqualTo("Wreath")
     }
 
     @Test
     fun equalityTrue() {
-        assertThat(Item("green ball")).isEqualTo(Item("green ball"))
+        assertThat(Item("Green Ball")).isEqualTo(Item("Green Ball"))
     }
 
     @Test
     fun equalityFalse() {
-        assertThat(Item("green ball")).isNotEqualTo(Item("blue ball"))
+        assertThat(Item("green ball")).isNotEqualTo(Item("Blue Ball"))
     }
 }

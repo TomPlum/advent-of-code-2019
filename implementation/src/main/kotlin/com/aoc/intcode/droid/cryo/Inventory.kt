@@ -10,4 +10,9 @@ class Inventory {
         items.remove(found)
         return found
     }
+
+    override fun toString(): String {
+        val items = if (items.isNotEmpty()) items.joinToString(separator = ", ") else "Empty"
+        return "Inventory: $items"
+    }
 }

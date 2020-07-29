@@ -49,4 +49,26 @@ class InventoryTest {
         }
     }
 
+    @Nested
+    inner class ToString {
+        @Test
+        fun singleItem() {
+            val inventory = Inventory()
+            inventory.add(Item("blue ball"))
+            assertThat(inventory.toString()).isEqualTo("Inventory: Blue Ball")
+        }
+
+        @Test
+        fun multipleItems() {
+            val inventory = Inventory()
+            inventory.add(Item("wreath"))
+            inventory.add(Item("photons"))
+            assertThat(inventory.toString()).isEqualTo("Inventory: Wreath, Photons")
+        }
+
+        @Test
+        fun noItems() {
+            assertThat(Inventory().toString()).isEqualTo("Inventory: Empty")
+        }
+    }
 }

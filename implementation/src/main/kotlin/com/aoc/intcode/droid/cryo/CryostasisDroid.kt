@@ -6,8 +6,9 @@ import com.aoc.log.AdventLogger
 
 class CryostasisDroid(instructions: String) {
     private val cpu = IntCodeComputer(instructions)
+    private val inventory = Inventory()
 
-    init {
+    fun boot() {
         cpu.run()
         logOutput()
     }
@@ -15,6 +16,7 @@ class CryostasisDroid(instructions: String) {
     fun command(command: Command) {
         cpu.program.memory.input.add(command.encode())
         cpu.run()
+        val output = cpu.program.memory.output.parseStringFromAscii()
         logOutput()
     }
 

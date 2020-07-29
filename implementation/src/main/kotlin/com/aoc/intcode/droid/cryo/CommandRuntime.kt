@@ -9,14 +9,20 @@ class CommandRuntime(instructions: String) {
     private val droid = CryostasisDroid(instructions)
     private val parser = CommandParser()
 
-    fun run() {
-        AdventLogger.info("Booting Cryostasis Droid runtime environment...\n")
+    init {
+        AdventLogger.info("Booting Cryostasis Droid runtime environment...")
+    }
+
+    fun start() {
+        droid.boot()
+
         while(true) {
             try {
                 droid.command(readUserInput())
             } catch (e: InvalidCommand) {
-                AdventLogger.info("${e.message}\n")
+                AdventLogger.info("${e.message}")
                 AdventLogger.info("Use command 'view commands' to view a complete list of commands\n")
+                AdventLogger.info("Command?")
             }
         }
     }

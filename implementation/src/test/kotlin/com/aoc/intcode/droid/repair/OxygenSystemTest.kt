@@ -20,7 +20,7 @@ class OxygenSystemTest {
 
     @Test
     fun example() {
-        val input = TestInputReader().readInputAsString("/droid/example-droid-input.txt").asSingleString()
+        val input = TestInputReader().readInputAsString("/droid/repair/example-droid-input.txt").asSingleString()
         val droid = RepairDroid(input)
         droid.locateShipsOxygenSystem()
         val shipsBlueprints = droid.downloadShipMappingData()

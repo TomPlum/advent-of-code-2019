@@ -1,0 +1,1 @@
+\n\n\n== Kitchen ==\nEverything's freeze-dried.\n\nDoors here lead:\n- north\n- south\n- west\n\nItems here:\n- escape pod\n\nCommand?\n

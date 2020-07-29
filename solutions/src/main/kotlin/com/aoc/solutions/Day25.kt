@@ -7,5 +7,5 @@ import com.aoc.intcode.droid.cryo.CommandRuntime
 fun main() {
     val input = InputReader.read<String>(Day(25)).asSingleString()
     val runtime = CommandRuntime(input)
-    runtime.run()
+    runtime.start()
 }

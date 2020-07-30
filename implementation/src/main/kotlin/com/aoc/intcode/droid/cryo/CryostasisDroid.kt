@@ -21,18 +21,32 @@ class CryostasisDroid(instructions: String) {
     fun command(command: Command) {
         cpu.program.memory.input.add(command.encode())
         cpu.run()
-        val room = DroidOutput(cpu.program.memory.output.parseStringFromAscii()).parse()
+        val output = DroidOutput(cpu.program.memory.output.parseStringFromAscii())
 
         when(command) {
             is MovementCommand -> {
                 position = position.shift(command.getDirection())
-                map.addRoom(position, room)
+                map.addRoom(position, output.parse())
             }
             is TakeCommand -> {
-                room.items.forEach { item -> inventory.add(item) }
+                val currentRoom = map.getRoom(position)
+                val item = currentRoom.takeItem(command.getItem())
+                if (item != null) {
+                    inventory.add(item)
+                    map.addRoom(position, currentRoom)
+                } else {
+                    AdventLogger.info("There is no ${command.getItem().name} in the ${currentRoom.name}!")
+                }
             }
             is DropCommand -> {
-                room.items.forEach { item -> inventory.take(item) }
+                val currentRoom = map.getRoom(position)
+                val item = currentRoom.takeItem(command.getItem())
+                if (item != null) {
+                    inventory.take(item)
+                    map.addRoom(position, currentRoom)
+                } else {
+                    AdventLogger.info("You do not have a ${command.getItem().name} in your inventory!")
+                }
             }
         }
         log()
@@ -41,7 +55,9 @@ class CryostasisDroid(instructions: String) {
     private fun log() {
         val output = cpu.program.memory.output
         AdventLogger.info(output.parseStringFromAscii())
+        AdventLogger.info(inventory)
         AdventLogger.info(map.print())
+        AdventLogger.debug("Current Droid Position: $position")
         output.clear()
     }
 

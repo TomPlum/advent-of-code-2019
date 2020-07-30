@@ -2,7 +2,7 @@ package com.aoc.intcode.droid.cryo.command
 
 import com.aoc.math.Direction
 
-class MovementCommand(private val direction: String) : Command(direction) {
+data class MovementCommand(private val direction: String) : Command(direction) {
     fun getDirection(): Direction = when(direction) {
         "north" -> Direction.UP
         "east" -> Direction.RIGHT

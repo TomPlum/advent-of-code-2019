@@ -1,3 +1,7 @@
 package com.aoc.intcode.droid.cryo.command
 
-class TakeCommand(item: String) : ParameterisedCommand("take", item)
+import com.aoc.intcode.droid.cryo.Item
+
+data class TakeCommand(private val itemName: String) : ParameterisedCommand("take", itemName) {
+    fun getItem(): Item = Item(itemName)
+}

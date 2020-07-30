@@ -10,9 +10,9 @@ class CommandParser {
         else -> throw InvalidCommand(instruction)
     }
 
-    private fun String.isTakeCommand() = this.take(4) == "take"
-    private fun String.isDropCommand() = this.take(4) == "drop"
+    private fun String.isTakeCommand() = this.take(5) == "take "
+    private fun String.isDropCommand() = this.take(5) == "drop "
     private fun String.isMovementCommand() = listOf("north", "east", "south", "west").contains(this)
     private fun String.isViewInventoryCommand() = this == "inv"
-    private fun String.getParameter() = this.drop(4)
+    private fun String.getParameter() = this.drop(4).trim()
 }

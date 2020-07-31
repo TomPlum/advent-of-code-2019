@@ -15,6 +15,8 @@ class StarShipMap : AdventMap2D<Room>() {
 
     fun getRoom(position: Point2D) = getTile(position)
 
+    fun hasRoomAt(pos: Point2D) = hasRecorded(pos)
+
     fun rooms() = tileQuantity()
 
     fun display(): String {

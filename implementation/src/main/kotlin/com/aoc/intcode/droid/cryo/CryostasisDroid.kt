@@ -14,7 +14,9 @@ class CryostasisDroid(instructions: String) {
     fun boot() {
         cpu.run()
         val output = DroidOutput(cpu.program.memory.output.parseStringFromAscii())
-        map.addRoom(position, output.parse())
+        val startingRoom = output.parse()
+        map.addRoom(position, startingRoom)
+        AdventLogger.info(startingRoom)
         log()
     }
 
@@ -25,9 +27,16 @@ class CryostasisDroid(instructions: String) {
 
         when(command) {
             is MovementCommand -> {
-                position = position.shift(command.getDirection())
-                map.addRoom(position, output.parse())
-                map.droidPosition = position
+                val direction = command.getDirection()
+                if (map.getRoom(position).hasDoorLeading(direction)) {
+                    position = position.shift(direction)
+                    val room = output.parse()
+                    map.addRoom(position, room)
+                    map.droidPosition = position
+                    AdventLogger.info(room)
+                } else {
+                    AdventLogger.info("There is no room to the $direction")
+                }
             }
             is TakeCommand -> {
                 val currentRoom = map.getRoom(position)

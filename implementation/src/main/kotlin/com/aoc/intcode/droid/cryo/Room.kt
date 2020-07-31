@@ -20,7 +20,7 @@ data class Room(val name: String, val description: String, val doors: List<Direc
 
     override fun toString(): String {
         val s = StringBuilder()
-        s.append(name).append("\n")
+        s.append("-$name").append("\n")
         s.append(description).append("\n")
         if (items.isNotEmpty()) {
             s.append("Upon entering the room you find: ${items.joinToString()}")

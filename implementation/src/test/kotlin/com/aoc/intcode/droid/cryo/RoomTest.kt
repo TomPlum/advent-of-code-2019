@@ -93,19 +93,57 @@ class RoomTest {
         @Test
         fun noItems() {
             val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
-            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\n")
+            assertThat(room.toString()).isEqualTo("-Kitchen\nEverything's freeze-dried.\n")
         }
 
         @Test
         fun oneItem() {
             val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife")))
-            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife")
+            assertThat(room.toString()).isEqualTo("-Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife")
         }
 
         @Test
         fun multipleItems() {
             val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife"), Item("board")))
-            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife, Board")
+            assertThat(room.toString()).isEqualTo("-Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife, Board")
+        }
+    }
+
+    @Nested
+    inner class Equality {
+        @Test
+        fun equal() {
+            val first = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            val second = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            assertThat(first).isEqualTo(second)
+        }
+
+        @Test
+        fun notEqualDifferentNames() {
+            val first = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            val second = Room("Not Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            assertThat(first).isNotEqualTo(second)
+        }
+
+        @Test
+        fun notEqualDifferentDescriptions() {
+            val first = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            val second = Room("Kitchen", "Everything's fire-wet.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            assertThat(first).isNotEqualTo(second)
+        }
+
+        @Test
+        fun notEqualDifferentDoors() {
+            val first = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            val second = Room("Kitchen", "Everything's freeze-dried.", listOf(UP), mutableListOf())
+            assertThat(first).isNotEqualTo(second)
+        }
+
+        @Test
+        fun notEqualDifferentItems() {
+            val first = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            val second = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife")))
+            assertThat(first).isNotEqualTo(second)
         }
     }
 }

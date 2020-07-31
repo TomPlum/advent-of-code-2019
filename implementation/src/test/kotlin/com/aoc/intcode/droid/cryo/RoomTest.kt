@@ -1,12 +1,8 @@
 package com.aoc.intcode.droid.cryo
 
 import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isNull
-import assertk.assertions.isTrue
+import assertk.assertions.*
 import com.aoc.math.Direction.*
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -19,12 +15,33 @@ class RoomTest {
     inner class HasItems {
         @Test
         fun hasItems() {
-            assertThat(Room("Kitchen", emptyList(), mutableListOf(Item("knife"))).hasItems()).isTrue()
+            val room = Room("Kitchen", "Everything's freeze-dried.", emptyList(), mutableListOf(Item("knife")))
+            val hasItems = room.hasItems()
+            assertThat(hasItems).isTrue()
         }
 
         @Test
         fun doesNotHaveItems() {
-            assertThat(Room("Kitchen", emptyList(), mutableListOf()).hasItems()).isFalse()
+            val room = Room("Kitchen", "Everything's freeze-dried.", emptyList(), mutableListOf())
+            val hasItems = room.hasItems()
+            assertThat(hasItems).isFalse()
+        }
+    }
+
+    @Nested
+    inner class HasDoorLeadingTo {
+        @Test
+        fun hasTheDoor() {
+            val room = Room("Kitchen", "Everything's freeze-dried.", mutableListOf(UP), mutableListOf())
+            val hasTheDoor = room.hasDoorLeading(UP)
+            assertThat(hasTheDoor).isTrue()
+        }
+
+        @Test
+        fun doesNotHaveTheDoor() {
+            val room = Room("Kitchen", "Everything's freeze-dried.", mutableListOf(UP), mutableListOf())
+            val hasTheDoor = room.hasDoorLeading(RIGHT)
+            assertThat(hasTheDoor).isFalse()
         }
     }
 
@@ -32,7 +49,7 @@ class RoomTest {
     inner class TakeItem {
         @Test
         fun validItemName() {
-            val room = Room("Kitchen", emptyList(), mutableListOf(Item("knife")))
+            val room = Room("Kitchen", "Everything's freeze-dried.", emptyList(), mutableListOf(Item("knife")))
             val item = room.takeItem(Item("knife"))
             assertThat(item).isEqualTo(Item("knife"))
         }
@@ -42,28 +59,53 @@ class RoomTest {
         @ValueSource(strings = ["RollingPin", "rollingpin", "rolling-pin"])
         @DisplayName("Given the room has an item, when the item name does not match, then it should return null")
         fun invalidItemName(itemName: String) {
-            val room = Room("Kitchen", emptyList(), mutableListOf(Item("rolling pin")))
+            val room = Room("Kitchen", "Everything's freeze-dried.", emptyList(), mutableListOf(Item("rolling pin")))
             val item = room.takeItem(Item(itemName))
             assertThat(item).isNull()
         }
     }
 
     @Nested
-    inner class ToString  {
+    inner class EmptyRoom {
         @Test
-        @Disabled("Not sure if this is needed yet as delegated to StarShipMap")
-        fun toStringTest() {
-            val room = Room("Kitchen", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife")))
-            assertThat(room.toString()).isEqualTo(
-                    "┌───────      ───────┐\n" +
-                    "│      Kitchen       │\n" +
-                    "│                    │\n" +
-                    "                      \n" +
-                    "                      \n" +
-                    "│    Escape Pod      │\n" +
-                    "│                    │\n" +
-                    "└────────────────────┘\n"
-            )
+        fun name() {
+            assertThat(Room.empty().name).isEqualTo("N/A")
+        }
+
+        @Test
+        fun description() {
+            assertThat(Room.empty().description).isEqualTo("An un-explored room")
+        }
+
+        @Test
+        fun doors() {
+            assertThat(Room.empty().doors).containsOnly(UP)
+        }
+
+        @Test
+        fun items() {
+            assertThat(Room.empty().items).isEmpty()
+        }
+    }
+
+    @Nested
+    inner class ToString {
+        @Test
+        fun noItems() {
+            val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf())
+            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\n")
+        }
+
+        @Test
+        fun oneItem() {
+            val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife")))
+            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife")
+        }
+
+        @Test
+        fun multipleItems() {
+            val room = Room("Kitchen", "Everything's freeze-dried.", listOf(UP, LEFT, RIGHT), mutableListOf(Item("knife"), Item("board")))
+            assertThat(room.toString()).isEqualTo("Kitchen\nEverything's freeze-dried.\nUpon entering the room you find: Knife, Board")
         }
     }
 }

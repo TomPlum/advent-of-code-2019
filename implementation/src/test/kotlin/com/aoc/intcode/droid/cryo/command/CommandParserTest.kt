@@ -38,7 +38,12 @@ class CommandParserTest {
     @Nested
     inner class ParseTakeCommand {
         @Test
-        fun take() {
+        fun takeSingleWordItem() {
+            assertThat(parser.parse("take wreath")).isEqualTo(TakeCommand("wreath"))
+        }
+
+        @Test
+        fun takeItemWithSpace() {
             assertThat(parser.parse("take some item")).isEqualTo(TakeCommand("some item"))
         }
 

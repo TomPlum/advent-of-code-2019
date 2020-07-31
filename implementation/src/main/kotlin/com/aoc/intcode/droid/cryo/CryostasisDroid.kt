@@ -27,6 +27,7 @@ class CryostasisDroid(instructions: String) {
             is MovementCommand -> {
                 position = position.shift(command.getDirection())
                 map.addRoom(position, output.parse())
+                map.droidPosition = position
             }
             is TakeCommand -> {
                 val currentRoom = map.getRoom(position)
@@ -56,8 +57,7 @@ class CryostasisDroid(instructions: String) {
         val output = cpu.program.memory.output
         AdventLogger.info(output.parseStringFromAscii())
         AdventLogger.info(inventory)
-        AdventLogger.info(map.print())
-        AdventLogger.debug("Current Droid Position: $position")
+        AdventLogger.info(map.display())
         output.clear()
     }
 

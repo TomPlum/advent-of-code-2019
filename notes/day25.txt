@@ -1,0 +1,59 @@
+┌────    ────┐┌────    ────┬┌────────────┬┬────────────┐
+│    N/A     ││    N/A     ││Warp Driv...││Security ...│
+│            ││            ││                   /\     │
+│            ││            ││  photons   ││            │
+┌────    ────┐┌────    ────┬├────    ────┼┼────────────┤
+│    N/A     ││    N/A     ││  Hallway   ││Observatory │
+│            ││            ││                          │
+│            ││            ││dehydrate...││giant ele...│
+┌────    ────┬┌────────────┬┤────    ────┼┼────    ────┤
+│    N/A     ││  Stables   ││  Corridor  ││Gift Wrap...│
+│            ││            ││            ││            │
+│            ││infinite ...││            ││   wreath   │
+┌────    ────┬├────    ────┼┼────────────┼┼────    ────┤
+│    N/A     ││   Arcade   ││Hull Breach ││  Kitchen   │
+│            ││                                        │
+│            ││            ││            ││ escape pod │
+┌────    ────┬├────    ────┼┼────    ────┼┼────    ────┤
+│    N/A     ││  Storage   ││  Passages  ││  Sick Bay  │
+│            ││             │            ││            │
+│            ││  pointer   ││festive hat ││            │
+┌────────────┬┤────    ────┼┼────────────┼┼────    ────┤
+│Science Lab ││Hot Choco...││Engineering ││Crew Quar...│
+│                                        ││            │
+│    coin    ││prime number││            ││space heater│
+├────    ────┤├────    ────┤├────    ────┼├────    ────┤
+│    N/A     ││    N/A     ││    N/A     ││  Holodeck  │
+│            ││            ││            ││            │
+│            ││            ││            ││ astrolabe  │
+└────────────┘└────────────┘└────────────┴└────────────┘
+
+┌────    ────┐┌────    ────┬┌────────────┬┬────────────┐
+│    N/A     ││    N/A     ││Warp Driv...││Security ...│
+│            ││            ││                          │
+│            ││            ││  photons   ││            │
+┌────    ────┐┌────    ────┬├────    ────┼┼────    ────┤
+│    N/A     ││    N/A     ││  Hallway   ││Pressure-...│
+│            ││            ││             │     /\     │
+│            ││            ││dehydrate...││            │
+┌────    ────┬┌────────────┬┤────    ────┼┼────    ────┤
+│    N/A     ││  Stables   ││  Corridor  ││Gift Wrap...│
+│            ││            ││            ││            │
+│            ││infinite ...││            ││   wreath   │
+┌────    ────┬├────    ────┼┼────────────┼┼────    ────┤
+│    N/A     ││   Arcade   ││Hull Breach ││  Kitchen   │
+│            ││                                        │
+│            ││            ││            ││ escape pod │
+┌────    ────┬├────    ────┼┼────    ────┼┼────    ────┤
+│    N/A     ││  Storage   ││  Passages  ││  Sick Bay  │
+│            ││             │            ││            │
+│            ││  pointer   ││festive hat ││            │
+┌────────────┬┤────    ────┼┼────────────┼┼────    ────┤
+│Science Lab ││Hot Choco...││Engineering ││Crew Quar...│
+│                                        ││            │
+│    coin    ││prime number││            ││space heater│
+├────    ────┤├────    ────┤├────    ────┼├────    ────┤
+│    N/A     ││    N/A     ││    N/A     ││  Holodeck  │
+│            ││            ││            ││            │
+│            ││            ││            ││ astrolabe  │
+└────────────┘└────────────┘└────────────┴└────────────┘

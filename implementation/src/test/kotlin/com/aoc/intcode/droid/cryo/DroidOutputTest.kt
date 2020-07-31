@@ -12,7 +12,7 @@ class DroidOutputTest {
     inner class ParseRoomName {
         @Test
         fun validOutputString() {
-            val output = TestInputReader().readInputAsString("/droid/cryo/example-droid-output.txt").asSingleString()
+            val output = TestInputReader().readInputAsString("/droid/cryo/droid-output-kitchen.txt").asSingleString()
             val droidOutput = DroidOutput(output)
             assertThat(droidOutput.parse().name).isEqualTo("Kitchen")
         }
@@ -22,7 +22,7 @@ class DroidOutputTest {
     inner class ParseDoorLocations {
         @Test
         fun validOutputString() {
-            val output = TestInputReader().readInputAsString("/droid/cryo/example-droid-output.txt").asSingleString()
+            val output = TestInputReader().readInputAsString("/droid/cryo/droid-output-kitchen.txt").asSingleString()
             val droidOutput = DroidOutput(output)
             assertThat(droidOutput.parse().doors).isEqualTo(listOf(UP, DOWN, LEFT))
         }
@@ -32,7 +32,7 @@ class DroidOutputTest {
     inner class ParseItems {
         @Test
         fun validOutputString() {
-            val output = TestInputReader().readInputAsString("/droid/cryo/example-droid-output.txt").asSingleString()
+            val output = TestInputReader().readInputAsString("/droid/cryo/droid-output-kitchen.txt").asSingleString()
             val droidOutput = DroidOutput(output)
             assertThat(droidOutput.parse().items).isEqualTo(listOf(Item("escape pod")))
         }

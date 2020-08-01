@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.exceptions
 
 import java.lang.IllegalArgumentException
 

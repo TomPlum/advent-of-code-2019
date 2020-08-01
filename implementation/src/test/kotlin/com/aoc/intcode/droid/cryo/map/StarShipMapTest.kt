@@ -1,9 +1,12 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.map
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
+import com.aoc.intcode.droid.cryo.droid.Item
+import com.aoc.intcode.droid.cryo.map.Room
+import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.math.Direction.*
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Nested

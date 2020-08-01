@@ -1,7 +1,7 @@
 package com.aoc.intcode.droid.cryo
 
-import com.aoc.intcode.droid.cryo.command.CommandParser
-import com.aoc.intcode.droid.cryo.command.InvalidCommand
+import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
+import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
 import com.aoc.log.AdventLogger
 
 class CommandRuntime(instructions: String) {

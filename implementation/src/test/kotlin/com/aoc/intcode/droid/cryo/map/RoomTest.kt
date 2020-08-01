@@ -1,7 +1,9 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.map
 
 import assertk.assertThat
 import assertk.assertions.*
+import com.aoc.intcode.droid.cryo.droid.Item
+import com.aoc.intcode.droid.cryo.map.Room
 import com.aoc.math.Direction.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

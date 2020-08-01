@@ -1,9 +1,10 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.security
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
+import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

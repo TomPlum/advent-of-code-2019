@@ -1,7 +1,7 @@
 package com.aoc.intcode.droid.cryo.controller
 
-import com.aoc.intcode.droid.cryo.AirlockPassword
-import com.aoc.intcode.droid.cryo.CryostasisDroid
+import com.aoc.intcode.droid.cryo.security.AirlockPassword
+import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
 import com.aoc.intcode.droid.cryo.command.MovementCommand
 import com.aoc.intcode.droid.cryo.command.TakeCommand
 

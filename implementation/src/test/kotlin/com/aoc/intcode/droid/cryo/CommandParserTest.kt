@@ -1,7 +1,11 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.droid.cryo.command.DropCommand
+import com.aoc.intcode.droid.cryo.command.MovementCommand
+import com.aoc.intcode.droid.cryo.command.TakeCommand
+import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

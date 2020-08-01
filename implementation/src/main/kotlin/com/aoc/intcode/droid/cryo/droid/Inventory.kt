@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.droid
 
 class Inventory {
     private val items = mutableListOf<Item>()

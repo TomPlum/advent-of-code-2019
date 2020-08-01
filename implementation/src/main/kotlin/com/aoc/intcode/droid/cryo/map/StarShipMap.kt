@@ -1,7 +1,7 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.map
 
-import com.aoc.intcode.droid.cryo.StarShipMap.CornerGlyph.*
-import com.aoc.intcode.droid.cryo.StarShipMap.EdgeGlyph.*
+import com.aoc.intcode.droid.cryo.map.StarShipMap.CornerGlyph.*
+import com.aoc.intcode.droid.cryo.map.StarShipMap.EdgeGlyph.*
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Direction
 import com.aoc.math.Direction.*

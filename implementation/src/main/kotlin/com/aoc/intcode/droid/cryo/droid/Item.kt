@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.droid
 
 import com.aoc.extensions.capitaliseWords
 

@@ -1,4 +1,7 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo
+
+import com.aoc.intcode.droid.cryo.command.*
+import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
 
 class CommandParser {
     fun parse(instruction: String?): Command = when {

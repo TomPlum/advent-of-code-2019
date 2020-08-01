@@ -1,5 +1,6 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.map
 
+import com.aoc.intcode.droid.cryo.droid.Item
 import com.aoc.math.Direction
 
 data class Room(val name: String, val description: String, val doors: List<Direction>, val items: MutableList<Item>) {

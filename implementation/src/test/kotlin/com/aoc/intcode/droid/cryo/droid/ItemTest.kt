@@ -1,8 +1,9 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.droid
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.aoc.intcode.droid.cryo.droid.Item
 import org.junit.jupiter.api.Test
 
 class ItemTest {

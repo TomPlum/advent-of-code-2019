@@ -11,9 +11,45 @@ import com.aoc.log.AdventLogger
 class AutomaticDroidController(instructions: String) : CryostasisDroidController {
     private val droid = CryostasisDroid(instructions)
 
+    init {
+        droid.boot()
+    }
+
     override fun findPassword(): AirlockPassword {
-        TODO("Implement algorithms to find all the below items automatically. I think blacklist must be hard-coded?")
+        //TODO: Implement algorithms to find all the below items automatically. I think blacklist must be hard-coded?
         val whitelist = listOf("festive hat", "pointer", "prime number", "coin", "space heater", "astrolabe", "wreath", "dehydrated water")
+
+        //Pick up all the items
+        droid.command(MovementCommand("south"))
+        droid.command(TakeCommand("festive hat"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("west"))
+        droid.command(MovementCommand("south"))
+        droid.command(TakeCommand("pointer"))
+        droid.command(MovementCommand("south"))
+        droid.command(TakeCommand("prime number"))
+        droid.command(MovementCommand("west"))
+        droid.command(TakeCommand("coin"))
+        droid.command(MovementCommand("east"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("east"))
+        droid.command(MovementCommand("east"))
+        droid.command(MovementCommand("south"))
+        droid.command(MovementCommand("south"))
+        droid.command(TakeCommand("space heater"))
+        droid.command(MovementCommand("south"))
+        droid.command(TakeCommand("astrolabe"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("north"))
+        droid.command(TakeCommand("wreath"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("west"))
+        droid.command(TakeCommand("dehydrated water"))
+        droid.command(MovementCommand("north"))
+        droid.command(MovementCommand("east"))
 
         whitelist.powerset().map { list -> list.map { name -> Item(name) }.toSet() }.toSet().forEach { items ->
             AdventLogger.info("Trying items combination: $items...")
@@ -33,6 +69,8 @@ class AutomaticDroidController(instructions: String) : CryostasisDroidController
                 return droid.password
             }
         }
+
+        throw IllegalStateException("Failed to find a valid combination of items.")
     }
 
     private fun <T> Collection<T>.powerset(): Set<Set<T>> = when {

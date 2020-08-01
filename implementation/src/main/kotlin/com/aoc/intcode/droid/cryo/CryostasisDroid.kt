@@ -7,7 +7,7 @@ import com.aoc.math.Direction.DOWN
 import com.aoc.math.Point2D
 
 class CryostasisDroid(instructions: String) {
-    var password = AirlockKey()
+    var password = AirlockPassword()
     val inventory = Inventory()
 
     private val cpu = IntCodeComputer(instructions)

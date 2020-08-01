@@ -23,9 +23,9 @@ class DroidOutput(private val value: String) {
         throw IllegalStateException("Droid is not on the Pressure-Sensitive Floor")
     }
 
-    fun parsePassword(): AirlockKey {
+    fun parsePassword(): AirlockPassword {
         if (value.contains("Analysis complete! You may proceed."))  {
-            return AirlockKey(value.substringAfter("typing ").substringBefore(" on the keypad"))
+            return AirlockPassword(value.substringAfter("typing ").substringBefore(" on the keypad"))
         }
         throw IllegalStateException("Droid output does not contain a password!:\n$value")
     }

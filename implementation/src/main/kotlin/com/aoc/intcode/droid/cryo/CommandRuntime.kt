@@ -21,7 +21,6 @@ class CommandRuntime(instructions: String) {
             } catch (e: InvalidCommand) {
                 AdventLogger.info("${e.message}")
                 AdventLogger.info("Use command 'view commands' to view a complete list of commands\n")
-                AdventLogger.info("Command?")
             }
         }
     }

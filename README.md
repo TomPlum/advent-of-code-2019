@@ -198,4 +198,4 @@ For the most part, only runtime-complexity was a concern. There were few occasio
 | 22  	| 2604    	| 79608410258462   	| Slam Shuffle                              | [Link](docs/DAY22.MD)  |
 | 23  	| 23815    	| 16666           	| Category Six                              | [Link](docs/DAY23.MD)  |
 | 24  	| 32506764 	| 1963             	| Planet of Discord                         | [Link](docs/DAY24.MD)  |
-| 25  	| -       	| -             	| Cryostasis                                | [Link](docs/DAY25.MD)  |
+| 25  	| 196872   	| -             	| Cryostasis                                | [Link](docs/DAY25.MD)  |

@@ -1,5 +1,6 @@
 package com.aoc.intcode.droid.cryo.controller
 
+import com.aoc.extensions.powerSet
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
 import com.aoc.intcode.droid.cryo.droid.Item
@@ -51,7 +52,7 @@ class AutomaticDroidController(instructions: String) : CryostasisDroidController
         droid.command(MovementCommand("north"))
         droid.command(MovementCommand("east"))
 
-        whitelist.powerset().map { list -> list.map { name -> Item(name) }.toSet() }.toSet().forEach { items ->
+        whitelist.powerSet().map { list -> list.map { name -> Item(name) }.toSet() }.toSet().forEach { items ->
             AdventLogger.info("Trying items combination: $items...")
             while (droid.inventory.getAllItems().toSet() != items) {
                 items.filterNot { droid.inventory.getAllItems().contains(it) }.forEach {
@@ -71,10 +72,5 @@ class AutomaticDroidController(instructions: String) : CryostasisDroidController
         }
 
         throw IllegalStateException("Failed to find a valid combination of items.")
-    }
-
-    private fun <T> Collection<T>.powerset(): Set<Set<T>> = when {
-        isEmpty() -> setOf(setOf())
-        else -> drop(1).powerset().let { it + it.map { it + first() } }
     }
 }

@@ -16,7 +16,11 @@ data class Room(val name: String, val description: String, val doors: List<Direc
         return found
     }
 
+    fun placeItem(item: Item) = items.add(item)
+
     fun hasDoorLeading(direction: Direction) = doors.contains(direction)
+
+    fun isSecurityCheckpoint() = name == "Security Checkpoint"
 
     override fun toString(): String {
         val s = StringBuilder()

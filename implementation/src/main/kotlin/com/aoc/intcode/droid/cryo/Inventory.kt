@@ -11,6 +11,8 @@ class Inventory {
         return found
     }
 
+    fun getAllItems() = items
+
     override fun toString(): String {
         val items = if (items.isNotEmpty()) items.joinToString(separator = ", ") else "Empty"
         return "Inventory: $items"

@@ -1,0 +1,7 @@
+== Pressure-Sensitive Floor ==
+Analyzing...
+
+Doors here lead:
+- north
+
+A loud, robotic voice says "Alert! Droids on this ship are heavier than the detected value!" and you are ejected back to the checkpoint.

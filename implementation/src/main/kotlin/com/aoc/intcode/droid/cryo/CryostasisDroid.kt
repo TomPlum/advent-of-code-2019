@@ -3,11 +3,14 @@ package com.aoc.intcode.droid.cryo
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.droid.cryo.command.*
 import com.aoc.log.AdventLogger
+import com.aoc.math.Direction.DOWN
 import com.aoc.math.Point2D
 
 class CryostasisDroid(instructions: String) {
+    var password = AirlockKey()
+    val inventory = Inventory()
+
     private val cpu = IntCodeComputer(instructions)
-    private val inventory = Inventory()
     private val map = StarShipMap()
     private var position = Point2D(0, 0)
 
@@ -28,14 +31,28 @@ class CryostasisDroid(instructions: String) {
         when(command) {
             is MovementCommand -> {
                 val direction = command.getDirection()
-                if (map.getRoom(position).hasDoorLeading(direction)) {
-                    position = position.shift(direction)
-                    val room = output.parse()
-                    map.addRoom(position, room)
-                    map.droidPosition = position
-                    AdventLogger.info(room)
+                val currentRoom = map.getRoom(position)
+
+                //Security Checkpoint -> Pressure-Sensitive Floor
+                if (currentRoom.isSecurityCheckpoint() && direction == DOWN) {
+                    val securityAnalysis = output.parsePressureSensitiveFloor()
+                    if (securityAnalysis == SecurityAnalysis.VALID) {
+                        AdventLogger.info("Your weight matches that of the other droids. You are permitted to enter.")
+                        AdventLogger.info("The droid is carrying $inventory")
+                        password = output.parsePassword()
+                    } else  {
+                        AdventLogger.info("You are $securityAnalysis to pass the security checkpoint!")
+                    }
                 } else {
-                    AdventLogger.info("There is no room to the $direction")
+                    if (currentRoom.hasDoorLeading(direction)) {
+                        position = position.shift(direction)
+                        val room = output.parse()
+                        map.addRoom(position, room)
+                        map.droidPosition = position
+                        AdventLogger.info(room)
+                    } else {
+                        AdventLogger.info("There is no room to the $direction")
+                    }
                 }
             }
             is TakeCommand -> {
@@ -49,10 +66,10 @@ class CryostasisDroid(instructions: String) {
                 }
             }
             is DropCommand -> {
-                val currentRoom = map.getRoom(position)
-                val item = currentRoom.takeItem(command.getItem())
+                val item = inventory.take(command.getItem())
                 if (item != null) {
-                    inventory.take(item)
+                    val currentRoom = map.getRoom(position)
+                    currentRoom.placeItem(item)
                     map.addRoom(position, currentRoom)
                 } else {
                     AdventLogger.info("You do not have a ${command.getItem().name} in your inventory!")

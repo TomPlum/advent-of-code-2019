@@ -37,4 +37,28 @@ class DroidOutputTest {
             assertThat(droidOutput.parse().items).isEqualTo(listOf(Item("escape pod")))
         }
     }
+
+    @Nested
+    inner class ParsePressureSensitiveFloor {
+        @Test
+        fun tooLight() {
+            val output = TestInputReader().readInputAsString("/droid/cryo/pressure-sensitive-floor-too-light.txt").asSingleString()
+            val droidOutput = DroidOutput(output)
+            assertThat(droidOutput.parsePressureSensitiveFloor()).isEqualTo(SecurityAnalysis.TOO_LIGHT)
+        }
+
+        @Test
+        fun tooHeavy() {
+            val output = TestInputReader().readInputAsString("/droid/cryo/pressure-sensitive-floor-too-heavy.txt").asSingleString()
+            val droidOutput = DroidOutput(output)
+            assertThat(droidOutput.parsePressureSensitiveFloor()).isEqualTo(SecurityAnalysis.TOO_HEAVY)
+        }
+
+        @Test
+        fun correctWeight() {
+            val output = TestInputReader().readInputAsString("/droid/cryo/pressure-sensitive-floor-complete.txt").asSingleString()
+            val droidOutput = DroidOutput(output)
+            assertThat(droidOutput.parsePressureSensitiveFloor()).isEqualTo(SecurityAnalysis.VALID)
+        }
+    }
 }

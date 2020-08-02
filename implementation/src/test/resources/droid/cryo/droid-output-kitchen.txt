@@ -1,1 +1,15 @@
-\n\n\n== Kitchen ==\nEverything's freeze-dried.\n\nDoors here lead:\n- north\n- south\n- west\n\nItems here:\n- escape pod\n\nCommand?\n
+
+
+
+== Kitchen ==
+Everything's freeze-dried.
+
+Doors here lead:
+- north
+- south
+- west
+
+Items here:
+- escape pod
+
+Command?

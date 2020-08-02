@@ -6,8 +6,8 @@ import com.aoc.intcode.droid.cryo.CommandRuntime
 import com.aoc.intcode.droid.cryo.controller.ManualDroidController
 
 fun main() {
-   //launchGame()
-   retrievePasswordWithManualInstruction()
+   launchGame()
+   //retrievePasswordWithManualInstruction()
 }
 
 private fun launchGame() {

@@ -32,6 +32,14 @@ class MovementCommandTest {
     }
 
     @Nested
+    inner class Encode {
+        @Test
+        fun encode() {
+            assertThat(MovementCommand("north").encode()).isEqualTo(listOf<Long>(110, 111, 114, 116, 104, 10))
+        }
+    }
+
+    @Nested
     inner class Equality {
         @Test
         fun equal() {

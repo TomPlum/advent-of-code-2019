@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.command.types
 
 import com.aoc.extensions.toAscii
 import com.aoc.intcode.droid.spring.register.Encodable

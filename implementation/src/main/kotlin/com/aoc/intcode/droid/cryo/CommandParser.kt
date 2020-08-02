@@ -1,6 +1,7 @@
 package com.aoc.intcode.droid.cryo
 
 import com.aoc.intcode.droid.cryo.command.*
+import com.aoc.intcode.droid.cryo.command.types.Command
 import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
 
 class CommandParser {
@@ -10,7 +11,7 @@ class CommandParser {
         instruction.isTakeCommand() -> TakeCommand(instruction.getParameter())
         instruction.isDropCommand() -> DropCommand(instruction.getParameter())
         instruction.isMovementCommand() -> MovementCommand(instruction)
-        instruction.isViewInventoryCommand() -> ViewInventoryCommand()
+        instruction.isViewInventoryCommand() -> InventoryCommand()
         else -> throw InvalidCommand(instruction)
     }
 

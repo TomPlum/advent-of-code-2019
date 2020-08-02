@@ -1,5 +1,6 @@
 package com.aoc.intcode.droid.cryo.command
 
+import com.aoc.intcode.droid.cryo.command.types.Command
 import java.lang.StringBuilder
 
 class HelpCommand : Command("help") {

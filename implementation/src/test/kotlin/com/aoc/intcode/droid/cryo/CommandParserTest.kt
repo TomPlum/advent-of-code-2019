@@ -78,10 +78,10 @@ class CommandParserTest {
     }
 
     @Nested
-    inner class ParseViewInventoryCommand {
+    inner class ParseInventoryCommand {
         @Test
         fun inv() {
-            assertThat(parser.parse("inv")).isInstanceOf(ViewInventoryCommand::class)
+            assertThat(parser.parse("inv")).isInstanceOf(InventoryCommand::class)
         }
     }
 

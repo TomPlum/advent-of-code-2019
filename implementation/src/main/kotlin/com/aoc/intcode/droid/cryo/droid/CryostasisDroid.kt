@@ -6,6 +6,7 @@ import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
 import com.aoc.intcode.droid.cryo.command.*
 import com.aoc.intcode.droid.cryo.CommandRuntime
+import com.aoc.intcode.droid.cryo.command.types.Command
 import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.log.AdventLogger
 import com.aoc.math.Direction.DOWN
@@ -30,7 +31,7 @@ import com.aoc.math.Point2D
  *   @see DropCommand
  *
  * - To get a list of all of the items the droid is currently carrying, use the command inv (for "inventory").
- *   @see ViewInventoryCommand
+ *   @see InventoryCommand
  */
 class CryostasisDroid(instructions: String) {
     var password = AirlockPassword()
@@ -108,7 +109,7 @@ class CryostasisDroid(instructions: String) {
                     AdventLogger.info("You do not have a ${command.getItem().name} in your inventory!")
                 }
             }
-            is ViewInventoryCommand -> {
+            is InventoryCommand -> {
                 AdventLogger.info(inventory)
             }
         }

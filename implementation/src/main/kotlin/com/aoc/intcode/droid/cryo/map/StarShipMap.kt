@@ -191,7 +191,7 @@ class StarShipMap : AdventMap2D<Room>() {
     }
 
     private enum class MiscGlyphs(val glyph: String) {
-        DROID("/\\");
+        DROID("@D");
 
         override fun toString(): String = glyph
     }

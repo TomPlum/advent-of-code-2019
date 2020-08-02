@@ -5,8 +5,6 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import com.aoc.intcode.droid.cryo.droid.Item
-import com.aoc.intcode.droid.cryo.map.Room
-import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.math.Direction.*
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.Nested
@@ -79,7 +77,7 @@ class StarShipMapTest {
             assertThat(map.display()).isEqualTo(
                     "┌────    ────┐\n" +
                     "│  Kitchen   │\n" +
-                    "     /\\      \n" +
+                    "      @D      \n" +
                     "│   knife    │\n" +
                     "└────────────┘"
             )
@@ -97,7 +95,7 @@ class StarShipMapTest {
                     "│            │\n" +
                     "├────    ────┤\n" +
                     "│  Kitchen   │\n" +
-                    "      /\\     \n" +
+                    "      @D      \n" +
                     "│   knife    │\n" +
                     "└────────────┘"
             )
@@ -111,9 +109,9 @@ class StarShipMapTest {
             assertThat(map.display()).isEqualTo(
                     "┌────    ────┬┬────────────┐\n" +
                     "│  Kitchen   ││    Hull    │\n" +
-                    "      /\\                   \n" +
+                    "      @D                    \n" +
                     "│   knife    ││            │\n" +
-                    "└────────────┴┴────    ────┘\n"
+                    "└────────────┴┴────    ────┘"
             )
         }
     }

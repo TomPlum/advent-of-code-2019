@@ -2,7 +2,9 @@ package com.aoc.intcode.droid.cryo.droid
 
 import assertk.assertThat
 import assertk.assertions.contains
+import assertk.assertions.containsOnly
 import assertk.assertions.isEmpty
+import assertk.assertions.isEqualTo
 import com.aoc.Day
 import com.aoc.droid.cryo.droid.TestDroidLogger
 import com.aoc.input.InputReader
@@ -51,6 +53,23 @@ class CryostasisDroidTest {
             fun dropItemNotInInventory() {
                 droid.command(DropCommand("banana"))
                 assertThat(logger.logs).contains("You do not have a banana in your inventory!")
+            }
+        }
+
+        @Nested
+        inner class Take {
+            @Test
+            fun takeItemShouldAddToInventory() {
+                droid.command(MovementCommand("south"))
+                droid.command(TakeCommand("festive hat"))
+                assertThat(droid.inventory.getAllItems()).containsOnly(Item("festive hat"))
+            }
+
+            @Test
+            fun takeItemNotInRoom() {
+                droid.command(MovementCommand("south"))
+                droid.command(TakeCommand("banana"))
+                assertThat(logger.logs).contains("There is no banana in the Passages!")
             }
         }
 

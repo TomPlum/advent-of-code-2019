@@ -3,8 +3,8 @@ package com.aoc.intcode.droid.cryo.security
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
+import assertk.assertions.isNotEqualTo
 import assertk.assertions.isTrue
-import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -37,6 +37,19 @@ class AirlockPasswordTest {
         @Test
         fun toStringWhenInvalid() {
             assertThat(AirlockPassword(null).toString()).isEqualTo("N/A")
+        }
+    }
+
+    @Nested
+    inner class Equality {
+        @Test
+        fun equal() {
+            assertThat(AirlockPassword("123")).isEqualTo(AirlockPassword("123"))
+        }
+
+        @Test
+        fun notEqual() {
+            assertThat(AirlockPassword("123")).isNotEqualTo(AirlockPassword("321"))
         }
     }
 

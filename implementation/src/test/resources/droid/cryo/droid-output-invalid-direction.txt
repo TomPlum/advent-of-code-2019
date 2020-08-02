@@ -1,0 +1,15 @@
+
+
+
+== Kitchen ==
+Everything's freeze-dried.
+
+Doors here lead:
+- north
+- down
+- west
+
+Items here:
+- escape pod
+
+Command?

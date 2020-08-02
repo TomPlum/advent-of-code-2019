@@ -8,6 +8,6 @@ import org.junit.jupiter.api.Test
 class InputTest {
     @Test
     fun asSingleString() {
-        assertThat(IntegerInput(listOf("1", "4", "6")).asSingleString()).isEqualTo("146")
+        assertThat(IntegerInput(listOf("1", "4", "6")).asSingleString()).isEqualTo("1\n4\n6")
     }
 }

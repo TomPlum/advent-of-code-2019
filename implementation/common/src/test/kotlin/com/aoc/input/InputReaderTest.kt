@@ -22,7 +22,7 @@ class InputReaderTest {
     @Test
     fun asSingleString() {
         val input: StringInput = InputReader.read<String>(Day(100)) as StringInput
-        assertThat(input.asSingleString()).isEqualTo("12345")
+        assertThat(input.asSingleString()).isEqualTo("1\n2\n3\n4\n5")
     }
 
     @Test

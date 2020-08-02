@@ -9,11 +9,8 @@ import com.aoc.math.Direction
  * Parses the stringified output of the [CryostasisDroid].
  */
 class DroidOutput(private var value: String) {
-    private val DELIMITER = "&&"
 
-    init {
-        value = value.replace("\n", DELIMITER)
-    }
+    private val br: String = "\n"
 
     /**
      * Parses [Room] details scanned by the droid.
@@ -56,16 +53,20 @@ class DroidOutput(private var value: String) {
 
     private fun String.getRoomName() = this.substringAfter("==").substringBefore("==").trim()
 
-    private fun String.getRoomDescription() = this.substringAfter("==$DELIMITER").substringBefore("$DELIMITER$DELIMITER").trim()
+    private fun String.getRoomDescription() = this.substringAfter("==$br").substringBefore("$br$br").trim()
 
-    private fun String.getItems() = this
-            .substringAfter("Items here:$DELIMITER").substringBefore("$DELIMITER$DELIMITER")
-            .replace("- ", "").split("\n")
-            .map { Item(it) }.toMutableList()
+    private fun String.getItems(): MutableList<Item> {
+        if (this.contains("Items here:")) {
+            return this.substringAfter("Items here:$br").substringBefore("$br$br")
+                    .replace("- ", "").split("\n")
+                    .map { Item(it) }.toMutableList()
+        }
+        return mutableListOf()
+    }
 
     private fun String.getDoors() = this
-            .substringAfter("Doors here lead:$DELIMITER").substringBefore("$DELIMITER$DELIMITER")
-            .replace("- ", "").split("$DELIMITER")
+            .substringAfter("Doors here lead:$br").substringBefore("$br$br")
+            .replace("- ", "").split("$br")
             .map {
                 when (it) {
                     "north" -> Direction.UP

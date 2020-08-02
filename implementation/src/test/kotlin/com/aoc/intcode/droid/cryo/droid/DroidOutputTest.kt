@@ -1,10 +1,9 @@
 package com.aoc.intcode.droid.cryo.droid
 
 import assertk.assertThat
+import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import com.aoc.input.TestInputReader
-import com.aoc.intcode.droid.cryo.droid.DroidOutput
-import com.aoc.intcode.droid.cryo.droid.Item
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
 import com.aoc.math.Direction.*
 import org.junit.jupiter.api.Nested
@@ -38,6 +37,13 @@ class DroidOutputTest {
             val output = TestInputReader().readInputAsString("/droid/cryo/droid-output-kitchen.txt").asSingleString()
             val droidOutput = DroidOutput(output)
             assertThat(droidOutput.parse().items).isEqualTo(listOf(Item("escape pod")))
+        }
+
+        @Test
+        fun outputHasNoItems() {
+            val output = TestInputReader().readInputAsString("/droid/cryo/droid-output-hull-breach.txt").asSingleString()
+            val droidOutput = DroidOutput(output)
+            assertThat(droidOutput.parse().items).isEmpty()
         }
     }
 

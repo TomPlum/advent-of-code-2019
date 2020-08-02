@@ -1,14 +1,37 @@
 package com.aoc.intcode.droid.cryo.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
+import com.aoc.intcode.computer.Program
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
 import com.aoc.intcode.droid.cryo.command.*
+import com.aoc.intcode.droid.cryo.CommandRuntime
 import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.log.AdventLogger
 import com.aoc.math.Direction.DOWN
 import com.aoc.math.Point2D
 
+/**
+ * The [CryostasisDroid] can follow basic instructions and report on its surroundings; you can communicate with it
+ * through an [IntCodeComputer] [Program] running on an ASCII-capable computer.
+ *
+ * As the droid moves through its environment, it will describe what it encounters. When it says Command?, you can give
+ * it a single instruction issued via the [CommandRuntime].
+ *
+ * - Movement via north, south, east, or west.
+ *   @see MovementCommand
+ *
+ * - To take an item the droid sees in the environment, use the command take <name of item>.
+ *   For example, if the droid reports seeing a red ball, you can pick it up with take red ball.
+ *   @see TakeCommand
+ *
+ * - To drop an item the droid is carrying, use the command drop <name of item>. For example, if the droid is
+ *   carrying a green ball, you can drop it with drop green ball.
+ *   @see DropCommand
+ *
+ * - To get a list of all of the items the droid is currently carrying, use the command inv (for "inventory").
+ *   @see ViewInventoryCommand
+ */
 class CryostasisDroid(instructions: String) {
     var password = AirlockPassword()
     val inventory = Inventory()
@@ -17,6 +40,10 @@ class CryostasisDroid(instructions: String) {
     private val map = StarShipMap()
     private var position = Point2D(0, 0)
 
+    /**
+     * Boots up the [CryostasisDroid] and enters Santa's StarShip.
+     * Upon booting, the droid scans the room and records its surroundings in its [map].
+     */
     fun boot() {
         cpu.run()
         val output = DroidOutput(cpu.program.memory.output.parseStringFromAscii())
@@ -26,6 +53,9 @@ class CryostasisDroid(instructions: String) {
         log()
     }
 
+    /**
+     * Issues the given [command] to the droid.
+     */
     fun command(command: Command) {
         cpu.program.memory.input.add(command.encode())
         cpu.run()

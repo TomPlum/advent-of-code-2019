@@ -13,6 +13,6 @@ class TestInputReaderTest {
 
     @Test
     fun readAsSingleStringFromFilePath() {
-        assertThat(TestInputReader().readInputAsString("/inputs/input.txt").asSingleString()).isEqualTo("12345")
+        assertThat(TestInputReader().readInputAsString("/inputs/input.txt").asSingleString()).isEqualTo("1\n2\n3\n4\n5")
     }
 }

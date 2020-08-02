@@ -56,7 +56,7 @@ class LinearFunctionTest {
 
     @Test
     fun toStringTest() {
-        assertThat(LinearFunction((-6).big(), 4.big()).toString()).isEqualTo("LinearFunction(k=-6, m=4)")
+        assertThat(LinearFunction((-6).big(), 4.big()).toString()).isEqualTo("LinearFunction(a=-6, b=4)")
     }
 
     private fun Int.big() = this.toBigInteger()

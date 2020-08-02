@@ -2,9 +2,8 @@ package com.aoc.intcode.droid.cryo
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.aoc.intcode.droid.cryo.command.DropCommand
-import com.aoc.intcode.droid.cryo.command.MovementCommand
-import com.aoc.intcode.droid.cryo.command.TakeCommand
+import assertk.assertions.isInstanceOf
+import com.aoc.intcode.droid.cryo.command.*
 import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -67,6 +66,22 @@ class CommandParserTest {
         @Test
         fun dropWhenItemNameHasTrailingSpace() {
             assertThat(parser.parse("drop syringe ")).isEqualTo(DropCommand("syringe"))
+        }
+    }
+
+    @Nested
+    inner class ParseHelpCommand {
+        @Test
+        fun help() {
+            assertThat(parser.parse("help")).isInstanceOf(HelpCommand::class)
+        }
+    }
+
+    @Nested
+    inner class ParseViewInventoryCommand {
+        @Test
+        fun inv() {
+            assertThat(parser.parse("inv")).isInstanceOf(ViewInventoryCommand::class)
         }
     }
 

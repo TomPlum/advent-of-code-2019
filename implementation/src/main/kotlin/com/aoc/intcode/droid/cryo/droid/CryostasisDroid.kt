@@ -108,16 +108,18 @@ class CryostasisDroid(instructions: String) {
                     AdventLogger.info("You do not have a ${command.getItem().name} in your inventory!")
                 }
             }
+            is ViewInventoryCommand -> {
+                AdventLogger.info(inventory)
+            }
         }
+
         log()
     }
 
     private fun log() {
-        val output = cpu.program.memory.output
-        AdventLogger.info(output.parseStringFromAscii())
         AdventLogger.info(inventory)
         AdventLogger.info(map.display())
-        output.clear()
+        cpu.program.memory.output.clear()
     }
 
 }

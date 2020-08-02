@@ -7,13 +7,17 @@ import com.aoc.intcode.droid.cryo.controller.ManualDroidController
 
 fun main() {
    //launchGame()
-    val instructions = InputReader.read<String>(Day(25)).asSingleString()
-    val password = ManualDroidController(instructions).findPassword()
-    println("Solution Part 1: $password")
+   retrievePasswordWithManualInstruction()
 }
 
 private fun launchGame() {
     val input = InputReader.read<String>(Day(25)).asSingleString()
     val runtime = CommandRuntime(input)
     runtime.start()
+}
+
+private fun retrievePasswordWithManualInstruction() {
+    val instructions = InputReader.read<String>(Day(25)).asSingleString()
+    val password = ManualDroidController(instructions).findPassword()
+    println("Solution Part 1: $password")
 }

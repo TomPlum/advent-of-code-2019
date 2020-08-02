@@ -2,23 +2,45 @@ package com.aoc.intcode.droid.cryo.map
 
 import com.aoc.intcode.droid.cryo.map.StarShipMap.CornerGlyph.*
 import com.aoc.intcode.droid.cryo.map.StarShipMap.EdgeGlyph.*
+import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Direction
 import com.aoc.math.Direction.*
 import com.aoc.math.Point2D
 
+/**
+ * A map of Santa's Starship recorded and maintained by the [CryostasisDroid].
+ */
 class StarShipMap : AdventMap2D<Room>() {
 
+    /**
+     * The current position of the [CryostasisDroid].
+     */
     var droidPosition = Point2D(0, 0)
 
+    /**
+     * Records the given [room] in the map at the given [position].
+     */
     fun addRoom(position: Point2D, room: Room) = addTile(position, room)
 
+    /**
+     * Retrieves the [Room] at the given [position].
+     */
     fun getRoom(position: Point2D) = getTile(position)
 
-    fun hasRoomAt(pos: Point2D) = hasRecorded(pos)
+    /**
+     * @return true if the [StarShipMap] contains a [Room] at the given [position].
+     */
+    fun hasRoomAt(position: Point2D) = hasRecorded(position)
 
+    /**
+     * @return The number of rooms current recorded in the map.
+     */
     fun rooms() = tileQuantity()
 
+    /**
+     * Creates an ASCII string visualisation of the map.
+     */
     fun display(): String {
         return (yMax() downTo yMin()).joinToString("\n") { y ->
             val roomString = StringBuilder()

@@ -2,6 +2,7 @@ package com.aoc.intcode.droid.cryo.command
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.droid.cryo.command.system.HelpCommand
 import org.junit.jupiter.api.Test
 
 class HelpCommandTest {

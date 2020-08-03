@@ -1,9 +1,8 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.command.system
 
-import com.aoc.intcode.droid.cryo.command.types.Command
-import java.lang.StringBuilder
+import com.aoc.intcode.droid.cryo.command.types.SystemCommand
 
-class HelpCommand : Command("help") {
+class HelpCommand : SystemCommand() {
     fun getCommands(): String {
         val s = StringBuilder()
         s.append("You can move via 'north', 'east', 'south', 'west'").append("\n")

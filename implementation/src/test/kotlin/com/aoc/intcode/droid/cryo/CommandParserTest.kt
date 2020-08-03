@@ -4,6 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import com.aoc.intcode.droid.cryo.command.*
+import com.aoc.intcode.droid.cryo.command.system.HelpCommand
+import com.aoc.intcode.droid.cryo.command.system.QuitCommand
 import com.aoc.intcode.droid.cryo.exceptions.InvalidCommand
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -74,6 +76,34 @@ class CommandParserTest {
         @Test
         fun help() {
             assertThat(parser.parse("help")).isInstanceOf(HelpCommand::class)
+        }
+
+        @Test
+        fun helpWithLeadingSpace() {
+            assertThat(parser.parse(" help")).isInstanceOf(HelpCommand::class)
+        }
+
+        @Test
+        fun helpWithTrailingSpace() {
+            assertThat(parser.parse("help ")).isInstanceOf(HelpCommand::class)
+        }
+    }
+
+    @Nested
+    inner class ParseQuitCommand {
+        @Test
+        fun quit() {
+            assertThat(parser.parse("quit")).isInstanceOf(QuitCommand::class)
+        }
+
+        @Test
+        fun quitWithLeadingSpace() {
+            assertThat(parser.parse(" quit")).isInstanceOf(QuitCommand::class)
+        }
+
+        @Test
+        fun quitWithTrailingSpace() {
+            assertThat(parser.parse("quit ")).isInstanceOf(QuitCommand::class)
         }
     }
 

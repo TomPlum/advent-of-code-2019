@@ -2,7 +2,7 @@ package com.aoc.intcode.droid.cryo.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.Program
-import com.aoc.intcode.droid.cryo.CommandRuntime
+import com.aoc.intcode.droid.cryo.command.runtime.CommandRuntime
 import com.aoc.intcode.droid.cryo.command.DropCommand
 import com.aoc.intcode.droid.cryo.command.InventoryCommand
 import com.aoc.intcode.droid.cryo.command.MovementCommand

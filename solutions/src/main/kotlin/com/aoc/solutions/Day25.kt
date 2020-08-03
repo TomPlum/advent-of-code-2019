@@ -2,7 +2,7 @@ package com.aoc.solutions
 
 import com.aoc.Day
 import com.aoc.input.InputReader
-import com.aoc.intcode.droid.cryo.CommandRuntime
+import com.aoc.intcode.droid.cryo.command.runtime.CommandRuntime
 import com.aoc.intcode.droid.cryo.controller.ManualDroidController
 
 fun main() {

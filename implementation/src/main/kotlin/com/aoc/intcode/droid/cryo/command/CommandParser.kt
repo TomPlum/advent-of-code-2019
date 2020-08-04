@@ -1,6 +1,5 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.command
 
-import com.aoc.intcode.droid.cryo.command.*
 import com.aoc.intcode.droid.cryo.command.system.HelpCommand
 import com.aoc.intcode.droid.cryo.command.system.QuitCommand
 import com.aoc.intcode.droid.cryo.command.types.Command

@@ -1,4 +1,4 @@
-package com.aoc.intcode.droid.cryo
+package com.aoc.intcode.droid.cryo.command
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

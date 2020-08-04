@@ -4,10 +4,12 @@ import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.Program
 import com.aoc.intcode.droid.cryo.command.runtime.CommandRuntime
 import com.aoc.intcode.droid.cryo.command.DropCommand
+import com.aoc.intcode.droid.cryo.command.types.SystemCommand
 import com.aoc.intcode.droid.cryo.command.InventoryCommand
 import com.aoc.intcode.droid.cryo.command.MovementCommand
 import com.aoc.intcode.droid.cryo.command.TakeCommand
 import com.aoc.intcode.droid.cryo.command.types.Command
+import com.aoc.intcode.droid.cryo.command.system.*
 import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
@@ -34,6 +36,15 @@ import com.aoc.math.Point2D
  *
  * - To get a list of all of the items the droid is currently carrying, use the command inv (for "inventory").
  *   @see InventoryCommand
+ *
+ * The [CommandRuntime] can also accept a [SystemCommand] that is not issued to the [CryostasisDroid] and only
+ * affects the runtime environment.
+ *
+ * - View a list of the available command words.
+ *   @see QuitCommand
+ *
+ * - Quit the runtime environment.
+ *   @see HelpCommand
  */
 class CryostasisDroid(instructions: String) {
     var password = AirlockPassword()

@@ -4,9 +4,9 @@ import com.aoc.extensions.powerSet
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
 import com.aoc.intcode.droid.cryo.droid.Item
-import com.aoc.intcode.droid.cryo.command.DropCommand
-import com.aoc.intcode.droid.cryo.command.MovementCommand
-import com.aoc.intcode.droid.cryo.command.TakeCommand
+import com.aoc.intcode.droid.cryo.command.item.DropCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.MovementCommand
+import com.aoc.intcode.droid.cryo.command.item.TakeCommand
 import com.aoc.log.AdventLogger
 
 class AutomaticDroidController(instructions: String) : CryostasisDroidController {

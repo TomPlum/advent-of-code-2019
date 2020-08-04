@@ -2,13 +2,17 @@ package com.aoc.intcode.droid.cryo.droid
 
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.Program
+import com.aoc.intcode.droid.cryo.command.runtime.CommandRuntime
+import com.aoc.intcode.droid.cryo.command.item.DropCommand
+import com.aoc.intcode.droid.cryo.command.types.SystemCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.InventoryCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.MovementCommand
+import com.aoc.intcode.droid.cryo.command.item.TakeCommand
+import com.aoc.intcode.droid.cryo.command.types.Command
+import com.aoc.intcode.droid.cryo.command.system.*
+import com.aoc.intcode.droid.cryo.map.StarShipMap
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
-import com.aoc.intcode.droid.cryo.command.*
-import com.aoc.intcode.droid.cryo.CommandRuntime
-import com.aoc.intcode.droid.cryo.command.types.Command
-import com.aoc.intcode.droid.cryo.map.StarShipMap
-import com.aoc.log.AdventLogger
 import com.aoc.math.Direction.DOWN
 import com.aoc.math.Point2D
 
@@ -32,10 +36,20 @@ import com.aoc.math.Point2D
  *
  * - To get a list of all of the items the droid is currently carrying, use the command inv (for "inventory").
  *   @see InventoryCommand
+ *
+ * The [CommandRuntime] can also accept a [SystemCommand] that is not issued to the [CryostasisDroid] and only
+ * affects the runtime environment.
+ *
+ * - View a list of the available command words.
+ *   @see QuitCommand
+ *
+ * - Quit the runtime environment.
+ *   @see HelpCommand
  */
 class CryostasisDroid(instructions: String) {
     var password = AirlockPassword()
     val inventory = Inventory()
+    var logger = DroidLogger()
 
     private val cpu = IntCodeComputer(instructions)
     private val map = StarShipMap()
@@ -50,7 +64,7 @@ class CryostasisDroid(instructions: String) {
         val output = DroidOutput(cpu.program.memory.output.parseStringFromAscii())
         val startingRoom = output.parse()
         map.addRoom(position, startingRoom)
-        AdventLogger.info(startingRoom)
+        logger.log(startingRoom)
         log()
     }
 
@@ -71,11 +85,11 @@ class CryostasisDroid(instructions: String) {
                 if (currentRoom.isSecurityCheckpoint() && direction == DOWN) {
                     val securityAnalysis = output.parsePressureSensitiveFloor()
                     if (securityAnalysis == SecurityAnalysis.VALID) {
-                        AdventLogger.info("Your weight matches that of the other droids. You are permitted to enter.")
-                        AdventLogger.info("The droid is carrying $inventory")
+                        logger.log("Your weight matches that of the other droids. You are permitted to enter.")
+                        logger.log("The droid is carrying $inventory")
                         password = output.parsePassword()
                     } else  {
-                        AdventLogger.info("You are $securityAnalysis to pass the security checkpoint!")
+                        logger.log("You are $securityAnalysis to pass the security checkpoint!")
                     }
                 } else {
                     if (currentRoom.hasDoorLeading(direction)) {
@@ -83,9 +97,9 @@ class CryostasisDroid(instructions: String) {
                         val room = output.parse()
                         map.addRoom(position, room)
                         map.droidPosition = position
-                        AdventLogger.info(room)
+                        logger.log(room)
                     } else {
-                        AdventLogger.info("There is no room to the $direction")
+                        logger.log("There is no room to the $direction")
                     }
                 }
             }
@@ -96,7 +110,7 @@ class CryostasisDroid(instructions: String) {
                     inventory.add(item)
                     map.addRoom(position, currentRoom)
                 } else {
-                    AdventLogger.info("There is no ${command.getItem().name} in the ${currentRoom.name}!")
+                    logger.log("There is no ${command.getItem().name} in the ${currentRoom.name}!")
                 }
             }
             is DropCommand -> {
@@ -106,11 +120,11 @@ class CryostasisDroid(instructions: String) {
                     currentRoom.placeItem(item)
                     map.addRoom(position, currentRoom)
                 } else {
-                    AdventLogger.info("You do not have a ${command.getItem().name} in your inventory!")
+                    logger.log("You do not have a ${command.getItem().name} in your inventory!")
                 }
             }
             is InventoryCommand -> {
-                AdventLogger.info(inventory)
+                logger.log(inventory)
             }
         }
 
@@ -118,8 +132,8 @@ class CryostasisDroid(instructions: String) {
     }
 
     private fun log() {
-        AdventLogger.info(inventory)
-        AdventLogger.info(map.display())
+        logger.log(inventory)
+        logger.log(map.display())
         cpu.program.memory.output.clear()
     }
 

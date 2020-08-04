@@ -1,8 +1,9 @@
 package com.aoc.intcode.droid.cryo.map
 
-import com.aoc.intcode.droid.cryo.map.StarShipMap.CornerGlyph.*
-import com.aoc.intcode.droid.cryo.map.StarShipMap.EdgeGlyph.*
 import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
+import com.aoc.intcode.droid.cryo.map.glyphs.CornerGlyph
+import com.aoc.intcode.droid.cryo.map.glyphs.CornerGlyph.*
+import com.aoc.intcode.droid.cryo.map.glyphs.EdgeGlyph.*
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Direction
 import com.aoc.math.Direction.*
@@ -107,7 +108,7 @@ class StarShipMap : AdventMap2D<Room>() {
         }
 
         if (Point2D(x, y) == droidPosition) {
-            layer.append(" ".repeat(5)).append(MiscGlyphs.DROID).append(" ".repeat(5))
+            layer.append(" ".repeat(5)).append("@D").append(" ".repeat(5))
         } else {
             layer.append(" ".repeat(12))
         }
@@ -188,34 +189,5 @@ class StarShipMap : AdventMap2D<Room>() {
             return edge + HORIZONTAL_DOOR + edge
         }
         return HORIZONTAL.toString().repeat(12)
-    }
-
-    private enum class MiscGlyphs(val glyph: String) {
-        DROID("@D");
-
-        override fun toString(): String = glyph
-    }
-
-    private enum class CornerGlyph(val glyph: String) {
-        CROSS_SECTION("┼"),
-        TRIPLE_LEFT("┤"),
-        TRIPLE_RIGHT("├"),
-        TRIPLE_DOWN("┬"),
-        TRIPLE_UP("┴"),
-        TOP_LEFT_CORNER("┌"),
-        TOP_RIGHT_CORNER("┐"),
-        BOTTOM_LEFT_CORNER("└"),
-        BOTTOM_RIGHT_CORNER("┘");
-
-        override fun toString(): String = glyph
-    }
-
-    private enum class EdgeGlyph(val glyph: String) {
-        HORIZONTAL("─"),
-        VERTICAL("│"),
-        HORIZONTAL_DOOR("    "),
-        VERTICAL_DOOR(" ");
-
-        override fun toString(): String = glyph
     }
 }

@@ -1,7 +1,8 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.command.parameterised
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.intcode.droid.cryo.command.parameterised.InventoryCommand
 import org.junit.jupiter.api.Test
 
 class InventoryCommandTest {

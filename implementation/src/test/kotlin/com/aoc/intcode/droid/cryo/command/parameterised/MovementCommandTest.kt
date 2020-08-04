@@ -1,8 +1,9 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.command.parameterised
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.aoc.intcode.droid.cryo.command.parameterised.MovementCommand
 import com.aoc.math.Direction
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

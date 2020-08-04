@@ -2,8 +2,8 @@ package com.aoc.intcode.droid.cryo.controller
 
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.droid.CryostasisDroid
-import com.aoc.intcode.droid.cryo.command.MovementCommand
-import com.aoc.intcode.droid.cryo.command.TakeCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.MovementCommand
+import com.aoc.intcode.droid.cryo.command.item.TakeCommand
 
 class ManualDroidController(instructions: String) : CryostasisDroidController{
     private val droid = CryostasisDroid(instructions)

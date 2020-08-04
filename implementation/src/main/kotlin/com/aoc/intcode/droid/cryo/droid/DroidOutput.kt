@@ -1,8 +1,8 @@
 package com.aoc.intcode.droid.cryo.droid
 
+import com.aoc.intcode.droid.cryo.map.Room
 import com.aoc.intcode.droid.cryo.security.AirlockPassword
 import com.aoc.intcode.droid.cryo.security.SecurityAnalysis
-import com.aoc.intcode.droid.cryo.map.Room
 import com.aoc.math.Direction
 
 /**
@@ -66,7 +66,7 @@ class DroidOutput(private var value: String) {
 
     private fun String.getDoors() = this
             .substringAfter("Doors here lead:$br").substringBefore("$br$br")
-            .replace("- ", "").split("$br")
+            .replace("- ", "").split(br)
             .map {
                 when (it) {
                     "north" -> Direction.UP

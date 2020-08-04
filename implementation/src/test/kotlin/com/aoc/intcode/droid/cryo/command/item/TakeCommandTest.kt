@@ -1,8 +1,9 @@
-package com.aoc.intcode.droid.cryo.command
+package com.aoc.intcode.droid.cryo.command.item
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.aoc.intcode.droid.cryo.command.item.TakeCommand
 import com.aoc.intcode.droid.cryo.droid.Item
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

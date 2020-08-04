@@ -3,11 +3,11 @@ package com.aoc.intcode.droid.cryo.droid
 import com.aoc.intcode.computer.IntCodeComputer
 import com.aoc.intcode.computer.Program
 import com.aoc.intcode.droid.cryo.command.runtime.CommandRuntime
-import com.aoc.intcode.droid.cryo.command.DropCommand
+import com.aoc.intcode.droid.cryo.command.item.DropCommand
 import com.aoc.intcode.droid.cryo.command.types.SystemCommand
-import com.aoc.intcode.droid.cryo.command.InventoryCommand
-import com.aoc.intcode.droid.cryo.command.MovementCommand
-import com.aoc.intcode.droid.cryo.command.TakeCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.InventoryCommand
+import com.aoc.intcode.droid.cryo.command.parameterised.MovementCommand
+import com.aoc.intcode.droid.cryo.command.item.TakeCommand
 import com.aoc.intcode.droid.cryo.command.types.Command
 import com.aoc.intcode.droid.cryo.command.system.*
 import com.aoc.intcode.droid.cryo.map.StarShipMap

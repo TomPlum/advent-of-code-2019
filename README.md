@@ -3,6 +3,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/TomPlum/advent-of-code-2019.svg)](https://github.com/TomPlum/advent-of-code-2019/issues)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/TomPlum/advent-of-code-2019?color=brightgreen)
 ![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2019?color=informational)
+![GitHub](https://img.shields.io/badge/tests-1051-informational)
 
 ## What is Advent of Code?
 

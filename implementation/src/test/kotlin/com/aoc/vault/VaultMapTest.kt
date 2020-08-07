@@ -30,7 +30,6 @@ class VaultMapTest {
     }
 
     @Test
-    @Disabled("Until fixed on feature/day18")
     fun exampleFour() {
         val input = TestInputReader().readInputAsString("/vault/example-4.txt").value
         val steps = VaultMap(input).collectKeys()

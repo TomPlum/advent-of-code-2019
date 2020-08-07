@@ -27,7 +27,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
-        //Turn Entrance -> Key (Root Node)
+        //Convert Entrance -> Key (Root Node)
         root = Key(entranceTile.value.value, entranceTile.key, setOf())
 
         AdventLogger.debug(this)

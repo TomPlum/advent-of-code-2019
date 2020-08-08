@@ -64,6 +64,7 @@ I created two Gradle root projects, `implementation` and `solutions`. With the f
 behaviour that is commonly used across multiple days and `test-support` for unit test utility classes.
 
     -implementation
+        -src
         -common
         -test-support
     -solutions
@@ -85,7 +86,11 @@ From the [OpenJDK](https://openjdk.java.net/projects/code-tools/jmh/) website;
     written in Java and other languages targeting the JVM."
 
 #### Junit5 & AssertK
+
+
 #### Test-Driven Development
+
+
 #### VisualVM Sampling & Profiling
 
 ## The Days

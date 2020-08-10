@@ -6,5 +6,5 @@ Okay, what do we know?
 - We need to find every possible combination of paths/order in which you collect the keys.
 
 Performance Issues
-- Introduce Cache
+- Introduce Cache: Each time you find a key, check the cache for an existing path.
 - Can we not just graph all the weights between all the keys once at the start? Then traverse this graph?

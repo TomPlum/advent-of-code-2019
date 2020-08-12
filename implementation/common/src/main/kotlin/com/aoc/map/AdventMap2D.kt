@@ -58,7 +58,7 @@ abstract class AdventMap2D<T> {
      * then it is omitted from the response.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
-    protected fun filterPoints(positions: Set<Point2D>): Map<Point2D, T> = positions.filter(this::hasRecorded).associateWith(this::getTile)
+    protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> = positions.filter(this::hasRecorded).associateWith(this::getTile)
 
     /**
      * Gets all the tiles that equate to true on the given [predicate].

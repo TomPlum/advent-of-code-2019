@@ -2,12 +2,12 @@ package com.aoc.vault
 
 import com.aoc.math.Point2D
 
-data class Key(val name: Char, val pos: Point2D, val collectedKeys: Set<Key>) {
+data class Key(val name: Char, val pos: Point2D, val collectedKeys: List<Key>) {
     val linkedKeys = mutableMapOf<Key, Float>()
 
     fun linkTo(key: Key, weight: Float) = linkedKeys.put(key, weight)
 
-    fun getAllChildren(): Set<Key> = linkedKeys.keys + linkedKeys.keys.flatMap { it.getAllChildren() }
+    fun getAllChildren(): List<Key> = linkedKeys.keys.toList() + linkedKeys.keys.flatMap { it.getAllChildren() }.toList()
 
     fun getLinkedKeyWeight(name: Char) = linkedKeys.filter { it.key.name == name }.values.first()
 

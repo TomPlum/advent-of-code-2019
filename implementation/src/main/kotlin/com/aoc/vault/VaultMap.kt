@@ -8,6 +8,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
     private val root: Key
+    private val cache = VaultCache()
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -28,7 +29,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
         //Convert Entrance -> Key (Root Node)
-        root = Key(entranceTile.value.value, entranceTile.key, setOf())
+        root = Key(entranceTile.value.value, entranceTile.key, listOf())
 
         AdventLogger.debug(this)
     }
@@ -98,9 +99,9 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
     }
 
     private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {
-        val keyTiles = mutableSetOf<Triple<Point2D, VaultTile, Float>>()
-        val nextPositions = mutableSetOf(sourceKey.pos)
-        val visited = mutableSetOf(sourceKey.pos)
+        val keyTiles = mutableListOf<Triple<Point2D, VaultTile, Float>>()
+        val nextPositions = mutableListOf(sourceKey.pos)
+        val visited = mutableListOf(sourceKey.pos)
         val collectedKeys = sourceKey.collectedKeys + sourceKey
         var steps = 0F
 
@@ -108,7 +109,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
             steps++
 
             //Get Un-Visited Adjacent Points
-            val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }.toSet()
+            val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }
             visited.addAll(adjacentPositions)
 
             val adjacentTiles = filterPoints(adjacentPositions)

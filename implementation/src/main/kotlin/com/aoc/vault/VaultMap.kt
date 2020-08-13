@@ -69,33 +69,17 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private fun graphKeyPaths(foundKeys: List<Key>) {
         foundKeys.forEach { sourceKey ->
-            if (sourceKey.collectedKeysQuantity() == totalKeyQuantity) {
-                //AdventLogger.debug("Found Path: ${sourceKey.pathString()} - ${shortestPath(sourceKey.collectedKeys.toList())} ")
-            }
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
-                //If we've already graphed the key, grab it from the graph
-                if (root.hasTransitivelyLinkedKey(sourceKey)) {
-                    val existing = root.getAllChildren().filter { it.name == sourceKey.name }
-                    val withMostKeys = existing.maxBy { it.linkedKeys.count() }
-                    if (withMostKeys != null && withMostKeys.linkedKeys.count() > 0 && withMostKeys.collectedKeys == sourceKey.collectedKeys) {
-                        withMostKeys.linkedKeys.forEach { sourceKey.linkTo(it.key, it.value) }
-                    } else {
-                        graphUnchartedKey(sourceKey)
-                    }
-                } else {
-                    graphUnchartedKey(sourceKey)
+                val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
+                accessibleKeys.forEach { (key, weight) ->
+                    val targetKey = cache.get(key) ?: key
+                    sourceKey.linkTo(key, weight)
+                    cache.add(sourceKey)
+                    AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
                 }
+                graphKeyPaths(accessibleKeys.keys.toList())
             }
         }
-    }
-
-    private fun graphUnchartedKey(sourceKey: Key) {
-        val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
-        accessibleKeys.forEach { entry ->
-            AdventLogger.debug("Mapping $sourceKey -> ${entry.key} (${entry.value})")
-            sourceKey.linkTo(entry.key, entry.value)
-        }
-        graphKeyPaths(accessibleKeys.keys.toList())
     }
 
     private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {

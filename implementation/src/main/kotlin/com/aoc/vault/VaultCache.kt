@@ -3,14 +3,17 @@ package com.aoc.vault
 import com.aoc.log.AdventLogger
 
 class VaultCache {
-    private val cache = mutableListOf<Key>()
+    private val cache: MutableMap<Char, Key> = mutableMapOf()
 
-    fun add(key: Key) = cache.add(key)
+    fun add(key: Key) = cache.put(key.name, key)
 
     fun get(key: Key): Key? {
-        AdventLogger.debug("[${this::class.simpleName}] Retrieving Key ${key.name}")
-        return cache.find { it == key }
+        val found = cache[key.name]
+        if (found != null) {
+            AdventLogger.debug("[${this::class.simpleName}] Retrieving Key ${key.name}")
+        }
+        return found
     }
 
-    fun contains(key: Key): Boolean = cache.contains(key)
+    fun contains(key: Key): Boolean = cache.contains(key.name)
 }

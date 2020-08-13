@@ -39,7 +39,6 @@ class VaultMapTest {
 
     @Test
     fun exampleFive() {
-        //Thread.sleep(5000)
         val input = TestInputReader().readInputAsString("/vault/example-5.txt").value
         val steps = VaultMap(input).collectKeys()
         assertThat(steps).isEqualTo(81)

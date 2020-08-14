@@ -2,10 +2,14 @@ package com.aoc.vault
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.annotation.WaitForVisualVM
+import com.aoc.extension.SupportsVisualVM
 import com.aoc.input.TestInputReader
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SupportsVisualVM::class)
 class VaultMapTest {
 
     @Test
@@ -38,6 +42,7 @@ class VaultMapTest {
     }
 
     @Test
+    @WaitForVisualVM(10)
     fun exampleFive() {
         val input = TestInputReader().readInputAsString("/vault/example-5.txt").value
         val steps = VaultMap(input).collectKeys()

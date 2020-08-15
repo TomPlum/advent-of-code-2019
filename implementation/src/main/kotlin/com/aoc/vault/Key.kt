@@ -28,7 +28,7 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: List<Key>) {
     }
 
     override fun hashCode(): Int {
-        return super.hashCode()
+        return name.hashCode() + pos.hashCode() + collectedKeys.hashCode()
     }
 
     override fun toString() = name.toString()

@@ -8,7 +8,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
     private val root: Key
-    private val cache = VaultCache()
+    private val cache: VaultCache
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -24,6 +24,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
 
         totalKeyQuantity = filterTiles { it.isKey() || it.isEntrance() }.count()
+        cache = VaultCache(totalKeyQuantity)
 
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
@@ -32,6 +33,13 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         root = Key(entranceTile.value.value, entranceTile.key, listOf())
 
         AdventLogger.debug(this)
+    }
+
+    private fun preComputeDistancesBetweenKeys() {
+        val keyPositions = filterTiles { it.isKey() }
+        keyPositions.forEach { pos, tile ->
+
+        }
     }
 
     /**
@@ -73,12 +81,13 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { (key, weight) ->
                     val targetKey = cache.get(key) ?: key
-                    sourceKey.linkTo(key, weight)
+                    sourceKey.linkTo(targetKey, weight)
                     cache.add(sourceKey)
                     AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
                 }
                 graphKeyPaths(accessibleKeys.keys.toList())
             }
+            AdventLogger.debug("Found Path: ${sourceKey.pathString()}")
         }
     }
 
@@ -107,7 +116,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
                 collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
             }.forEach { nextPositions.add(it.key) }
 
-            //Add Keys We've Already Collected
+            //Add Keys We've Already Collected Up-Next
             adjacentTiles.filterValues { it.isKey() }.filterValues {
                 collectedKeys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
             }.forEach { nextPositions.add(it.key) }

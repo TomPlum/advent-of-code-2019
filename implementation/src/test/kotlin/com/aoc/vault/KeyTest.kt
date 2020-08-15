@@ -7,13 +7,14 @@ import assertk.assertions.isNotEqualTo
 import assertk.assertions.isTrue
 import com.aoc.math.Point2D
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class KeyTest {
     private val a = Key('a', Point2D(0,0), listOf())
-    private val b = Key('b', Point2D(0,5), listOf())
-    private val c = Key('c', Point2D(15,1), listOf())
-    private val d = Key('d', Point2D(3,12), listOf())
+    private val b = Key('b', Point2D(0,5), listOf(a))
+    private val c = Key('c', Point2D(15,1), listOf(a,b))
+    private val d = Key('d', Point2D(3,12), listOf(a,b,c))
 
     @Test
     fun linkKeys() {
@@ -74,31 +75,36 @@ class KeyTest {
         assertThat(Key('a', Point2D(0,0), listOf()).toString()).isEqualTo("a")
     }
 
-    @Test
-    fun equalityPositive() {
-        val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
-        val e2 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
-        assertThat(e1).isEqualTo(e2)
+    @Nested
+    inner class Equality {
+        @Test
+        fun equal() {
+            val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
+            val e2 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
+            assertThat(e1).isEqualTo(e2)
+        }
+
+        @Test
+        fun differentCollectedKeys() {
+            val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
+            val e2 = Key('e', Point2D(5, 17), listOf(a,b,c))
+            assertThat(e1).isNotEqualTo(e2)
+        }
+
+        @Test
+        fun differentCoordinate() {
+            val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
+            val e2 = Key('e', Point2D(4, 1), listOf(a,b,c,d))
+            assertThat(e1).isNotEqualTo(e2)
+        }
+
+        @Test
+        fun differentName() {
+            val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
+            val e2 = Key('E', Point2D(5, 17), listOf(a,b,c,d))
+            assertThat(e1).isNotEqualTo(e2)
+        }
     }
 
-    @Test
-    fun equalityTestNegativeDifferentCollectedKeys() {
-        val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
-        val e2 = Key('e', Point2D(5, 17), listOf(a,b,c))
-        assertThat(e1).isNotEqualTo(e2)
-    }
 
-    @Test
-    fun equalityTestNegativeDifferentCoordinate() {
-        val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
-        val e2 = Key('e', Point2D(4, 1), listOf(a,b,c,d))
-        assertThat(e1).isNotEqualTo(e2)
-    }
-
-    @Test
-    fun equalityTestNegativeDifferentName() {
-        val e1 = Key('e', Point2D(5, 17), listOf(a,b,c,d))
-        val e2 = Key('E', Point2D(5, 17), listOf(a,b,c,d))
-        assertThat(e1).isNotEqualTo(e2)
-    }
 }

@@ -9,9 +9,11 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: List<Key>) {
 
     fun getAllChildren(): List<Key> = linkedKeys.keys.toList() + linkedKeys.keys.flatMap { it.getAllChildren() }.toList()
 
-    fun getLinkedKeyWeight(name: Char) = linkedKeys.filter { it.key.name == name }.values.first()
+    fun getLinkedKeyWeight(key: Key) = linkedKeys.filter { it.key.name == key.name }.values.firstOrNull()
 
-    fun steps() = collectedKeys.sumBy { it.linkedKeys.values.sum().toInt() }
+    fun steps(): Float = (collectedKeys + listOf(this)).zipWithNext { current, next ->
+        current.getLinkedKeyWeight(next) ?: 0F
+    }.sum()
 
     fun collectedKeysQuantity(): Int = collectedKeys.size + 1
 
@@ -28,7 +30,7 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: List<Key>) {
     }
 
     override fun hashCode(): Int {
-        return name.hashCode() + pos.hashCode() + collectedKeys.hashCode()
+        return name.hashCode() + pos.hashCode() + collectedKeys.map { it.name }.hashCode()
     }
 
     override fun toString() = name.toString()

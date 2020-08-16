@@ -16,58 +16,76 @@ class KeyTest {
     private val c = Key('c', Point2D(15,1), listOf(a,b))
     private val d = Key('d', Point2D(3,12), listOf(a,b,c))
 
-    @Test
-    fun linkKeys() {
-        val a = Key('a', Point2D(0,0), listOf())
-        val b = Key('b', Point2D(0,5), listOf())
-        a.linkTo(b, 5F)
-        assertThat(a.linkedKeys).isEqualTo(mapOf(Pair(b, 5F)))
+    @Nested
+    inner class LinkTo {
+        @Test
+        fun linkKeys() {
+            val a = Key('a', Point2D(0,0), listOf())
+            val b = Key('b', Point2D(0,5), listOf())
+            a.linkTo(b, 5F)
+            assertThat(a.linkedKeys).isEqualTo(mapOf(Pair(b, 5F)))
+        }
     }
 
-    @Test
-    fun getLinkedKeyWeight() {
-        val a = Key('a', Point2D(0,0), listOf())
-        val b = Key('b', Point2D(0,5), listOf())
-        a.linkTo(b, 5F)
-        assertThat(a.getLinkedKeyWeight('b')).isEqualTo(5F)
+    @Nested
+    inner class GetLinkedKeyWeight {
+        @Test
+        fun getLinkedKeyWeight() {
+            val a = Key('a', Point2D(0,0), listOf())
+            val b = Key('b', Point2D(0,5), listOf())
+            a.linkTo(b, 5F)
+            assertThat(a.getLinkedKeyWeight(b)).isEqualTo(5F)
+        }
     }
 
-    @Test
-    @DisplayName("Given a key with 4 collected keys, when getting the quantity, it should return 5 as to include itself")
-    fun collectedKeyQuantity() {
-        val e = Key('e', Point2D(15, 11), listOf(a,b,c,d))
-        assertThat(e.collectedKeysQuantity()).isEqualTo(5)
+    @Nested
+    inner class CollectedKeysQuantity {
+        @Test
+        @DisplayName("Given a key with 4 collected keys, when getting the quantity, it should return 5 as to include itself")
+        fun collectedKeyQuantity() {
+            val e = Key('e', Point2D(15, 11), listOf(a,b,c,d))
+            assertThat(e.collectedKeysQuantity()).isEqualTo(5)
+        }
     }
 
-    @Test
-    fun pathString() {
-        val e = Key('e', Point2D(15, 11), listOf(a,b,c,d))
-        assertThat(e.pathString()).isEqualTo("[a, b, c, d, e]")
+    @Nested
+    inner class PathString {
+        @Test
+        fun pathString() {
+            val e = Key('e', Point2D(15, 11), listOf(a,b,c,d))
+            assertThat(e.pathString()).isEqualTo("[a, b, c, d, e]")
+        }
     }
 
-    @Test
-    fun hasTransitivelyLinkedKeyPositive() {
-        a.linkTo(b, 10F)
-        b.linkTo(c, 5F)
-        c.linkTo(d, 1F)
-        assertThat(a.hasTransitivelyLinkedKey(d)).isTrue()
+    @Nested
+    inner class HasTransitivelyLinkedKey {
+        @Test
+        fun hasTransitivelyLinkedKeyPositive() {
+            a.linkTo(b, 10F)
+            b.linkTo(c, 5F)
+            c.linkTo(d, 1F)
+            assertThat(a.hasTransitivelyLinkedKey(d)).isTrue()
+        }
+
+        @Test
+        fun hasTransitivelyLinkedKeyNegative() {
+            val unlinkedKey = Key('e', Point2D(0, 1), listOf())
+            a.linkTo(b, 10F)
+            b.linkTo(c, 5F)
+            c.linkTo(d, 1F)
+            assertThat(a.hasTransitivelyLinkedKey(unlinkedKey)).isFalse()
+        }
     }
 
-    @Test
-    fun hasTransitivelyLinkedKeyNegative() {
-        val unlinkedKey = Key('e', Point2D(0, 1), listOf())
-        a.linkTo(b, 10F)
-        b.linkTo(c, 5F)
-        c.linkTo(d, 1F)
-        assertThat(a.hasTransitivelyLinkedKey(unlinkedKey)).isFalse()
-    }
-
-    @Test
-    fun getAllChildren() {
-        a.linkTo(b, 10F)
-        b.linkTo(c, 5F)
-        c.linkTo(d, 1F)
-        assertThat(a.getAllChildren()).isEqualTo(listOf(b,c,d))
+    @Nested
+    inner class GetAllChildren {
+        @Test
+        fun getAllChildren() {
+            a.linkTo(b, 10F)
+            b.linkTo(c, 5F)
+            c.linkTo(d, 1F)
+            assertThat(a.getAllChildren()).isEqualTo(listOf(b,c,d))
+        }
     }
 
     @Test
@@ -105,6 +123,5 @@ class KeyTest {
             assertThat(e1).isNotEqualTo(e2)
         }
     }
-
 
 }

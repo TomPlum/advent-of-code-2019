@@ -9,6 +9,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
     private val totalKeyQuantity: Int
     private val root: Key
     private val cache: VaultCache
+    private var shortestPathWeight = Float.POSITIVE_INFINITY
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -24,7 +25,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
 
         totalKeyQuantity = filterTiles { it.isKey() || it.isEntrance() }.count()
-        cache = VaultCache(totalKeyQuantity)
+        cache = VaultCache()
 
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
@@ -33,13 +34,6 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         root = Key(entranceTile.value.value, entranceTile.key, listOf())
 
         AdventLogger.debug(this)
-    }
-
-    private fun preComputeDistancesBetweenKeys() {
-        val keyPositions = filterTiles { it.isKey() }
-        keyPositions.forEach { pos, tile ->
-
-        }
     }
 
     /**
@@ -51,8 +45,8 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Create Key Graph
         graphKeyPaths(listOf(root))
 
-        val paths = getCompletePaths()
-        val shortestPathSteps = paths.map { shortestPath(it.collectedKeys.toList()) }.min()
+        val paths: List<Key> = getCompletePaths()
+        val shortestPathSteps = paths.map { it.steps() }.min()
 
         AdventLogger.info("\nFound ${paths.size} paths.")
         AdventLogger.info("The shortest path was ${shortestPathSteps!!.toInt()} steps.")
@@ -62,32 +56,28 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private fun getCompletePaths() = root.getAllChildren().filter { it.collectedKeysQuantity() == totalKeyQuantity }
 
-    //TODO: Make this functional
-    private fun shortestPath(keys: List<Key>): Float {
-        var cumulativeWeight = 0F
-        keys.forEachIndexed { i, key ->
-            cumulativeWeight += when {
-                key.linkedKeys.size == 1 -> key.linkedKeys.values.first()
-                key.linkedKeys.isEmpty() -> 0F //Last Key in Path
-                else -> key.getLinkedKeyWeight(keys[i + 1].name) //If there's two, grab the right one from the path
-            }
-        }
-        return cumulativeWeight
-    }
-
     private fun graphKeyPaths(foundKeys: List<Key>) {
-        foundKeys.forEach { sourceKey ->
+        foundKeys.filter { it.steps() < shortestPathWeight }.forEach { sourceKey ->
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
+                val keysToGraph = mutableListOf<Key>()
                 accessibleKeys.forEach { (key, weight) ->
                     val targetKey = cache.get(key) ?: key
                     sourceKey.linkTo(targetKey, weight)
                     cache.add(sourceKey)
                     AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
+
+                    /*if (targetKey.steps() <= shortestPathWeight) {
+                        keysToGraph.add(targetKey)
+                    }*/
                 }
+                //graphKeyPaths(keysToGraph)
                 graphKeyPaths(accessibleKeys.keys.toList())
+            } else {
+                val pathLength = sourceKey.steps().toFloat()
+                AdventLogger.debug("Found Path: ${sourceKey.pathString()} $pathLength steps")
+                if (pathLength < shortestPathWeight) shortestPathWeight = pathLength
             }
-            AdventLogger.debug("Found Path: ${sourceKey.pathString()}")
         }
     }
 

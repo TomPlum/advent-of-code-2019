@@ -230,17 +230,21 @@ class Point2DTest {
         }
     }
 
-    @ParameterizedTest
-    @CsvSource(value = ["1,1,1,1", "2,2,2,2", "-1,-1,-1,-1"])
-    @DisplayName("Given two Points that have the same cartesian coordinate, when checking their equality, they should be equal")
-    fun equalityTest(x0: Int, y0: Int, x1: Int, y1: Int) {
-        assertThat(Point2D(x0, y0)).isEqualTo(Point2D(x1, y1))
+    @Nested
+    inner class Equality {
+        @ParameterizedTest
+        @CsvSource(value = ["1,1,1,1", "2,2,2,2", "-1,-1,-1,-1"])
+        @DisplayName("Given two Points that have the same cartesian coordinate, when checking their equality, they should be equal")
+        fun equal(x0: Int, y0: Int, x1: Int, y1: Int) {
+            assertThat(Point2D(x0, y0)).isEqualTo(Point2D(x1, y1))
+        }
+
+        @ParameterizedTest
+        @CsvSource(value = ["1,1,0,1", "1,1,1,-1", "0,2,2,0"])
+        @DisplayName("Given two Points that have the different cartesian coordinate, when checking their equality, they should not be equal")
+        fun notEqual(x0: Int, y0: Int, x1: Int, y1: Int) {
+            assertThat(Point2D(x0, y0)).isNotEqualTo(Point2D(x1, y1))
+        }
     }
 
-    @ParameterizedTest
-    @CsvSource(value = ["1,1,0,1", "1,1,1,-1", "0,2,2,0"])
-    @DisplayName("Given two Points that have the different cartesian coordinate, when checking their equality, they should not be equal")
-    fun inequalityTest(x0: Int, y0: Int, x1: Int, y1: Int) {
-        assertThat(Point2D(x0, y0)).isNotEqualTo(Point2D(x1, y1))
-    }
 }

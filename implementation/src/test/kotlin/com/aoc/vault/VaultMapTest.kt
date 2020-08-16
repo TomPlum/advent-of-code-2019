@@ -42,7 +42,6 @@ class VaultMapTest {
     }
 
     @Test
-    @WaitForVisualVM(10)
     fun exampleFive() {
         val input = TestInputReader().readInputAsString("/vault/example-5.txt").value
         val steps = VaultMap(input).collectKeys()

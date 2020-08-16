@@ -86,12 +86,41 @@ From the [OpenJDK](https://openjdk.java.net/projects/code-tools/jmh/) website;
     written in Java and other languages targeting the JVM."
 
 #### Junit5 & AssertK
+The JUnit5 Jupiter API exposes some really nice functionality in the form of annotations and offers callback 
+interfaces for each of the life-cycle events. Utilising the `@ParameterizedTest` can significantly reduce the
+quantity of test-methods in your unit tests suites while `@Nested` allows you to organise your tests in nested
+classes.
 
+[AssertK](https://git.io/JJd1g) is an assertion library inspired by [AssertJ](https://git.io/JJd1a) but for Kotlin.
+I'm familiar with AssertJ and prefer the naming conventions and variety of assertions over the default JUnit offering.
 
 #### Test-Driven Development
 
 
 #### VisualVM Sampling & Profiling
+During the first iterations of the graphing algorithms, runtime performance was an issue. There were several cases where
+the first rough implementation passed all the example tests, but didn't suffice for the scaled puzzle input.
+
+This is where [VisualVM](https://visualvm.github.io/) came in handy. The aforementioned desktop-client in tandem with
+the [IntelliJ Plugin](https://plugins.jetbrains.com/plugin/7115-visualvm-launcher) made it easy to run a given unit test
+with a VisualVM instance attached the JVM process. This allowed me to sample and profile classes of my choice to find
+the source of the performance issues.
+
+One problem I ran into (and seemingly many others online too) was that JUnit5 bootstrapped and ran my test so quickly
+that it finished before VisualVM even had a change to boot-up. A common solution I'd seen was to simply add a
+`Thread.sleep(x)` line at the start of the test method. Although this is the solution I technically went with, I
+abstracted it into a [`@WaitForVisualVM`](https://git.io/JJdg1) annotation and created a custom implementation
+of the Jupiter APIs [`BeforeTestExecutionCallback`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/BeforeTestExecutionCallback.html)
+interface called [`SupportsVisualVM.kt`](https://git.io/JJd2e) which can be added to a test-suite class using the
+[`@ExtendWith`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/ExtendWith.html) annotation.
+
+This kept things inline with the 'enterprise-style' aspect of my codebase as it did the following;
+- Wrapped the dubious `Thread.sleep()` call with a self-explanatory annotation (and is also documented).
+- Removed noise from the test method and ensured that it always runs before test-execution.
+- Allows developers to easily disable all waiting for tests in a suite by simply removing the support extension.
+- Makes it easier to refactor in the future the as implementation specifics are encapsulated in the annotation.
+
+Although it might seem over-engineered, it's really just a trivial example to demonstrate the concept and its benefits.
 
 ## The Days
 ### Most Challenging (Day 18)

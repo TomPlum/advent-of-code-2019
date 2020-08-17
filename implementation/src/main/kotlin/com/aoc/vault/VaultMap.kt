@@ -8,8 +8,8 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
     private val root: Key
-    private val cache: VaultCache
-    private var shortestPathWeight = Float.POSITIVE_INFINITY
+    private val cache = VaultCache()
+    private val paths: MutableMap<Key, Float> = mutableMapOf()
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -25,7 +25,6 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
 
         totalKeyQuantity = filterTiles { it.isKey() || it.isEntrance() }.count()
-        cache = VaultCache()
 
         //Find Entrance
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
@@ -45,47 +44,40 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Create Key Graph
         graphKeyPaths(listOf(root))
 
-        val paths: List<Key> = getCompletePaths()
-        val shortestPathSteps = paths.map { it.steps() }.min()
+        val shortestPathWeight = paths.values.min()!!
 
-        AdventLogger.info("\nFound ${paths.size} paths.")
-        AdventLogger.info("The shortest path was ${shortestPathSteps!!.toInt()} steps.")
+        AdventLogger.info("\nFound ${paths.size} path(s).")
+        AdventLogger.info("The shortest path was ${shortestPathWeight.toInt()} steps.")
 
-        return shortestPathSteps.toInt()
+        return shortestPathWeight.toInt()
     }
 
-    private fun getCompletePaths() = root.getAllChildren().filter { it.collectedKeysQuantity() == totalKeyQuantity }
-
     private fun graphKeyPaths(foundKeys: List<Key>) {
+        val shortestPathWeight = paths.values.min() ?: Float.POSITIVE_INFINITY
+
         foundKeys.filter { it.steps() < shortestPathWeight }.forEach { sourceKey ->
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
-                val keysToGraph = mutableListOf<Key>()
                 accessibleKeys.forEach { (key, weight) ->
                     val targetKey = cache.get(key) ?: key
                     sourceKey.linkTo(targetKey, weight)
-                    cache.add(sourceKey)
+                    cache.add(sourceKey) //TODO: use getOrPut instead
                     AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
-
-                    /*if (targetKey.steps() <= shortestPathWeight) {
-                        keysToGraph.add(targetKey)
-                    }*/
                 }
-                //graphKeyPaths(keysToGraph)
                 graphKeyPaths(accessibleKeys.keys.toList())
             } else {
-                val pathLength = sourceKey.steps().toFloat()
+                val pathLength = sourceKey.steps()
+                paths[sourceKey] = pathLength
                 AdventLogger.debug("Found Path: ${sourceKey.pathString()} $pathLength steps")
-                if (pathLength < shortestPathWeight) shortestPathWeight = pathLength
             }
         }
     }
 
-    private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): MutableMap<Key, Float> {
-        val keyTiles = mutableListOf<Triple<Point2D, VaultTile, Float>>()
+    private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): Map<Key, Float> {
+        val accessibleKeys = mutableMapOf<Key, Float>()
         val nextPositions = mutableListOf(sourceKey.pos)
         val visited = mutableListOf(sourceKey.pos)
-        val collectedKeys = sourceKey.collectedKeys + sourceKey
+        val collectedKeys = sourceKey.collectedKeys()
         var steps = 0F
 
         while (nextPositions.isNotEmpty()) {
@@ -112,13 +104,13 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
             }.forEach { nextPositions.add(it.key) }
 
             //Record Accessible Keys
-            keyTiles.addAll(adjacentTiles.filterValues { it.isKey() }.map { Triple(it.key, it.value, steps) })
+            adjacentTiles.filterValues { it.isKey() }.forEach { (pos, tile) ->
+                accessibleKeys[Key(tile.value, pos, collectedKeys)] = steps
+            }
         }
 
         //Map & Filter Keys if Not Collected
-        return keyTiles.associate { Key(it.second.value, it.first, collectedKeys) to it.third }
-                .filter { entry -> collectedKeys.count { key -> key.name.equals(entry.key.name, true) } == 0 }
-                .toMutableMap()
+        return accessibleKeys.filterKeys { key -> !collectedKeys.map { it.name }.contains(key.name) }
     }
 
 }

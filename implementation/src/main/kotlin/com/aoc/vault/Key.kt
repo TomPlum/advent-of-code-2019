@@ -11,11 +11,13 @@ data class Key(val name: Char, val pos: Point2D, val collectedKeys: List<Key>) {
 
     fun getLinkedKeyWeight(key: Key) = linkedKeys.filter { it.key.name == key.name }.values.firstOrNull()
 
-    fun steps(): Float = (collectedKeys + listOf(this)).zipWithNext { current, next ->
+    fun steps(): Float = collectedKeys().zipWithNext { current, next ->
         current.getLinkedKeyWeight(next) ?: 0F
     }.sum()
 
     fun collectedKeysQuantity(): Int = collectedKeys.size + 1
+
+    fun collectedKeys() = collectedKeys + listOf(this)
 
     fun pathString(): String = "[${(collectedKeys + this).joinToString(", ") { it.name.toString() } }]"
 

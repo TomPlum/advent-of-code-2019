@@ -3,12 +3,12 @@ package com.aoc.vault
 import com.aoc.log.AdventLogger
 
 class VaultCache {
-    private val cache = HashSet<Key>()
+    private val cache = HashMap<Key, Key>()
 
-    fun add(key: Key) = cache.add(key)
+    fun add(key: Key) = cache.put(key, key)
 
     fun get(key: Key): Key? {
-        val found = cache.find { it == key }
+        val found = cache[key]
         if (found != null) AdventLogger.debug("[${this::class.simpleName}] Retrieving Key ${key.name}")
         return found
     }

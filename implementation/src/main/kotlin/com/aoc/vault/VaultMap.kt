@@ -7,7 +7,7 @@ import com.aoc.math.Point2D
 class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
-    private val root: Key
+    private val graph: Key
     private val cache = VaultCache()
     private val paths: MutableMap<Key, Float> = mutableMapOf()
 
@@ -30,7 +30,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
         //Convert Entrance -> Key (Root Node)
-        root = Key(entranceTile.value.value, entranceTile.key, listOf())
+        graph = Key(entranceTile.value.value, entranceTile.key, listOf())
 
         AdventLogger.debug(this)
     }
@@ -42,12 +42,13 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
      */
     fun collectKeys(): Int {
         //Create Key Graph
-        graphKeyPaths(listOf(root))
+        graphKeyPaths(listOf(graph))
 
-        val shortestPathWeight = paths.values.min()!!
+        val shortestPathWeight = paths.values.min() ?: 0F
 
         AdventLogger.info("\nFound ${paths.size} path(s).")
         AdventLogger.info("The shortest path was ${shortestPathWeight.toInt()} steps.")
+        AdventLogger.info("${cache.entries()} key states were cached.")
 
         return shortestPathWeight.toInt()
     }
@@ -59,9 +60,8 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { (key, weight) ->
-                    val targetKey = cache.get(key) ?: key
+                    val targetKey = cache.get(key)
                     sourceKey.linkTo(targetKey, weight)
-                    cache.add(sourceKey) //TODO: use getOrPut instead
                     AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
                 }
                 graphKeyPaths(accessibleKeys.keys.toList())
@@ -94,17 +94,19 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
             adjacentTiles.filterValues { it.isTraversable() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
 
             //Add Doors (That We Have Keys For) Up-Next
-            adjacentTiles.filterValues { it.isDoor() }.filter { door ->
-                collectedKeys.count { key -> key.name.equals(door.value.value, true) } == 1
+            adjacentTiles.filterValues { it.isDoor() }.filterValues { tile ->
+                collectedKeys.map { it.name }.contains(tile.value.toLowerCase())
             }.forEach { nextPositions.add(it.key) }
 
+            val keyTiles = adjacentTiles.filterValues { it.isKey() }
+
             //Add Keys We've Already Collected Up-Next
-            adjacentTiles.filterValues { it.isKey() }.filterValues {
-                collectedKeys.count { key -> key.name.equals(it.value, true) } == 1 //TODO: Key class equals override to compare value (data class?)
+            keyTiles.filterValues { tile ->
+                collectedKeys.map { it.name }.contains(tile.value)
             }.forEach { nextPositions.add(it.key) }
 
             //Record Accessible Keys
-            adjacentTiles.filterValues { it.isKey() }.forEach { (pos, tile) ->
+            keyTiles.forEach { (pos, tile) ->
                 accessibleKeys[Key(tile.value, pos, collectedKeys)] = steps
             }
         }

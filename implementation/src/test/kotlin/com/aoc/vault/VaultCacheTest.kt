@@ -41,7 +41,8 @@ class VaultCacheTest {
             val key = Key('A', Point2D(12,15), listOf(Key('B', Point2D(1,9), emptyList())))
             val cache = VaultCache()
             cache.add(key)
-            assertThat(cache.get(Key('A', Point2D(12,15), listOf(Key('C', Point2D(2,5), emptyList()))))).isNull()
+            val search = Key('A', Point2D(12, 15), listOf(Key('C', Point2D(2, 5), emptyList())))
+            assertThat(cache.get(search)).isEqualTo(search)
         }
     }
 

@@ -80,32 +80,32 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected open fun xMin() = data.keys.filter { it.z == 0 }.minBy { it.x }!!.x
+    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }!!.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected open fun yMin() = data.keys.minBy { it.y }!!.y
+    protected open fun yMin() = data.keys.minByOrNull { it.y }!!.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
      */
-    protected fun zMin() = data.keys.minBy { it.z }!!.z
+    protected fun zMin() = data.keys.minByOrNull { it.z }!!.z
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxBy { it.x }!!.x
+    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }!!.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected open fun yMax() = data.keys.maxBy { it.y }!!.y
+    protected open fun yMax() = data.keys.maxByOrNull { it.y }!!.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun zMax() = data.keys.maxBy { it.z }!!.z
+    protected fun zMax() = data.keys.maxByOrNull { it.z }!!.z
 
     fun toStringTopLevel() {
         (yMin()..yMax()).joinToString("\n") { y ->

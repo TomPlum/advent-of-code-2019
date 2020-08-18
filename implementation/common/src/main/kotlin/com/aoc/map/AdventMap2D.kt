@@ -95,22 +95,22 @@ abstract class AdventMap2D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin() = data.keys.minBy { it.x }!!.x
+    protected fun xMin() = data.keys.minByOrNull { it.x }!!.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin() = data.keys.minBy { it.y }!!.y
+    protected fun yMin() = data.keys.minByOrNull { it.y }!!.y
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax() = data.keys.maxBy { it.x }!!.x
+    protected fun xMax() = data.keys.maxByOrNull { it.x }!!.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax() = data.keys.maxBy { it.y }!!.y
+    protected fun yMax() = data.keys.maxByOrNull { it.y }!!.y
 
     /**
      * Two [AdventMap2D]s are equal to one another if they have the same [data].

@@ -44,7 +44,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Create Key Graph
         graphKeyPaths(listOf(graph))
 
-        val shortestPathWeight = paths.values.min() ?: 0F
+        val shortestPathWeight = paths.values.minOrNull() ?: 0F
 
         AdventLogger.info("\nFound ${paths.size} path(s).")
         AdventLogger.info("The shortest path was ${shortestPathWeight.toInt()} steps.")
@@ -54,7 +54,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
     }
 
     private fun graphKeyPaths(foundKeys: List<Key>) {
-        val shortestPathWeight = paths.values.min() ?: Float.POSITIVE_INFINITY
+        val shortestPathWeight = paths.values.minOrNull() ?: Float.POSITIVE_INFINITY
 
         foundKeys.filter { it.steps() < shortestPathWeight }.forEach { sourceKey ->
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {

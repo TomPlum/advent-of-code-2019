@@ -27,7 +27,7 @@ class AsteroidMap(mapData: List<String>) {
             }.toSet())
         }
 
-        val optimal = angleMap.maxBy { it.value.size }
+        val optimal = angleMap.maxByOrNull { it.value.size }
 
         return Pair(optimal!!.key, optimal.value.size)
     }

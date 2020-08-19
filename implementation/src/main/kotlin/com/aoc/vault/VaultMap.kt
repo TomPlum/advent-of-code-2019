@@ -42,29 +42,29 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
      */
     fun collectKeys(): Int {
         //Create Key Graph
-        graphKeyPaths(listOf(graph))
+        graphKeyPaths(graph)
 
         val shortestPathWeight = paths.values.minOrNull() ?: 0F
 
-        AdventLogger.info("\nFound ${paths.size} path(s).")
+        AdventLogger.info("Found ${paths.size} path(s).")
         AdventLogger.info("The shortest path was ${shortestPathWeight.toInt()} steps.")
         AdventLogger.info("${cache.entries()} key states were cached.")
 
         return shortestPathWeight.toInt()
     }
 
-    private fun graphKeyPaths(foundKeys: List<Key>) {
+    private fun graphKeyPaths(sourceKey: Key) {
         val shortestPathWeight = paths.values.minOrNull() ?: Float.POSITIVE_INFINITY
 
-        foundKeys.filter { it.steps() < shortestPathWeight }.forEach { sourceKey ->
+        if (sourceKey.steps() < shortestPathWeight) {
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
                 val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                 accessibleKeys.forEach { (key, weight) ->
                     val targetKey = cache.get(key)
                     sourceKey.linkTo(targetKey, weight)
                     AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
+                    graphKeyPaths(targetKey)
                 }
-                graphKeyPaths(accessibleKeys.keys.toList())
             } else {
                 val pathLength = sourceKey.steps()
                 paths[sourceKey] = pathLength
@@ -75,35 +75,35 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private fun getUncollectedAccessibleKeysFrom(sourceKey: Key): Map<Key, Float> {
         val accessibleKeys = mutableMapOf<Key, Float>()
-        val nextPositions = mutableListOf(sourceKey.pos)
+        val next = mutableListOf(sourceKey.pos)
         val visited = mutableListOf(sourceKey.pos)
         val collectedKeys = sourceKey.collectedKeys()
+        val collectedKeyNames = collectedKeys.map { it.name }
         var steps = 0F
 
-        while (nextPositions.isNotEmpty()) {
+        while (next.isNotEmpty()) {
             steps++
 
             //Get Un-Visited Adjacent Points
-            val adjacentPositions = nextPositions.flatMap { it.adjacentPoints() }.filter { it !in visited }
+            val adjacentPositions = next.flatMap { it.adjacentPoints() }.filter { it !in visited }
             visited.addAll(adjacentPositions)
 
             val adjacentTiles = filterPoints(adjacentPositions)
-            nextPositions.clear()
+            next.clear()
 
             //Add Traversable Tiles & The Entrance (In-Case we backtrack over it)
-            adjacentTiles.filterValues { it.isTraversable() || it.isEntrance() }.forEach { nextPositions.add(it.key) }
+            adjacentTiles.filterValues { it.isTraversable() || it.isEntrance() }.forEach { next.add(it.key) }
 
             //Add Doors (That We Have Keys For) Up-Next
             adjacentTiles.filterValues { it.isDoor() }.filterValues { tile ->
-                collectedKeys.map { it.name }.contains(tile.value.toLowerCase())
-            }.forEach { nextPositions.add(it.key) }
+                collectedKeyNames.contains(tile.value.toLowerCase())
+            }.forEach { next.add(it.key) }
 
+            //If we've stepped on a tile with a key
             val keyTiles = adjacentTiles.filterValues { it.isKey() }
 
             //Add Keys We've Already Collected Up-Next
-            keyTiles.filterValues { tile ->
-                collectedKeys.map { it.name }.contains(tile.value)
-            }.forEach { nextPositions.add(it.key) }
+            keyTiles.filterValues { tile -> collectedKeyNames.contains(tile.value) }.forEach { next.add(it.key) }
 
             //Record Accessible Keys
             keyTiles.forEach { (pos, tile) ->
@@ -112,7 +112,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
 
         //Map & Filter Keys if Not Collected
-        return accessibleKeys.filterKeys { key -> !collectedKeys.map { it.name }.contains(key.name) }
+        return accessibleKeys.filterKeys { key -> !collectedKeyNames.contains(key.name) }
     }
 
 }

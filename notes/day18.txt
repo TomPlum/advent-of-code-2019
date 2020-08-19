@@ -8,3 +8,5 @@ Okay, what do we know?
 Performance Issues
 - Introduce Cache: Each time you find a key, check the cache for an existing path.
 - Can we not just graph all the weights between all the keys once at the start? Then traverse this graph?
+- The cache is currently not working because the accessibleKeys function is adding the source key to the collectedKeys.
+  This means that there is is always a single key (The source key) different when checking key equality in the cache.

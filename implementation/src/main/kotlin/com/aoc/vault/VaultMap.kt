@@ -30,7 +30,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
         //Convert Entrance -> Key (Root Node)
-        graph = Key(entranceTile.value.value, entranceTile.key, listOf())
+        graph = Key(entranceTile.value.value, entranceTile.key, mutableListOf())
 
         AdventLogger.debug(this)
     }
@@ -77,17 +77,18 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val accessibleKeys = mutableMapOf<Key, Float>()
         val next = mutableListOf(sourceKey.pos)
         val visited = mutableListOf(sourceKey.pos)
-        val collectedKeys = sourceKey.collectedKeys()
+        val collectedKeys = sourceKey.collectedKeys().toMutableList()
         val collectedKeyNames = collectedKeys.map { it.name }
         var steps = 0F
 
         while (next.isNotEmpty()) {
             steps++
 
-            //Get Un-Visited Adjacent Points
+            //Get Un-Visited Adjacent Points (Then Mark Visited)
             val adjacentPositions = next.flatMap { it.adjacentPoints() }.filter { it !in visited }
             visited.addAll(adjacentPositions)
 
+            //Get Un-Visited Adjacent Tiles (Then Clear Next)
             val adjacentTiles = filterPoints(adjacentPositions)
             next.clear()
 
@@ -106,9 +107,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
             keyTiles.filterValues { tile -> collectedKeyNames.contains(tile.value) }.forEach { next.add(it.key) }
 
             //Record Accessible Keys
-            keyTiles.forEach { (pos, tile) ->
-                accessibleKeys[Key(tile.value, pos, collectedKeys)] = steps
-            }
+            keyTiles.forEach { (pos, tile) -> accessibleKeys[Key(tile.value, pos, collectedKeys)] = steps }
         }
 
         //Map & Filter Keys if Not Collected

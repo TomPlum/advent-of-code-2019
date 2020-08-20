@@ -18,6 +18,8 @@ class VaultCache {
         }
     }
 
+    fun getOrNull(key: Key) = cache[key]
+
     fun entries() = cache.size
 
     fun contains(key: Key): Boolean = cache.contains(key)

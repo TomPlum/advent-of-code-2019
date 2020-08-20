@@ -14,8 +14,8 @@ class VaultCacheTest {
     inner class Add {
         fun add() {
             val cache = VaultCache()
-            cache.add(Key('A', Point2D(0,0), emptyList()))
-            assertThat(cache.contains(Key('A', Point2D(0,0), emptyList())))
+            cache.add(Key('A', Point2D(0,0), mutableListOf()))
+            assertThat(cache.contains(Key('A', Point2D(0,0), mutableListOf())))
         }
     }
 
@@ -23,14 +23,14 @@ class VaultCacheTest {
     inner class Get {
         fun get() {
             val cache = VaultCache()
-            val key = Key('A', Point2D(0, 0), emptyList())
+            val key = Key('A', Point2D(0, 0), mutableListOf())
             cache.add(key)
             assertThat(cache.get(key)).isEqualTo(key)
         }
 
         @Test
         fun getWhenCollectedKeysAreSame() {
-            val key = Key('A', Point2D(12,15), listOf(Key('B', Point2D(1,9), emptyList())))
+            val key = Key('A', Point2D(12,15), mutableListOf(Key('B', Point2D(1,9), mutableListOf())))
             val cache = VaultCache()
             cache.add(key)
             assertThat(cache.get(key)).isEqualTo(key)
@@ -38,10 +38,10 @@ class VaultCacheTest {
 
         @Test
         fun getWhenCollectedKeysAreDifferent() {
-            val key = Key('A', Point2D(12,15), listOf(Key('B', Point2D(1,9), emptyList())))
+            val key = Key('A', Point2D(12,15), mutableListOf(Key('B', Point2D(1,9), mutableListOf())))
             val cache = VaultCache()
             cache.add(key)
-            assertThat(cache.get(Key('A', Point2D(12,15), listOf(Key('C', Point2D(2,5), emptyList()))))).isNull()
+            assertThat(cache.get(Key('A', Point2D(12,15), mutableListOf(Key('C', Point2D(2,5), mutableListOf()))))).isNull()
         }
     }
 
@@ -49,43 +49,43 @@ class VaultCacheTest {
     inner class Contains {
         @Test
         fun emptyCache() {
-            assertThat(VaultCache().contains(Key('F', Point2D(23,5), emptyList()))).isFalse()
+            assertThat(VaultCache().contains(Key('F', Point2D(23,5), mutableListOf()))).isFalse()
         }
 
         @Test
         fun doesNotContain() {
             val cache = VaultCache()
-            cache.add(Key('T', Point2D(12, 3), emptyList()))
-            assertThat(cache.contains(Key('F', Point2D(23,5), emptyList()))).isFalse()
+            cache.add(Key('T', Point2D(12, 3), mutableListOf()))
+            assertThat(cache.contains(Key('F', Point2D(23,5), mutableListOf()))).isFalse()
         }
 
         @Test
         fun containsKeyWithNoLinks() {
             val cache = VaultCache()
-            cache.add(Key('V', Point2D(4, 14), emptyList()))
-            assertThat(cache.contains(Key('V', Point2D(4, 14), emptyList()))).isTrue()
+            cache.add(Key('V', Point2D(4, 14), mutableListOf()))
+            assertThat(cache.contains(Key('V', Point2D(4, 14), mutableListOf()))).isTrue()
         }
 
         @Test
         fun keyFieldsMatch() {
             val cache = VaultCache()
-            cache.add(Key('G', Point2D(12, 4), listOf(Key('F', Point2D(5, 8), emptyList()))))
-            assertThat(cache.contains(Key('G', Point2D(12, 4), listOf(Key('F', Point2D(5, 8), emptyList()))))).isTrue()
+            cache.add(Key('G', Point2D(12, 4), mutableListOf(Key('F', Point2D(5, 8), mutableListOf()))))
+            assertThat(cache.contains(Key('G', Point2D(12, 4), mutableListOf(Key('F', Point2D(5, 8), mutableListOf()))))).isTrue()
         }
 
         @Test
         fun collectedKeysAreDifferent() {
             val cache = VaultCache()
-            cache.add(Key('G', Point2D(12, 4), emptyList()))
-            assertThat(cache.contains(Key('G', Point2D(12, 4), listOf(Key('F', Point2D(5, 8), emptyList()))))).isFalse()
+            cache.add(Key('G', Point2D(12, 4), mutableListOf()))
+            assertThat(cache.contains(Key('G', Point2D(12, 4), mutableListOf(Key('F', Point2D(5, 8), mutableListOf()))))).isFalse()
         }
 
         @Test
         fun collectionKeysSameButTheyHaveNestedKeysToo() {
             val cache = VaultCache()
-            val cachedKey = Key('G', Point2D(12, 4), listOf(Key('F', Point2D(5, 8), listOf(Key('K', Point2D(1,2), emptyList())))))
+            val cachedKey = Key('G', Point2D(12, 4), mutableListOf(Key('F', Point2D(5, 8), mutableListOf(Key('K', Point2D(1,2), mutableListOf())))))
             cache.add(cachedKey)
-            assertThat(cache.contains(Key('G', Point2D(12,4), listOf(Key('F', Point2D(5,8), emptyList()))))).isTrue()
+            assertThat(cache.contains(Key('G', Point2D(12,4), mutableListOf(Key('F', Point2D(5,8), mutableListOf()))))).isTrue()
         }
     }
 }

@@ -7,7 +7,7 @@ import com.aoc.math.Point2D
 class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val totalKeyQuantity: Int
-    private val graph: Key
+    private val root: Key
     private val cache = VaultCache()
     private val paths: MutableMap<Key, Float> = mutableMapOf()
 
@@ -30,9 +30,10 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val entranceTile = filterTiles { it.isEntrance() }.entries.first()
 
         //Convert Entrance -> Key (Root Node)
-        graph = Key(entranceTile.value.value, entranceTile.key, mutableListOf())
+        root = Key(entranceTile.value.value, entranceTile.key, mutableListOf())
 
-        AdventLogger.debug(this)
+        AdventLogger.info(this)
+        AdventLogger.info("The map contains $totalKeyQuantity keys.")
     }
 
     /**
@@ -42,7 +43,7 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
      */
     fun collectKeys(): Int {
         //Create Key Graph
-        graphKeyPaths(graph)
+        graphKeyPaths(root)
 
         val shortestPathWeight = paths.values.minOrNull() ?: 0F
 
@@ -58,13 +59,22 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
         if (sourceKey.steps() < shortestPathWeight) {
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
-                val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
-                accessibleKeys.forEach { (key, weight) ->
-                    val targetKey = cache.get(key)
-                    sourceKey.linkTo(targetKey, weight)
-                    AdventLogger.debug("Mapping $sourceKey -> $targetKey ($weight)")
-                    graphKeyPaths(targetKey)
+                val cachedKey = cache.getOrNull(sourceKey)
+                if (cachedKey != null) {
+                    cachedKey.linkedKeys.forEach {
+                        sourceKey.linkTo(it.key, it.value)
+                        sourceKey.collectedKeys.add(it.key)
+                    }
+                } else {
+                    val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
+                    accessibleKeys.forEach { (key, weight) ->
+                        val targetKey = cache.get(key)
+                        sourceKey.linkTo(targetKey, weight)
+                        AdventLogger.trace("Mapping $sourceKey -> $targetKey ($weight)")
+                        graphKeyPaths(targetKey)
+                    }
                 }
+
             } else {
                 val pathLength = sourceKey.steps()
                 paths[sourceKey] = pathLength

@@ -59,13 +59,14 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
         if (sourceKey.steps() < shortestPathWeight) {
             if (sourceKey.collectedKeysQuantity() < totalKeyQuantity) {
-                val cachedKey = cache.getOrNull(sourceKey)
+                val cachedKey = cache.getRemainingPath(sourceKey)
                 if (cachedKey != null) {
                     cachedKey.linkedKeys.forEach {
                         sourceKey.linkTo(it.key, it.value)
                         sourceKey.collectedKeys.add(it.key)
                     }
                 } else {
+                    cache.add(sourceKey)
                     val accessibleKeys = getUncollectedAccessibleKeysFrom(sourceKey)
                     accessibleKeys.forEach { (key, weight) ->
                         val targetKey = cache.get(key)
@@ -74,7 +75,6 @@ class VaultMap(initialData: List<String>) : AdventMap2D<VaultTile>() {
                         graphKeyPaths(targetKey)
                     }
                 }
-
             } else {
                 val pathLength = sourceKey.steps()
                 paths[sourceKey] = pathLength

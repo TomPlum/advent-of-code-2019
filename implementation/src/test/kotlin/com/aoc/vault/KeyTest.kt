@@ -39,6 +39,14 @@ class KeyTest {
     }
 
     @Nested
+    inner class HasCompletePath {
+        @Test
+        fun hasCompletePath() {
+
+        }
+    }
+
+    @Nested
     inner class CollectedKeysQuantity {
         @Test
         @DisplayName("Given a key with 4 collected keys, when getting the quantity, it should return 5 as to include itself")

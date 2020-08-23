@@ -10,7 +10,7 @@ class Panel(private val firstWire: Wire, private val secondWire: Wire) {
      * Calculates the distance between the central port and the closest intersection.
      * @see Point2D.distanceBetween
      */
-    fun findIntersectionPointClosestToCentralPort() = intersections.map { it.distanceBetween(Point2D(0, 0)) }.min()
+    fun findIntersectionPointClosestToCentralPort() = intersections.map { it.distanceBetween(Point2D(0, 0)) }.minOrNull()
 
     /**
      * The circuit is timing-sensitive and so the signal delay needs to be minimised.
@@ -21,6 +21,6 @@ class Panel(private val firstWire: Wire, private val secondWire: Wire) {
     fun findShortestCombinedIntersectionPaths(): Int {
         return intersections.map {
             firstWire.stepsTo(it) + secondWire.stepsTo(it) + 2
-        }.min() ?: throw IllegalStateException("No Intersections Found")
+        }.minOrNull() ?: throw IllegalStateException("No Intersections Found")
     }
 }

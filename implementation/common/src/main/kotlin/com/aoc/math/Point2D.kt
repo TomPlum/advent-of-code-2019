@@ -54,5 +54,12 @@ data class Point2D(val x: Int, val y: Int) {
      */
     fun distanceFromAxisY(): Int = abs(0 - y)
 
+    override fun equals(other: Any?): Boolean {
+        if (other !is Point2D) return false
+        return this.x == other.x && this.y == other.y
+    }
+
+    override fun hashCode(): Int = x.hashCode() + y.hashCode()
+
     override fun toString() = "($x, $y)"
 }

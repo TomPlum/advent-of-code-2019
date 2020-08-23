@@ -10,7 +10,7 @@ class SpaceImageVerifier(val image: EncodedSpaceImage) {
      * of [paramThree] pixels on the layer that contains the fewest [paramOne] pixels for the given [image].
      */
     fun verify(paramOne: Pixel, paramTwo: Pixel, paramThree: Pixel): Int {
-        val layer = image.layers.minBy { layer ->
+        val layer = image.layers.minByOrNull { layer ->
             layer.rows.flatMap { row -> row.pixels }.count { pixels -> pixels == paramOne }
         }
 

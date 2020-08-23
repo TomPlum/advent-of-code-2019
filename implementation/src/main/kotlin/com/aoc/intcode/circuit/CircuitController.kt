@@ -13,6 +13,6 @@ class CircuitController(private val software: String) {
             thrusterSignals.add(circuitStrategy.calculateThrusterSignal(software, phaseSettings))
         }
 
-        return thrusterSignals.max()!!
+        return thrusterSignals.maxOrNull()!!
     }
 }

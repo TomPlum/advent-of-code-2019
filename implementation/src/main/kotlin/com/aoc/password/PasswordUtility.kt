@@ -10,7 +10,7 @@ class PasswordUtility {
      * @param range Input range in the format of 123456-123456
      * @param strategy The [PasswordValidationStrategy] in which to validate the passwords
      */
-    fun calculatePossiblePasswordCombinations(range: String, strategy: PasswordValidationStrategy): Int {
+    fun getValidPasswordCombination(range: String, strategy: PasswordValidationStrategy): Int {
         return (range.split("-")[0].toInt()..range.split("-")[1].toInt()).sumBy {
             if (Password(it.toString()).isValid(strategy)) 1 else 0
         }
@@ -30,7 +30,7 @@ class PasswordUtility {
             if (i != value.length - 1 && chars[i] == chars[i + 1]) {
                 adjacent++
             } else {
-                if (adjacent == 2) return true ; else adjacent = 1
+                if (adjacent == 2) return true else adjacent = 1
             }
         }
 
@@ -38,7 +38,7 @@ class PasswordUtility {
     }
 
     /**
-     * Returns true if the given [Password.value] has at least one pair of adjacent digits.
+     * Returns true if the given [value] has at least one pair of adjacent digits.
      * The pair of adjacent digits can be part of a larger group, unlike [hasAdjacentDigitPair].
      * - E.g. Both 112345 and 111345 are valid and would return true.
      * @see InitialValidation
@@ -52,7 +52,7 @@ class PasswordUtility {
     }
 
     /**
-     * Returns true if the given [Password.value] contains only ascending characters
+     * Returns true if the given [value] contains only ascending characters.
      */
     fun hasOnlyAscendingCharacters(value: String) = value.asSequence().zipWithNext{i, j -> i <= j}.all{ it }
 }

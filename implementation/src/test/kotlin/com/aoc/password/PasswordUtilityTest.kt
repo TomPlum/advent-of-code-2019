@@ -23,13 +23,13 @@ class PasswordUtilityTest {
         @Test
         @DisplayName("Given the input from Day 4, when calculating the number of valid password combinations, then it should return 466")
         fun partOne() {
-            assertThat(utility.calculatePossiblePasswordCombinations(input, InitialValidation())).isEqualTo(466)
+            assertThat(utility.getValidPasswordCombination(input, InitialValidation())).isEqualTo(466)
         }
 
         @Test
         @DisplayName("Given the input from Day 4, when calculating the number of valid password combinations, then it should return 292")
         fun partTwo() {
-            assertThat(utility.calculatePossiblePasswordCombinations(input, RevisedValidation())).isEqualTo(292)
+            assertThat(utility.getValidPasswordCombination(input, RevisedValidation())).isEqualTo(292)
         }
     }
 

@@ -3,33 +3,31 @@ package com.aoc.vault
 import com.aoc.log.AdventLogger
 
 class VaultCache {
-    private val cache = HashMap<Key, Key>()
-    private val linkageCache = HashMap<Char, Map<Key, Float>>()
-    private val anotherCache = HashMap<Key, Map<Key, Float>>()
+    private val cache = HashMap<KeyTuple, Key>()
 
-    fun add(key: Key) = cache.put(key, key)
+    fun add(key: Key): Key? {
+        return cache.put(createTuple(key), key)
+    }
 
     fun get(key: Key): Key {
-        val found = cache[key]
+        val found = cache[createTuple(key)]
         return if (found != null) {
             AdventLogger.debug("[${this::class.simpleName}] Retrieving Key ${key.name}")
             found
         } else {
-            //cache[key] = key
-          /*  linkageCache[key.name] = key.linkedKeys
-            val matching = linkageCache[key.name]
-            matching?.forEach { key.linkTo(it.key, it.value) }*/
             key
         }
     }
 
-    fun getRemainingPath(key: Key): Key? {
-        return cache.keys.filter { it.name == key.name }.find { it.hasCompletePath() }
-    }
-
-    fun getOrNull(key: Key) = cache[key]
-
     fun entries() = cache.size
 
-    fun contains(key: Key): Boolean = cache.contains(key)
+    fun contains(key: Key): Boolean = cache.contains(createTuple(key))
+
+    private fun createID(key: Key): KeyID {
+        return KeyID(key.name, key.collectedKeys.map { it.name })
+    }
+
+    private fun createTuple(key: Key): KeyTuple {
+        return KeyTuple(key.name, key.steps(), key.collectedKeys.map { it.name })
+    }
 }

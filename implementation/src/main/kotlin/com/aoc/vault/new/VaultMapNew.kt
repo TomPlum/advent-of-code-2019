@@ -10,6 +10,10 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val keys: Map<Point2D, VaultTile>
     private val graph: UnDirectedGraph<Char>
+    private val doors = mutableSetOf<Char>()
+    private val visited = mutableListOf<Point2D>()
+    private val next = mutableMapOf<Point2D, VaultTile>()
+    private var steps = 0L
 
     init {
         //TODO: Wasn't this same thing done somewhere else? Can you move it to the common Map<T> class?
@@ -26,14 +30,50 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
         keys = filterTiles { it.isKey() || it.isEntrance() }
         graph = UnDirectedGraph(keys.values.map { it.value })
-        keys.forEach { graphKey(it) }
+        keys.forEach {
+            depthFirstSearch(it.value.value, it)
+        }
 
         AdventLogger.info(this)
         AdventLogger.info(graph)
     }
 
     fun collectKeys() {
-        print("Test")
+        //Do we need to do a DFS instead and pre-compute the passed doors for our graph?
+    }
+
+    fun depthFirstSearch(sourceKey: Char, tile: Map.Entry<Point2D, VaultTile>) {
+        visited.add(tile.key)
+        next.clear()
+
+        //Get Un-Visited Adjacent Points
+        val adjacentPositions = tile.key.adjacentPoints().filter { it !in visited }
+
+        val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
+
+        //Record Doors
+        adjacentTiles.filterValues { it.isDoor() }.forEach {
+            doors.add(it.value.value)
+        }
+
+        //Map Keys -> Graph w/Current Steps Weighting
+        adjacentTiles.filterValues { it.isKey() }.forEach {
+            graph.addEdge(sourceKey, it.value.value, steps, doors)
+        }
+
+        //Add Entrance, Empty, Keys, Doors Up-Next
+        next.putAll(adjacentTiles)
+
+        if (next.isEmpty()) {
+            doors.clear()
+            steps--
+        } else {
+            steps++
+        }
+
+        next.forEach {
+            depthFirstSearch(sourceKey, it)
+        }
     }
 
     private fun graphKey(tile: Map.Entry<Point2D, VaultTile>) {
@@ -57,7 +97,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
             //Map Keys -> Graph w/Current Steps Weighting
             adjacentTiles.filterValues { it.isKey() }.forEach {
-                graph.addEdge(tile.value.value, it.value.value, steps)
+                graph.addEdge(tile.value.value, it.value.value, steps, emptySet())
             }
         }
     }

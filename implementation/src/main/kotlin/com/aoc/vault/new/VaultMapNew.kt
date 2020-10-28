@@ -4,6 +4,7 @@ import com.aoc.log.AdventLogger
 import com.aoc.map.AdventMap2D
 import com.aoc.math.Point2D
 import com.aoc.vault.VaultTile
+import java.util.*
 
 
 class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
@@ -12,7 +13,6 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
     private val graph: UnDirectedGraph<Char>
     private val doors = mutableSetOf<Char>()
     private val visited = mutableListOf<Point2D>()
-    private val next = mutableMapOf<Point2D, VaultTile>()
     private var steps = 0L
 
     init {
@@ -30,8 +30,9 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
         keys = filterTiles { it.isKey() || it.isEntrance() }
         graph = UnDirectedGraph(keys.values.map { it.value })
+
         keys.forEach {
-            depthFirstSearch(it.value.value, it)
+            depthFirstSearch(it.value.value, it.toPair())
         }
 
         AdventLogger.info(this)
@@ -42,12 +43,13 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Do we need to do a DFS instead and pre-compute the passed doors for our graph?
     }
 
-    fun depthFirstSearch(sourceKey: Char, tile: Map.Entry<Point2D, VaultTile>) {
-        visited.add(tile.key)
-        next.clear()
+    private fun depthFirstSearch(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {
+        val next = Stack<Pair<Point2D, VaultTile>>()
+        visited.add(tile.first)
+        steps++
 
         //Get Un-Visited Adjacent Points
-        val adjacentPositions = tile.key.adjacentPoints().filter { it !in visited }
+        val adjacentPositions = tile.first.adjacentPoints().filter { it !in visited }
 
         val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
 
@@ -56,23 +58,25 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
             doors.add(it.value.value)
         }
 
-        //Map Keys -> Graph w/Current Steps Weighting
-        adjacentTiles.filterValues { it.isKey() }.forEach {
-            graph.addEdge(sourceKey, it.value.value, steps, doors)
-        }
-
         //Add Entrance, Empty, Keys, Doors Up-Next
-        next.putAll(adjacentTiles)
+        adjacentTiles.forEach { next.push(it.toPair()) }
 
         if (next.isEmpty()) {
             doors.clear()
-            steps--
-        } else {
-            steps++
         }
 
-        next.forEach {
-            depthFirstSearch(sourceKey, it)
+        //Map Keys -> Graph w/Current Steps Weighting
+        adjacentTiles.filterValues { it.isKey() }.forEach {
+            graph.addEdge(sourceKey, it.value.value, steps, doors.map { it.toUpperCase() }.toSet())
+        }
+
+        while(next.isNotEmpty()) {
+            depthFirstSearch(sourceKey, next.pop())
+        }
+        steps--
+
+        if (steps == 0L) {
+            visited.clear()
         }
     }
 

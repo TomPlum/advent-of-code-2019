@@ -13,6 +13,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
     private val keys: Map<Point2D, VaultTile>
     private val graph: UnDirectedGraph<Char>
     private val doors = mutableSetOf<Char>()
+    private val passedKeys = mutableSetOf<Char>()
     private val visited = mutableListOf<Point2D>()
     private var steps = 0L
 
@@ -57,11 +58,13 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     fun solve(sourceKey: Char) {
         val accessibleKeys = graph.getAdjacentVertices(sourceKey)?.filter {
-            collected.map { it.toUpperCase() }.containsAll(it.third) //Do we have the keys for all the target keys blocking doors?
+            collected.map { it.toUpperCase() }.containsAll(it.doors) //Do we have the keys for all the target keys blocking doors?
         }?.filter {
-            it.first != '@' //Ignore the entrance
+            it.key != '@' //Ignore the entrance
         }?.filter {
-            !collected.contains(it.first) //Ignore if we've already collected
+            !collected.contains(it.key) //Ignore if we've already collected
+        }?.filter {
+            collected.containsAll(it.keys) //Make sure we already have any keys that we might pass on the way
         }
 
         if (weights.sum() <= paths.minOrNull() ?: Long.MAX_VALUE) {
@@ -86,33 +89,38 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
     private fun depthFirstSearch(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {
         val next = Stack<Pair<Point2D, VaultTile>>()
         visited.add(tile.first)
-        steps++
 
         //Get Un-Visited Adjacent Points
         val adjacentPositions = tile.first.adjacentPoints().filter { it !in visited }
 
         val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
 
-        //Record Doors
-        adjacentTiles.filterValues { it.isDoor() }.forEach {
-            doors.add(it.value.value)
+        //Record Blocking Doors
+        if (tile.second.isDoor()) {
+            doors.add(tile.second.value)
         }
 
         //Add Entrance, Empty, Keys, Doors Up-Next
         adjacentTiles.forEach { next.push(it.toPair()) }
 
-        if (next.isEmpty()) {
-            doors.clear()
+        //Map Keys -> Graph w/Current Steps Weighting
+        //Record Passed Keys
+        if (tile.second.isKey()) {
+            graph.addEdge(sourceKey, tile.second.value, steps, doors.toSet(), passedKeys.toSet())
+            passedKeys.add(tile.second.value)
         }
 
-        //Map Keys -> Graph w/Current Steps Weighting
-        adjacentTiles.filterValues { it.isKey() }.forEach {
-            graph.addEdge(sourceKey, it.value.value, steps, doors.map { it.toUpperCase() }.toSet())
+        if (next.isEmpty()) {
+            doors.clear()
+            passedKeys.clear()
         }
+
+        steps++
 
         while(next.isNotEmpty()) {
             depthFirstSearch(sourceKey, next.pop())
         }
+
         steps--
 
         if (steps == 0L) {
@@ -141,7 +149,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
             //Map Keys -> Graph w/Current Steps Weighting
             adjacentTiles.filterValues { it.isKey() }.forEach {
-                graph.addEdge(tile.value.value, it.value.value, steps, emptySet())
+                graph.addEdge(tile.value.value, it.value.value, steps, emptySet(), emptySet())
             }
         }
     }

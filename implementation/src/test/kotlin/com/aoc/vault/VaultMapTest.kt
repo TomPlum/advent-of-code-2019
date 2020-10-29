@@ -34,7 +34,6 @@ class VaultMapTest {
     }
 
     @Test
-    @Disabled
     fun exampleFour() {
         val input = TestInputReader().readInputAsString("/vault/example-4.txt").value
         val steps = VaultMap(input).collectKeys()

@@ -58,7 +58,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     fun solve(sourceKey: Char) {
         val accessibleKeys = graph.getAdjacentVertices(sourceKey)?.filter {
-            collected.map { it.toUpperCase() }.containsAll(it.doors) //Do we have the keys for all the target keys blocking doors?
+            collected.map { key -> key.toUpperCase() }.containsAll(it.doors) //Do we have the keys for all the target keys blocking doors?
         }?.filter {
             it.key != '@' //Ignore the entrance
         }?.filter {
@@ -86,6 +86,24 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
     }
 
+    fun djikstra(key: GraphNode<Char>) {
+        val settledNodes = mutableSetOf<GraphNode<Char>>()
+        val unsettledNodes = mutableSetOf<GraphNode<Char>>()
+
+        unsettledNodes.add(key)
+
+        while(unsettledNodes.isNotEmpty()) {
+            val currentNode = unsettledNodes.minByOrNull { it.weight }
+            unsettledNodes.remove(currentNode)
+            graph.getAdjacentVertices(currentNode!!.key)?.forEach { adjacentNode ->
+                if(!settledNodes.contains(adjacentNode)) {
+                    unsettledNodes.add(adjacentNode)
+                }
+            }
+            settledNodes.add(currentNode)
+        }
+    }
+
     private fun depthFirstSearch(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {
         val next = Stack<Pair<Point2D, VaultTile>>()
         visited.add(tile.first)
@@ -93,39 +111,40 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Get Un-Visited Adjacent Points
         val adjacentPositions = tile.first.adjacentPoints().filter { it !in visited }
 
+        //Get Adjacent Tiles (That Aren't Walls)
         val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
 
         //Record Blocking Doors
-        if (tile.second.isDoor()) {
-            doors.add(tile.second.value)
-        }
+        if (tile.second.isDoor()) doors.add(tile.second.value)
 
         //Add Entrance, Empty, Keys, Doors Up-Next
         adjacentTiles.forEach { next.push(it.toPair()) }
 
-        //Map Keys -> Graph w/Current Steps Weighting
-        //Record Passed Keys
+        //Map Keys -> Graph w/Current Steps Weighting & Record Passed Keys
         if (tile.second.isKey()) {
             graph.addEdge(sourceKey, tile.second.value, steps, doors.toSet(), passedKeys.toSet())
             passedKeys.add(tile.second.value)
         }
 
+        //If we're reached the end of a branch (a leaf node), then clear the currently recorded doors & passed keys.
         if (next.isEmpty()) {
             doors.clear()
             passedKeys.clear()
         }
 
+        //If we're going down into a recursive call, increment the steps.
         steps++
 
+        //Take the next tile and recurse one level deeper.
         while(next.isNotEmpty()) {
             depthFirstSearch(sourceKey, next.pop())
         }
 
+        //If we're coming up from a recursive call, decrement the steps.
         steps--
 
-        if (steps == 0L) {
-            visited.clear()
-        }
+        //If we've come out of a recursive call and steps are 0, we're back the start, so clear visited.
+        if (steps == 0L) visited.clear()
     }
 
     private fun graphKey(tile: Map.Entry<Point2D, VaultTile>) {

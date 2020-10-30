@@ -8,7 +8,6 @@ class UnDirectedGraph<T>(private val vertices: List<T> = emptyList()) {
         if (!hasAdjacent(first, second)) {
             edges++
             adjacent[first]?.add(GraphNode(second, weight, doors, keys))
-            //adjacent[second]?.add(GraphNode(first, weight, doors, keys))
         }
     }
 

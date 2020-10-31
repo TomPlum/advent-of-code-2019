@@ -12,6 +12,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
 
     private val keys: Map<Point2D, VaultTile>
     private val graph: UnDirectedGraph<Char>
+    private val dijkstraGraph = DijkstraGraph<Char>()
     private val doors = mutableSetOf<Char>()
     private val passedKeys = mutableSetOf<Char>()
     private val visited = mutableListOf<Point2D>()
@@ -33,11 +34,17 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         keys = filterTiles { it.isKey() || it.isEntrance() }
         graph = UnDirectedGraph(keys.values.map { it.value })
 
+        keys.values.map {
+            dijkstraGraph.addNode(DijkstraNode(it.value))
+        }
+
         keys.forEach {
             depthFirstSearch(it.value.value, it.toPair())
+            dfsDijkstra(it.value.value, it.toPair())
         }
 
         AdventLogger.info(this)
+        AdventLogger.info(dijkstraGraph)
         AdventLogger.info(graph)
     }
     private val paths = mutableListOf<Long>()
@@ -51,8 +58,11 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
      */
     fun collectKeys(): Int {
         val entrance = filterTiles { it.isEntrance() }.entries.first()
-        solve(entrance.value.value)
-        return paths.minOrNull()?.toInt() ?: throw IllegalStateException("No Path Found!")
+      /*  solve(entrance.value.value)
+        return paths.minOrNull()?.toInt() ?: throw IllegalStateException("No Path Found!")*/
+        val shortestPath = dijkstra(dijkstraGraph.getNode(entrance.value.value))
+        AdventLogger.info("Shortest Path: $shortestPath (${shortestPath.getDistance()})")
+        return shortestPath.getDistance()
     }
 
 
@@ -86,22 +96,78 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
     }
 
-    fun djikstra(key: GraphNode<Char>) {
-        val settledNodes = mutableSetOf<GraphNode<Char>>()
-        val unsettledNodes = mutableSetOf<GraphNode<Char>>()
+    fun dijkstra(sourceKey: DijkstraNode<Char>): DijkstraPath<Char> {
+        val settledNodes = mutableSetOf<DijkstraNode<Char>>()
+        val unsettledNodes = mutableSetOf<DijkstraNode<Char>>()
+        val heldKeys = mutableSetOf<Char>()
 
-        unsettledNodes.add(key)
+        sourceKey.distance = 0
+        unsettledNodes.add(sourceKey)
 
         while(unsettledNodes.isNotEmpty()) {
-            val currentNode = unsettledNodes.minByOrNull { it.weight }
+            val currentNode = unsettledNodes.minByOrNull { it.distance } ?: throw IllegalStateException("No Unsettled Nodes")
+            if (currentNode.shortestPath.size == keys.size - 1) {
+                return currentNode.getPath()
+            }
             unsettledNodes.remove(currentNode)
-            graph.getAdjacentVertices(currentNode!!.key)?.forEach { adjacentNode ->
+            val accessibleAdjacentNodes = currentNode.accessibleAdjacentNodes(settledNodes)
+            accessibleAdjacentNodes.forEach { (adjacentNode, data) ->
                 if(!settledNodes.contains(adjacentNode)) {
+                    currentNode.updateDistance(adjacentNode, data.weight)
                     unsettledNodes.add(adjacentNode)
                 }
             }
+            /*if (accessibleAdjacentNodes.isNotEmpty()) {
+                heldKeys.add(accessibleAdjacentNodes.minByOrNull { it.key.distance }!!.key.name)
+            }*/
             settledNodes.add(currentNode)
         }
+
+        throw IllegalStateException("Cannot find a path from $sourceKey")
+    }
+
+    private fun dfsDijkstra(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {
+        val next = Stack<Pair<Point2D, VaultTile>>()
+        visited.add(tile.first)
+
+        //Get Un-Visited Adjacent Points
+        val adjacentPositions = tile.first.adjacentPoints().filter { it !in visited }
+
+        //Get Adjacent Tiles (That Aren't Walls)
+        val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
+
+        //Record Blocking Doors
+        if (tile.second.isDoor()) doors.add(tile.second.value)
+
+        //Add Entrance, Empty, Keys, Doors Up-Next
+        adjacentTiles.forEach { next.push(it.toPair()) }
+
+        //Map Keys -> Graph w/Current Steps Weighting & Record Passed Keys
+        if (tile.second.isKey() && !tile.second.isEntrance()) {
+            val node = dijkstraGraph.getNode(tile.second.value)
+            dijkstraGraph.getNode(sourceKey).addDestination(node, steps.toInt(), doors.toSet(), passedKeys.toSet())
+            passedKeys.add(tile.second.value)
+        }
+
+        //If we're reached the end of a branch (a leaf node), then clear the currently recorded doors & passed keys.
+        if (next.isEmpty()) {
+            doors.clear()
+            passedKeys.clear()
+        }
+
+        //If we're going down into a recursive call, increment the steps.
+        steps++
+
+        //Take the next tile and recurse one level deeper.
+        while(next.isNotEmpty()) {
+            dfsDijkstra(sourceKey, next.pop())
+        }
+
+        //If we're coming up from a recursive call, decrement the steps.
+        steps--
+
+        //If we've come out of a recursive call and steps are 0, we're back the start, so clear visited.
+        if (steps == 0L) visited.clear()
     }
 
     private fun depthFirstSearch(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {

@@ -58,8 +58,6 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
      */
     fun collectKeys(): Int {
         val entrance = filterTiles { it.isEntrance() }.entries.first()
-      /*  solve(entrance.value.value)
-        return paths.minOrNull()?.toInt() ?: throw IllegalStateException("No Path Found!")*/
         val shortestPath = dijkstra(dijkstraGraph.getNode(entrance.value.value))
         AdventLogger.info("Shortest Path: $shortestPath (${shortestPath.getDistance()})")
         return shortestPath.getDistance()
@@ -96,31 +94,25 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
     }
 
-    fun dijkstra(sourceKey: DijkstraNode<Char>): DijkstraPath<Char> {
-        val settledNodes = mutableSetOf<DijkstraNode<Char>>()
-        val unsettledNodes = mutableSetOf<DijkstraNode<Char>>()
-        val heldKeys = mutableSetOf<Char>()
+    private fun dijkstra(sourceKey: DijkstraNode<Char>): DijkstraPath<Char> {
+        val settled = mutableSetOf<DijkstraNode<Char>>()
+        val unsettled = mutableSetOf<DijkstraNode<Char>>()
 
         sourceKey.distance = 0
-        unsettledNodes.add(sourceKey)
+        unsettled.add(sourceKey)
 
-        while(unsettledNodes.isNotEmpty()) {
-            val currentNode = unsettledNodes.minByOrNull { it.distance } ?: throw IllegalStateException("No Unsettled Nodes")
+        while(unsettled.isNotEmpty()) {
+            val currentNode = unsettled.minByOrNull { it.distance } ?: throw IllegalStateException("No Unsettled Nodes")
             if (currentNode.shortestPath.size == keys.size - 1) {
                 return currentNode.getPath()
             }
-            unsettledNodes.remove(currentNode)
-            val accessibleAdjacentNodes = currentNode.accessibleAdjacentNodes(settledNodes)
+            unsettled.remove(currentNode)
+            val accessibleAdjacentNodes = currentNode.accessibleAdjacentNodes().filterNot { it.key in settled }
             accessibleAdjacentNodes.forEach { (adjacentNode, data) ->
-                if(!settledNodes.contains(adjacentNode)) {
-                    currentNode.updateDistance(adjacentNode, data.weight)
-                    unsettledNodes.add(adjacentNode)
-                }
+                currentNode.updateDistance(adjacentNode, data.weight)
+                unsettled.add(adjacentNode)
             }
-            /*if (accessibleAdjacentNodes.isNotEmpty()) {
-                heldKeys.add(accessibleAdjacentNodes.minByOrNull { it.key.distance }!!.key.name)
-            }*/
-            settledNodes.add(currentNode)
+            settled.add(currentNode)
         }
 
         throw IllegalStateException("Cannot find a path from $sourceKey")
@@ -145,6 +137,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         //Map Keys -> Graph w/Current Steps Weighting & Record Passed Keys
         if (tile.second.isKey() && !tile.second.isEntrance()) {
             val node = dijkstraGraph.getNode(tile.second.value)
+            //val node = DijkstraNode(tile.second.value)
             dijkstraGraph.getNode(sourceKey).addDestination(node, steps.toInt(), doors.toSet(), passedKeys.toSet())
             passedKeys.add(tile.second.value)
         }

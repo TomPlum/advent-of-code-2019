@@ -1,5 +1,8 @@
 package com.aoc.vault.new
 
+/**
+ * Maintains a [Set] of [DijkstraNode]s.
+ */
 class DijkstraGraph<T> {
     private val nodes: MutableSet<DijkstraNode<T>> = mutableSetOf()
 

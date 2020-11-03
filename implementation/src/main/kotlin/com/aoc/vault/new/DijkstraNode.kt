@@ -2,6 +2,9 @@ package com.aoc.vault.new
 
 import java.util.*
 
+/**
+ * A single node in a [DijkstraGraph] that maintains an adjacency list of other nodes.
+ */
 data class DijkstraNode<T>(val name: T) {
     private val adjacentNodes: MutableMap<DijkstraNode<T>, DijkstraNodeData<T>> = mutableMapOf()
     private val heldKeys: MutableSet<T> = mutableSetOf(this.name)

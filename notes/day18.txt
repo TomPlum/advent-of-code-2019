@@ -10,3 +10,7 @@ Performance Issues
 - Can we not just graph all the weights between all the keys once at the start? Then traverse this graph?
 - The cache is currently not working because the accessibleKeys function is adding the source key to the collectedKeys.
   This means that there is is always a single key (The source key) different when checking key equality in the cache.
+
+New Solution:
+- Pre-compute all key->key weighting w/blocking doors and passed keys, store in graph w/adjacency lists.
+- Use Dijkstra's algorithms tracking current key and keys collected to find the shortest path.

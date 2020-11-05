@@ -6,6 +6,7 @@ apply(from = "$rootDir/gradle/logging-dependencies.gradle.kts")
 plugins {
     jacoco
     idea
+    id("io.gitlab.arturbosch.detekt").version("1.14.2")
 }
 
 val benchmarkImplementation: Configuration by configurations.creating {

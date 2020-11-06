@@ -63,3 +63,18 @@ val benchmark by tasks.registering(type = JavaExec::class) {
     main = "org.openjdk.jmh.Main"
     classpath = sourceSets["benchmark"].runtimeClasspath
 }
+
+detekt {
+    reports {
+        html {
+            enabled = true
+            destination = file("$buildDir/reports/detekt/report.html")
+        }
+        xml {
+            enabled = false
+        }
+        txt {
+            enabled = false
+        }
+    }
+}

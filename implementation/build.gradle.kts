@@ -70,6 +70,9 @@ detekt {
             enabled = true
             config = files("$projectDir/src/main/resources/detekt-config.yml")
             destination = file("$buildDir/reports/detekt/report.html")
+            buildUponDefaultConfig = false
+            debug = false
+            ignoreFailures = false
         }
         xml {
             enabled = false

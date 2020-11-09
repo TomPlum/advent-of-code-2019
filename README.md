@@ -29,6 +29,7 @@ runtime complexity will be refactored and improved upon in a later pass of the d
 * [The Codebase](#the-codebase)
   * [Package Structure](#package-structure)
   * [Design](#design)
+  * [Static Code Analysis & Linting](#static-code-analysis--linting)
   * [Testing](#testing)
     * [Java Micro-Benchmarking Harness](#jmh-java-micro-benchmarking-harness)
     * [JUnit5 & AssertK](#junit5--assertk)
@@ -77,6 +78,10 @@ behaviour that is commonly used across multiple days and `test-support` for unit
 
 ### Design
 -Design Patterns
+
+### Static Code Analysis & Linting
+I used the [DeteKT](https://detekt.github.io/detekt/index.html) Gradle plugin to perform static code analysis on the
+codebase. It produces a report containing all the code-smells that it found based on the set configuration.
 
 ### Testing
 

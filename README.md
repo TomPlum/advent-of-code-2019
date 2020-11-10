@@ -17,7 +17,7 @@ _Excerpt from the Advent of Code [website](https://adventofcode.com/2019/about);
     to challenge each other."
 
 ## About
-Working through it while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
+Working through the advent of code while learning [Kotlin](https://kotlinlang.org/). Acts as a nice format for personal development. 
 I'm treating the code-base a little more _enterprise-esque_, for lack of a better term.
 Meaning I'm focusing more on design, readability, and ensuring code is test-driven with full coverage etc. 
 This doesn't mean, however, that I'm not considering performance. Any solutions that don't meet a respectable order of

@@ -251,9 +251,9 @@ formatting:
   Filename:
     active: true
   FinalNewline:
-    active: true
-    autoCorrect: true
-    insertFinalNewLine: true
+    active: false
+    autoCorrect: false
+    insertFinalNewLine: false
   ImportOrdering:
     active: false
     autoCorrect: true

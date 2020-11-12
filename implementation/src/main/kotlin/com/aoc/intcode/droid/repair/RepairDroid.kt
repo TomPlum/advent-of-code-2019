@@ -95,11 +95,11 @@ class RepairDroid(instructions: String) {
 
     private fun getNextDirection() = getUnexploredSurroundingCoordinateDirection() ?: path.pop().second.reverse()
 
-    private fun getUnexploredSurroundingCoordinateDirection(): Direction? {
-        if (!map.hasRecordedShipTile(Point2D(x, y + 1))) return Direction.NORTH
-        if (!map.hasRecordedShipTile(Point2D(x + 1, y))) return Direction.EAST
-        if (!map.hasRecordedShipTile(Point2D(x, y - 1))) return Direction.SOUTH
-        if (!map.hasRecordedShipTile(Point2D(x - 1, y))) return Direction.WEST
-        return null
+    private fun getUnexploredSurroundingCoordinateDirection(): Direction? = when {
+        !map.hasRecordedShipTile(Point2D(x, y + 1)) -> Direction.NORTH
+        !map.hasRecordedShipTile(Point2D(x + 1, y)) -> Direction.EAST
+        !map.hasRecordedShipTile(Point2D(x, y - 1)) -> Direction.SOUTH
+        !map.hasRecordedShipTile(Point2D(x - 1, y)) -> Direction.WEST
+        else -> null
     }
 }

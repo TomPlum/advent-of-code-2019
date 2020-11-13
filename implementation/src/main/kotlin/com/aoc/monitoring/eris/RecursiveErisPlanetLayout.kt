@@ -8,21 +8,21 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
 
     init {
         //Populate the the data for level 0
-        var x = 0
-        var y = 0
+        var xOrdinate = 0
+        var yOrdinate = 0
         scanData.forEach { row ->
             row.forEach { tile ->
-                addTile(Point3D(x, y, 0), ErisScanTile(tile))
-                x++
+                addTile(Point3D(xOrdinate, yOrdinate, 0), ErisScanTile(tile))
+                xOrdinate++
             }
-            x = 0
-            y++
+            xOrdinate = 0
+            yOrdinate++
         }
 
         //Populate outer and inner recursive grids with empty tiles
-        (1..150).forEach { z ->
-            (0..4).forEach { y ->
-                (0..4).forEach {x ->
+        for (z in 1..150) {
+            for (y in 0..4) {
+                for (x in 0..4) {
                     addTile(Point3D(x, y, -z), ErisScanTile.empty())
                     addTile(Point3D(x, y, z), ErisScanTile.empty())
                 }
@@ -30,13 +30,11 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
         }
     }
 
-    fun getAdjacentPositions(sourcePos: Point3D): List<Point3D> {
-       return sourcePos.planarAdjacentPoints().flatMap { pos ->
-           when {
-               pos.isOutsideGrid() -> pos.convertFromOutside().toList()
-               pos.isCentreTile() -> sourcePos.convertFromCentre()
-               else -> pos.toList()
-           }
+    fun getAdjacentPositions(sourcePos: Point3D): List<Point3D> = sourcePos.planarAdjacentPoints().flatMap { pos ->
+        when {
+            pos.isOutsideGrid() -> pos.convertFromOutside().toList()
+            pos.isCentreTile() -> sourcePos.convertFromCentre()
+            else -> pos.toList()
         }
     }
 
@@ -53,13 +51,13 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
 
     fun kill(bugPositions: List<Point3D>) = bugPositions.forEach { bug -> addTile(bug, ErisScanTile.empty()) }
 
-    fun infest(emptyPositions: List<Point3D>) = emptyPositions.filter {
-        !it.isCentreTile()
-    }.forEach { space -> addTile(space, ErisScanTile.bug()) }
+    fun infest(emptyPositions: List<Point3D>) = emptyPositions
+            .filter { !it.isCentreTile() }
+            .forEach { space -> addTile(space, ErisScanTile.bug()) }
 
     fun getBugQuantity() = filterTiles { it.isBug() }.count()
 
-    private fun centre() = Point2D(2,2)
+    private fun centre() = Point2D(2, 2)
 
     private fun Point3D.isCentreTile() = this.x == 2 && this.y == 2
 
@@ -67,24 +65,20 @@ class RecursiveErisPlanetLayout(scanData: List<String>) : AdventMap3D<ErisScanTi
 
     private fun Point3D.toList() = listOf(this)
 
-    private fun Point3D.convertFromOutside(): Point3D {
-        return when {
-            this.x < xMin() -> Point3D(1, 2, this.z - 1)
-            this.x > xMax() -> Point3D(3, 2, this.z - 1)
-            this.y < yMin() -> Point3D(2, 1, this.z - 1)
-            this.y > yMax() -> Point3D(2, 3, this.z - 1)
-            else -> throw IllegalStateException("A Point3D that was deemed outside the grid is invalid: $this")
-        }
+    private fun Point3D.convertFromOutside(): Point3D = when {
+        this.x < xMin() -> Point3D(1, 2, this.z - 1)
+        this.x > xMax() -> Point3D(3, 2, this.z - 1)
+        this.y < yMin() -> Point3D(2, 1, this.z - 1)
+        this.y > yMax() -> Point3D(2, 3, this.z - 1)
+        else -> throw IllegalStateException("A Point3D that was deemed outside the grid is invalid: $this")
     }
 
-    private fun Point3D.convertFromCentre(): List<Point3D> {
-        return when {
-            this.x < centre().x -> (yMin()..yMax()).map { Point3D(0, it, this.z + 1) }
-            this.x > centre().x -> (yMin()..yMax()).map { Point3D(4, it, this.z + 1) }
-            this.y < centre().y -> (xMin()..xMax()).map { Point3D(it, 0, this.z + 1) }
-            this.y > centre().y -> (xMin()..xMax()).map { Point3D(it, 4, this.z + 1) }
-            else -> throw IllegalStateException("A Point3D that was deemed in the centre grid is invalid. Source: $this")
-        }
+    private fun Point3D.convertFromCentre(): List<Point3D> = when {
+        this.x < centre().x -> (yMin()..yMax()).map { Point3D(0, it, this.z + 1) }
+        this.x > centre().x -> (yMin()..yMax()).map { Point3D(4, it, this.z + 1) }
+        this.y < centre().y -> (xMin()..xMax()).map { Point3D(it, 0, this.z + 1) }
+        this.y > centre().y -> (xMin()..xMax()).map { Point3D(it, 4, this.z + 1) }
+        else -> throw IllegalStateException("A Point3D that was deemed in the centre grid is invalid. Source: $this")
     }
 
     override fun xMin(): Int = 0

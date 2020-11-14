@@ -47,6 +47,10 @@ class ArcadeCabinet(gameSoftware: String) {
      */
     fun getTileQuantity(id: TileID) = tiles.filterValues { it == id}.count()
 
+    /**
+     * Memory address 0 represents the number of quarters that have been inserted into the machine.
+     * Since we forgot to bring any, we can play for free by setting the value to 2.
+     */
     private fun playForFree() = computer.program.memory.updateInstructionAtAddress(0, 2)
 
     private fun getJoystickCommand(): Int {
@@ -81,7 +85,8 @@ class ArcadeCabinet(gameSoftware: String) {
         var s = ""
         repeat(37) { s += "-" }
         s += "\n"
-        s += "| Frame: $frame | B: ${tiles.filterValues { it == TileID.BALL }.keys.first()} | P: ${tiles.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()}\n"
+        s += "| Frame: $frame | B: ${tiles.filterValues { it == TileID.BALL }.keys.first()} | "
+        s += "P: ${tiles.filterValues { it == TileID.HORIZONTAL_PADDLE }.keys.first()}\n"
         s += "| Score: $score | Blocks: ${tiles.filterValues { it == TileID.BLOCK }.count()}/$startingBlocks |\n"
 
         tiles.forEach {

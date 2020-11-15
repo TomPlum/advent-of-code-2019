@@ -6,7 +6,8 @@ import com.aoc.intcode.droid.cryo.command.CommandParser
 
 
 /**
- * A [SystemCommand] that provides the user with details of the available commands they can run via the [CommandRuntime].
+ * A [SystemCommand] that provides the user with details of the
+ * available commands they can run via the [CommandRuntime].
  * @see CommandParser
  */
 class HelpCommand : SystemCommand() {

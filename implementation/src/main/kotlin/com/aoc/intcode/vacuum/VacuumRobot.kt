@@ -11,7 +11,7 @@ import com.aoc.intcode.vacuum.scaffold.ScaffoldMapTile
 import com.aoc.log.AdventLogger
 
 /**
- * An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield.
+ * An early warning system detects an incoming solar flare and automatically activates the ships electromagnetic shield.
  * Unfortunately, this has cut off the Wi-Fi for many small robots that, unaware of the impending danger, are now
  * trapped on exterior scaffolding on the unsafe side of the shield.
  *

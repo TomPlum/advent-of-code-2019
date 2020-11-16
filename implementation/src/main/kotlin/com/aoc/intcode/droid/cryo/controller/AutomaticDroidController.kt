@@ -66,7 +66,6 @@ class AutomaticDroidController(instructions: String) : CryostasisDroidController
             droid.command(MovementCommand("south"))
 
             if (droid.password.isValid()) {
-                println("Solution (Part 1): ${droid.password}")
                 return droid.password
             }
         }

@@ -2,7 +2,11 @@ package com.aoc.intcode.vacuum.function
 
 import java.util.*
 
-class MovementRoutine(val a: MovementFunction, val b: MovementFunction, val c: MovementFunction) : Iterable<MovementFunction> {
+class MovementRoutine(
+        private val a: MovementFunction,
+        private val b: MovementFunction,
+        private val c: MovementFunction
+) {
 
     private val functions = LinkedList<MovementFunction>()
 
@@ -22,6 +26,4 @@ class MovementRoutine(val a: MovementFunction, val b: MovementFunction, val c: M
     }
 
     override fun toString() = functions.joinToString(",") { it.ID.toString() }
-
-    override fun iterator() = functions.iterator()
 }

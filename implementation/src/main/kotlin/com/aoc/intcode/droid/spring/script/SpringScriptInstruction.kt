@@ -12,8 +12,11 @@ import com.aoc.intcode.droid.spring.register.write.WriteableRegister
  * [OR  X Y] sets Y to true if at least one of X or Y is true; otherwise, it sets Y to false.
  * [NOT X Y] sets Y to true if X is false; otherwise, it sets Y to false.
  */
-data class SpringScriptInstruction(private val logicGate: LogicGate, private val arg1: Register, private val arg2: WriteableRegister) {
-
+data class SpringScriptInstruction(
+        private val logicGate: LogicGate,
+        private val arg1: Register,
+        private val arg2: WriteableRegister
+) {
     fun encode(): List<Long> = logicGate.encode() + 32L +  arg1.encode() + 32L + arg2.encode()
 
     override fun toString(): String = "$logicGate $arg1 $arg2"

@@ -41,7 +41,8 @@ class DroidOutput(private var value: String) {
 
     /**
      * Parses the recorded voice of Santa after telling the droid the [AirlockPassword].
-     * This will only be available after invoking [parsePressureSensitiveFloor] with a [SecurityAnalysis.VALID] response.
+     * This will only be available after invoking [parsePressureSensitiveFloor]
+     * with a [SecurityAnalysis.VALID] response.
      * @return The password to the airlock of Santa's Starship.
      */
     fun parsePassword(): AirlockPassword {

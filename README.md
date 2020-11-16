@@ -54,11 +54,12 @@ In IntelliJ; \
 `Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors`
 
 ### Gradle Tasks
-| Task               | Description                                                               |
-|--------------------|---------------------------------------------------------------------------|
-| `test`             | Runs the unit tests for the `implementation` and `common` sub-projects.   |
-| `testCoverage`     | Runs the unit tests, calculates the coverage and verifies that its > 90%. |       
-| `benchmark`        | Runs the JMH tests for the `implementation` sub-project.                  |
+| Task               | Description                                                                   |
+|--------------------|-------------------------------------------------------------------------------|
+| `test`             | Runs the unit tests for the `implementation` and `common` sub-projects.       |
+| `testCoverage`     | Runs the unit tests, calculates the coverage and verifies that its > 90%.     |       
+| `benchmark`        | Runs the JMH tests for the `implementation` sub-project.                      |
+| `detekt`           | Runs DeteKT with the custom configuration rules defined in detekt-config.yml. |
 
 ## The Codebase
 ### Package Structure

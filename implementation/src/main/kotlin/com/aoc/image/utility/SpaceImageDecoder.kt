@@ -15,6 +15,11 @@ class SpaceImageDecoder {
         return SpaceImage(flattenedLayers)
     }
 
+    /**
+     * Takes the layer off of the top of the given [layers], then looks vertically down below each pixel
+     * and replaces the top layer if the target column has a transparent pixel on-top. Doing so ultimately leaves
+     * us with the top layer showing the upper-most non-transparent pixel in each column.
+     */
     private fun flattenLayers(layers: List<SpaceImageLayer>): SpaceImageLayer {
         val flattenedImage = layers.first()
 

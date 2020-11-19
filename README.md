@@ -83,6 +83,7 @@ behaviour that is commonly used across multiple days and `test-support` for unit
 ### Static Code Analysis & Linting
 I used the [DeteKT](https://detekt.github.io/detekt/index.html) Gradle plugin to perform static code analysis on the
 codebase. It produces a report containing all the code-smells that it found based on the set configuration.
+The custom configuration is defined in `detekt-config.yml` and can be found in the `implementation` resources.
 
 ### Testing
 

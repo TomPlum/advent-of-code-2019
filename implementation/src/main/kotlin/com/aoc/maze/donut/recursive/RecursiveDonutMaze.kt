@@ -86,11 +86,14 @@ class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
 
         val xMax = xMax()
         val yMax = yMax()
+
         //Create Portals & Update Donut Maze
         warpCodePairs.forEach { (firstWarpCode, secondWarpCode) ->
             (0..warpCodePairs.size).forEach { z ->
-                val surroundingFirst = firstWarpCode.getPositions().flatMap { it.planarAdjacentPoints() }
+                val surroundingFirst = firstWarpCode.getPositions()
+                        .flatMap { it.planarAdjacentPoints() }
                         .map { Point3D(it.x, it.y, z) }.toSet()
+
                 val firstEntrance = filterPoints(surroundingFirst).filter { it.value.isTraversable() }.keys.first()
                 addTile(Point3D(firstEntrance.x, firstEntrance.y, z), DonutTile('@'))
 
@@ -150,7 +153,8 @@ class RecursiveDonutMaze(mapData: List<String>) : AdventMap3D<DonutTile>() {
             unvisited.addAll(portalExitPositions)
 
             //Update Visited Traversable Tiles & Used Portal Tiles -> Map
-            (traversable + lastPortalEntrances.keys + portalExitPositions).forEach { pos -> addTile(pos, DonutTile('o')) }
+            val visited = traversable + lastPortalEntrances.keys + portalExitPositions
+            visited.forEach { pos -> addTile(pos, DonutTile('o')) }
 
             //Increment Steps Taken
             steps++

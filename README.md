@@ -108,7 +108,10 @@ classes.
 I'm familiar with AssertJ and prefer the naming conventions and variety of assertions over the default JUnit offering.
 
 #### Test-Driven Development
-
+I'm a huge advocate of testing in general, but particularly test-driven development. Some days were easy to test-drive
+as they provided lots of examples that generally covered all branches of the algorithm and sometimes even edge cases.
+Given I was taking a proper object-orientated approach, and not just hacking it into a single function, I still had to
+write more tests than just the example inputs, but they were a nice baseline to run against while writing a solution.
 
 #### VisualVM Sampling & Profiling
 During the first iterations of the graphing algorithms, runtime performance was an issue. There were several cases where

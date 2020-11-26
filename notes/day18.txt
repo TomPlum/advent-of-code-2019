@@ -14,3 +14,4 @@ Performance Issues
 New Solution:
 - Pre-compute all key->key weighting w/blocking doors and passed keys, store in graph w/adjacency lists.
 - Use Dijkstra's algorithms tracking current key and keys collected to find the shortest path.
+- We need to track NodeStates in the unsettled/settled node collections.

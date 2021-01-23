@@ -1,5 +1,10 @@
 package com.aoc.map
 
+/**
+ * A single tile in an Advent Map.
+ * @see AdventMap2D
+ * @see AdventMap3D
+ */
 //TODO: Add abstract methods for isTraversable(), isWall() etc.. for common path-finding functions
 open class MapTile<T>(open val value: T) {
     override fun equals(other: Any?): Boolean {

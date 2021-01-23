@@ -83,6 +83,7 @@ behaviour that is commonly used across multiple days and `test-support` for unit
 ### Static Code Analysis & Linting
 I used the [DeteKT](https://detekt.github.io/detekt/index.html) Gradle plugin to perform static code analysis on the
 codebase. It produces a report containing all the code-smells that it found based on the set configuration.
+The custom configuration is defined in `detekt-config.yml` and can be found in the `implementation` resources.
 
 ### Testing
 
@@ -107,7 +108,10 @@ classes.
 I'm familiar with AssertJ and prefer the naming conventions and variety of assertions over the default JUnit offering.
 
 #### Test-Driven Development
-
+I'm a huge advocate of testing in general, but particularly test-driven development. Some days were easy to test-drive
+as they provided lots of examples that generally covered all branches of the algorithm and sometimes even edge cases.
+Given I was taking a proper object-orientated approach, and not just hacking it into a single function, I still had to
+write more tests than just the example inputs, but they were a nice baseline to run against while writing a solution.
 
 #### VisualVM Sampling & Profiling
 During the first iterations of the graphing algorithms, runtime performance was an issue. There were several cases where
@@ -119,7 +123,7 @@ with a VisualVM instance attached the JVM process. This allowed me to sample and
 the source of the performance issues.
 
 One problem I ran into (and seemingly many others online too) was that JUnit5 bootstrapped and ran my test so quickly
-that it finished before VisualVM even had a change to boot-up. A common solution I'd seen was to simply add a
+that it finished before VisualVM even had a chance to boot-up. A common solution I'd seen was to simply add a
 `Thread.sleep(x)` line at the start of the test method. Although this is the solution I technically went with, I
 abstracted it into a [`@WaitForVisualVM`](https://git.io/JJdg1) annotation and created a custom implementation
 of the Jupiter APIs [`BeforeTestExecutionCallback`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/BeforeTestExecutionCallback.html)

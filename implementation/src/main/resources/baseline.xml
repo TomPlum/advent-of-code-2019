@@ -1,0 +1,5 @@
+<SmellBaseline>
+    <ManuallySuppressedIssues>
+        <ID>MagicNumber</ID>
+    </ManuallySuppressedIssues>
+</SmellBaseline>

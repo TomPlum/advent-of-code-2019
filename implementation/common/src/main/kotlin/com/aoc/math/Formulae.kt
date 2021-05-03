@@ -19,6 +19,4 @@ class Formulae {
 
         private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
     }
-
-
 }

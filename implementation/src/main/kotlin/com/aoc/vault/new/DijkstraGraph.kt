@@ -10,6 +10,10 @@ class DijkstraGraph<T> {
 
     fun getNode(name: T) = nodes.find { it.name == name } ?: throw IllegalArgumentException("Cannot find node $name")
 
+    fun calculatePathDistance(keys: List<T>): Int = keys.zipWithNext { current, next ->
+        getNode(current).adjacentNodes().filter { it.key.name == next }.values.first().weight
+    }.sum()
+
     override fun toString(): String = nodes.joinToString("\n") { node ->
         "$node -> " + node.adjacentNodes().entries.joinToString { (adj, data) ->
             "${adj.name}[${data.weight}](${data.doors}){${data.keys}}"

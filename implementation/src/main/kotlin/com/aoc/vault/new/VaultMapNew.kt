@@ -59,8 +59,8 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
     fun collectKeys(): Int {
         val entrance = filterTiles { it.isEntrance() }.entries.first()
         val shortestPath = dijkstra(dijkstraGraph.getNode(entrance.value.value))
-        AdventLogger.info("Shortest Path: $shortestPath (${shortestPath.getDistance()})")
-        return shortestPath.getDistance()
+        AdventLogger.info("Shortest Path: $shortestPath (${dijkstraGraph.calculatePathDistance(shortestPath)})")
+        return dijkstraGraph.calculatePathDistance(shortestPath)
     }
 
 
@@ -94,28 +94,49 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         }
     }
 
-    private fun dijkstra(sourceKey: DijkstraNode<Char>): DijkstraPath<Char> {
-        val settled = mutableSetOf<DijkstraNode<Char>>()
-        val unsettled = mutableSetOf<DijkstraNode<Char>>()
+    private fun dijkstra(sourceKey: DijkstraNode<Char>): List<Char> {
+        val settled = mutableSetOf<NodeState<Char>>()
+        val unsettled = UnsettledNodes()
 
         sourceKey.distance = 0
-        unsettled.add(sourceKey)
+        unsettled.add(sourceKey.getCurrentState())
 
-        while(unsettled.isNotEmpty()) {
-            val currentNode = unsettled.minByOrNull { it.distance } ?: throw IllegalStateException("No Unsettled Nodes")
-            if (currentNode.shortestPath.size == keys.size - 1) {
-                return currentNode.getPath()
+        while(unsettled.hasNodesRemaining()) {
+            val currentState = unsettled.getNextState()
+            if (currentState.hasCollectedAllKeys(keys.size)) {
+                AdventLogger.info("Checked ${settled.size} Node States.")
+                return currentState.keysCollected
             }
-            unsettled.remove(currentNode)
-            val accessibleAdjacentNodes = currentNode.accessibleAdjacentNodes().filterNot { it.key in settled }
-            accessibleAdjacentNodes.forEach { (adjacentNode, data) ->
-                currentNode.updateDistance(adjacentNode, data.weight)
-                unsettled.add(adjacentNode)
+            val node = dijkstraGraph.getNode(currentState.getCurrentKeyName())
+            val adjacent = node.adjacentNodes(currentState).filterNot { adj -> currentState.plus(adj.key.name) in settled }
+            adjacent.forEach { (adjacentNode, data) ->
+                node.updateDistance(adjacentNode, data.weight)
+                unsettled.add(currentState.plus(adjacentNode.name))
             }
-            settled.add(currentNode)
+            settled.add(currentState)
         }
 
         throw IllegalStateException("Cannot find a path from $sourceKey")
+    }
+
+    private inner class UnsettledNodes {
+        private val nodes = PriorityQueue<NodeState<Char>> { a, b ->
+            dijkstraGraph.calculatePathDistance(a.keysCollected) - dijkstraGraph.calculatePathDistance(b.keysCollected)
+        }
+        private val stateCache = mutableMapOf<List<Char>, NodeState<Char>>()
+
+        fun add(state: NodeState<Char>) {
+            if (!stateCache.containsKey(state.keysCollected)) {
+                nodes.add(state)
+                stateCache[state.keysCollected] = state
+            }
+        }
+
+        fun getNextState(): NodeState<Char> {
+            return nodes.poll()
+        }
+
+        fun hasNodesRemaining(): Boolean = nodes.isNotEmpty()
     }
 
     private fun dfsDijkstra(sourceKey: Char, tile: Pair<Point2D, VaultTile>) {
@@ -126,7 +147,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         val adjacentPositions = tile.first.adjacentPoints().filter { it !in visited }
 
         //Get Adjacent Tiles (That Aren't Walls)
-        val adjacentTiles = filterPoints(adjacentPositions).filter { !it.value.isWall() }
+        val adjacentTiles = filterPoints(adjacentPositions).filterNot { it.value.isWall() }
 
         //Record Blocking Doors
         if (tile.second.isDoor()) doors.add(tile.second.value)

@@ -123,7 +123,7 @@ with a VisualVM instance attached the JVM process. This allowed me to sample and
 the source of the performance issues.
 
 One problem I ran into (and seemingly many others online too) was that JUnit5 bootstrapped and ran my test so quickly
-that it finished before VisualVM even had a change to boot-up. A common solution I'd seen was to simply add a
+that it finished before VisualVM even had a chance to boot-up. A common solution I'd seen was to simply add a
 `Thread.sleep(x)` line at the start of the test method. Although this is the solution I technically went with, I
 abstracted it into a [`@WaitForVisualVM`](https://git.io/JJdg1) annotation and created a custom implementation
 of the Jupiter APIs [`BeforeTestExecutionCallback`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/BeforeTestExecutionCallback.html)

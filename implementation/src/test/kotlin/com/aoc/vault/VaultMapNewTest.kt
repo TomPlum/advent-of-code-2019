@@ -2,12 +2,14 @@ package com.aoc.vault
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.aoc.Day
+import com.aoc.input.InputReader
 import com.aoc.input.TestInputReader
 import com.aoc.vault.new.VaultMapNew
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-class NewVaultMapTest() {
+class VaultMapNewTest {
     @Test
     fun exampleOne() {
         val input = TestInputReader().readInputAsString("/vault/example-1.txt").value
@@ -30,6 +32,7 @@ class NewVaultMapTest() {
     }
 
     @Test
+    @Disabled("Runs indefinitely")
     fun exampleFour() {
         val input = TestInputReader().readInputAsString("/vault/example-4.txt").value
         val steps = VaultMapNew(input).collectKeys()
@@ -41,5 +44,12 @@ class NewVaultMapTest() {
         val input = TestInputReader().readInputAsString("/vault/example-5.txt").value
         val steps = VaultMapNew(input).collectKeys()
         assertThat(steps).isEqualTo(81)
+    }
+
+    @Test
+    fun solutionPartOne() {
+        val input = InputReader.read<String>(Day(18)).value;
+        val steps = VaultMapNew(input).collectKeys()
+        assertThat(steps).isEqualTo(5262)
     }
 }

@@ -10,5 +10,4 @@ fun main() {
    // val vaultMap = VaultMap(mapData)
     val vaultMap = VaultMapNew(mapData)
     println("Solution Part 1: ${vaultMap.collectKeys()} steps to collect all keys.")
-    //Its not 5356 or 5300
 }

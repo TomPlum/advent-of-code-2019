@@ -47,6 +47,7 @@ class VaultMapNew(initialData: List<String>) : AdventMap2D<VaultTile>() {
         AdventLogger.info(dijkstraGraph)
         AdventLogger.info(graph)
     }
+
     private val paths = mutableListOf<Long>()
     private val weights = Stack<Long>()
     private val collected = mutableSetOf<Char>()

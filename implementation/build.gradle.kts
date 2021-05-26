@@ -48,7 +48,6 @@ dependencies {
 
     //JMH
     benchmarkImplementation("org.openjdk.jmh:jmh-core:1.23")
-    //benchmarkRuntimeOnly("org.codehaus.mojo:exec-maven-plugin:3.0.0")
     benchmarkAnnotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.23")
 }
 

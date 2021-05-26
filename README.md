@@ -242,11 +242,11 @@ For the most part, only runtime-complexity was a concern. There were few occasio
 | 15  	| 212      	| 358             	| Oxygen System                             | [Link](docs/DAY15.MD)  |
 | 16  	| 77038830 	| 28135104         	| Flawed Frequency Transmission             | [Link](docs/DAY16.MD)  |
 | 17  	| 7404    	| 929045           	| Set and Forget                            | [Link](docs/DAY17.MD)  |
-| 18  	| -       	| -             	| Many-Worlds Interpretation                | [Link](docs/DAY18.MD)  |
+| 18  	| 5262     	| 2136             	| Many-Worlds Interpretation                | [Link](docs/DAY18.MD)  |
 | 19  	| 181      	| 4240964          	| Tractor Beam                              | [Link](docs/DAY19.MD)  |
 | 20  	| 526     	| 6292             	| Donut Maze                                | [Link](docs/DAY20.MD)  |
 | 21  	| 19350258 	| 1142627861       	| Springdroid Adventure                     | [Link](docs/DAY21.MD)  |
 | 22  	| 2604    	| 79608410258462   	| Slam Shuffle                              | [Link](docs/DAY22.MD)  |
 | 23  	| 23815    	| 16666           	| Category Six                              | [Link](docs/DAY23.MD)  |
 | 24  	| 32506764 	| 1963             	| Planet of Discord                         | [Link](docs/DAY24.MD)  |
-| 25  	| 196872   	| -             	| Cryostasis                                | [Link](docs/DAY25.MD)  |
+| 25  	| 196872   	| 49 Stars         	| Cryostasis                                | [Link](docs/DAY25.MD)  |

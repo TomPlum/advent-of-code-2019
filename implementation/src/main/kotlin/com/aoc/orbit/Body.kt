@@ -5,7 +5,7 @@ package com.aoc.orbit
  */
 data class Body(val name: String) {
     private var parent: Body? = null
-    private var orbitingBodies: MutableList<Body> = mutableListOf(); get
+    private var orbitingBodies: MutableList<Body> = mutableListOf()
 
     fun setOrbitingBody(body: Body) {
         orbitingBodies.add(body)
